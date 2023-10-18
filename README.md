@@ -5,12 +5,16 @@
 Bem-vindo ao repositório do CollectVerse, uma rede social de animes que oferece interações em 3D! O CollectVerse tem como objetivo proporcionar uma experiência única no universo geek, permitindo que os usuários personalizem seus perfis e explorem um ambiente virtual imersivo.
 
 <div style="text-align:center">
-<img src="https://github.com/gb3edgse/CollectVerse-second-prototype/assets/116754904/348bd17a-d13e-4c54-a5f7-9c47f9d013e8"><img>
+  <img src="https://github.com/gb3edgse/CollectVerse-second-prototype/assets/116754904/348bd17a-d13e-4c54-a5f7-9c47f9d013e8"><img>
 </div>
 
 O CollectVerse é uma plataforma online voltada para entusiastas de animes e cultura geek. Com recursos avançados de interação em 3D, os usuários podem explorar ambientes virtuais temáticos, interagir com outros fãs de animes e compartilhar suas experiências e opiniões sobre séries, filmes, cosplay e muito mais. Além disso, o CollectVerse permite que os usuários personalizem seus perfis de maneira única, criando um ambiente virtual exclusivo, tornando a experiência ainda mais envolvente.
 
 No CollectVerse, você tem a liberdade de escolher a cara do site. Procure por colecionáveis únicos de eventos ou, se preferir, compre. Você é livre para colecionar tudo!
+
+<div style="text-align:center">
+  <img src="https://github.com/gb3edgse/CollectVerse-second-prototype/assets/116754904/4a283da3-ab89-4b21-b1ed-6abed6b8cef6"><img>
+</div>
 
 O principal objetivo deste projeto é criar uma rede social inovadora e imersiva para os fãs de animes. Para alcançar isso, os seguintes objetivos foram estabelecidos:
 
