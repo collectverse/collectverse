@@ -1,0 +1,18 @@
+{
+  "name": "collectverse-second-prototype",
+  "version": "1.0.0",
+  "description": "O CollectVerse é uma plataforma online dedicada aos entusiastas de animes e à cultura geek. Nossa missão é oferecer uma experiência de rede social tradicional, onde os usuários podem se conectar, compartilhar, e interagir, mas com um toque especial: um sistema de recompensa baseado em 3D exibidos por meio de um modelo de visualização.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./index.js localhost 3000"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-handlebars": "^5.3.3",
+    "mysql": "^2.18.1",
+    "nodemon": "^3.0.1"
+  }
+}
