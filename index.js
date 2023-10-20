@@ -25,3 +25,4 @@ app.get("/", (req, res) => {
 });
 
 app.listen(3000)
+console.log(`Conectou à aplicação!\nVisualize com 'localhost/3000' em seu navegador`);
