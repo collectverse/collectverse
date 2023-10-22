@@ -33,3 +33,10 @@ O projeto CollectVerse utiliza diversas tecnologias e recursos para proporcionar
 - WebGL e Models Viewers: Utilizados para implementar a Interação em 3D e renderizar os ambientes virtuais.
 - Framework JavaScript: Utilizamos frameworks JavaScript modernos para agilizar o desenvolvimento e fornecer componentes reutilizáveis (node.js, express e template engine).
 - Banco de Dados: Um banco de dados é utilizado para armazenar informações dos usuários, perfis personalizados e interações sociais.
+
+## Discussões
+
+O CollectVerse conta com duas discussões criadas para sanar as duvidas dos usuários.
+
+- Discussão relacionada ao prototipo: [Perguntas e Respostas sobre o CollectVerse: Rede Social de Animes](https://github.com/gb3edgse/CollectVerse-second-prototype/discussions/5).
+- Discussão relacionada ao codigo do prototipo: [Q&A sobre o código do CollectVerse: Rede Social de Animes](https://github.com/gb3edgse/CollectVerse-second-prototype/discussions/6).
