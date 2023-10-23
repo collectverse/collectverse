@@ -3,7 +3,7 @@ const pool = mysql.createPool({
     connectionLimit: 10,
     host: 'localhost',
     user: 'root',
-    password: '',
+    password: '@ITB123456',
     database: 'collectverse'
 })
 

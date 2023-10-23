@@ -9,7 +9,6 @@ CREATE TABLE usuario
     password VARCHAR(32) NOT NULL,
     profileimage VARCHAR(120) DEFAULT 'https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1-768x768.jpg',
     profilebanner VARCHAR(120) DEFAULT 'https://th.bing.com/th/id/OIP.vRtnhAoGWqNrlrJkChQ7GQHaEK?pid=ImgDet&rs=1',
-	description TINYTEXT DEFAULT 'Olá, Acabei de entrar no CollectVerse 👋',
     entrydata DATE NOT NULL,
     model CHAR(3) DEFAULT '001'
 );
@@ -24,13 +23,14 @@ CREATE TABLE publications
 );
 
 RENAME TABLE publicacoes TO publications;
+RENAME TABLE usuario to users;
 DESCRIBE users;
 RENAME TABLE usuario TO users;
 ALTER TABLE users 
 ADD created_at DATETIME NOT NULL, 
 ADD updated_at DATETIME NOT NULL;
 ALTER TABLE publications DROP COLUMN dateandtime;
-ALTER TABLE publications
+ALTER TABLE users
 ADD created_at DATETIME NOT NULL, 
 ADD updated_at DATETIME NOT NULL;
 SELECT * FROM users;

@@ -67,6 +67,17 @@ app.post("/user/auth/login", (req, res) => {
 
   let { userauth, passwordauth } = req.body;
 
+  let sql = 'SELECT ?? FROM ?? WHERE ?? = ? AND ?? = ?';
+  let data = ['username','users', 'username', userauth, "password", passwordauth]
+
+  pool.query(sql, data, function (err, result) {
+    if(err){
+      console.log(err)
+      return
+    }
+    res.render('home', { dados: result[0] })
+  })
+
 })
 
 app.use(function (req, res, next) {
