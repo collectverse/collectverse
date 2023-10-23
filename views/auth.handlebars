@@ -1,0 +1,214 @@
+<div class="container-fluid h-100 w-100">
+    <div class="row h-100 d-flex justify-content-center align-items-center">
+        <div class="col-12 col-md-8 col-lg-6 col-lx-5 h-100 d-flex justify-content-center flex-column">
+
+            <div class="d-flex justify-content-center algin-items-center flex-column col-5 gap-2 w-100 m-auto">
+
+                <div>
+
+                    <img src="/icons/preview.png" alt="CollectVerse Logo" class="logo">
+                    <h1 class="fs-1 mb-5 fw-bold">Bem-vindo</h1>
+                    <h2 class="fs-5 fw-border mb-4">Inscreva-se agora.</h2>
+
+                </div>
+
+                <button type="button" class="btn btn-dark btn-lg rounded-pill fs-6"><i class="bi bi-google"></i>
+                    Inscreva-se com Google</button>
+                <button type="button" class="btn btn-dark btn-lg rounded-pill fs-6"><i class="bi bi-facebook"></i>
+                    Inscreva-se com Facebook</button>
+
+                <div class="container-fluid w-75 m-auto">
+                    <div class="row">
+                        <div class="col-4 text-center">
+                            <hr>
+                        </div>
+                        <div class="col-4 text-center">
+                            <div>
+                                <div dir="ltr">
+                                    <span>ou</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 text-center">
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-100 mb-5">
+
+                    <button type="button" class="btn btn-primary btn-lg rounded-pill w-100" data-toggle="modal"
+                        data-target="#register"> criar conta </button>
+                    <span class="text-body-secondary termsandprivacy">Esteja ciente de que você concorda com os nossos
+                        <a href="/terms#terms">Termos de Serviço</a> e nossa <a href="/terms#privacy">Política de
+                            Privacidade</a>.</span>
+
+                </div>
+
+                <div class="w-100">
+
+                    <p>Já tem uma conta?</p>
+                    <button type="button" class="btn btn-primary btn-lg rounded-pill w-100" data-toggle="modal"
+                        data-target="#login"> Entrar </button>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{{!-- modails --}}
+<!-- Modal de criar conta -->
+<div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="p-3">
+                <button type="button" class="btn btn-close" data-dismiss="modal" aria-label="Fechar">
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="m-auto d-flex justify-content-center align-items-center flex-column">
+                    <img src="/icons/preview.png" alt="CollectVerse Logo" class="logo">
+                    <label for="username" class="mb-4 fs-4">Crie sua conta.</label>
+                </div>
+
+                <form action="/user/auth/register" method="post" name="registerAuth" class="p-4 needs-validation" novalidate>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" name="username" class="form-control" placeholder="Nome de usuário" required>
+                        <label for="username">Nome de usuário</label>
+                        <div class="invalid-feedback">
+                            Verifique o nome de usuário.
+                        </div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" name="email" class="form-control" id="email" placeholder="E-mail" required>
+                        <label for="email">E-mail</label>
+                        <div class="invalid-feedback">
+                            Verifique o seu Email
+                        </div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="password" name="password" class="form-control" placeholder="Senha" required>
+                        <label for="password">Senha</label>
+                        <div class="invalid-feedback">
+                            Verifique a sua senha.
+                        </div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="password" name="confirmpassword" class="form-control" id="confirmpassword"
+                            placeholder="Confirme a senha" required>
+                        <label for="confirmpassword">Confirme a senha</label>
+                        <div class="invalid-feedback">
+                            Verifique a sua confirmação de senha.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <input class="form-check-input" name="termsandprivacy" type="checkbox" id="flexCheckChecked"
+                            required>
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Concordo com os termos de uso.
+                        </label>
+                        <div class="invalid-feedback">
+                            Aceitar os termos de uso é necessário.
+                        </div>
+                    </div>
+
+                    <input type="submit" class="btn btn-dark rounded-pill w-100 btn-lg" value="Criar Perfil">
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de entrar na conta -->
+<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="p-3">
+                <button type="button" class="btn btn-close" data-dismiss="modal" aria-label="Fechar">
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="m-auto d-flex justify-content-center align-items-center flex-column">
+                    <img src="/icons/preview.png" alt="CollectVerse Logo" class="logo">
+                    <label for="username" class="mb-4 fs-4">Entre em conta.</label>
+                </div>
+
+                <form action="/user/auth/login" method="post" name="loginAuth" class="p-4 needs-validation" novalidate>
+
+                    <div>
+
+                        <div class="d-flex justify-content-center algin-items-center flex-column gap-2">
+
+                            <button type="button" class="btn btn-dark btn-lg rounded-pill fs-6"><i
+                                    class="bi bi-google"></i>
+                                Inscreva-se com Google</button>
+                            <button type="button" class="btn btn-dark btn-lg rounded-pill fs-6"><i
+                                    class="bi bi-facebook"></i>
+                                Inscreva-se com Facebook</button>
+
+                        </div>
+
+                        <div class="container-fluid w-75 m-auto">
+                            <div class="row">
+                                <div class="col-4 text-center">
+                                    <hr>
+                                </div>
+                                <div class="col-4 text-center">
+                                    <div>
+                                        <div dir="ltr">
+                                            <span>ou</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4 text-center">
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" name="userauth" class="form-control" placeholder="Nome de usuário" required>
+                        <label for="username">Nome de usuário</label>
+                        <div class="invalid-feedback">
+                            Verifique o nome de usuário.
+                        </div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="password" name="passwordauth" class="form-control" placeholder="Senha" required>
+                        <label for="password">Senha</label>
+                        <div class="invalid-feedback">
+                            Verifique a senha.
+                        </div>
+                    </div>
+
+                    <input type="submit" class="btn btn-dark rounded-pill w-100 btn-lg" value="Entrar">
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- externos --}}
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{{!-- internos --}}
+<script src="/js/validations.js"></script>
