@@ -1,8 +1,8 @@
 <div class="container-fluid h-100 w-100">
-    <div class="row h-100 d-flex justify-content-center align-items-center">
-        <div class="col-12 col-md-8 col-lg-6 col-lx-5 h-100 d-flex justify-content-center flex-column">
+    <div class="row h-75 d-flex justify-content-center align-items-center">
+        <div class="col-12 col-md-8 col-lg-6 col-lx-5 d-flex justify-content-center flex-column">
 
-            <div class="d-flex justify-content-center algin-items-center flex-column col-5 gap-2 w-100 m-auto">
+            <div class="d-flex justify-content-start algin-items-center flex-column col-5 gap-2 w-100 m-auto">
 
                 <div>
 
@@ -77,18 +77,22 @@
                     <label for="username" class="mb-4 fs-4">Crie sua conta.</label>
                 </div>
 
-                <form action="/user/auth/register" method="post" name="registerAuth" class="p-4 needs-validation" novalidate>
+                <form action="/user/auth/register" method="post" name="registerAuth" class="p-4 needs-validation"
+                    novalidate>
 
                     <div class="form-floating mb-3">
-                        <input type="text" name="username" class="form-control" placeholder="Nome de usuário" required>
+                        <input type="text" name="username" class="form-control" placeholder="Nome de usuário" required
+                            pattern="^[a-zA-Z0-9]{4,}$">
                         <label for="username">Nome de usuário</label>
                         <div class="invalid-feedback">
                             Verifique o nome de usuário.
+                            <span class="fs-6">O usuario deve conter no minimo 4 Caracteres e letras de a - Z</span>
                         </div>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="text" name="email" class="form-control" id="email" placeholder="E-mail" required>
+                        <input type="email" name="email" class="form-control" id="email" placeholder="E-mail" required
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
                         <label for="email">E-mail</label>
                         <div class="invalid-feedback">
                             Verifique o seu Email
@@ -96,16 +100,19 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="password" name="password" class="form-control" placeholder="Senha" required>
+                        <input type="password" name="password" class="form-control" placeholder="Senha" required
+                            minlength="8">
                         <label for="password">Senha</label>
                         <div class="invalid-feedback">
                             Verifique a sua senha.
+                            <span class="fs-6">A senha deve conter no minimo 6 catacteres e caracteres
+                                especiais(!@#$)</span>
                         </div>
                     </div>
 
                     <div class="form-floating mb-3">
                         <input type="password" name="confirmpassword" class="form-control" id="confirmpassword"
-                            placeholder="Confirme a senha" required>
+                            placeholder="Confirme a senha" required minlength="8">
                         <label for="confirmpassword">Confirme a senha</label>
                         <div class="invalid-feedback">
                             Verifique a sua confirmação de senha.
@@ -183,7 +190,8 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="text" name="userauth" class="form-control" placeholder="Nome de usuário" required>
+                        <input type="text" name="userauth" class="form-control" placeholder="Nome de usuário" required
+                            pattern=".{4,}">
                         <label for="username">Nome de usuário</label>
                         <div class="invalid-feedback">
                             Verifique o nome de usuário.
@@ -191,7 +199,8 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="password" name="passwordauth" class="form-control" placeholder="Senha" required>
+                        <input type="password" name="passwordauth" class="form-control" placeholder="Senha" required
+                            minlength="8">
                         <label for="password">Senha</label>
                         <div class="invalid-feedback">
                             Verifique a senha.
