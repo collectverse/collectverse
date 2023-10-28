@@ -22,6 +22,14 @@ app.get("/", (req, res) => {
   res.render("home", { page: "CollectVerse - Home" });
 });
 
+app.get("/terms", (req, res) => {
+  res.render("terms", { page: "CollectVerse - Termos" });
+});
+
+app.get("/ladings", (req, res) => {
+  res.render("ladings", { page: "CollectVerse - Lading Page" });
+});
+
 app.get("/auth", (req, res) => {
   res.render("auth", { page: "CollectVerse - Authentication" });
 });
@@ -65,7 +73,7 @@ app.post("/user/auth/login", (req, res) => {
 
 // Define a 404 handler for unknown routes
 app.use((req, res, next) => {
-  res.status(404).render("404");
+  res.status(404).render("err");
 });
 
 const port = 3000;
