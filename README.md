@@ -38,5 +38,5 @@ O projeto CollectVerse utiliza diversas tecnologias e recursos para proporcionar
 
 O CollectVerse conta com duas discussões criadas para sanar as duvidas dos usuários.
 
-- Discussão relacionada ao prototipo: [Perguntas e Respostas sobre o CollectVerse: Rede Social de Animes](https://github.com/gb3edgse/CollectVerse-second-prototype/discussions/5).
-- Discussão relacionada ao codigo do prototipo: [Q&A sobre o código do CollectVerse: Rede Social de Animes](https://github.com/gb3edgse/CollectVerse-second-prototype/discussions/6).
+- Discussão relacionada ao prototipo: [Perguntas e Respostas sobre o CollectVerse: Rede Social de Animes](https://github.com/collectverse/CollectVerse-second-prototype/discussions/5).
+- Discussão relacionada ao codigo do prototipo: [Q&A sobre o código do CollectVerse: Rede Social de Animes](https://github.com/collectverse/CollectVerse-second-prototype/discussions/6).
