@@ -27,21 +27,23 @@
 }
 
 /* unset */
-.unset{
+.unset {
     all: unset;
     cursor: pointer;
     text-decoration: underline;
 }
 
 /* ading page */
-.hero{
+.hero {
     background: #E1F6FF;
 }
-.cards-hero{
+
+.cards-hero {
     max-width: 800px;
 }
+
 @media screen and (max-width: 770px) {
-    .cards-hero{
+    .cards-hero {
         flex-direction: column;
     }
 }
