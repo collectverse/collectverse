@@ -68,14 +68,11 @@ app.use((req, res, next) => {
 });
 
 // routes
+app.use('/', authRoutes);
 app.use('/publications', publicationsRoutes);
 app.use('/static', staticsRoutes);
-app.use('/', authRoutes);
 
-app.get('/terms', staticsController.terms);
-app.get('/lading', staticsController.lading);
 app.get('/', publicationsController.showHome);
-
 
 // page not found
 app.use((req, res, next) => {

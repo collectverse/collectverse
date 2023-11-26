@@ -1,6 +1,6 @@
 <div class="container-fluid h-100 w-100">
     <div class="row h-75 d-flex justify-content-center align-items-center">
-        <div class="col-12 col-md-8 col-lg-6 col-lx-5 d-flex justify-content-center flex-column">
+        <div class="col-12 col-md-8 col-lg-4 col-lx-5 d-flex justify-content-center flex-column">
 
             <div class="d-flex justify-content-start algin-items-center flex-column col-5 gap-2 w-100 m-auto">
 
@@ -40,7 +40,8 @@
                     <button type="button" class="btn btn-primary btn-lg rounded-pill w-100" data-toggle="modal"
                         data-target="#register"> criar conta </button>
                     <span class="text-body-secondary termsandprivacy">Esteja ciente de que você concorda com os nossos
-                        <a href="/terms#terms">Termos de Serviço</a> e nossa <a href="/terms#privacy">Política de
+                        <a href="static/terms#terms">Termos de Serviço</a> e nossa <a
+                            href="static/terms#privacy">Política de
                             Privacidade</a>.</span>
 
                 </div>
@@ -61,8 +62,7 @@
 
 {{!-- modails --}}
 <!-- Modal de criar conta -->
-<div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="p-3">
@@ -74,16 +74,15 @@
 
                 <div class="m-auto d-flex justify-content-center align-items-center flex-column">
                     <img src="/icons/preview.png" alt="CollectVerse Logo" class="logo">
-                    <label for="username" class="mb-4 fs-4">Crie sua conta.</label>
+                    <label for="registerAuth" class="mb-4 fs-4">Crie sua conta.</label>
                 </div>
 
-                <form action="/user/auth/register" method="post" name="registerAuth" class="p-4 needs-validation"
-                    novalidate>
+                <form action="register" method="post" name="registerAuth" class="p-4 needs-validation" novalidate>
 
                     <div class="form-floating mb-3">
-                        <input type="text" name="username" class="form-control" placeholder="Nome de usuário" required
+                        <input type="text" name="name" class="form-control" placeholder="Nome de usuário" required
                             pattern="^[a-zA-Z0-9]{4,}$">
-                        <label for="username">Nome de usuário</label>
+                        <label for="name">Nome de usuário</label>
                         <div class="invalid-feedback">
                             Verifique o nome de usuário.
                             <span class="fs-6">O usuario deve conter no minimo 4 Caracteres e letras de a - Z</span>
@@ -148,13 +147,12 @@
             </div>
             <div class="modal-body">
 
-
                 <div class="m-auto d-flex justify-content-center align-items-center flex-column">
                     <img src="/icons/preview.png" alt="CollectVerse Logo" class="logo">
-                    <label for="username" class="mb-4 fs-4">Entre em conta.</label>
+                    <label for="loginAuth" class="mb-4 fs-4">Entre em conta.</label>
                 </div>
 
-                <form action="/user/auth/login" method="post" name="loginAuth" class="p-4 needs-validation" novalidate>
+                <form action="login" method="post" name="loginAuth" class="p-4 needs-validation" novalidate>
 
                     <div>
 
@@ -190,16 +188,16 @@
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="text" name="userauth" class="form-control" placeholder="Nome de usuário" required
+                        <input type="text" name="name" class="form-control" placeholder="Nome do usuário" required
                             pattern=".{4,}">
-                        <label for="username">Nome de usuário</label>
+                        <label for="name">Nome do usuário</label>
                         <div class="invalid-feedback">
                             Verifique o nome de usuário.
                         </div>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <input type="password" name="passwordauth" class="form-control" placeholder="Senha" required
+                        <input type="password" name="password" class="form-control" placeholder="Senha" required
                             minlength="8">
                         <label for="password">Senha</label>
                         <div class="invalid-feedback">
@@ -214,3 +212,10 @@
         </div>
     </div>
 </div>
+
+{{!-- externos --}}
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{{!-- internos --}}
+<script src="/js/validation.js"></script>

@@ -27,11 +27,31 @@
 <body>
 
     {{! header }}
-    <header style="text-align: center; height: 80px; display:flex; align-items:center; justify-content:center;">
-        <p>Header</p>
+    <header>
+        <nav id="navbar" class="d-flex justify-content-between align-items-center m-3">
+            <a href="/" id="logo">
+                <img src="/icons/preview.png" alt="CollectVerse Logo" style="height: 45px;">
+            </a>
+
+            <ul class="d-flex justify-content-center">
+                {{!-- URLs após autentificação --}}
+                {{#if session.userid}}
+                <a href="/logout">Deslogar</a>
+                {{else}}
+                <a href="access">Entrar</a>
+                {{/if}}
+            </ul>
+        </nav>
     </header>
 
     <main>
+
+        {{!-- mensagens do sistema --}}
+        {{#if messages.message}}
+        <div class="alert alert-primary position-absolute top-0 start-50 translate-middle mt-5" role="alert">
+            {{messages.message}}
+        </div>
+        {{/if}}
 
         {{{ body }}}
 
@@ -41,7 +61,7 @@
     <footer class="py-3 my-1">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
             <li class="nav-item"><a href="/" class="nav-link px-2 text-body-secondary">Home</a></li>
-            <li class="nav-item"><a href="/terms" class="nav-link px-2 text-body-secondary">Terms</a></li>
+            <li class="nav-item"><a href="static/terms" class="nav-link px-2 text-body-secondary">Terms</a></li>
             <li class="nav-item"><a href="https://github.com/gb3edgse"
                     class="nav-link px-2 text-body-secondary">GitHub</a></li>
             <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
