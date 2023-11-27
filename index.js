@@ -23,6 +23,9 @@ const staticsRoutes = require('./routes/staticsRoutes');
 const publicationsController = require('./controllers/publicationsController');
 const staticsController = require('./controllers/StaticsController');
 
+// helpers
+const loadUser = require('./helpers/loadUser').loadUser
+
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
 
@@ -53,6 +56,9 @@ app.use(
         },
     }),
 );
+
+// helpers
+app.use(loadUser);
 
 // flash message
 app.use(flash());

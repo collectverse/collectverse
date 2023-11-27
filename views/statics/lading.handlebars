@@ -1,7 +1,7 @@
 {{!-- models viewer --}}
 <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
 
-{{!-- html --}}
+{{> header directoryName="CollectVerse"}}
 <div class="px-4 pt-5 my-5 mb-0 text-center">
 
     <h1 class="display-4 fw-bold text-body-emphasis">Embarque nesta jornada!</h1>
@@ -16,7 +16,10 @@
         </p>
 
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
-            <button type="button" class="mt-4 px-3 py-2 btn btn-primary rounded-pill">Inicie sua experiencia</button>
+            <a href="/">
+                <button type="button" class="mt-4 px-3 py-2 btn btn-primary rounded-pill">Inicie sua
+                    experiencia</button>
+            </a>
         </div>
 
     </div>
@@ -45,7 +48,7 @@
 
             </p>
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center flex-column">
-                <button type="button" class="btn text-white unset px-4 me-sm-3"><a href="#"
+                <button type="button" class="btn text-white unset px-4 me-sm-3"><a href="/"
                         class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Pegue
                         agora - Exclusivo</a></button>
                 <span class="fs-6">Por tempo limitado.</span>
@@ -115,14 +118,16 @@
         </p>
 
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+            <a href="/">
             <button type="button" class="mt-4 px-3 py-2 btn btn-primary rounded-pill">Experimente na pratica.</button>
+            </a>
         </div>
 
     </div>
 
 </div>
 
-<div class="d-md-flex w-100 m-auto px-3">
+<div class="d-md-flex w-100 m-auto px-3 mb-2">
     <div class="text-bg-primary me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden rounded">
         <div class="my-3 py-3">
             <h2 class="display-5">Loren Ipsun</h2>

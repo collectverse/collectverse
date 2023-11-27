@@ -1,0 +1,33 @@
+<div class="p-3 w-100 card rounded my-3">
+    <form action="publications/postComment" method="post" class="w-100">
+
+        <div class="d-flex gap-2">
+            <figure>
+                <img src="https://www.tecmaran.com.br/res/imagens/blog/perfil_padrao.jpeg" class="logo rounded-circle"
+                    alt="Foto de usuário">
+            </figure>
+            <input type="text" class="form-control form-coment rounded-pill" placeholder="Deixe um comentário aqui!"
+                name="content"></input>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <ul class="d-flex gap-2 m-0 ps-2 align-items-center justify-content-center publication-form-ul">
+                    <li><a href="#"><i class="bi bi-camera"></i></a></li>
+                    <li><a href="#"><i class="bi bi-image"></i></a></li>
+                    <li><a href="#"><i class="bi bi-paperclip"></i></a></li>
+                    <li><a href="#"><i class="bi bi-box-seam"></i></a></li>
+                </ul>
+            </div>
+
+            {{#if session.userid}}
+            <input type="submit" class="px-2 rounded btn btn-light" value="Postar">
+            {{else}}
+            <input type="submit" class="px-2 rounded btn btn-light" disabled value="Postar">
+            {{/if}}
+
+        </div>
+
+    </form>
+
+</div>

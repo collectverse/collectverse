@@ -84,10 +84,8 @@ module.exports = class AuthController {
         }
 
         try {
-            const createdUser = await Users.create(user)
-
             //  initialize session
-            req.session.userid = createdUser.id
+            req.session.userid = user.id
 
             req.flash('message', 'Autentificação realizada, logado com sucesso!')
 

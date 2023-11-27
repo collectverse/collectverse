@@ -1,5 +1,22 @@
-{{! header }}
-<main style="text-align: center;">
-    <p>Main</p>
-    <a href="static/lading">Lading page</a>
-</main>
+<div class="row w-100">
+
+    {{> sidebar}}
+
+    <div class="col p-0 m-0">
+        {{> header directoryName="Home"}}
+
+        <div class="row mx-4">
+            <div class="col">
+                <div class="container">
+                    {{> publicationform}}
+                </div>
+            </div>
+            <div class="col-4">
+
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
