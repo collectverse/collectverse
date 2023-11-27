@@ -1,0 +1,74 @@
+<div class="modal fade" id="register" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="p-3">
+                <button type="button" class="btn btn-close" data-dismiss="modal" aria-label="Fechar">
+                </button>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="m-auto d-flex justify-content-center align-items-center flex-column">
+                    <img src="/icons/preview.png" alt="CollectVerse Logo" class="logo">
+                    <label for="registerAuth" class="mb-4 fs-4">Crie sua conta.</label>
+                </div>
+
+                <form action="register" method="post" name="registerAuth" class="p-4 needs-validation" novalidate>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" name="name" class="form-control" placeholder="Nome de usuário" required
+                            pattern="^[a-zA-Z0-9]{4,}$">
+                        <label for="name">Nome de usuário</label>
+                        <div class="invalid-feedback">
+                            Verifique o nome de usuário.
+                            <span class="fs-6">O usuario deve conter no minimo 4 Caracteres e letras de a - Z</span>
+                        </div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="email" name="email" class="form-control" id="email" placeholder="E-mail" required
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                        <label for="email">E-mail</label>
+                        <div class="invalid-feedback">
+                            Verifique o seu Email
+                        </div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="password" name="password" class="form-control" placeholder="Senha" required
+                            minlength="8">
+                        <label for="password">Senha</label>
+                        <div class="invalid-feedback">
+                            Verifique a sua senha.
+                            <span class="fs-6">A senha deve conter no minimo 6 catacteres e caracteres
+                                especiais(!@#$)</span>
+                        </div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="password" name="confirmpassword" class="form-control" id="confirmpassword"
+                            placeholder="Confirme a senha" required minlength="8">
+                        <label for="confirmpassword">Confirme a senha</label>
+                        <div class="invalid-feedback">
+                            Verifique a sua confirmação de senha.
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <input class="form-check-input" name="termsandprivacy" type="checkbox" id="flexCheckChecked"
+                            required>
+                        <label class="form-check-label" for="flexCheckChecked">
+                            Concordo com os termos de uso.
+                        </label>
+                        <div class="invalid-feedback">
+                            Aceitar os termos de uso é necessário.
+                        </div>
+                    </div>
+
+                    <input type="submit" class="btn btn-dark rounded-pill w-100 btn-lg" value="Criar Perfil">
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

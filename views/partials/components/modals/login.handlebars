@@ -1,0 +1,74 @@
+<div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="p-3">
+                <button type="button" class="btn btn-close" data-dismiss="modal" aria-label="Fechar">
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="m-auto d-flex justify-content-center align-items-center flex-column">
+                    <img src="/icons/preview.png" alt="CollectVerse Logo" class="logo">
+                    <label for="loginAuth" class="mb-4 fs-4">Entre em conta.</label>
+                </div>
+
+                <form action="login" method="post" name="loginAuth" class="p-4 needs-validation" novalidate>
+
+                    <div>
+
+                        <div class="d-flex justify-content-center algin-items-center flex-column gap-2">
+
+                            <button type="button" class="btn btn-dark btn-lg rounded-pill fs-6"><i
+                                    class="bi bi-google"></i>
+                                Inscreva-se com Google</button>
+                            <button type="button" class="btn btn-dark btn-lg rounded-pill fs-6"><i
+                                    class="bi bi-facebook"></i>
+                                Inscreva-se com Facebook</button>
+
+                        </div>
+
+                        <div class="container-fluid w-75 m-auto">
+                            <div class="row">
+                                <div class="col-4 text-center">
+                                    <hr>
+                                </div>
+                                <div class="col-4 text-center">
+                                    <div>
+                                        <div dir="ltr">
+                                            <span>ou</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4 text-center">
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" name="name" class="form-control" placeholder="Nome do usuário" required
+                            pattern=".{4,}">
+                        <label for="name">Nome do usuário</label>
+                        <div class="invalid-feedback">
+                            Verifique o nome de usuário.
+                        </div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="password" name="password" class="form-control" placeholder="Senha" required
+                            minlength="8">
+                        <label for="password">Senha</label>
+                        <div class="invalid-feedback">
+                            Verifique a senha.
+                        </div>
+                    </div>
+
+                    <input type="submit" class="btn btn-dark rounded-pill w-100 btn-lg" value="Entrar">
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -9,7 +9,7 @@
             <ul class="d-flex justify-content-center m-0 p-0">
                 {{!-- URLs após autentificação --}}
                 {{#if session.userid}}
-                {{> userdropdown}}
+                {{> user/dropdown}}
                 {{else}}
                 <a href="/access"><button type="button" class="btn btn-primary">Entrar</button></a>
                 {{/if}}

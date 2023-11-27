@@ -1,29 +1,38 @@
 <div class="row w-100">
 
-    {{> sidebar}}
+    {{> components/sidebar/sidebar}}
 
     <div class="col p-0 m-0">
-        {{> header directoryName="Home"}}
+        {{> components/semantics/header directoryName="Home"}}
 
         <div class="row mx-4">
             <div class="col">
                 <div class="container">
-                    {{> publicationform}}
+                    {{> publications/form}}
 
                     {{#if noMoreComments}}
                     <div class="alert alert-primary" role="alert">
-                        Não há mais comentários!!
+                        Tivemos um problema a carregar os comentários!!
+                        <br>
+                        Por favor, recarrege a pagina ou tente novamente mais tarde.
                     </div>
                     {{else}}
 
                     {{#each comments}}
-                    {{> publicationget}}
+                    {{> publications/card}}
                     {{/each}}
-
+                    <div class="alert alert-primary" role="alert">
+                        Não há mais comentários!!
+                        <br>
+                        Todos os comentários foram vistos acima, por favor aguarde por novos.
+                        Agradecemos a compreenção.
+                    </div>
                     {{/if}}
                 </div>
             </div>
             <div class="col-4">
+
+                {{> user/recommended}}
 
             </div>
         </div>

@@ -9,6 +9,11 @@
 }
 
 /* geral */
+
+.fs-7 {
+    font-size: 14px;
+}
+
 .logo {
     width: 36px;
     height: 36px;
@@ -39,9 +44,20 @@
     text-decoration: underline;
 }
 
+/* buttons */
+
+.default {
+    color: #33333369 !important;
+    border: 1px solid #33333369 !important;
+    border-radius: 8px;
+}
+
 /* homepage */
 
 .header-sidebar {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
     border-right: 1px solid #33333319;
     height: 100vh !important;
 }
@@ -55,12 +71,12 @@
     border: 1px solid #33333319 !important;
 }
 
-.form-coment{
+.form-coment {
     width: 100%;
     height: 42px;
 }
 
-.publication-form-ul a{
+.publication-form-ul a {
     color: #333;
 }
 
@@ -102,6 +118,17 @@
 
 .describe-event span {
     font-size: 12px;
+}
+
+/* breakpoints */
+
+/* 1200px */
+@media screen and (max-width: 1200px) {
+
+    .header-sidebar {
+        display: none;
+    }
+
 }
 
 /* lading page */
