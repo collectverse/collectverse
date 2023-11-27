@@ -16,7 +16,11 @@ module.exports = class publicationsController {
                 noMoreComments = true
             }
 
-            const mapAllComments = allComments.map((comment) => comment.dataValues)
+            const mapAllComments = allComments.map((comment) => {
+                const commentData = comment.dataValues;
+                commentData.userHasComment = commentData.User.id === req.session.userid;
+                return commentData;
+            });
 
             res.render('publications/home', { comments: mapAllComments, noMoreComments })
         } catch (error) {
@@ -50,6 +54,22 @@ module.exports = class publicationsController {
 
         } catch (error) {
             console.log(`Erro ao criar o comentário: ${error}`)
+        }
+
+    }
+
+    static async delete(req, res) {
+
+        try {
+
+            const toDelete = req.body.id
+
+            await Publications.destroy({ where: { id: toDelete } })
+
+            res.redirect('/')
+
+        } catch (error) {
+            console.log(error)
         }
 
     }

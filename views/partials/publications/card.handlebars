@@ -13,12 +13,21 @@
         <div>
 
             <div class="dropdown">
-                <button class="btn btn-light p-2" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
+                <button class="btn btn-light p-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="bi bi-three-dots-vertical"></i>
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#"><i class="bi bi-trash3"></i> Deletar</a></li>
+                    {{#if userHasComment}}
+                    <li>
+                        <form action="publications/delete" method="post">
+                            <input type="hidden" name="id" value="{{id}}">
+                            <input type="submit" class="dropdown-item" value="Deletar">
+                        </form>
+                    </li>
+                    {{/if}}
+                    <li>
+                        <a href="#" class="dropdown-item">Favoritar</a>
+                    </li>
                 </ul>
             </div>
 
