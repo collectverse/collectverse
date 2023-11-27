@@ -4,6 +4,6 @@ const PublicationsController = require('../controllers/publicationsController');
 
 // routes
 router.get('/home', PublicationsController.showHome);
-router.post('/postComment', PublicationsController.postComment)
+router.post('/post', PublicationsController.post)
 
 module.exports = router

@@ -1,13 +1,7 @@
 <header class="header-topbar w-100 p-3 d-flex align-items-center justify-content-between">
 
-    <div class="d-flex gap-5 align-items-center">
+    <div class="d-flex align-items-center">
         <h2 class="h6 m-0">{{directoryName}}</h2>
-
-        <div class="btn-group p-1 back bg-secondary header-togglemod ">
-            <a href="#" class="btn btn-secondary  active rounded" aria-current="page">Explorar</a>
-            <a href="#" class="btn btn-link">Comunidades</a>
-            <a href="#" class="btn btn-link">Amigos</a>
-        </div>
     </div>
 
     <div class="d-flex gap-5 align-items-center">
@@ -17,7 +11,7 @@
                 {{#if session.userid}}
                 {{> userdropdown}}
                 {{else}}
-                <a href="access"><button type="button" class="btn btn-primary">Entrar</button></a>
+                <a href="/access"><button type="button" class="btn btn-primary">Entrar</button></a>
                 {{/if}}
             </ul>
         </nav>

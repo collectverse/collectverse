@@ -24,7 +24,7 @@ module.exports = class publicationsController {
         }
     }
 
-    static async postComment(req, res) {
+    static async post(req, res) {
 
         const infoComment = {
             content: req.body.content,
@@ -46,6 +46,7 @@ module.exports = class publicationsController {
             await Publications.create(infoComment);
 
             req.flash('message', 'Comentário feito com sucesso!')
+            res.redirect('/')
 
         } catch (error) {
             console.log(`Erro ao criar o comentário: ${error}`)
