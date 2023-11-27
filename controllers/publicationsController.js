@@ -4,7 +4,24 @@ const Users = require('../models/Users');
 module.exports = class publicationsController {
 
     static async showHome(req, res) {
-        res.render('publications/home')
+
+        try {
+            const allComments = await Publications.findAll({
+                include: 'User'
+            });
+
+            const noMoreComments = false;
+
+            if (noMoreComments.length === 0) {
+                noMoreComments = true
+            }
+
+            const mapAllComments = allComments.map((comment) => comment.dataValues)
+
+            res.render('publications/home', { comments: mapAllComments, noMoreComments })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     static async postComment(req, res) {
