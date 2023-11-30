@@ -10,6 +10,31 @@
 
 /* geral */
 
+.border-dashed {
+    border: 2px dashed #ddd;
+    cursor: pointer;
+}
+
+.dashed-border {
+    border: 2px dashed #ddd;
+    padding: 20px;
+    height: 65%;
+    margin: 15px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.plus-icon {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+    border: 2px solid #007bff;
+    border-radius: 50%;
+    padding: 6px 16px;
+    display: inline-block;
+}
+
 .fs-7 {
     font-size: 14px;
 }
@@ -32,6 +57,12 @@
     z-index: 1000;
 }
 
+@media screen and (max-width:992px) {
+    .flex-lg-column-rv {
+        flex-direction: column-reverse;
+    }
+}
+
 /* terms & privacy */
 .termsandprivacy {
     font-size: 12px;
@@ -41,7 +72,7 @@
 .unset {
     all: unset;
     cursor: pointer;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 /* buttons */
@@ -120,6 +151,19 @@
     font-size: 12px;
 }
 
+@media screen and (max-width: 992px) {
+    .recommended-div {
+        width: 100vw;
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+    }
+
+    .border-dashed {
+        width: 16rem !important;
+    }
+}
+
 /* breakpoints */
 
 /* 1200px */
@@ -144,4 +188,85 @@
     .cards-hero {
         flex-direction: column;
     }
+}
+
+/* store */
+
+.card-store-image {
+    max-width: 100%;
+    height: auto;
+
+}
+
+.legendary {
+    background: radial-gradient(ellipse at center 55%, #e38347, #78371d);
+    border: 2px solid #e98d4b;
+    overflow: hidden;
+}
+
+.epic {
+    background: radial-gradient(ellipse at center 55%, #b15be2, #4b2483);
+    border: 2px solid #e95eff;
+    overflow: hidden;
+}
+
+.rare {
+    background: radial-gradient(ellipse at center 55%, #49acf2, #143977);
+    border: 2px solid #37d1ff;
+    overflow: hidden;
+}
+
+.uncommon {
+    background: radial-gradient(ellipse at center 55%, #60aa3a, #175117);
+    border: 2px solid #87e339;
+    overflow: hidden;
+}
+
+.legendary-animated {
+    background: radial-gradient(circle at center left 55%, #d37841, #78371d);
+    border: 3px solid transparent;
+    background-color: transparent;
+    border-image: linear-gradient(45deg, #ffaf5d 0%, #b8653a 50%, #ffaf5d 100%);
+    border-image-slice: 1;
+    overflow: hidden;
+    animation: border 7s linear infinite;
+}
+
+.epic-animated {
+    background: radial-gradient(ellipse at center left 55%, #b15be2, #4b2483);
+    border: 3px solid transparent;
+    background-color: transparent;
+    border-image: linear-gradient(45deg, #e464ff 0%, #a14ce0 50%, #e464ff 100%);
+    border-image-slice: 1;
+    overflow: hidden;
+}
+
+.rare-animated {
+    background: radial-gradient(ellipse at center left 55%, #49acf2, #143977);
+    border: 3px solid transparent;
+    background-color: transparent;
+    border-image: linear-gradient(45deg, #3ed7ff 0%, #3182cf 50%, #3ed7ff 100%);
+    border-image-slice: 1;
+    overflow: hidden;
+}
+
+.uncommon-animated {
+    background: radial-gradient(ellipse at center left 55%, #60aa3a, #175117);
+    border: 3px solid transparent;
+    background-color: transparent;
+    border-image: linear-gradient(45deg, #89e43d 0%, #4c9a31 50%, #89e43d 100%);
+    border-image-slice: 1;
+    overflow: hidden;
+    animation: border 7s linear infinite;
+}
+
+@media screen and (max-width: 1360px) and (min-width: 1200px) {
+    .store-container {
+        width: 70% !important;
+    }
+
+    .grid-container {
+        grid-template-columns: repeat(3, minmax(260px, 1fr));
+    }
+
 }

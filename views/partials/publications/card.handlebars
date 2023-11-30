@@ -37,7 +37,11 @@
 
     <div>
         <p>{{content}}</p>
+        {{#if hasImage}}
+        <img src="{{image}}" class="w-100 rounded mb-4" alt="Imagem do comentário de {{User.dataValues.name}}">
+        {{/if}}
     </div>
+
 
     <div class="d-flex justify-content-start align-items-center">
 

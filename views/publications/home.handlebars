@@ -1,13 +1,13 @@
-<div class="row w-100">
+<div class="row w-100 mx-auto w-100">
 
     {{> components/sidebar/sidebar}}
 
     <div class="col p-0 m-0">
         {{> components/semantics/header directoryName="Home"}}
 
-        <div class="row mx-4">
+        <div class="row flex-lg-column-rv mx-1">
             <div class="col">
-                <div class="container">
+                <div class="container-fluid">
                     {{> publications/form}}
 
                     {{#if noMoreComments}}
@@ -30,11 +30,15 @@
                     {{/if}}
                 </div>
             </div>
-            <div class="col-4">
+            <div class="recommended-div col-lg-4 col-12 px-4 mx-auto overflow-auto">
 
                 {{> user/recommended}}
+                {{> components/templates/empty title="Ver mais" text="Ver mais comunidades"}}
+
+                <hr style="max-width: 410px;">
 
             </div>
+
         </div>
 
     </div>

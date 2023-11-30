@@ -11,6 +11,7 @@ const conn = require('./db/conn');
 const port = 3000;
 
 // models
+const Items = require('./models/Items');
 const Publications = require('./models/Publications');
 const Users = require('./models/Users');
 
@@ -18,10 +19,13 @@ const Users = require('./models/Users');
 const publicationsRoutes = require('./routes/publicationsRoutes');
 const authRoutes = require('./routes/authRoutes');
 const staticsRoutes = require('./routes/staticsRoutes');
+const storeRoutes = require('./routes/storeRoutes');
 
 // import controllers
+const authController = require('./controllers/AuthController')
 const publicationsController = require('./controllers/publicationsController');
 const staticsController = require('./controllers/StaticsController');
+const storeController = require('./controllers/StoreControler');
 
 // helpers
 const loadUser = require('./helpers/loadUser').loadUser
@@ -77,6 +81,7 @@ app.use((req, res, next) => {
 app.use('/', authRoutes);
 app.use('/publications', publicationsRoutes);
 app.use('/static', staticsRoutes);
+app.use('/store', storeRoutes);
 
 app.get('/', publicationsController.showHome);
 

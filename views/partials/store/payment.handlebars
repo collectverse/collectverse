@@ -1,0 +1,147 @@
+<h4 class="mb-3">Billing address</h4>
+<form action="/" class="needs-validation" novalidate="">
+    <div class="row g-3">
+        <div class="col-sm-6">
+            <label for="firstName" class="form-label">Primeiro Nome</label>
+            <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+            <div class="invalid-feedback">
+                O Primeiro nome é necessário
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <label for="lastName" class="form-label">Sobrenome</label>
+            <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
+            <div class="invalid-feedback">
+                O Sobrenome é necessário
+            </div>
+        </div>
+
+        <div class="col-12">
+            <label for="username" class="form-label">Nome de usuário</label>
+            <div class="input-group has-validation">
+                <span class="input-group-text">@</span>
+                <input type="text" class="form-control" id="username" placeholder="Username" required="">
+                <div class="invalid-feedback">
+                    O nome de usuário é necessário
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <label for="email" class="form-label">E-mail</label>
+            <input type="email" class="form-control" id="email" placeholder="you@example.com">
+            <div class="invalid-feedback">
+                O E-mail é necessário
+            </div>
+        </div>
+
+        <div class="col-12">
+            <label for="address" class="form-label">Endereço <span
+                    class="text-body-secondary">(Opicional)</span></label>
+            <input type="text" class="form-control" id="address">
+        </div>
+
+        <div class="col-md-5">
+            <label for="country" class="form-label">País</label>
+            <select class="form-select" id="country" required="">
+                <option value="">Escolha...</option>
+                <option>Brasil</option>
+            </select>
+            <div class="invalid-feedback">
+                Selecione um País
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <label for="state" class="form-label">Estado</label>
+            <select class="form-select" id="state" required="">
+                <option value="">Escolha...</option>
+                <option>São Paulo</option>
+            </select>
+            <div class="invalid-feedback">
+                Selecione um Estado
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <label for="zip" class="form-label">CEP</label>
+            <input type="text" class="form-control" id="zip" placeholder="" required="">
+            <div class="invalid-feedback">
+                O CEP é necessário
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-4">
+
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="save-info">
+        <label class="form-check-label" for="save-info">Salvar informações para a proxima compra</label>
+    </div>
+
+    <hr class="my-4">
+
+    <h4 class="mb-3">Pagamento</h4>
+
+    <div class="my-3">
+        <div class="form-check">
+            <input id="credit" name="payment" type="radio" class="form-check-input" checked="" required="">
+            <label class="form-check-label" for="credit">Credito</label>
+        </div>
+        <div class="form-check">
+            <input id="debit" name="payment" type="radio" class="form-check-input" required="">
+            <label class="form-check-label" for="debit">Debito</label>
+        </div>
+        <div class="form-check">
+            <input id="paypal" name="payment" type="radio" class="form-check-input" required="">
+            <label class="form-check-label" for="paypal">PayPal</label>
+        </div>
+    </div>
+
+    <div class="row gy-3">
+        <div class="col-md-6">
+            <label for="cc-name" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="cc-name" placeholder="" required="">
+            <small class="text-body-secondary">Nome completo conforme exibido no cartão</small>
+            <div class="invalid-feedback">
+                Nome no cartão é necessário
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <label for="cc-number" class="form-label">Número do cartão de crédito</label>
+            <input type="text" class="form-control" id="cc-number" placeholder="" required="">
+            <div class="invalid-feedback">
+                O número do cartão de crédito é necessário
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <label for="cc-expiration" class="form-label">Expiração</label>
+            <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+            <div class="invalid-feedback">
+                Data de validade necessária
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <label for="cc-cvv" class="form-label">CVV</label>
+            <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
+            <div class="invalid-feedback">
+                Código de segurança necessário
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-4">
+
+    <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#ckeckModal">
+        Confirmar
+    </button>
+
+    {{> components/modals/check}}
+</form>
+
+{{!-- internos --}}
+<script src="/js/validation.js"></script>

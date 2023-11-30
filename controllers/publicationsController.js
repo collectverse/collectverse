@@ -1,6 +1,9 @@
 const Publications = require('../models/Publications');
 const Users = require('../models/Users');
 
+// helpers
+const { checkurl } = require('../helpers/checkurl');
+
 module.exports = class publicationsController {
 
     static async showHome(req, res) {
@@ -19,6 +22,9 @@ module.exports = class publicationsController {
             const mapAllComments = allComments.map((comment) => {
                 const commentData = comment.dataValues;
                 commentData.userHasComment = commentData.User.id === req.session.userid;
+
+                commentData.hasImage = checkurl(commentData.image)
+
                 return commentData;
             });
 
@@ -32,6 +38,7 @@ module.exports = class publicationsController {
 
         const infoComment = {
             content: req.body.content,
+            image: req.body.image,
             UserId: req.session.userid
         }
 

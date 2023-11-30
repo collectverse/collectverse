@@ -11,6 +11,10 @@ const Publications = db.define('Publications', {
         allowNull: false,
         require: true
     },
+    image: {
+        type: DataTypes.STRING,
+        require: true
+    }
 });
 
 Publications.belongsTo(Users);
