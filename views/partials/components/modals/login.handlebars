@@ -8,8 +8,8 @@
             <div class="modal-body">
 
                 <div class="m-auto d-flex justify-content-center align-items-center flex-column">
-                    <img src="/icons/preview.png" alt="CollectVerse Logo" class="logo">
-                    <label for="loginAuth" class="mb-4 fs-4">Entre em conta.</label>
+                    <img src="/icons/preview.png" alt="CollectVerse Logo" class="logo" loading="lazy">
+                    <label for="loginAuth" class="mb-4 fs-4">Entre em sua conta.</label>
                 </div>
 
                 <form action="login" method="post" name="loginAuth" class="p-4 needs-validation" novalidate>
@@ -18,11 +18,11 @@
 
                         <div class="d-flex justify-content-center algin-items-center flex-column gap-2">
 
+                            <button type="button" class="btn btn-dark btn-lg rounded-pill fs-6"
+                                aria-label="Inscreva-se com Google"><i class="bi bi-google"></i> Inscreva-se com
+                                Google</button>
                             <button type="button" class="btn btn-dark btn-lg rounded-pill fs-6"><i
-                                    class="bi bi-google"></i>
-                                Inscreva-se com Google</button>
-                            <button type="button" class="btn btn-dark btn-lg rounded-pill fs-6"><i
-                                    class="bi bi-facebook"></i>
+                                    class="bi bi-facebook" aria-label="Inscreva-se com FaceBook"></i>
                                 Inscreva-se com Facebook</button>
 
                         </div>
@@ -51,16 +51,17 @@
                         <input type="text" name="name" class="form-control" placeholder="Nome do usuário" required
                             pattern=".{4,}">
                         <label for="name">Nome do usuário</label>
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback" aria-live="assertive">
                             Verifique o nome de usuário.
                         </div>
+
                     </div>
 
                     <div class="form-floating mb-3">
                         <input type="password" name="password" class="form-control" placeholder="Senha" required
                             minlength="8">
                         <label for="password">Senha</label>
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback" aria-live="assertive">
                             Verifique a senha.
                         </div>
                     </div>

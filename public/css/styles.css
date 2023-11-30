@@ -8,7 +8,17 @@
     /* border: 1px solid red; */
 }
 
+body {
+    background-color: #fff;
+}
+
 /* geral */
+
+.image-w-100 {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+}
 
 .border-dashed {
     border: 2px dashed #ddd;

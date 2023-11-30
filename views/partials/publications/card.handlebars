@@ -1,5 +1,5 @@
-<div class="p-3 w-100 card rounded my-3">
-    <div class="d-flex justify-content-between">
+<article class="p-3 w-100 card rounded my-3">
+    <header class="d-flex justify-content-between">
 
         <div class="d-flex gap-3 align-items-center">
             <figure>
@@ -13,8 +13,9 @@
         <div>
 
             <div class="dropdown">
-                <button class="btn btn-light p-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-three-dots-vertical"></i>
+                <button class="btn btn-light p-2" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                    aria-label="Opções do Comentário">
+                    <i class="bi bi-three-dots-vertical" alt="Opções do Comentário"></i>
                 </button>
                 <ul class="dropdown-menu">
                     {{#if userHasComment}}
@@ -33,23 +34,24 @@
 
         </div>
 
-    </div>
+    </header>
 
-    <div>
+    <section>
         <p>{{content}}</p>
         {{#if hasImage}}
-        <img src="{{image}}" class="w-100 rounded mb-4" alt="Imagem do comentário de {{User.dataValues.name}}">
+        <img src="{{image}}" class="w-100 rounded mb-4 image-w-100 d-block"
+            alt="Imagem do comentário de {{User.dataValues.name}}">
         {{/if}}
-    </div>
+    </section>
 
 
-    <div class="d-flex justify-content-start align-items-center">
+    <footer class="d-flex justify-content-start align-items-center">
 
-        <ul class="d-flex gap-3 ps-2 m-0">
-            <li><a href="#"><i class="bi bi-hand-thumbs-up"></i></a></li>
-            <li><a href="#"><i class="bi bi-chat-left-dots"></i></a></li>
-            <li><a href="#"><i class="bi bi-share"></i></a></li>
+        <ul class="d-flex gap-4 fs-5 ps-2 m-0">
+            <li><a href="/" aria-label="unset"><i class="bi bi-hand-thumbs-up"></i></a></li>
+            <li><a href="/" aria-label="unset"><i class="bi bi-chat-left-dots"></i></a></li>
+            <li><a href="/" aria-label="unset"><i class="bi bi-share"></i></a></li>
         </ul>
 
-    </div>
-</div>
+    </footer>
+</article>

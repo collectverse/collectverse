@@ -3,7 +3,8 @@
     <div>
         <a href="/" class="unset">
             <figure class="d-flex align-items-center justify-content-center gap-2 ps-3 mb-0">
-                <img src="/icons/preview.png" class="logo" alt="CollectVerse Logo">
+                <img src="/icons/preview.png" class="logo" alt="CollectVerse Logo" aria-label="CollectVerse Logo"
+                    loading="lazy">
                 <h2 class="h6 m-0">{{directoryName}}</h2>
             </figure>
         </a>
@@ -14,9 +15,13 @@
             <ul class="d-flex justify-content-center m-0 p-0">
                 {{!-- URLs após autentificação --}}
                 {{#if session.userid}}
-                {{> user/dropdown}}
+                <li>{{> user/dropdown}}</li>
                 {{else}}
-                <a href="/access"><button type="button" class="btn btn-primary">Entrar</button></a>
+                <li>
+                    <a href="/access">
+                        <button type="button" class="btn btn-primary" aria-label="Entrar na sua conta">Entrar</button>
+                    </a>
+                </li>
                 {{/if}}
             </ul>
         </nav>

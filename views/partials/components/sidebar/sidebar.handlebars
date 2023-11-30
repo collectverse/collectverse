@@ -1,9 +1,9 @@
 {{! sidebar }}
-<nav class="col-3 p-3 ps-4 header-sidebar">
+<aside class="col-3 p-3 ps-4 header-sidebar">
     <div class="mt-4 d-flex">
         <a href="/" class="text-decoration-none">
             <figure class="icon d-flex justify-content-start align-items-center gap-2">
-                <img class="logo" src="/icons/preview.png" alt="CollectVerse Logo">
+                <img class="logo" src="/icons/preview.png" alt="CollectVerse Logo" loading="lazy">
                 <h1 class="h5 m-0 logo-name"><span class="logo-span">Collect</span><br>Verse</h1>
             </figure>
         </a>
@@ -13,7 +13,8 @@
             <div>
                 <form action="/" method="get" class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-                    <button class="btn btn-outline-primary" type="submit"><i class="bi bi-search"></i></button>
+                    <button class="btn btn-outline-primary" type="submit" aria-label="Buscar"><i
+                            class="bi bi-search"></i></button>
                 </form>
             </div>
             <div>
@@ -56,9 +57,10 @@
                 <h2 class="h6 w-100 d-flex justify-content-between">
                     Eventos <span class="badge bg-secondary">6</span>
                 </h2>
+
                 {{> components/sidebar/events}}
 
             </div>
         </nav>
     </div>
-</nav>
+</aside>

@@ -1,36 +1,38 @@
 <div class="p-3 w-100 card rounded my-3">
     <form action="publications/post" method="post" class="w-100">
 
-        <div class="d-flex gap-2">
+        <section class="d-flex gap-2">
             <figure>
                 <img src="https://www.tecmaran.com.br/res/imagens/blog/perfil_padrao.jpeg" class="logo rounded-circle"
                     alt="Foto de usuário">
             </figure>
-            <input type="text" class="form-control form-coment rounded-pill" placeholder="Deixe um comentário aqui!"
-                name="content"></input>
-        </div>
+            <input type="text" class="form-control form-coment rounded-pill" id="commentInput"
+                placeholder="Deixe um comentário aqui!" name="content">
+        </section>
 
-        <div class="d-flex justify-content-between align-items-center">
+        <footer class="d-flex justify-content-between align-items-center">
             <div>
-                <ul class="d-flex gap-2 m-0 ps-2 align-items-center justify-content-center publication-form-ul">
-                    <li><a href="#"><i class="bi bi-camera"></i></a></li>
+                <ul class="d-flex gap-4 fs-5 m-0 ps-2 align-items-center justify-content-center publication-form-ul">
                     <li>
-                        <button type="button" class="unset" data-toggle="modal" data-target="#archiveModal">
-                            <i class="bi bi-image"></i>
+                        <button type="button" class="unset" data-toggle="modal" data-target="#archiveModal" aria-label="Inserir Imagem">
+                            <i class="bi bi-image" alt="Inserir Imagem" ></i>
                         </button>
                     </li>
-                    <li><a href="#"><i class="bi bi-paperclip"></i></a></li>
-                    <li><a href="#"><i class="bi bi-box-seam"></i></a></li>
+                    <li><a href="/"><i class="bi bi-paperclip" aria-label="parperclip"></i></a></li>
                 </ul>
             </div>
 
             {{#if session.userid}}
-            <input type="submit" class="px-2 rounded btn btn-light" value="Postar">
+            <button type="submit" class="px-2 rounded btn btn-light">
+                <i class="bi bi-check"></i> Postar
+            </button>
             {{else}}
-            <input type="submit" class="px-2 rounded btn btn-light" disabled value="Postar">
+            <button type="submit" class="px-2 rounded btn btn-light" disabled>
+                <i class="bi bi-check"></i> Postar
+            </button>
             {{/if}}
 
-        </div>
+        </footer>
 
         {{> components/templates/modalarchive}}
     </form>

@@ -1,22 +1,25 @@
 <!-- Modal de Confirmação -->
 <div class="modal fade" id="archiveModal" tabindex="-1" role="dialog" aria-labelledby="archiveModalLabel"
-    aria-hidden="true">
+    aria-hidden="true" aria-modal="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
+            <button type="button" class="btn-close m-3" data-dismiss="modal" aria-label="Fechar">
+            </button>
             <div class="modal-body text-center mt-4">
                 <h5 class="mb-1">Adicione a URL da Imagem.</h5>
                 <p class="mb-3">Coloque a URL do comentário na caixa abaixo.</p>
             </div>
             <div class="justify-content-center d-flex p-5 pt-3 gap-3">
-                <input type="text" class="form-control form-coment rounded-pill" placeholder="URL da Image Aqui"
-                    name="image"></input>
-                <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>
+                <input type="text" class="form-control form-coment rounded-pill" id="imageInput"
+                    placeholder="URL da Imagem Aqui" name="image" aria-labelledby="archiveModalLabel">
+                <button type="button" class="btn btn-success" data-dismiss="modal"
+                    aria-describedby="archiveModalLabel">Ok</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Scripts do Bootstrap (jQuery e Popper.js são necessários) -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- Scripts do Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" defer></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" defer></script>
