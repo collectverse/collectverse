@@ -1,7 +1,8 @@
 <div class="dropdown">
-    <button class="unset dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <button class="unset dropdown-toggle d-flex justify-content-center align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         {{#if user}}
-        {{user.name}}
+            <img class="logo rounded-circle" src="{{user.dataValues.perfil}}" alt="Foto de Perfil do Usuário">
+        {{user.dataValues.name}}
         {{/if}}
     </button>
     <ul class="dropdown-menu">

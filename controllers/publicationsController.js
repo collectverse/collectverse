@@ -14,11 +14,19 @@ module.exports = class publicationsController {
                 order: [['createdAt', 'DESC']]
             });
 
-            const noMoreComments = false;
+            const userSession = await Users.findOne({
+                where: ({ id: req.session.userid })
+            })
 
-            if (noMoreComments.length === 0) {
-                noMoreComments = true
+            let noMoreComments = false;
+
+            if (allComments.length === 0) {
+                noMoreComments = true;
             }
+
+            console.log('=====================================')
+            console.log(userSession)
+            console.log('=====================================')
 
             const mapAllComments = allComments.map((comment) => {
                 const commentData = comment.dataValues;
@@ -29,7 +37,7 @@ module.exports = class publicationsController {
                 return commentData;
             });
 
-            res.render('publications/home', { comments: mapAllComments, noMoreComments })
+            res.render('publications/home', { comments: mapAllComments, user: userSession, noMoreComments })
         } catch (error) {
             console.log(error)
         }

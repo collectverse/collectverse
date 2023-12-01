@@ -2,10 +2,16 @@
     <form action="publications/post" method="post" class="needs-validation" class="w-100">
 
         <section class="d-flex gap-2">
+            {{#if user}}
+            <figure>
+                <img src="{{user.dataValues.perfil}}" class="logo rounded-circle" alt="Foto de usuário">
+            </figure>
+            {{else}}
             <figure>
                 <img src="https://www.tecmaran.com.br/res/imagens/blog/perfil_padrao.jpeg" class="logo rounded-circle"
                     alt="Foto de usuário">
             </figure>
+            {{/if}}
             <input type="text" class="form-control form-coment rounded-pill" id="commentInput"
                 placeholder="Deixe um comentário aqui!" name="content" required>
         </section>

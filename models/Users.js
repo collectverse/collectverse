@@ -14,6 +14,11 @@ const Users = db.define('Users', {
     password: {
         type: DataTypes.STRING,
         require: true
+    },
+    perfil: {
+        type: DataTypes.STRING,
+        require: true,
+        defaultValue: "https://www.tecmaran.com.br/res/imagens/blog/perfil_padrao.jpeg"
     }
 });
 
