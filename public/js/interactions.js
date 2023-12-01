@@ -1,7 +1,7 @@
 const headerItems = document.querySelector('.header-items');
 
 if (document.querySelector('.header-sidebar')) {
-    const toggleHTML = '<div class="ps-3"><button onclick="openSidebar()" class="openSidebar d-flex justify-content-center align-items-center btn btn-light" style="width: 35px; height: 35px;"><i class="bi bi-list fs-5"></i></button></div>';
+    const toggleHTML = '<div class="ps-3 openSidebar"><button onclick="openSidebar()" class="openSidebar d-flex justify-content-center align-items-center btn btn-light" style="width: 35px; height: 35px;"><i class="bi bi-list fs-5"></i></button></div>';
     const toggleComponent = document.createElement('div');
 
     toggleComponent.innerHTML = toggleHTML;
