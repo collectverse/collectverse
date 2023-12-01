@@ -16,7 +16,7 @@ body {
 
 .image-w-100 {
     width: 100%;
-    max-width: 350px;
+    max-width: 410px;
     height: auto;
 }
 
@@ -103,6 +103,10 @@ body {
     height: 100vh !important;
 }
 
+.openSidebar {
+    display: none !important;
+}
+
 .header-topbar {
     width: 100%;
     border-bottom: 1px solid #33333319;
@@ -162,11 +166,48 @@ body {
 }
 
 @media screen and (max-width: 992px) {
+
     .recommended-div {
         width: 100vw;
         display: flex;
         flex-direction: row;
         gap: 1rem;
+    }
+
+    .recommended-div {
+        scrollbar-width: thin;
+        scrollbar-color: transparent transparent;
+    }
+
+    .recommended-div::-webkit-scrollbar {
+        height: 6px;
+        width: 6px;
+    }
+
+    .recommended-div::-webkit-scrollbar-track {
+        border-radius: 6px;
+        background-color: transparent;
+    }
+
+    .recommended-div::-webkit-scrollbar-track:hover {
+        background-color: transparent;
+    }
+
+    .recommended-div::-webkit-scrollbar-track:active {
+        background-color: transparent;
+    }
+
+    .recommended-div::-webkit-scrollbar-thumb {
+        border-radius: 1px;
+        background-color: transparent;
+    }
+
+    .recommended-div::-webkit-scrollbar-thumb:hover {
+        background-color: transparent;
+    }
+
+    .recommended-div::-webkit-scrollbar-thumb:active {
+        background-color: transparent;
     }
 
     .border-dashed {
@@ -180,7 +221,22 @@ body {
 @media screen and (max-width: 1200px) {
 
     .header-sidebar {
+        width: 50%;
+        height: 100vh;
+        left: 0;
+        top: 0;
+        position: fixed;
+        z-index: 100;
         display: none;
+    }
+
+    .open {
+        display: block;
+    }
+
+    .openSidebar{
+        display: block;
+        border-radius: 0;
     }
 
 }

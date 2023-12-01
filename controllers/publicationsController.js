@@ -10,7 +10,8 @@ module.exports = class publicationsController {
 
         try {
             const allComments = await Publications.findAll({
-                include: 'User'
+                include: 'User',
+                order: [['createdAt', 'DESC']]
             });
 
             const noMoreComments = false;

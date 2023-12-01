@@ -1,5 +1,5 @@
 <div class="p-3 w-100 card rounded my-3">
-    <form action="publications/post" method="post" class="w-100">
+    <form action="publications/post" method="post" class="needs-validation" class="w-100">
 
         <section class="d-flex gap-2">
             <figure>
@@ -7,15 +7,16 @@
                     alt="Foto de usuário">
             </figure>
             <input type="text" class="form-control form-coment rounded-pill" id="commentInput"
-                placeholder="Deixe um comentário aqui!" name="content">
+                placeholder="Deixe um comentário aqui!" name="content" required>
         </section>
 
         <footer class="d-flex justify-content-between align-items-center">
             <div>
                 <ul class="d-flex gap-4 fs-5 m-0 ps-2 align-items-center justify-content-center publication-form-ul">
                     <li>
-                        <button type="button" class="unset" data-toggle="modal" data-target="#archiveModal" aria-label="Inserir Imagem">
-                            <i class="bi bi-image" alt="Inserir Imagem" ></i>
+                        <button type="button" class="unset" data-toggle="modal" data-target="#archiveModal"
+                            aria-label="Inserir Imagem">
+                            <i class="bi bi-image" alt="Inserir Imagem"></i>
                         </button>
                     </li>
                     <li><a href="/"><i class="bi bi-paperclip" aria-label="parperclip"></i></a></li>
@@ -38,3 +39,6 @@
     </form>
 
 </div>
+
+{{!-- internos --}}
+<script src="/js/validation.js"></script>
