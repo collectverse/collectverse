@@ -49,6 +49,17 @@ body {
     font-size: 14px;
 }
 
+.banner {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.logo-large {
+    width: 64px;
+    height: 64px;
+}
+
 .logo {
     width: 36px;
     height: 36px;
@@ -236,7 +247,7 @@ body {
     }
 
     .closeSidebar,
-    .openSidebar{
+    .openSidebar {
         display: block !important;
         border-radius: 0;
     }
