@@ -24,7 +24,7 @@ module.exports = class PerfilController {
             // check for user had posts
 
             const allComments = await Publications.findAll({
-                where: ({ id: userId }),
+                where: ({ UserId: userId }),
                 include: 'User',
                 order: [['createdAt', 'DESC']]
             });
@@ -59,16 +59,22 @@ module.exports = class PerfilController {
 
             const emailExist = await Users.findOne({ where: { email: email } })
 
-            if (emailExist && emailExist.id !== id) {
-                req.flash('message', 'E-mail já em uso!')
-                return
+            if (emailExist) {
+                if (emailExist && emailExist.id !== id) {
+                    req.flash('message', 'E-mail já em uso!')
+                    res.redirect('/')
+                    return
+                }
             }
 
             const userExists = await Users.findOne({ where: { name: name } })
 
-            if (userExists && userExists.id !== id) {
-                req.flash('message', 'nome de usuário já em uso!')
-                return
+            if (userExists) {
+                if (userExists && userExists.id !== id) {
+                    req.flash('message', 'nome de usuário já em uso!')
+                    res.redirect('/')
+                    return
+                }
             }
 
             const user = await Users.findByPk(id)

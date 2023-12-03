@@ -1,8 +1,8 @@
 <div class="card">
     <div class="card-body p-0">
-        <div class="w-100" style="height: 220px;">
+        <div class="w-100" style="height: 320px;">
             <figure class="m-0 w-100 h-100">
-                <img src="{{user.dataValues.banner}}" class="w-100 h-100 banner" alt="banner do usuário">
+                <img src="{{user.dataValues.banner}}" class="w-100 h-100 banner rounded-top" alt="banner do usuário">
             </figure>
         </div>
         <div class="d-flex align-items-center justify-content-between text-center text-sm-start mt-4 px-3">
@@ -17,7 +17,7 @@
 
             <div class="d-flex justify-content-center">
                 {{#if perfilIsTheUser}}
-                <button type="button" class="btn btn-danger me-2" data-toggle="modal" data-target="#editModal"
+                <button type="button" class="btn btn-light me-2" data-toggle="modal" data-target="#editModal"
                     aria-label="Editar perfil">
                     <i class="bi bi-pencil-fill pe-1" alt="Lapis"></i> Editar Perfil
                 </button>

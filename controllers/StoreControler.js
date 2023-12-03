@@ -1,5 +1,3 @@
-const Items = require('../models/Items');
-
 module.exports = class ItemsController {
 
     static showStore(req, res) {

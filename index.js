@@ -10,11 +10,6 @@ const conn = require('./db/conn');
 
 const port = 3000;
 
-// models
-const Items = require('./models/Items');
-const Publications = require('./models/Publications');
-const Users = require('./models/Users');
-
 // import routes
 const authRoutes = require('./routes/authRoutes');
 const perfilRoutes = require('./routes/perfilRoutes');
@@ -23,11 +18,7 @@ const staticsRoutes = require('./routes/staticsRoutes');
 const storeRoutes = require('./routes/storeRoutes');
 
 // import controllers
-const authController = require('./controllers/AuthController')
-const perfilController = require('./controllers/PerfilController')
 const publicationsController = require('./controllers/publicationsController');
-const staticsController = require('./controllers/StaticsController');
-const storeController = require('./controllers/StoreControler');
 
 // helpers
 const loadUser = require('./helpers/loadUser').loadUser
