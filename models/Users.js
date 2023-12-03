@@ -19,6 +19,11 @@ const Users = db.define('Users', {
         type: DataTypes.STRING,
         require: true,
         defaultValue: "https://www.tecmaran.com.br/res/imagens/blog/perfil_padrao.jpeg"
+    },
+    banner: {
+        type: DataTypes.STRING,
+        require: true,
+        defaultValue: "https://color-hex.org/colors/cbd3db.png"
     }
 });
 

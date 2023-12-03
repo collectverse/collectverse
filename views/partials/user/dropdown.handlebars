@@ -1,15 +1,16 @@
 <div class="dropdown">
-    <button class="unset dropdown-toggle d-flex justify-content-center align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <button class="unset dropdown-toggle d-flex justify-content-center align-items-center gap-2" type="button"
+        data-bs-toggle="dropdown" aria-expanded="false">
         {{#if user}}
-            <img class="logo rounded-circle" src="{{user.dataValues.perfil}}" alt="Foto de Perfil do Usuário">
-        {{user.dataValues.name}}
+        <img class="logo rounded-circle" src="{{user.dataValues.perfil}}" alt="Foto de Perfil do Usuário">
+        {{currentUser.name}}
         {{/if}}
     </button>
     <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Ver Perfil</a></li>
+        <li><a class="dropdown-item" href="/perfil/user/{{currentUser.id}}">Ver Perfil</a></li>
         <li><a class="dropdown-item" href="#">Ajustes</a></li>
         <li><a class="dropdown-item" href="#">Iventario</a></li>
         <hr>
-        <li><a class="dropdown-item" href="logout">Deslogar</a></li>
+        <li><a class="dropdown-item" href="/logout">Deslogar</a></li>
     </ul>
 </div>

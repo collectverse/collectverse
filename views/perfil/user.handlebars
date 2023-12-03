@@ -3,12 +3,18 @@
     {{> components/sidebar/sidebar}}
 
     <div class="col p-0 m-0">
-        {{> components/semantics/header directoryName="Home"}}
+        {{> components/semantics/header directoryName="Perfil"}}
 
-        <div class="row flex-lg-column-rv mx-1">
-            <div class="col">
+        <div class="container my-3">
+
+            <div>
                 <div class="container-fluid">
+
+                    {{> user/profile}}
+
+                    {{#if perfilIsTheUser}}
                     {{> user/form}}
+                    {{/if}}
 
                     {{#if noMoreComments}}
                     <div class="alert alert-primary" role="alert">
@@ -30,15 +36,6 @@
                     {{/if}}
                 </div>
             </div>
-            <div class="recommended-div col-lg-4 col-12 px-4 mx-auto overflow-auto">
-
-                {{> user/recommended}}
-                {{> components/templates/empty title="Ver mais" text="Ver mais comunidades"}}
-
-                <hr style="max-width: 410px;">
-
-            </div>
-
         </div>
 
     </div>

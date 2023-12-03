@@ -16,13 +16,15 @@ const Publications = require('./models/Publications');
 const Users = require('./models/Users');
 
 // import routes
-const publicationsRoutes = require('./routes/publicationsRoutes');
 const authRoutes = require('./routes/authRoutes');
+const perfilRoutes = require('./routes/perfilRoutes');
+const publicationsRoutes = require('./routes/publicationsRoutes');
 const staticsRoutes = require('./routes/staticsRoutes');
 const storeRoutes = require('./routes/storeRoutes');
 
 // import controllers
 const authController = require('./controllers/AuthController')
+const perfilController = require('./controllers/PerfilController')
 const publicationsController = require('./controllers/publicationsController');
 const staticsController = require('./controllers/StaticsController');
 const storeController = require('./controllers/StoreControler');
@@ -79,6 +81,7 @@ app.use((req, res, next) => {
 
 // routes
 app.use('/', authRoutes);
+app.use('/perfil', perfilRoutes);
 app.use('/publications', publicationsRoutes);
 app.use('/static', staticsRoutes);
 app.use('/store', storeRoutes);

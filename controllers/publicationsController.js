@@ -4,7 +4,7 @@ const Users = require('../models/Users');
 // helpers
 const { checkurl } = require('../helpers/checkurl');
 
-module.exports = class publicationsController {
+module.exports = class PublicationsController {
 
     static async showHome(req, res) {
 
@@ -14,19 +14,18 @@ module.exports = class publicationsController {
                 order: [['createdAt', 'DESC']]
             });
 
-            const userSession = await Users.findOne({
-                where: ({ id: req.session.userid })
-            })
+            let userSession = null;
+            if (req.session.userid) {
+                userSession = await Users.findOne({
+                    where: { id: req.session.userid }
+                });
+            }
 
             let noMoreComments = false;
 
             if (allComments.length === 0) {
                 noMoreComments = true;
             }
-
-            console.log('=====================================')
-            console.log(userSession)
-            console.log('=====================================')
 
             const mapAllComments = allComments.map((comment) => {
                 const commentData = comment.dataValues;

@@ -1,14 +1,15 @@
 <article class="p-3 w-100 card rounded my-3">
     <header class="d-flex justify-content-between">
 
-        <div class="d-flex gap-3 align-items-center">
-            <figure>
-                <img src="{{User.dataValues.perfil}}" class="logo rounded-circle"
-                    alt="Foto de usuário">
-            </figure>
+        <a href="/perfil/user/{{id}}">
+            <div class="d-flex gap-3 align-items-center">
+                <figure>
+                    <img src="{{User.dataValues.perfil}}" class="logo rounded-circle" alt="Foto de usuário">
+                </figure>
 
-            <p>{{User.dataValues.name}}</p>
-        </div>
+                <p>{{User.dataValues.name}}</p>
+            </div>
+        </a>
 
         <div>
 
@@ -20,14 +21,14 @@
                 <ul class="dropdown-menu">
                     {{#if userHasComment}}
                     <li>
-                        <form action="publications/delete" method="post">
+                        <form action="/publications/delete" method="post">
                             <input type="hidden" name="id" value="{{id}}">
                             <input type="submit" class="dropdown-item" value="Deletar">
                         </form>
                     </li>
                     {{/if}}
                     <li>
-                        <a href="#" class="dropdown-item">Favoritar</a>
+                        <a href="/" class="dropdown-item">Favoritar</a>
                     </li>
                 </ul>
             </div>

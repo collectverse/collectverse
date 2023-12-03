@@ -103,6 +103,7 @@ body {
     height: 100vh !important;
 }
 
+.closeSidebar,
 .openSidebar {
     display: none !important;
 }
@@ -234,6 +235,7 @@ body {
         display: block;
     }
 
+    .closeSidebar,
     .openSidebar{
         display: block !important;
         border-radius: 0;
