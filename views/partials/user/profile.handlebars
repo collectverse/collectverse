@@ -8,8 +8,7 @@
         <div class="d-flex align-items-center justify-content-between text-center text-sm-start mt-4 px-3">
             <div class="d-flex justify-content-center align-items-center gap-3">
 
-                <img class="logo rounded-circle border border-white border-3" src="{{user.dataValues.perfil}}"
-                    alt="Foto de Perfil do Usuário.">
+                <img class="logo rounded-circle" src="{{user.dataValues.perfil}}" alt="Foto de Perfil do Usuário.">
                 <div>
 
                     <h1 class="mb-0 h5">{{user.dataValues.name}}</h1>
@@ -19,8 +18,12 @@
 
             <div class="d-flex justify-content-center">
                 {{#if perfilIsTheUser}}
-                <button class="btn btn-danger me-2" type="button"> <i class="bi bi-pencil-fill pe-1"></i> Editar Perfil
+                <button type="button" class="btn btn-danger me-2" data-toggle="modal" data-target="#editModal"
+                    aria-label="Editar perfil">
+                    <i class="bi bi-pencil-fill pe-1" alt="Lapis"></i> Editar Perfil
                 </button>
+
+                {{> user/edit}}
                 {{/if}}
                 <div class="dropdown">
                     <button class="icon-md btn btn-light" type="button" id="profileAction2" data-bs-toggle="dropdown"

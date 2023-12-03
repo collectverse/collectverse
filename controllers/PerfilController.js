@@ -50,4 +50,46 @@ module.exports = class PerfilController {
             res.status(500).json({ error: 'Erro interno do servidor' });
         }
     }
+
+    static async editUserPerfil(req, res) {
+
+        try {
+
+            const { id, name, email, perfil, banner } = req.body;
+
+            const emailExist = await Users.findOne({ where: { email: email } })
+
+            if (emailExist && emailExist.id !== id) {
+                req.flash('message', 'E-mail já em uso!')
+                return
+            }
+
+            const userExists = await Users.findOne({ where: { name: name } })
+
+            if (userExists && userExists.id !== id) {
+                req.flash('message', 'nome de usuário já em uso!')
+                return
+            }
+
+            const user = await Users.findByPk(id)
+
+            if (user) {
+                user.name = name !== '' ? name : user.name;
+                user.email = email !== '' ? email : user.email;
+                user.perfil = perfil !== '' ? perfil : user.perfil;
+                user.banner = banner !== '' ? banner : user.banner;
+
+                await user.save();
+                req.flash('message', 'Informações salvas com sucesso.');
+                res.redirect(`/perfil/user/${user.id}`);
+            } else {
+                req.flash('message', 'Erro do sistema, tente novamente!');
+                return
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
 };

@@ -30,13 +30,9 @@
             </div>
 
             {{#if session.userid}}
-            <button type="submit" class="px-2 rounded btn btn-light">
-                <i class="bi bi-check"></i> Postar
-            </button>
+            <input type="submit" class="px-2 rounded btn btn-light" value="Postar">
             {{else}}
-            <button type="submit" class="px-2 rounded btn btn-light" disabled>
-                <i class="bi bi-check"></i> Postar
-            </button>
+            <input type="submit" class="px-2 rounded btn btn-light" value="Postar" disabled>
             {{/if}}
 
         </footer>
