@@ -7,10 +7,25 @@
 
         <div class="container">
             {{> store/shop}}
+
+            <div class="container">
+                <div class="h-100 w-100">
+                    <div>
+                        <h3 class="h-1 m-0">SINTA.</h3>
+                        <span class="h-2">DOMINE.</span>
+                        <br>
+                        <p>{{item.name}}: {{item.description}}</p>
+                    </div>
+                    <div>
+                        {{> components/templates/modelviewer}}
+                    </div>
+                </div>
+            </div>
+
         </div>
 
     </div>
 
 </div>
 
-<script src="/js/interactions.js"></script>
+<script src="/js/interactions.js" async></script>
