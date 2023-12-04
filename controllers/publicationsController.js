@@ -14,13 +14,6 @@ module.exports = class PublicationsController {
                 order: [['createdAt', 'DESC']]
             });
 
-            let userSession = null;
-            if (req.session.userid) {
-                userSession = await Users.findOne({
-                    where: { id: req.session.userid }
-                });
-            }
-
             let noMoreComments = false;
 
             if (allComments.length === 0) {
@@ -36,7 +29,7 @@ module.exports = class PublicationsController {
                 return commentData;
             });
 
-            res.render('publications/home', { comments: mapAllComments, user: userSession, noMoreComments })
+            res.render('publications/home', { comment: mapAllComments, noMoreComments })
         } catch (error) {
             console.log(error)
         }

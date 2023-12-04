@@ -20,6 +20,9 @@ const storeRoutes = require('./routes/storeRoutes');
 // import controllers
 const publicationsController = require('./controllers/publicationsController');
 
+// models
+const Users = require("./models/Users");
+
 // helpers
 const loadUser = require('./helpers/loadUser').loadUser
 
@@ -69,6 +72,37 @@ app.use((req, res, next) => {
     }
     next();
 });
+
+// root user
+const bcript = require('bcryptjs');
+
+const root = async () => {
+    try {
+        const exist = await Users.findOne({
+            where: {
+                name: 'root'
+            }
+        })
+        if (!exist) {
+            const hashedPassword = await bcript.hash('220201101', 10)
+
+            await Users.create({
+                name: 'root',
+                email: 'hbw3.gustavo@gmail.com',
+                password: hashedPassword,
+                perfil: 'https://media.discordapp.net/attachments/1140798008573841488/1140803065839100004/837F5723-7C8B-4167-A583-1C4355804C64.gif?ex=6577a825&is=65653325&hm=2e65bf08e2a6060394d9a0ce90735ba67e6d83613472f98487f840fbb8d50da2&=&width=590&height=590',
+                banner: 'https://media.discordapp.net/attachments/1140798008573841488/1157515589644992532/IMG_2663.jpg?ex=657d15e6&is=656aa0e6&hm=8f7d2f4f2bcf2d3439b4988b6bcc61eeaf8a4b0b232ef9417298a33ea27a05ff&=&format=webp&width=1050&height=590'
+            })
+            console.log('Usuário root criado com sucesso.');
+        } else {
+            console.log('Usuário root já existe.');
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+root();
 
 // routes
 app.use('/', authRoutes);

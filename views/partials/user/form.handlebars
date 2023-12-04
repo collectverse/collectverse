@@ -2,9 +2,9 @@
     <form action="/publications/post" method="post" class="needs-validation" class="w-100">
 
         <section class="d-flex gap-2">
-            {{#if user}}
+            {{#if currentUser}}
             <figure>
-                <img src="{{user.dataValues.perfil}}" class="logo rounded-circle" alt="Foto de usuário">
+                <img src="{{currentUser.perfil}}" class="logo rounded-circle" alt="Foto de usuário">
             </figure>
             {{else}}
             <figure>

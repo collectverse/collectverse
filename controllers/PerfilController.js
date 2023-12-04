@@ -5,6 +5,7 @@ const Users = require('../models/Users');
 const { checkurl } = require('../helpers/checkurl');
 
 module.exports = class PerfilController {
+
     static async showUser(req, res) {
         try {
             const userId = req.params.id;
@@ -44,7 +45,7 @@ module.exports = class PerfilController {
                 return commentData;
             });
 
-            res.render('perfil/user', { user: user, perfilIsTheUser, comments: mapAllComments });
+            res.render('perfil/user', { user: user.dataValues, perfilIsTheUser, comment: mapAllComments });
         } catch (error) {
             console.error(error);
             res.status(500).json({ error: 'Erro interno do servidor' });
@@ -98,4 +99,5 @@ module.exports = class PerfilController {
         }
 
     }
+
 };

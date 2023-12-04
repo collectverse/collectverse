@@ -74,13 +74,17 @@ body {
 }
 
 .notification {
-    margin-top: 6.8rem;
+    margin-top: 6.9rem;
     z-index: 1000;
 }
 
 @media screen and (max-width:992px) {
     .flex-lg-column-rv {
         flex-direction: column-reverse;
+    }
+
+    .w-md-100 {
+        width: 100% !important;
     }
 }
 
