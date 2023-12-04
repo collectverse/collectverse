@@ -9,16 +9,18 @@
 
             {{> store/hero}}
 
-            <div class="d-flex flex-wrap d-md-flex flex-md-equal mt-3 w-100">
+            <div class="container-fluid">
+                <div class="d-flex flex-wrap d-md-flex justify-content-center gap-2 flex-md-equal mt-3 w-100">
 
-                {{#each item}}
-                <div class="w-50 w-md-100">
-                    {{> store/card name="MX MECHANICAL" class="epic" description="Teclado de desempenho iluminado sem
-                    fio"}}
+                    {{#each item}}
+                    <div class="{{#if @first}}w-100{{else}}w-49 w-md-100{{/if}}">
+                        {{> store/card}}
+                    </div>
+                    {{/each}}
+
                 </div>
-                {{/each}}
-
             </div>
+
 
         </div>
 

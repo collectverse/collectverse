@@ -49,11 +49,8 @@ body {
     font-size: 14px;
 }
 
-.truncate-text {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    max-width: 8ch;
+.w-49 {
+    width: 49%;
 }
 
 .banner {
@@ -96,6 +93,15 @@ body {
     .banner-div,
     .banner {
         height: auto !important;
+    }
+}
+
+@media screen and (max-width: 405px) {
+    .truncate-text {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        max-width: 6ch;
     }
 }
 
