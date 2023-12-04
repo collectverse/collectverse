@@ -49,6 +49,13 @@ body {
     font-size: 14px;
 }
 
+.truncate-text {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 8ch;
+}
+
 .banner {
     width: 100%;
     object-fit: cover;
@@ -241,7 +248,7 @@ body {
 @media screen and (max-width: 1200px) {
 
     .header-sidebar {
-        width: 50%;
+        width: 80%;
         height: 100vh;
         left: 0;
         top: 0;
@@ -282,7 +289,10 @@ body {
 .card-store-image {
     max-width: 100%;
     height: auto;
+}
 
+.card-item {
+    height: 400px;
 }
 
 .legendary {

@@ -1,0 +1,16 @@
+<div class="row w-100">
+
+    {{> components/sidebar/sidebar}}
+
+    <div class="col p-0 m-0 store-container">
+        {{> components/semantics/header directoryName=item.name}}
+
+        <div class="container">
+            {{> store/shop}}
+        </div>
+
+    </div>
+
+</div>
+
+<script src="/js/interactions.js"></script>

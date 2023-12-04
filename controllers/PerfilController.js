@@ -48,7 +48,6 @@ module.exports = class PerfilController {
             res.render('perfil/user', { user: user.dataValues, perfilIsTheUser, comment: mapAllComments });
         } catch (error) {
             console.error(error);
-            res.status(500).json({ error: 'Erro interno do servidor' });
         }
     }
 

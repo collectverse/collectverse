@@ -18,6 +18,22 @@ module.exports = class ItemsController {
         }
     }
 
+    static async showitem(req, res) {
+        try {
+            const id = req.params.id;
+
+            const item = await Collectibles.findOne({ where: { id: id } });
+
+            if (!item) {
+                return res.status(404).render('statics/err');
+            }
+
+            res.render('store/item', { item: item.dataValues })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     static showPass(req, res) {
         res.render('store/pass')
     }

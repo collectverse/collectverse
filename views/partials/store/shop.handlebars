@@ -1,0 +1,26 @@
+<section class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="row gx-4 gap-2 gx-lg-5 align-items-center">
+            <div class="col-md-6 card-item bg-light d-flex align-items-center justify-content-center">
+                <img class="card-img-top mb-5 mb-md-0 rounded" src="{{item.image}}" alt="Foto do {{item.name}}">
+            </div>
+
+            <div class="col-md-6">
+                <div class="small mb-1">{{item.rarity}}</div>
+                <h1 class="display-5 fw-bolder">{{item.name}}</h1>
+                <div class="fs-5 mb-2">
+                    <span>${{item.price}}</span>
+                </div>
+                <p class="lead">{{item.description}}</p>
+                <div class="d-flex">
+                    <form action="/store/addToCart" method="post">
+
+                        <input type="hidden" name="id" value="{{item.id}}">
+                        <input type="submit" class="btn btn-light" value="Adquirir">
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
