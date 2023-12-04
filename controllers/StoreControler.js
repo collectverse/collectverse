@@ -55,7 +55,7 @@ module.exports = class ItemsController {
 
             if (!cart) {
                 // Se não houver, criar um novo carrinho
-                cart = await Cart.create({ itemIds: '[]' }); // ou use o formato que preferir
+                cart = await Cart.create({ itemIds: '[]' });
                 await user.setCart(cart);
             }
 
@@ -65,16 +65,55 @@ module.exports = class ItemsController {
                 // Se o item não estiver no conjunto, adicione-o
                 cart.itemIds = JSON.stringify([...currentItems, itemId]);
                 await cart.save();
+                const userHasCurrentItem = true;
                 req.flash('message', 'Item adicionado ao carrinho.');
-            } else {
-                req.flash('message', 'Item já está no carrinho.');
+                res.redirect(`/store/item/${itemId}`, { userHasCurrentItem });
             }
 
-            res.redirect(`/store/item/${itemId}`);
         } catch (error) {
             console.log(error);
-            req.flash('message', 'Ocorreu um erro ao adicionar o item ao carrinho.');
+        }
+    }
+
+    static async removeToCart(req, res) {
+        try {
+            const itemId = req.body.id;
+            const userId = req.session.userid;
+
+            const user = await Users.findByPk(userId, { include: Cart });
+
+            if (!user) {
+                req.flash('message', 'Usuário não encontrado.');
+                return res.redirect('/store');
+            }
+
+            const cart = user.Cart;
+
+            if (!cart) {
+                // Se não houver, criar um novo carrinho
+                cart = await Cart.create({ itemIds: '[]' });
+                await user.setCart(cart);
+            }
+
+            const currentItems = new Set(JSON.parse(cart.itemIds) || []);
+
+            if (currentItems.has(itemId)) {
+
+                currentItems.delete(itemId);
+
+                cart.itemIds = JSON.stringify([...currentItems]);
+                await cart.save();
+
+                req.flash('message', 'Item removido do carrinho.');
+            } else {
+                req.flash('message', 'Item não encontrado no carrinho.');
+                return
+            }
+
             res.redirect('/store');
+
+        } catch (error) {
+            console.log(error)
         }
     }
 

@@ -13,12 +13,23 @@
                 </div>
                 <p class="lead">{{item.description}}</p>
                 <div class="d-flex">
+
+                    {{#if userHasCurrentItem}}
                     <form action="/store/addToCart" method="post">
 
                         <input type="hidden" name="id" value="{{item.id}}">
                         <input type="submit" class="btn btn-light" value="Adquirir">
 
                     </form>
+                    {{else}}
+                    <form action="/store/removeToCart" method="post">
+
+                        <input type="hidden" name="id" value="{{item.id}}">
+                        <input type="submit" class="btn btn-danger" value="Remover">
+
+                    </form>
+                    {{/if}}
+
                 </div>
             </div>
         </div>
