@@ -56,11 +56,10 @@ module.exports = class ItemsController {
                 cart.itemIds = JSON.stringify([...currentItems, itemId]);
                 await cart.save();
                 req.flash('message', 'Item adicionado ao carrinho.');
-                res.redirect(`/store/item/${itemId}`);
+                res.render('store/store');
             } else {
                 req.flash('message', 'Item já adicionado ao carrinho.');
-                res.redirect(`/store/item/${itemId}`);
-                return
+                res.render('store/store');
             }
 
         } catch (error) {
