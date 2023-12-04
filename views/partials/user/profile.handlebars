@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-body p-0">
-        <div class="w-100" style="height: 320px;">
+        <div class="w-100 banner-div" style="height: 320px;">
             <figure class="m-0 w-100 h-100">
                 <img src="{{user.banner}}" class="w-100 h-100 banner rounded-top" alt="banner do usuário">
             </figure>
@@ -19,7 +19,7 @@
                 {{#if perfilIsTheUser}}
                 <button type="button" class="btn btn-light me-2" data-toggle="modal" data-target="#editModal"
                     aria-label="Editar perfil">
-                    <i class="bi bi-pencil-fill pe-1" alt="Lapis"></i> Editar Perfil
+                    <i class="bi bi-pencil-fill pe-1" alt="Lapis"></i>
                 </button>
 
                 {{> user/edit}}

@@ -51,7 +51,6 @@ body {
 
 .banner {
     width: 100%;
-    height: 100%;
     object-fit: cover;
 }
 
@@ -85,6 +84,11 @@ body {
 
     .w-md-100 {
         width: 100% !important;
+    }
+
+    .banner-div,
+    .banner {
+        height: auto !important;
     }
 }
 
