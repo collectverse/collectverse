@@ -9,15 +9,15 @@
                 <p class="mb-3">Modifique seu perfil da maneira que desejar.</p>
             </div>
 
-            <form action="/perfil/user/{{user.dataValues.id}}/edit" method="post" class="m-3 mt-1">
+            <form action="/perfil/user/{{user.id}}/edit" method="post" class="m-3 mt-1">
 
                 <div class="container">
 
-                    <input type="hidden" name="id" value="{{user.dataValues.id}}">
+                    <input type="hidden" name="id" value="{{user.id}}">
 
                     <div class="input-group mb-3 d-flex justify-content-between align-items-center gap-2">
                         <div>
-                            <img src="{{user.dataValues.perfil}}" alt="Foto de perfil" class="rounded-circle logo">
+                            <img src="{{user.perfil}}" alt="Foto de perfil" class="rounded-circle logo">
                         </div>
                         <input type="text" name="perfil" class="form-control rounded" placeholder="foto de perfil"
                             aria-label="Foto de perfil do usuário" aria-describedby="basic-addon2">
@@ -25,7 +25,7 @@
 
                     <div class="input-group mb-3">
                         <div class="mb-2">
-                            <img src="{{user.dataValues.banner}}" alt="banner do perfil" class="rounded w-100"
+                            <img src="{{user.banner}}" alt="banner do perfil" class="rounded w-100"
                                 style="object-fit: cover;">
                         </div>
                         <input type=" text" name="banner" class="form-control rounded" placeholder="Banner do perfil"
@@ -34,12 +34,12 @@
 
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">@</span>
-                        <input type="text" name="name" class="form-control" placeholder="{{user.dataValues.name}}"
+                        <input type="text" name="name" class="form-control" placeholder="{{user.name}}"
                             aria-label="nome do usuário" aria-describedby="basic-addon1">
                     </div>
 
                     <div class="input-group mb-3">
-                        <input type="text" name="email" class="form-control" placeholder="{{user.dataValues.email}}"
+                        <input type="text" name="email" class="form-control" placeholder="{{user.email}}"
                             aria-label="E-mail do usuário" aria-describedby="basic-addon2">
                         <span class="input-group-text" id="basic-addon2">@example.com</span>
                     </div>
