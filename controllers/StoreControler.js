@@ -42,19 +42,10 @@ module.exports = class ItemsController {
             const itemId = req.body.id;
             const userId = req.session.userid;
 
-            // Verificar se o usuário existe
             const user = await Users.findByPk(userId, { include: Cart });
-
-            if (!user) {
-                req.flash('message', 'Usuário não encontrado.');
-                return res.redirect('/store');
-            }
-
-            // Verificar se há um carrinho associado ao usuário
             let cart = user.Cart;
 
             if (!cart) {
-                // Se não houver, criar um novo carrinho
                 cart = await Cart.create({ itemIds: '[]' });
                 await user.setCart(cart);
             }
@@ -62,12 +53,14 @@ module.exports = class ItemsController {
             const currentItems = new Set(JSON.parse(cart.itemIds) || []);
 
             if (!currentItems.has(itemId)) {
-                // Se o item não estiver no conjunto, adicione-o
                 cart.itemIds = JSON.stringify([...currentItems, itemId]);
                 await cart.save();
-                const userHasCurrentItem = true;
                 req.flash('message', 'Item adicionado ao carrinho.');
-                res.redirect(`/store/item/${itemId}`, { userHasCurrentItem });
+                res.redirect(`/store/item/${itemId}`);
+            } else {
+                req.flash('message', 'Item já adicionado ao carrinho.');
+                res.redirect(`/store/item/${itemId}`);
+                return
             }
 
         } catch (error) {
