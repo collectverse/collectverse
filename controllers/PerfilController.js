@@ -10,38 +10,24 @@ module.exports = class PerfilController {
         try {
             const userId = req.params.id;
 
-            const user = await Users.findOne({ where: ({ id: userId }) });
+            const user = await Users.findOne({ where: { id: userId } });
 
             if (!user) {
                 return res.status(404).render('statics/err');
             }
 
-            let perfilIsTheUser = false;
-
-            if (req.session.userid == userId) {
-                perfilIsTheUser = true;
-            }
-
-            // check for user had posts
+            const perfilIsTheUser = req.session.userid == userId;
 
             const allComments = await Publications.findAll({
-                where: ({ UserId: userId }),
+                where: { UserId: userId },
                 include: 'User',
                 order: [['createdAt', 'DESC']]
             });
 
-            let noMoreComments = false;
-
-            if (allComments.length === 0) {
-                noMoreComments = true;
-            }
-
             const mapAllComments = allComments.map((comment) => {
                 const commentData = comment.dataValues;
                 commentData.userHasComment = commentData.User.id === req.session.userid;
-
-                commentData.hasImage = checkurl(commentData.image)
-
+                commentData.hasImage = checkurl(commentData.image);
                 return commentData;
             });
 
@@ -52,51 +38,39 @@ module.exports = class PerfilController {
     }
 
     static async editUserPerfil(req, res) {
-
         try {
-
             const { id, name, email, perfil, banner } = req.body;
 
-            const emailExist = await Users.findOne({ where: { email: email } })
+            const emailExist = await Users.findOne({ where: { email: email } });
 
-            if (emailExist) {
-                if (emailExist && emailExist.id !== id) {
-                    req.flash('message', 'E-mail já em uso!')
-                    res.redirect('/')
-                    return
-                }
+            if (emailExist && emailExist.id !== id) {
+                req.flash('message', 'E-mail já em uso!');
+                return res.redirect('/');
             }
 
-            const userExists = await Users.findOne({ where: { name: name } })
+            const userExists = await Users.findOne({ where: { name } });
 
-            if (userExists) {
-                if (userExists && userExists.id !== id) {
-                    req.flash('message', 'nome de usuário já em uso!')
-                    res.redirect('/')
-                    return
-                }
+            if (userExists && userExists.id !== id) {
+                req.flash('message', 'Nome de usuário já em uso!');
+                return res.redirect('/');
             }
 
-            const user = await Users.findByPk(id)
+            const user = await Users.findByPk(id);
 
             if (user) {
-                user.name = name !== '' ? name : user.name;
-                user.email = email !== '' ? email : user.email;
-                user.perfil = perfil !== '' ? perfil : user.perfil;
-                user.banner = banner !== '' ? banner : user.banner;
+                user.name = name || user.name;
+                user.email = email || user.email;
+                user.perfil = perfil || user.perfil;
+                user.banner = banner || user.banner;
 
                 await user.save();
                 req.flash('message', 'Informações salvas com sucesso.');
                 res.redirect(`/perfil/user/${user.id}`);
             } else {
                 req.flash('message', 'Erro do sistema, tente novamente!');
-                return
             }
-
         } catch (error) {
-            console.log(error)
+            console.error(error);
         }
-
     }
-
 };

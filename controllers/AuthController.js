@@ -1,6 +1,12 @@
 const Users = require('../models/Users');
+const bcrypt = require('bcryptjs');
 
-const bcript = require('bcryptjs');
+const ERROR_MESSAGES = {
+    PASSWORD_MISMATCH: 'As senhas não conferem, tente novamente!',
+    EMAIL_IN_USE: 'O E-mail já está em uso.',
+    USER_NOT_FOUND: 'Usuario não encontrado',
+    INCORRECT_PASSWORD: 'Senha incorreta!',
+};
 
 module.exports = class AuthController {
 
@@ -9,98 +15,77 @@ module.exports = class AuthController {
     }
 
     static async register(req, res) {
-
         const { name, email, password, confirmpassword } = req.body;
 
-        // password match validation
-        if (password != confirmpassword) {
-            // mensagem 
-            req.flash('message', 'As senhas não conferem, tente novamente!');
-            res.render('auth/access')
-
-            return
+        // Password match validation
+        if (password !== confirmpassword) {
+            req.flash('message', ERROR_MESSAGES.PASSWORD_MISMATCH);
+            return res.render('auth/access');
         }
 
-        // check if user exists
-        const checkIfUserExists = await Users.findOne({ where: { email: email } })
+        // Check if user exists
+        const existingUser = await Users.findOne({ where: { email } });
 
-        if (checkIfUserExists) {
-            // mensagem
-            req.flash('message', 'O E-mail já está em uso.');
-            res.render('auth/access')
-
-            return
+        if (existingUser) {
+            req.flash('message', ERROR_MESSAGES.EMAIL_IN_USE);
+            return res.render('auth/access');
         }
 
-        // create a encripted password
-        const salt = bcript.genSaltSync(10);
-        const hashedPassword = bcript.hashSync(password, salt);
+        // Create an encrypted password
+        const salt = bcrypt.genSaltSync(10);
+        const hashedPassword = bcrypt.hashSync(password, salt);
 
         const user = {
             name,
             email,
             password: hashedPassword
-        }
+        };
 
         try {
             const createdUser = await Users.create(user);
 
-            // inicialize session
+            // Initialize session
             req.session.userid = createdUser.id;
 
-            req.flash('message', 'Cadastro realizado com sucesso!')
-
-            req.session.save(() => {
-                res.redirect('/')
-            })
+            req.flash('message', 'Cadastro realizado com sucesso!');
+            req.session.save(() => res.redirect('/'));
         } catch (error) {
-            console.log(`Erro ao criar o usuário: ${error}`)
+            console.error(`Erro ao criar o usuário: ${error}`);
         }
-
     }
 
     static async login(req, res) {
-
         const { name, password } = req.body;
 
-        // find user
-        const user = await Users.findOne({ where: { name: name } })
+        // Find user
+        const user = await Users.findOne({ where: { name } });
 
         if (!user) {
-            req.flash('message', 'Usuario não encontrado')
-            res.render('auth/access')
-
-            return
+            flash('message', ERROR_MESSAGES.USER_NOT_FOUND);
+            return res.render('auth/access');
         }
 
-        // check if password match
-        const passwordMatch = bcript.compareSync(password, user.password)
+        // Check if password matches
+        const passwordMatch = bcrypt.compareSync(password, user.password);
 
         if (!passwordMatch) {
-            req.flash('message', 'Senha incorreta!')
-            res.render('auth/access')
-
-            return
+            flash('message', ERROR_MESSAGES.INCORRECT_PASSWORD);
+            return res.render('auth/access');
         }
 
         try {
-            //  initialize session
-            req.session.userid = user.id
+            // Initialize session
+            req.session.userid = user.id;
 
-            req.flash('message', 'Autentificação realizada, logado com sucesso!')
-
-            req.session.save(() => {
-                res.redirect('/')
-            })
+            req.flash('message', 'Autentificação realizada, logado com sucesso!');
+            req.session.save(() => res.redirect('/'));
         } catch (error) {
-            console.log(error)
+            console.error(error);
         }
-
     }
 
     static logout(req, res) {
-        req.session.destroy()
+        req.session.destroy();
         res.redirect('/access');
     }
-
-}
+};
