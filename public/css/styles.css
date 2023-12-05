@@ -14,6 +14,11 @@ body {
 
 /* geral */
 
+.rounded-right{
+    border-radius: 0 4px 4px 0 !important;
+    width: 56px !important;
+}
+
 .image-w-100 {
     width: 100%;
     max-width: 410px;

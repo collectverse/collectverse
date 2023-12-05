@@ -33,14 +33,48 @@ module.exports = class ItemsController {
         res.render('store/pass');
     }
 
-    static getPass(req, res) {
-        res.render('store/shopping');
+    static async get(req, res) {
+        try {
+            const userid = req.session.userid;
+
+            const cart = await Cart.findOne({ where: { userId: userid }, include: Users });
+
+            if (!cart) {
+                req.flash('message', 'Carrinho Vazio.')
+                return res.redirect('/store/get')
+            }
+
+            const itemsInfo = await (async function (cart) {
+                const currentItems = JSON.parse(cart.itemIds) || [];
+                const itemsInfo = []
+
+                for (const itemId of currentItems) {
+                    const CollectiblesInfo = await Collectibles.findByPk(itemId);
+                    itemsInfo.push(CollectiblesInfo);
+                }
+
+                return itemsInfo
+            })(cart);
+
+
+            const cartItemsMap = itemsInfo.map(item => item.dataValues)
+            const total = itemsInfo.reduce((acc, item) => acc + parseFloat(item.dataValues.price), 0);
+
+            res.render('store/shopping', { items: cartItemsMap, total: total });
+        } catch (error) {
+            console.log(error)
+        }
+
     }
 
     static async addToCart(req, res) {
         try {
             const itemId = req.body.id;
             const userId = req.session.userid;
+
+            if (!userId) {
+                res.redirect('/access');
+            }
 
             const user = await Users.findByPk(userId, { include: Cart });
             let cart = user.Cart;
@@ -56,11 +90,10 @@ module.exports = class ItemsController {
                 cart.itemIds = JSON.stringify([...currentItems, itemId]);
                 await cart.save();
                 req.flash('message', 'Item adicionado ao carrinho.');
-                res.render('store/store');
             } else {
                 req.flash('message', 'Item já adicionado ao carrinho.');
-                res.render('store/store');
             }
+            res.redirect(`/store/item/${itemId}`);
 
         } catch (error) {
             console.log(error);
@@ -102,7 +135,7 @@ module.exports = class ItemsController {
                 return
             }
 
-            res.redirect('/store');
+            res.redirect('/store/get');
 
         } catch (error) {
             console.log(error)
