@@ -24,6 +24,10 @@ const Users = db.define('Users', {
         type: DataTypes.STRING,
         require: true,
         defaultValue: "https://color-hex.org/colors/cbd3db.png"
+    },
+    pass: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     }
 });
 

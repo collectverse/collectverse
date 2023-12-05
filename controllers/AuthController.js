@@ -61,7 +61,7 @@ module.exports = class AuthController {
         const user = await Users.findOne({ where: { name } });
 
         if (!user) {
-            flash('message', ERROR_MESSAGES.USER_NOT_FOUND);
+            req.flash('message', ERROR_MESSAGES.USER_NOT_FOUND);
             return res.render('auth/access');
         }
 
@@ -69,7 +69,7 @@ module.exports = class AuthController {
         const passwordMatch = bcrypt.compareSync(password, user.password);
 
         if (!passwordMatch) {
-            flash('message', ERROR_MESSAGES.INCORRECT_PASSWORD);
+            req.flash('message', ERROR_MESSAGES.INCORRECT_PASSWORD);
             return res.render('auth/access');
         }
 

@@ -41,7 +41,7 @@ module.exports = class ItemsController {
 
             if (!cart) {
                 req.flash('message', 'Carrinho Vazio.')
-                return res.redirect('/store/get')
+                return res.redirect('/store')
             }
 
             const itemsInfo = await (async function (cart) {
@@ -140,6 +140,22 @@ module.exports = class ItemsController {
         } catch (error) {
             console.log(error)
         }
+    }
+
+    static async getPass(req, res) {
+
+        const id = req.session.userid
+        const userExists = await Users.findOne({ where: { id } });
+
+        if (!userExists) {
+            req.flash('message', 'Erro ao encontrar o usuário!');
+            return res.redirect('/access');
+        }
+
+        await Users.update({ pass: true }, { where: { id } })
+        req.flash('message', 'Parabens! você conquistou o passe Universal.')
+        res.redirect('/')
+
     }
 
 };

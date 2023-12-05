@@ -8,5 +8,6 @@ router.get('/pass', StoreController.showPass)
 router.get('/get', StoreController.get)
 router.post('/addToCart', StoreController.addToCart)
 router.post('/removeToCart', StoreController.removeToCart)
+router.post('/getPass', StoreController.getPass)
 
 module.exports = router

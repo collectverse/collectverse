@@ -91,7 +91,8 @@ const root = async () => {
                 email: 'hbw3.gustavo@gmail.com',
                 password: hashedPassword,
                 perfil: 'https://media.discordapp.net/attachments/1140798008573841488/1140803065839100004/837F5723-7C8B-4167-A583-1C4355804C64.gif?ex=6577a825&is=65653325&hm=2e65bf08e2a6060394d9a0ce90735ba67e6d83613472f98487f840fbb8d50da2&=&width=590&height=590',
-                banner: 'https://media.discordapp.net/attachments/1140798008573841488/1157515589644992532/IMG_2663.jpg?ex=657d15e6&is=656aa0e6&hm=8f7d2f4f2bcf2d3439b4988b6bcc61eeaf8a4b0b232ef9417298a33ea27a05ff&=&format=webp&width=1050&height=590'
+                banner: 'https://media.discordapp.net/attachments/1140798008573841488/1157515589644992532/IMG_2663.jpg?ex=657d15e6&is=656aa0e6&hm=8f7d2f4f2bcf2d3439b4988b6bcc61eeaf8a4b0b232ef9417298a33ea27a05ff&=&format=webp&width=1050&height=590',
+                pass: true
             })
             console.log('Usuário root criado com sucesso.');
         } else {
@@ -101,7 +102,6 @@ const root = async () => {
         console.log(error)
     }
 }
-
 root();
 
 // routes

@@ -27,7 +27,8 @@
                         <li>Customização Básica de Perfil</li>
 
                     </ul>
-                    <button type="button" class="w-100 btn btn-lg btn-outline-primary"><a href="/access" class="unset">Entre de graça</a></button>
+                    <button type="button" class="w-100 btn btn-lg btn-outline-primary"><a href="/access"
+                            class="unset">Entre de graça</a></button>
                 </div>
             </div>
         </div>
@@ -50,7 +51,13 @@
                         <li>Compartilhamento Exclusivo <i class="bi bi-bag-check text-success"></i></li>
                         <li>Envio de arquivos maiores <i class="bi bi-bag-check text-success"></i></li>
                     </ul>
-                    <button type="button" class="w-100 btn btn-lg btn-primary"><a href="/store/get" class="unset">Garanta agora</a></button>
+                    <form action="/store/getPass" method="post">
+
+                        <input type="hidden" name="id" value="1">
+                        <input type="submit" class="btn btn-primary btn-lg" value="Adquirir o Passe Universal">
+
+                    </form>
+
                 </div>
             </div>
         </div>
