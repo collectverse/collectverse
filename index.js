@@ -56,12 +56,12 @@ app.use((req, res, next) => {
 const MainRoutes = require("./routes/mainRoutes");
 const ProfileRoutes = require("./routes/profileRoutes");
 const SignRoutes = require("./routes/signRoutes");
-const StoreRoutes = require("./routes/StoreRoutes");
+// const StoreRoutes = require("./routes/StoreRoutes");
 
 app.use("/", MainRoutes);
 app.use("/profile", ProfileRoutes);
 app.use("/sign", SignRoutes);
-app.use("/store", StoreRoutes);
+// app.use("/store", StoreRoutes);
 
 app.get('/', (req, res) => {
     res.render('layouts/main', req.query);

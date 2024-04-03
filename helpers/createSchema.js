@@ -1,4 +1,5 @@
 // Arquivo index.js
+require('dotenv').config();
 
 const connection = require("../schema/connection");
 
@@ -9,15 +10,15 @@ async function createSchema() {
         // Verifica se deve recriar o banco de dados e excluir todos os dados
         if (recreateDatabase) {
             // Drop no banco de dados se ele existir
-            await connection.query('DROP DATABASE IF EXISTS `collectverse`');
+            await connection.query(`DROP DATABASE IF EXISTS ${process.env.DB_DATABASE}`);
             // Cria o banco de dados
-            await connection.query('CREATE DATABASE `collectverse`');
+            await connection.query(`CREATE DATABASE ${process.env.DB_DATABASE}`);
             console.log('Banco de dados recriado com sucesso!');
             // Seleciona o banco de dados
-            await connection.query('USE `collectverse`');
+            await connection.query(`USE ${process.env.DB_DATABASE}`);
         } else {
             // Seleciona o banco de dados
-            await connection.query('USE `collectverse`');
+            await connection.query(`USE ${process.env.DB_DATABASE}`);
             console.log('Conectado ao banco de dados existente.');
         }
 
@@ -89,6 +90,5 @@ async function createSchema() {
 }
 
 // // Chama a função para criar o banco de dados e tabelas ao inicializar
-// createSchema();
 
-module.exports = createSchema;
+createSchema();
