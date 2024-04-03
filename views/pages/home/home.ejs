@@ -1,0 +1,33 @@
+<link rel="stylesheet" href="/stylesheet/home/style.css">
+
+<%- include("../../partials/header") %>
+<main>
+    
+    <section class="main-home">
+        <section class="responsive-itens-home">
+
+            <% if (locals.userid) { %>
+                <%- include("../../partials/card/user") %>
+            <% } %>
+            <!-- recomendações -->
+            <%- include("../../partials/card/highlights") %>
+
+        </section>
+    
+        <section class="main-content">
+            <%- include("../../partials/card/publish") %>
+    
+            <section class="container-publications">
+                <% if (publications && publications.length > 0) { %>
+                    <% publications.forEach(function(publication) { %>
+                    <!-- Include do HTML da publicação -->
+                    <%- include("../../partials/card/publication", { publication: publication }) %>
+                    <% }); %>
+                <% } else { %>
+                    <p class="not-publications-founds">Nenhuma publicação encontrada.</p>
+                <% } %>
+            </section>
+        </section>
+    </section>
+    
+</main>

@@ -1,0 +1,43 @@
+.main-home {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 1rem;
+}
+
+.main-home .main-content {
+    width: 100%;
+}
+
+.publication-comment-card {
+    border: none;
+}
+
+@media screen and (max-width: 768px) {
+    .main-home {
+        display: flex;
+        flex-direction: column;
+    }    
+}
+
+.users-highlights-card .user-info {
+    padding: 1rem;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.users-highlights-card .user-info .text {
+    display: flex;
+    flex-direction: column;
+}
+
+.users-highlights-card .user-info .text h2 {
+    color: #202124;
+    font-size: 16px;
+}
+
+.users-highlights-card .user-info .text span,
+.users-highlights-card span {
+    color: #676767;
+    font-size: 14px;
+}

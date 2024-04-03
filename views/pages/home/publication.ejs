@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="/stylesheet/home/style.css">
+
+<%- include("../../partials/header") %>
+
+<main>
+    <%- include("../../partials/card/publication", {publication: publication}) %>
+
+    <br>
+
+    <section class="default-card comments-card">
+        <%- include("../../partials/card/publish", { inComment: true, publication: publication }) %>
+        <% if (publications && publications.length > 0) { %>
+            <% publications.forEach(function(publication) { %>
+            <!-- Include do HTML da publicação -->
+            <%- include("../../partials/card/publication", { publication: publication }) %>
+            <br>
+            <% }); %>
+        <% } else { %>
+            <p class="not-publications-founds">Nenhuma publicação encontrada.</p>
+        <% } %>
+        
+    </section>
+</main>

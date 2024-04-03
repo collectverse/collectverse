@@ -1,0 +1,43 @@
+<link rel="stylesheet" href="/stylesheet/sign/style.css">
+
+<main>
+    <!-- card de Sign in -->
+    <section class="default-card">
+        <!-- header -->
+        <header class="header-card">
+            <!-- logomarca -->
+            <section>
+                <img src="/source/images/string.svg" alt="Collectverse Marca">
+            </section>
+            <!-- texto de significado -->
+            <section class="header-card-text">
+                <h1>Usar uma conta Collectverse</h1>
+                <h2>Insira suas credenciais</h2>
+            </section>
+        </header>
+        <!-- formulario -->
+        <section>
+            <form action="/sign/makeSignIn" method="post">
+
+                <section class="input-container">
+                    <section class="input-control">
+                        <input type="email" name="email" placeholder="Endereço de E-mail" required maxlength="80">
+                    </section>
+                    <section class="input-control">
+                        <input type="password" name="password" placeholder="Senha" required maxlength="255">
+                    </section>
+                </section>
+
+                <section class="archor-container">
+                    <a href="#">Esqueceu sua senha?</a>
+                    <a href="/sign/up" aria-label="Ir para a página de criar uma conta.">Não tem uma conta?</a>
+                </section>
+
+                <section class="button-container">
+                    <input class="submit" type="submit" value="Sign In">
+                </section>
+
+            </form>
+        </section>
+    </section>
+</main>

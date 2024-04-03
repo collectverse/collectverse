@@ -1,0 +1,58 @@
+<header class="header">
+    <section class="internal-header">
+        <section class="logomarca">
+            <a href="/" aria-label="Ir para a página principal">
+                <img src="/source/images/string.svg" alt="Collectverse Marca">
+            </a>
+        </section>
+        <section class="navigation">
+            <nav>
+                <ul class="navigation-header">
+                    <li><a href="/store" aria-label="Ir para a loja de colecionaveis"><i class="bi bi-bag-fill"></i></a></li>
+                    <li><a href="/" aria-label="Ir para a página principal"><i class="bi bi-house-fill"></i></a></li>
+                </ul>
+                <ul>
+                        <li class="li-menu">
+                            <section class="menu">
+                                <i class="bi bi-grid-3x3-gap-fill"></i>
+                            </section>
+                        </li>
+                    <% if (locals.userid) { %>
+                        <!-- logado -->
+                        <li>
+                            <section class="dropdown header-dropdown">
+                                
+                                <section class="perfil">
+                                    <img class="user-profile-header" src="/uploads/user/perfils/<%= user.perfil %>" alt="foto de perfil do usuário.">
+                                </section>
+                                
+                                <section class="dropdown-content dropdown-header">
+                                    <ul>
+                                        <li>
+                                            <section class="user-info-dropdown">
+                                                <section class="perfil">
+                                                    <img class="user-profile-dropdown" src="/uploads/user/perfils/<%= user.perfil %>" alt="foto de perfil do usuário.">
+                                                </section>
+                                                <section class="informations-card">
+                                                    <h3><%= user.name %></h3>
+                                                    <span><%= user.email %></span>
+                                                </section>
+                                            </section>
+                                        </li>
+                                        <li><a href="/profile/<%= locals.userid %>" aria-label="Ir para a página de perfil do usuário"><i class="bi bi-person"></i> Perfil</a></li>
+                                        <li><a href="/profile/<%= locals.userid %>/edit" aria-label="Ir para a página de editar perfil do usuário"><i class="bi bi-gear"></i> Configurações</a></li>
+                                        <li><a class="signOut" href="/sign/logout" aria-label="Finalizar sessão da conta logada"><i class="bi bi-box-arrow-right"></i> Sair</a></li>
+                                    </ul>
+                                </section>
+                            </section>
+                        </li>
+                    <% } else { %>
+                        <!-- deslogado -->
+                        <li class="sign-button sign-in-button"><a href="/sign/in" aria-label="Ir para a página de entrar em um perfil">Entrar</a></li>
+                        <li class="sign-button sign-up-button"><a href="/sign/up" aria-label="Ir para a página de criar um perfil">Registrar</a></li>
+                    <% } %>
+                </ul>
+            </nav>
+        </section>
+    </section>
+</header>

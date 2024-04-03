@@ -1,0 +1,23 @@
+<!-- card com formulario para fazer publicação -->
+
+<section class="default-card publish-card <%= typeof inComment !== 'undefined' && inComment ? 'publication-comment-card' : '' %>">
+    <section class="perfil">
+        <img src="<%= locals.userid ? '/uploads/user/perfils/' + (user?.perfil || 'default.png') : '/uploads/user/perfils/default.png' %>" alt="Imagem de perfil">
+    </section>
+    <section class="form">
+        <form action="/publish" method="post" enctype="multipart/form-data">
+            <% if (typeof inComment !== 'undefined' && inComment) { %>
+                <input type="hidden" name="parentId" value="<%= publication.id %>">
+            <% } %>
+            
+            <input type="hidden" name="user" value="<%= locals.userid %>">
+            <input type="text" name="message" placeholder="O Que está rolando?" required maxlength="600">
+            <section class="button-container">
+                <section class="actions-container">
+                    <%- include("../input/files", {name: "image"}) %>
+                </section>
+                <input title="<%= locals.userid ? 'Publicar' : 'Entre em uma conta.' %>" class="<%= locals.userid ? 'submit' : 'submit-disabled' %>" type="submit" value="Publicar" <%= locals.userid ? '' : 'disabled' %>>
+            </section>
+        </form>
+    </section>
+</section>

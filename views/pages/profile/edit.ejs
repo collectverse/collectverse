@@ -1,0 +1,116 @@
+<link rel="stylesheet" href="/stylesheet/profile/style.css">
+
+<%- include("../../partials/header") %>
+
+    <main>
+        <section>
+            <!-- card de editar o usuário -->
+            <section class="default-card edit-card" id="account-preferences">
+                <label for="/profile/edit">
+                    <h2><i class="bi bi-person-circle"></i> Preferencias da conta.</h2>
+                    <hr>
+                </label>
+
+                <form action="/profile/edit" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="<%= user.id %>">
+                    <section class="input-container">
+                        <!-- imagens -->
+                        <section class="grid-edit">
+                            <section class="input-control-files control-perfil">
+                                <section class="image-edit">
+                                    <img class="perfil" src="/uploads/user/perfils/<%= user.perfil %>"
+                                        alt="Foto de perfil de <%= user.name %>">
+                                    <%- include("../../partials/input/files", {name: "perfil" }) %>
+                                </section>
+                            </section>
+                            <section class="input-control-files control-banner">
+                                <section class="image-edit">
+                                    <img class="banner" src="/uploads/user/banners/<%= user.banner %>"
+                                        alt="Banner de perfil de <%= user.name %>">
+                                    <%- include("../../partials/input/files", {name: "banner" }) %>
+                                </section>
+                            </section>
+                        </section>
+                        <section class="input-control">
+                            <label for="name">Nome</label>
+                            <input type="text" name="name" value="<%= user.name %>" required maxlength="40">
+                            <span>Seu nome aparecera em sua conta. Você pode altera-lo a qualquer momento.</span>
+                        </section>
+                        <section class="input-control">
+                            <label for="email">E-mail</label>
+                            <input type="text" name="email" value="<%= user.email %>" required maxlength="80">
+                            <span>Seu E-mail é privado, porem, você pode altera-lo a qualquer momento.</span>
+                        </section>
+                        <section class="input-control">
+                            <label for="biography">biografia</label>
+                            <input type="text" name="biography" value="<%= user.biography %>" required maxlength="80">
+                            <span>Sua biografia é publica, porem, você pode altera-lo a qualquer momento.<br>max:80 caracteres</span>
+                        </section>
+                    </section>
+
+                    <section class="button-container">
+                        <input class="submit" type="submit" value="Editar">
+                    </section>
+                </form>
+            </section>
+            <!-- alterar a senha -->
+            <section class="default-card edit-card" id="account-privacy">
+                <label for="/profile/edit">
+                    <h2><i class="bi bi-shield-check"></i> Privacidades da conta.</h2>
+                    <hr>
+                </label>
+
+                <form action="/profile/alter/password" method="post">
+                    <input type="hidden" name="id" value="<%= user.id %>">
+                    <section class="input-container">
+                        <!-- senhas -->
+                        <section class="input-control">
+                            <label for="oldPassoword">Sua senha atual.</label>
+                            <input type="password" name="oldPassoword" placeholder="Digite a senha atual." required maxlength="255">
+                        </section>
+                        <section class="input-control">
+                            <label for="newPassword">Nova senha.</label>
+                            <input type="password" name="newPassword" placeholder="Digite sua nova senha." required maxlength="255">
+                            <span>A senha para o login deve ter pelo menos 6 caracteres e incluir letras maiúsculas,
+                                minúsculas, números e caracteres especiais.</span>
+                        </section>
+                        <section class="input-control">
+                            <label for="confirmNewPassword">Confirme sua senha.</label>
+                            <input type="password" name="confirmNewPassword"
+                                placeholder="Digite sua senha desejada novamente." required maxlength="255">
+                            <span>Confirme que a senha desejada está correta.</span>
+                        </section>
+                    </section>
+
+                    <section class="button-container">
+                        <input class="submit" type="submit" value="Alterar">
+                    </section>
+                </form>
+            </section>
+            <!-- apagar perfil -->
+            <section class="default-card edit-card danger-card" id="account-caution">
+                <label for="/profile/edit">
+                    <h2><i class="bi bi-dash-circle"></i> Ações sensíveis.</h2>
+                    <span>Estas ações podem ser irreversíveis, tenha certeza do que faz.</span>
+                    <hr>
+                </label>
+
+                <form action="/profile/del/account" method="post">
+                    <input type="hidden" name="id" value="<%= user.id %>">
+                    <section class="input-container">
+                        <section class="text-and-input">
+                            <section class="text">
+                                <h3>Deletar esta conta.</h3>
+                                <p>Ao deletar a conta, não será possivel a ter de volta, esteje certo disto.</p>
+                            </section>
+                            <section class="input">
+                                <input type="submit" value="Deletar conta.">
+                            </section>
+                        </section>
+                    </section>
+                </form>
+                <hr>
+                <span>Não será necessário nenhuma confirmação para tais ações.</span>
+            </section>
+        </section>
+    </main>

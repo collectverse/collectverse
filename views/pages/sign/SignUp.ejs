@@ -1,0 +1,51 @@
+<link rel="stylesheet" href="/stylesheet/sign/style.css">
+
+<main>
+    <!-- card de Sign up -->
+    <section class="default-card">
+        <!-- header -->
+        <header class="header-card">
+            <!-- logomarca -->
+            <section>
+                <img src="/source/images/string.svg" alt="Collectverse Marca">
+            </section>
+            <!-- texto de significado -->
+            <section class="header-card-text">
+                <h1>Criar uma conta Collectverse</h1>
+                <h2>insira suas credenciais</h2>
+            </section>
+        </header>
+        <!-- formulario -->
+        <section>
+            <form action="/sign/makeSignUp" method="post">
+
+                <section class="input-container">
+                    <section class="input-control">
+                        <input type="email" name="email" placeholder="Endereço de E-mail" required maxlength="80">
+                    </section>
+                    <section class="input-control">
+                        <input type="text" name="name" placeholder="Nome de Usuário" required maxlength="40">
+                    </section>
+                    <section class="input-control">
+                        <input type="password" name="password" placeholder="Senha" required maxlength="255">
+                        <span>A senha para o login deve ter pelo menos 6 caracteres e incluir letras maiúsculas,
+                            minúsculas, números e caracteres especiais.</span>
+                    </section>
+                    <section class="checkbox">
+                        <input type="checkbox" name="terms" required>
+                        <label for="terms"><p>Assine para acordar com os termos e resposabilidades do site.</p></label>
+                    </section>
+                </section>
+
+                <section class="archor-container">
+                    <a href="/sign/in" aria-label="Ir para a página de entrar em uma conta">Já tem uma conta?</a>
+                </section>
+
+                <section class="button-container">
+                    <input class="submit" type="submit" value="Sign Up">
+                </section>
+
+            </form>
+        </section>
+    </section>
+</main>

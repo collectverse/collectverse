@@ -1,0 +1,30 @@
+<link rel="stylesheet" href="/stylesheet/store/style.css">
+
+<%- include("../../partials/header") %>
+<main>
+
+    <section class="poster-highlights">
+        <section>
+            <h2>Usuários destaque.</h2>
+            <p>Usuários que se destacaram em sua coleção.</p>
+        </section>
+        <section>
+
+            <% if (highlights.length > 0) { %>
+
+                <% highlights.forEach((user) => { %>
+        
+                    <%- include("../../partials/card/poster", {user: user}) %>
+        
+                <% }) %>
+        
+            <% } else { %>
+        
+                <span>Sem destaques atualmente.</span>
+        
+            <% } %>
+
+        </section>
+    </section>
+
+</main>

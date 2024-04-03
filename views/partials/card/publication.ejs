@@ -1,0 +1,91 @@
+<!-- card de publicação -->
+
+<!-- calcular data -->
+<% 
+const createdAt = new Date(publication.createdAt);
+const now = new Date();
+const diffTime = Math.abs(now - createdAt);
+const diffHours = Math.floor(diffTime / (1000 * 60 * 60));
+const diffDays = Math.floor(diffHours / 24);
+const diffMonths = Math.floor(diffDays / 30);
+const diffYears = Math.floor(diffMonths / 12);
+%>
+
+<section class="default-card publication-card">
+    <!-- header -->
+    <section class="header-card">
+        <!-- sessão de usuário -->
+        <section class="user-info">
+            <img src="/uploads/user/perfils/<%= publication.perfil %>" alt="Imagem do perfil de <%= publication.name %>">
+            <section>
+                <a href="/profile/<%= publication.UserId %>" aria-label="Ir para a página de ver perfil do usuário criador do Comentário"><%= publication.name %></a>
+                <!-- data -->
+                <% if (diffYears > 0) { %>
+                    <p>Publicado em <%= createdAt.getFullYear() %>.</p>
+                <% } else if (diffMonths > 0) { %>
+                    <p>Há <%= diffMonths %> mes(es).</p>
+                <% } else if(diffDays > 0){ %>
+                    <p>Há <%= diffDays %> dia(s).</p>
+                <% } else if(diffHours > 0){ %>
+                    <p>Há <%= diffHours %> hora(s).</p>
+                <% } else { %>
+                    <p>Há menos de uma hora.</p>
+                <% } %>
+            </section>
+
+        </section>
+        <section class="more-icon">
+            <section class="dropdown">
+                <i class="bi bi-grid dropbtn"></i>
+                <section class="dropdown-content">
+                    <ul>
+                        <% if (locals.userid === publication.UserId) { %>
+                        <li>
+                            <form action="/publish/del/<%= publication.id %>" method="post">
+                                <button class="unset-submit" type="submit"><i class="bi bi-trash"></i> Excluir publicação</button>
+                            </form>
+                        </li>
+                        <% } %>
+                    </ul>
+                </section>
+            </section>
+        </section>
+    </section>
+    <!-- conteudo da postagem -->
+    <section class="content-container">
+        <% if(publication.parentId != 0) { %>
+            <section class="parent-response">
+                <span>Comentário feito em resposta: veja <a href="/publication/<%= publication.parentId %>" aria-label="Ir para a página de ver o Comentário em resposta">o Comentário</a></span>
+            </section>
+        <% } %>
+        <!-- texto -->
+        <p><%= publication.text %></p>
+        <!-- imagem -->
+        <section class="image-container">
+            <% if (publication.image !== "") { %>
+            <img src="/uploads/publication/images/<%= publication.image %>" alt="Imagem da publicação de <%= publication.name %>">
+            <% } %>
+        </section>
+    </section>
+    <br>
+    <section class="actions-container">
+        <!-- ações -->
+        <form action="/likePublication" method="post" class="item-publication like-publication">
+            <input type="hidden" name="id" value="<%= publication.id %>">
+            <button type="submit" aria-label="Curtir publicação" <%= locals.userid ? '' : 'disabled' %>>
+                <% if (publication.likesByUsersIds.includes(locals.userid)) { %>
+                    <i class="bi bi-heart-fill liked"></i>
+                <% } else { %>
+                    <i class="bi bi-heart-fill"></i>
+                <% } %>
+                <span><%= publication.likes %></span>
+            </button>
+            
+        </form>
+        <a href="/publication/<%= publication.id %>" aria-label="Ir para Comentários da publicação" class="item-publication comment-publication">
+            <button type="button" aria-label="Ir para Comentários da publicação">
+                <i class="bi bi-chat-left-text-fill"></i>
+            </button>
+        </a>
+    </section>
+</section>

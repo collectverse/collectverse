@@ -1,0 +1,27 @@
+<div class="default-card poster-card">
+
+    <section class="user-profile-infos">            
+        <img class="user-banner" src="/uploads/user/banners/<%= user.banner %>" alt="banner de perfil do usuário.">
+        <section>
+            <section class="perfil">
+                <img class="user-profile perfil" src="/uploads/user/perfils/<%= user.perfil %>" alt="foto de perfil do usuário.">
+            </section>
+            <section class="informations-card">
+                <h3><%= user.name %></h3>
+            </section>
+        </section>
+        <section>
+            <% if (!(locals.userid === user.id)) { %>
+                <form action="/profile/follows" method="post">
+                    <input type="hidden" name="id" value="<%= user.id %>">
+                    <% if (user.followers.includes(user.id)) { %>
+                        <button type="submit" class="unfollowbtn"><i class="bi bi-person-dash"></i> Deixar de seguir</button>
+                    <% } else { %>
+                        <button type="submit" class="followbtn"><i class="bi bi-person-check"></i> Seguir</button>
+                    <% } %>
+                </form>
+            <% } %>
+        </section>
+    </section>  
+
+</div>

@@ -1,0 +1,50 @@
+<section class="default-card profile-card">
+    <section class="profile-banner">
+        <img src="/uploads/user/banners/<%= profile.banner %>" alt="Banner do perfil de <%= profile.name %>">
+    </section>
+    <section class="profile-infos">
+        <section class="user-infos">
+            <img src="/uploads/user/perfils/<%= profile.perfil %>" alt="Foto do perfil de <%= profile.name %>">
+            <section>
+                <h2>
+                    <%= profile.name %>
+                </h2>
+                <section class="following-and-followers">
+                    <p href="/profile/followers"><%= JSON.parse(profile.followers).length %> Seguidores</p>
+                    <p href="/profile/following"><%= JSON.parse(profile.following).length %> Seguindo</p>
+                </section>
+            </section>
+        </section>
+        <section class="user-edit">
+            <section class="more-icon">
+                <section class="dropdown">
+                    <i class="bi bi-grid dropbtn"></i>
+                    <section class="dropdown-content">
+                        <ul>
+                            <% if (locals.userid === profile.id) { %>
+                            <li><a href="/profile/<%= profile.id %>/edit" aria-label="Ir para a página de editar perfil do usuário"><i class="bi bi-gear"></i> Configurações</a></li>
+                            <% } %>
+                        </ul>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+    <section class="profile-details">
+        <section class="biography">
+            <p><%= profile.biography %></p>
+        </section>
+    </section>
+    <section class="actions">
+        <% if (!(locals.userid === profile.id)) { %>
+            <form action="/profile/follows" method="post">
+                <input type="hidden" name="id" value="<%= profile.id %>">
+                <% if (profile.followers.includes(user.id)) { %>
+                    <button type="submit" class="unfollowbtn"><i class="bi bi-person-dash"></i> Deixar de seguir</button>
+                <% } else { %>
+                    <button type="submit" class="followbtn"><i class="bi bi-person-check"></i> Seguir</button>
+                <% } %>
+            </form>
+        <% } %>
+    </section>
+</section>

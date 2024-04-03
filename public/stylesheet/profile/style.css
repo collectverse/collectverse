@@ -1,0 +1,176 @@
+.profile-card {
+    margin-bottom: 1rem;
+}
+
+.profile-card .profile-banner img {
+    width: 100%;
+    max-height: 350px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.profile-card .profile-infos {
+    padding-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.profile-card .profile-infos img {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    object-fit: cover;
+}
+
+.profile-card .user-infos {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.profile-card .user-infos h2 {
+    color: #202124;
+    font-size: 18px;
+}
+
+.following-and-followers {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.following-and-followers p {
+    color: #202124;
+    font-size: 14px;
+}
+
+.profile-details .biography {
+    padding-top: 1rem;
+}
+
+.profile-details .biography p {
+    color: #202124;
+    font-size: 16px;
+}
+
+.profile-card .actions {
+    margin-top: 1rem;
+}
+
+.followbtn, .unfollowbtn {
+    padding: 0.6rem 2rem;
+    border-radius: 6px;
+    color: #ffffff;
+    border: none;
+}
+
+.followbtn {
+    background: #0056b3;
+}
+
+.unfollowbtn {
+    background: #ff5858;
+}
+
+/* edit */
+
+.edit-card {
+    margin: 1rem;
+}
+
+.edit-card label h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    color: #202124;
+    margin-bottom: 1rem;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.grid-edit {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+}
+
+.grid-edit .banner {
+    width: 100%;
+    max-height: 400px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.grid-edit .perfil {
+    width: 150px;
+    height: 150px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.grid-edit label {
+    color: #202124;
+    font-size: 18px;
+}
+
+.grid-edit .image-edit {
+    position: relative;
+}
+
+.grid-edit .image-edit .custom-file-upload {
+    position: absolute;
+    left: 10px;
+    bottom: 15px;
+}
+
+.input-control {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-control label {
+    color: #202124;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.input-control input {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.input-control input:focus {
+    color: #0056b3;
+    outline-color: #0056b3;
+}
+
+.input-control span {
+    font-size: 12px;
+    color: #676767;
+}
+
+.text-and-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.text-and-input input {
+    padding: 0.6rem 2rem;
+    border-radius: 8px;
+    background: #ff5858;
+    border: 1px solid #ff5858;
+    color: #ffffff;
+    font-weight: bold;
+}

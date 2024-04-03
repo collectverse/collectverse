@@ -1,0 +1,32 @@
+<section class="default-card users-highlights-card">
+    <section class="header-card">
+        <h3>Destaques</h3>
+        <hr>
+    </section>
+
+    <section>
+        <% if (highlights.length > 0) { %>
+
+            <% highlights.forEach((user) => { %>
+
+                <a href="/profile/<%= user.id %>" aria-label="Ir para a página de ver perfil do usuário criador do Comentário">
+                    <section class="user-info">
+                        <section class="perfil">
+                            <img class="" src="/uploads/user/perfils/<%= user.perfil %>" alt="Imagem do perfil de <%= user.name %>">
+                        </section>
+                        <section class="text informations-card">
+                            <h2><%= user.name %></h2>
+                            <span><%= JSON.parse(user.followers).length %> seguidores</span>
+                        </section>
+                    </section>
+                </a>
+    
+            <% }) %>
+
+        <% } else { %>
+
+            <span>Sem destaques atualmente.</span>
+
+        <% } %>
+    </section>
+</section>

@@ -1,0 +1,102 @@
+/* estilo apenas para sign in e sign up */
+main {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+/* card */
+.default-card {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.header-card {
+    align-items: center;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.header-card img {
+    max-width: 100px;
+    margin-bottom: 1rem;
+    height: auto;
+}
+
+.header-card-text {
+    margin-left: 20px;
+}
+
+.header-card-text h1 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: #202124;
+    font-weight: normal;
+}
+
+.header-card-text h2 {
+    font-size: 14px;
+    color: #202124;
+    font-weight: normal;
+}
+
+.input-container,
+.input-control {
+    margin-bottom: 20px;
+}
+
+.input-container input {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.input-container input:focus {
+    color: #003e80;
+    outline-color: #003e80;
+}
+
+.input-container span {
+    font-size: 12px;
+    color: #676767;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.checkbox input[type="checkbox"] {
+    width: min-content;
+    margin-right: 10px;
+}
+
+.checkbox p {
+    font-size: 14px;
+    color: #676767;
+}
+
+.archor-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.archor-container a {
+    color: #0056b3;
+    text-decoration: none;
+}
+
+@media screen and (max-width: 768px) {
+    .header-card-text h1 {
+        font-size: 16px;
+        text-align: center;
+    }
+    
+}
