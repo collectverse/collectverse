@@ -1,0 +1,24 @@
+# Ignora diretórios
+node_modules/
+sessions/
+
+# ignora arquivos
+.env
+
+# Ignora todos os tipos de imagens nas pastas de uploads, exceto default.png
+/public/uploads/user/banners/*.jpg
+/public/uploads/user/banners/*.jpeg
+/public/uploads/user/banners/*.gif
+/public/uploads/user/perfils/*.jpg
+/public/uploads/user/perfils/*.jpeg
+/public/uploads/user/perfils/*.gif
+
+# Ignora todos os tipos de imagens nas pastas de uploads, exceto default.png
+/public/uploads/publication/images/*.jpg
+/public/uploads/publication/images/*.jpeg
+/public/uploads/publication/images/*.gif
+
+# Exceções
+!/public/uploads/user/banners/default.png
+!/public/uploads/user/perfils/default.png
+!/public/uploads/publication/images/
