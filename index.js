@@ -17,7 +17,7 @@ const app = express();
 app.set('view engine', 'ejs');
 
 // arquivos estaticos
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Configurando o middleware para parsing
