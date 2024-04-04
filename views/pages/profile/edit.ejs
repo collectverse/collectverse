@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="/stylesheet/profile/style.css">
 
-<%- include("../../partials/header") %>
+<%- include("../../partials/header.ejs") %>
 
     <main>
         <section>
@@ -20,14 +20,14 @@
                                 <section class="image-edit">
                                     <img class="perfil" src="/uploads/user/perfils/<%= user.perfil %>"
                                         alt="Foto de perfil de <%= user.name %>">
-                                    <%- include("../../partials/input/files", {name: "perfil" }) %>
+                                    <%- include("../../partials/input/files.ejs", {name: "perfil" }) %>
                                 </section>
                             </section>
                             <section class="input-control-files control-banner">
                                 <section class="image-edit">
                                     <img class="banner" src="/uploads/user/banners/<%= user.banner %>"
                                         alt="Banner de perfil de <%= user.name %>">
-                                    <%- include("../../partials/input/files", {name: "banner" }) %>
+                                    <%- include("../../partials/input/files.ejs", {name: "banner" }) %>
                                 </section>
                             </section>
                         </section>

@@ -14,7 +14,7 @@
             <input type="text" name="message" placeholder="O Que está rolando?" required maxlength="600">
             <section class="button-container">
                 <section class="actions-container">
-                    <%- include("../input/files", {name: "image"}) %>
+                    <%- include("../input/files.ejs", {name: "image"}) %>
                 </section>
                 <input title="<%= locals.userid ? 'Publicar' : 'Entre em uma conta.' %>" class="<%= locals.userid ? 'submit' : 'submit-disabled' %>" type="submit" value="Publicar" <%= locals.userid ? '' : 'disabled' %>>
             </section>

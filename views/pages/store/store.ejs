@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="/stylesheet/store/style.css">
 
-<%- include("../../partials/header") %>
+<%- include("../../partials/header.ejs") %>
 <main>
 
     <section class="poster-highlights">
@@ -14,7 +14,7 @@
 
                 <% highlights.forEach((user) => { %>
         
-                    <%- include("../../partials/card/poster", {user: user}) %>
+                    <%- include("../../partials/card/poster.ejs", {user: user}) %>
         
                 <% }) %>
         

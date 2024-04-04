@@ -1,20 +1,20 @@
 <link rel="stylesheet" href="/stylesheet/profile/style.css">
 
-<%- include("../../partials/header") %>
+<%- include("../../partials/header.ejs") %>
 
 <main>
     <!-- banner de perfil -->
-    <%- include("../../partials/card/profile", { profile }) %>
+    <%- include("../../partials/card/profile.ejs", { profile }) %>
 
     <!-- form -->
     <% if (locals.userid === profile.id) { %>
-        <%- include("../../partials/card/publish") %>
+        <%- include("../../partials/card/publish.ejs") %>
     <% } %>
 
     <section class="container-publications">
         <% publications.forEach(function(publication) { %>
             <!-- Include do HTML da publicação -->
-            <%- include("../../partials/card/publication", {publication: publication}) %>
+            <%- include("../../partials/card/publication.ejs", {publication: publication}) %>
         <% }); %>
     </section>
 </main>

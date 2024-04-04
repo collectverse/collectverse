@@ -1,4 +1,4 @@
-const connection = require("../schema/connection");
+const connection = require("../schema/connection.js");
 const bcrypt = require("bcryptjs");
 const itIsEmail = /S+@S+.S+/;
 const wasSpecialCharacters = /[^a-zA-Z0-9]/;
@@ -34,7 +34,7 @@ module.exports = class SignController {
             return res.redirect("/")
         }
 
-        res.render("layouts/main", { router: "../pages/sign/signIn" });
+        res.render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs" });
     }
     static async makeSignIn(req, res) {
         const { email, password } = req.body;
@@ -43,10 +43,10 @@ module.exports = class SignController {
 
         if (itIsEmail.test(email)) {
             req.flash("msg", errorMessages.INVALID_EMAIL);
-            return res.render("layouts/main", { router: "../pages/sign/signIn", error: req.flash("msg") });
+            return res.render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs", error: req.flash("msg") });
         } else if (email.length === 0) {
             req.flash("msg", errorMessages.EMPTY_EMAIL);
-            return res.render("layouts/main", { router: "../pages/sign/signIn", error: req.flash("msg") });
+            return res.render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs", error: req.flash("msg") });
         }
 
         // validações back-end: validações com ligação com banco de dados.
@@ -57,7 +57,7 @@ module.exports = class SignController {
 
             if (!(account[0].length > 0)) {
                 req.flash("msg", errorMessages.EMAIL_NOT_IN_USE);
-                return res.render("layouts/main", { router: "../pages/sign/signIn", error: req.flash("msg") });
+                return res.render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs", error: req.flash("msg") });
             }
 
             // verificar se as senhas conheecidem
@@ -66,7 +66,7 @@ module.exports = class SignController {
 
             if (!passwordMatch) {
                 req.flash('msg', errorMessages.INCORRECT_PASSWORD);
-                return res.render("layouts/main", { router: "../pages/sign/signIn", error: req.flash("msg") });
+                return res.render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs", error: req.flash("msg") });
             }
 
             req.session.userid = account[0][0].id
@@ -89,7 +89,7 @@ module.exports = class SignController {
             return res.redirect("/")
         }
 
-        res.render("layouts/main", { router: "../pages/sign/signUp" });
+        res.render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs" });
     }
     static async makeSignUp(req, res) {
         const { email, name, password } = req.body;
@@ -98,26 +98,26 @@ module.exports = class SignController {
 
         if (itIsEmail.test(email)) {
             req.flash("msg", errorMessages.INVALID_EMAIL);
-            return res.render("layouts/main", { router: "../pages/sign/signUp", error: req.flash("msg") });
+            return res.render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
         } else if (email.length === 0) {
             req.flash("msg", errorMessages.EMPTY_EMAIL);
-            return res.render("layouts/main", { router: "../pages/sign/signUp", error: req.flash("msg") });
+            return res.render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
         }
         if (name.length === 0) {
             req.flash("msg", errorMessages.EMPTY_USERNAME);
-            return res.render("layouts/main", { router: "../pages/sign/signUp", error: req.flash("msg") });
+            return res.render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
         }
         if (wasSpecialCharacters.test(password)) {
             req.flash("msg", errorMessages.NO_SPECIAL_CHARACTERS);
-            return res.render("layouts/main", { router: "../pages/sign/signUp", error: req.flash("msg") });
+            return res.render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
         }
         if (password.length < 8) {
             req.flash("msg", errorMessages.WEAK_PASSWORD);
-            return res.render("layouts/main", { router: "../pages/sign/signUp", error: req.flash("msg") });
+            return res.render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
         }
         if (password.length > 64) {
             req.flash("msg", errorMessages.LIMIT_PASSWORD);
-            return res.render("layouts/main", { router: "../pages/sign/signUp", error: req.flash("msg") });
+            return res.render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
         }
 
         // validações back-end: validações com ligação com banco de dados.
@@ -129,11 +129,11 @@ module.exports = class SignController {
 
             if (emailWasInDb[0].length > 0) {
                 req.flash("msg", errorMessages.EMAIL_IN_USE);
-                return res.render("layouts/main", { router: "../pages/sign/signUp", error: req.flash("msg") });
+                return res.render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
             }
             if (nameWasInDb[0].length > 0) {
                 req.flash("msg", errorMessages.USERNAME_IN_USE);
-                return res.render("layouts/main", { router: "../pages/sign/signUp", error: req.flash("msg") });
+                return res.render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
             }
 
             // criptografando a senha do usuário.
@@ -154,7 +154,7 @@ module.exports = class SignController {
 
             if(userWasTableFollows && userWasTableFollows[0].length > 0) {
                 req.flash("msg", errorMessages.INTERNAL_ERROR);
-                return res.render("layouts/main", { router: "../pages/sign/signUp", error: req.flash("msg") });
+                return res.render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
             }
             await connection.query("INSERT INTO follows (UserId, followers, following, createdAt, updatedAt) VALUES (?, ?, ?, now(), now())", [id, "[]", "[]"]);
             req.session.userid = id;

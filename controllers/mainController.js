@@ -1,4 +1,4 @@
-const connection = require("../schema/connection");
+const connection = require("../schema/connection.js");
 const successMessages = {
     CREATED_PUBLISH: 'Publicação feita com sucesso.',
     DELETE_PUBLISH: "Publicação excluida com sucesso."
@@ -21,7 +21,7 @@ module.exports = class MainController {
         // destaques
         const highlights = await connection.query("SELECT users.id, users.name, users.perfil, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId ORDER BY follows.followers DESC LIMIT 3");
 
-        res.render("layouts/main", { router: "../pages/home/home", publications: publications[0], user: account[0][0], highlights: highlights[0] });
+        res.render("layouts/main.ejs", { router: "../pages/home/home.ejs", publications: publications[0], user: account[0][0], highlights: highlights[0] });
     }
     static async publish(req, res) {
         let publishImagePath = null;
@@ -134,7 +134,7 @@ module.exports = class MainController {
         const publication = await connection.query("SELECT publications.*, users.name, users.perfil FROM publications INNER JOIN users ON publications.UserId = users.id WHERE publications.id = ? ORDER BY publications.createdAt DESC", [id]);
 
         if(!(publication[0].length > 0)) {
-            return res.status(404).render("layouts/notFound");
+            return res.status(404).render("layouts/notFound.ejs");
         }
 
         const publications = await connection.query("SELECT publications.*, users.name, users.perfil FROM publications INNER JOIN users ON publications.UserId = users.id WHERE publications.parentId = ? ORDER BY publications.createdAt DESC", [id]);
@@ -146,6 +146,6 @@ module.exports = class MainController {
             return res.redirect("/");
         }
 
-        res.render("layouts/main", { router: "../pages/home/publication", publication: publication[0][0], publications: publications[0], user: account[0][0] });
+        res.render("layouts/main", { router: "../pages/home/publication.ejs", publication: publication[0][0], publications: publications[0], user: account[0][0] });
     }
 }

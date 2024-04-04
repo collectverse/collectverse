@@ -1,18 +1,18 @@
 <link rel="stylesheet" href="/stylesheet/home/style.css">
 
-<%- include("../../partials/header") %>
+<%- include("../../partials/header.ejs") %>
 
 <main>
-    <%- include("../../partials/card/publication", {publication: publication}) %>
+    <%- include("../../partials/card/publication.ejs", {publication: publication}) %>
 
     <br>
 
     <section class="default-card comments-card">
-        <%- include("../../partials/card/publish", { inComment: true, publication: publication }) %>
+        <%- include("../../partials/card/publish.ejs", { inComment: true, publication: publication }) %>
         <% if (publications && publications.length > 0) { %>
             <% publications.forEach(function(publication) { %>
             <!-- Include do HTML da publicação -->
-            <%- include("../../partials/card/publication", { publication: publication }) %>
+            <%- include("../../partials/card/publication.ejs", { publication: publication }) %>
             <br>
             <% }); %>
         <% } else { %>

@@ -1,27 +1,27 @@
 <link rel="stylesheet" href="/stylesheet/home/style.css">
 
-<%- include("../../partials/header") %>
+<%- include("../../partials/header.ejs") %>
 <main>
     
     <section class="main-home">
         <section class="responsive-itens-home">
 
             <% if (locals.userid) { %>
-                <%- include("../../partials/card/user") %>
+                <%- include("../../partials/card/user.ejs") %>
             <% } %>
             <!-- recomendações -->
-            <%- include("../../partials/card/highlights") %>
+            <%- include("../../partials/card/highlights.ejs") %>
 
         </section>
     
         <section class="main-content">
-            <%- include("../../partials/card/publish") %>
+            <%- include("../../partials/card/publish.ejs") %>
     
             <section class="container-publications">
                 <% if (publications && publications.length > 0) { %>
                     <% publications.forEach(function(publication) { %>
                     <!-- Include do HTML da publicação -->
-                    <%- include("../../partials/card/publication", { publication: publication }) %>
+                    <%- include("../../partials/card/publication.ejs", { publication: publication }) %>
                     <% }); %>
                 <% } else { %>
                     <p class="not-publications-founds">Nenhuma publicação encontrada.</p>

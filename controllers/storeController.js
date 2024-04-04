@@ -1,4 +1,4 @@
-const connection = require("../schema/connection");
+const connection = require("../schema/connection.js");
 
 module.exports = class MainController {
     static async store(req, res) {
@@ -8,6 +8,6 @@ module.exports = class MainController {
         // destaques
         const highlights = await connection.query("SELECT id, name, perfil, banner FROM users LIMIT 3");
 
-        res.render("layouts/main", {router: "../pages/store/store", user: account[0][0], highlights: highlights[0] })
+        res.render("layouts/main.ejs", {router: "../pages/store/store.ejs", user: account[0][0], highlights: highlights[0] })
     }
 }

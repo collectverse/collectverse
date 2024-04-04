@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const signController = require('../controllers/signController');
+const signController = require('../controllers/signController.js');
 
 router.get('/in', signController.signIn);
 router.post('/makeSignIn', signController.makeSignIn);

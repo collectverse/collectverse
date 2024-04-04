@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const signController = require('../controllers/storeController');
+const signController = require('../controllers/storeController.js');
 
 router.get('/', signController.store);
 

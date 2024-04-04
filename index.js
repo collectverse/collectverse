@@ -53,23 +53,23 @@ app.use((req, res, next) => {
 
 // rotas
 
-const MainRoutes = require("./routes/mainRoutes");
-const ProfileRoutes = require("./routes/profileRoutes");
-const SignRoutes = require("./routes/signRoutes");
-// const StoreRoutes = require("./routes/StoreRoutes");
+const MainRoutes = require("./routes/mainRoutes.js");
+const ProfileRoutes = require("./routes/profileRoutes.js");
+const SignRoutes = require("./routes/signRoutes.js");
+const StoreRoutes = require("./routes/storeRoutes.js");
 
 app.use("/", MainRoutes);
 app.use("/profile", ProfileRoutes);
 app.use("/sign", SignRoutes);
-// app.use("/store", StoreRoutes);
+app.use("/store", StoreRoutes);
 
 app.get('/', (req, res) => {
-    res.render('layouts/main', req.query);
+    res.render('layouts/main.ejs', req.query);
 });
 
 // Middleware para tratar erros 404 (recurso não encontrado)
 app.use((req, res, next) => {
-    res.status(404).render("layouts/notFound");
+    res.status(404).render("layouts/notFound.ejs");
 });
 
 // Iniciando o servidor

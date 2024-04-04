@@ -1,7 +1,7 @@
 // Arquivo index.js
 require('dotenv').config();
 
-const connection = require("../schema/connection");
+const connection = require("../schema/connection.js");
 
 const recreateDatabase = true; // Defina como true para recriar o banco de dados e excluir todos os dados
 

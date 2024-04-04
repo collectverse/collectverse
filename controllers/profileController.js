@@ -1,4 +1,4 @@
-const connection = require("../schema/connection");
+const connection = require("../schema/connection.js");
 const bcrypt = require("bcryptjs");
 const itIsEmail = /S+@S+.S+/;
 const wasSpecialCharacters = /[^a-zA-Z0-9]/;
@@ -28,12 +28,12 @@ module.exports = class ProfileController {
         const session = await connection.query("SELECT id, name, email, perfil, banner, biography FROM users WHERE id = ?", [req.session.userid]);
 
         if (!(account[0].length > 0)) {
-            return res.status(404).render("layouts/notFound");
+            return res.status(404).render("layouts/notFound.ejs");
         }
         // consulta de publicações do usuário
         const publications = await connection.query("SELECT publications.* , users.name, users.perfil FROM publications INNER JOIN users ON publications.UserId = users.id WHERE users.id = ? ORDER BY createdAt DESC", [id]);
 
-        res.render("layouts/main", { router: "../pages/profile/profile", publications: publications[0], user: session[0][0], profile: account[0][0] });
+        res.render("layouts/main.ejs", { router: "../pages/profile/profile.ejs", publications: publications[0], user: session[0][0], profile: account[0][0] });
     }
     static async edit(req, res) {
         const id = req.params.id;
@@ -48,7 +48,7 @@ module.exports = class ProfileController {
             return res.redirect("/");
         }
 
-        res.render("layouts/main", { router: "../pages/profile/edit", user: account[0][0] });
+        res.render("layouts/main.ejs", { router: "../pages/profile/edit.ejs", user: account[0][0] });
     }
     static async makeEdit(req, res) {
         // editar perfil

@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const storage = require("../helpers/storage")
+const storage = require("../helpers/storage.js")
 const upload = storage;
-const MainController = require('../controllers/mainController');
+const MainController = require('../controllers/mainController.js');
 
 router.get("/", MainController.home);
 router.post("/publish", upload.fields([{ name: "image", maxCount: 1 }]), MainController.publish);
