@@ -12,9 +12,15 @@
     <% } %>
 
     <section class="container-publications">
-        <% publications.forEach(function(publication) { %>
-            <!-- Include do HTML da publicação -->
-            <%- include("../../partials/card/publication.ejs", {publication: publication}) %>
-        <% }); %>
+        <% if(publications && publications.length > 0) { %>
+
+            <% publications.forEach(function(publication) { %>
+                <!-- Include do HTML da publicação -->
+                <%- include("../../partials/card/publication.ejs", {publication: publication}) %>
+            <% }); %>
+
+        <% } else { %>
+            <p class="not-publications-founds">Nenhuma publicação encontrada.</p>
+        <% } %>
     </section>
 </main>
