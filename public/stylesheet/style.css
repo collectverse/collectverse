@@ -402,6 +402,10 @@ hr {
 
 /* 3 dots icon */
 
+.more-icon {
+    position: relative;
+}
+
 .more-icon i {
     border-radius: 8px;
     padding: 0.4rem 0.5rem;
@@ -569,6 +573,10 @@ hr {
     border-radius: 8px;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.065);
     right: 0px;
+    top: 2.5rem;
+}
+
+.header .dropdown-content {
     top: 3.5rem;
 }
 

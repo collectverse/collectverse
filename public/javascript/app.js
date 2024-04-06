@@ -33,16 +33,21 @@ if(perfil && dropdown) {
 
 // menu itens
 
-const dots = document.querySelector(".more-icon");
-const men = document.querySelector(".more-icon .dropdown-content");
+const dots = document.querySelectorAll(".more-icon");
 
-if(dots && men) {
-    const d = () => {
-        men.classList.toggle("onBlock")
-    }
+if (dots.length > 0) {
+    const d = (event) => {
+        const dot = event.currentTarget;
+        const menu = dot.querySelector(".dropdown-content");
+        
+        // Verifica se o menu existe antes de tentar alterar seu estilo
+        if (menu) {
+            menu.classList.toggle("onBlock");
+        }
+    };
 
-    dots.addEventListener("click", d);
-};
+    dots.forEach((dot) => dot.addEventListener("click", d));
+}
 
 // previw de imagens
 
