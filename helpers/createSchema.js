@@ -60,8 +60,7 @@ async function createSchema() {
         updatedAt datetime NOT NULL,
         UserId int(11) DEFAULT NULL,
         PRIMARY KEY (id),
-        KEY UserId (UserId),
-        CONSTRAINT publications_ibfk_1 FOREIGN KEY (UserId) REFERENCES users (id) ON DELETE SET NULL ON UPDATE CASCADE
+        FOREIGN KEY (UserId) REFERENCES users(id)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;`,
 
             `CREATE TABLE IF NOT EXISTS carts (
@@ -71,8 +70,7 @@ async function createSchema() {
         updatedAt datetime NOT NULL,
         UserId int(11) DEFAULT NULL,
         PRIMARY KEY (id),
-        KEY UserId (UserId),
-        CONSTRAINT carts_ibfk_1 FOREIGN KEY (UserId) REFERENCES users (id) ON DELETE SET NULL ON UPDATE CASCADE
+        FOREIGN KEY (UserId) REFERENCES users(id),
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;`
         ];
 

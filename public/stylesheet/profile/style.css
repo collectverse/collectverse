@@ -174,3 +174,8 @@
     color: #ffffff;
     font-weight: bold;
 }
+
+.text-and-input .text span {
+    color: #676767;
+    font-size: 12px;
+}

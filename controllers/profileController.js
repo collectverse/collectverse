@@ -16,7 +16,7 @@ const errorMessages = {
     NO_MATCH_PASSWORDS: 'As senhas não conhecidem.',
     NO_CORRECT_PASSWORDS: 'Senha atual incorreta.',
     ALTERED_PASSWORD: 'Senha alterada com sucesso.',
-    NO_SPECIAL_CHARACTERS: 'A senha deve conter caracteres especiais(!@#$)',
+    NO_SPECIAL_CHARACTERS: 'A senha deve  incluir letras maiúsculas, minúsculas, números e caracteres especiais.',
     DELETED_ACCOUNT: 'Conta deletada com sucesso.'
 };
 
@@ -123,11 +123,13 @@ module.exports = class ProfileController {
 
         // validações front-end: validações sem ligação com banco de dados.
 
-        if (wasSpecialCharacters.test(newPassword)) {
+        // Verifica se a senha não possui caracteres especiais
+        if (!wasSpecialCharacters.test(newPassword)) {
             req.flash("msg", errorMessages.NO_SPECIAL_CHARACTERS);
             return res.redirect(`/profile/${id}/edit`)
         }
-        if (newPassword.length < 8) {
+
+        if (newPassword.length < 6) {
             req.flash("msg", errorMessages.WEAK_PASSWORD);
             return res.redirect(`/profile/${id}/edit`)
         }
@@ -183,6 +185,8 @@ module.exports = class ProfileController {
 
         try {
             // exclui o comentário
+            await connection.query("DELETE FROM publications WHERE userId = ?", [id]);
+            await connection.query("DELETE FROM follows WHERE userId = ?", [id]);
             await connection.query("DELETE FROM users WHERE id = ?", [id]);
             req.flash("msg", successMessages.DELETED_ACCOUNT);
             req.session.destroy();

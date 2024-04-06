@@ -17,7 +17,7 @@ const errorMessages = {
     LIMIT_PASSWORD: 'A senha não deve ter mais de 64 caracteres',
     INCORRECT_PASSWORD: 'A senha está incorreta.',
     INTERNAL_ERROR: 'Erro interno do servidor.',
-    NO_SPECIAL_CHARACTERS: 'A senha deve conter caracteres especiais(!@#$)'
+    NO_SPECIAL_CHARACTERS: 'A senha deve  incluir letras maiúsculas, minúsculas, números e caracteres especiais.'
 };
 
 function validateEmail(email) {
@@ -107,7 +107,7 @@ module.exports = class SignController {
             req.flash("msg", errorMessages.EMPTY_USERNAME);
             return res.render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
         }
-        if (wasSpecialCharacters.test(password)) {
+        if (!wasSpecialCharacters.test(password)) {
             req.flash("msg", errorMessages.NO_SPECIAL_CHARACTERS);
             return res.render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
         }

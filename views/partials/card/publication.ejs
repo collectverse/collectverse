@@ -73,10 +73,14 @@ const diffYears = Math.floor(diffMonths / 12);
         <form action="/likePublication" method="post" class="item-publication like-publication">
             <input type="hidden" name="id" value="<%= publication.id %>">
             <button type="submit" aria-label="Curtir publicação" <%= locals.userid ? '' : 'disabled' %>>
-                <% if (publication.likedByUsersIds && publication.likesByUsersIds.includes(locals.userid)) { %>
-                    <i class="bi bi-heart-fill liked"></i>
-                <% } else { %>
-                    <i class="bi bi-heart-fill"></i>
+                <% if(publication) { %>
+
+                    <% if (publication.likesByUsersIds.includes(locals.userid)) { %>
+                        <i class="bi bi-heart-fill liked"></i>
+                    <% } else { %>
+                        <i class="bi bi-heart-fill"></i>
+                    <% } %>
+
                 <% } %>
                 <span><%= publication.likes %></span>
             </button>

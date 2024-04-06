@@ -59,7 +59,7 @@ module.exports = class MainController {
             // cria o comentário no banco de dados.
             const parentId = req.body.parentId || 0;
 
-            await connection.query("INSERT INTO publications (text, userId, image, parentId, createdAt, updatedAt) VALUES (?, ?, ?, ?, now(), now())", [message, user, publishImagePath, parentId]);
+            await connection.query("INSERT INTO publications (text, userId, image, likesByUsersIds ,parentId, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, now(), now())", [message, user, publishImagePath, '[]',parentId]);
 
             req.flash("msg", successMessages.CREATED_PUBLISH);
             res.redirect("/");

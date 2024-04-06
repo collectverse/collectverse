@@ -48,6 +48,12 @@ hr {
     margin: 1rem 0;
 }
 
+/* js */
+
+.onBlock {
+    display: block !important;
+}
+
 /* header */
 
 .header {
@@ -563,7 +569,7 @@ hr {
     border-radius: 8px;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.065);
     right: 0px;
-    top: 28px;
+    top: 3.5rem;
 }
 
 .dropdown-content a {
@@ -576,9 +582,9 @@ hr {
     background-color: #0057b30c;
 }
 
-.dropdown:hover .dropdown-content {
+/* .dropdown:hover .dropdown-content {
     display: block;
-}
+} */
 
 .dropbtn {
     transition: background 500ms linear;

@@ -5,10 +5,19 @@
     </section>
 
     <section>
-        <% if (highlights.length > 0) { %>
+        <% if (highlights && highlights.length > 0) { %>
 
-            <% highlights.forEach((user) => { %>
+            <% 
+            highlights = highlights.map(user => {
+                return {
+                    ...user,
+                    followers: JSON.parse(user.followers).length
+                };
+            });
 
+            highlights.sort((a, b) => b.followers - a.followers);
+
+            highlights.forEach(user => { %>
                 <a href="/profile/<%= user.id %>" aria-label="Ir para a página de ver perfil do usuário criador do Comentário">
                     <section class="user-info">
                         <section class="perfil">
@@ -16,12 +25,12 @@
                         </section>
                         <section class="text informations-card">
                             <h2><%= user.name %></h2>
-                            <span><%= JSON.parse(user.followers).length %> seguidores</span>
+                            <span><%= user.followers %> seguidores</span>
                         </section>
                     </section>
                 </a>
-    
             <% }) %>
+
 
         <% } else { %>
 
