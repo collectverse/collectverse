@@ -70,7 +70,7 @@ async function createSchema() {
         updatedAt datetime NOT NULL,
         UserId int(11) DEFAULT NULL,
         PRIMARY KEY (id),
-        FOREIGN KEY (UserId) REFERENCES users(id),
+        FOREIGN KEY (UserId) REFERENCES users(id)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;`
         ];
 
