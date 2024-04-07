@@ -1,5 +1,8 @@
 <link rel="stylesheet" href="/stylesheet/profile/style.css">
 
+<!-- jquery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+
 <%- include("../../partials/header.ejs") %>
 
     <main>
@@ -47,7 +50,8 @@
                         <section class="input-control">
                             <label for="biography">biografia</label>
                             <input type="text" name="biography" value="<%= user.biography %>" required maxlength="80">
-                            <span>Sua biografia é publica, porem, você pode altera-lo a qualquer momento.<br>max:80 caracteres</span>
+                            <span>Sua biografia é publica, porem, você pode altera-lo a qualquer momento.<br>max:80
+                                caracteres</span>
                         </section>
                     </section>
 
@@ -69,11 +73,13 @@
                         <!-- senhas -->
                         <section class="input-control">
                             <label for="oldPassoword">Sua senha atual.</label>
-                            <input type="password" name="oldPassoword" placeholder="Digite a senha atual." required maxlength="255">
+                            <input type="password" name="oldPassoword" placeholder="Digite a senha atual." required
+                                maxlength="255">
                         </section>
                         <section class="input-control">
                             <label for="newPassword">Nova senha.</label>
-                            <input type="password" name="newPassword" placeholder="Digite sua nova senha." required maxlength="255">
+                            <input type="password" name="newPassword" placeholder="Digite sua nova senha." required
+                                maxlength="255">
                             <span>A senha para o login deve ter pelo menos 6 caracteres e incluir letras maiúsculas,
                                 minúsculas, números e caracteres especiais.</span>
                         </section>
@@ -105,7 +111,8 @@
                             <section class="text">
                                 <h3>Deletar esta conta.</h3>
                                 <p>Ao deletar a conta, não será possivel a ter de volta, esteje certo disto.</p>
-                                <span>É importante destacar que toda e qualquer interação relacionada ao perfil será desfeita: comentários entre outros dados.</span>
+                                <span>É importante destacar que toda e qualquer interação relacionada ao perfil será
+                                    desfeita: comentários entre outros dados.</span>
                             </section>
                             <section class="input">
                                 <input type="submit" value="Deletar conta.">

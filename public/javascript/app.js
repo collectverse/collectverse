@@ -1,3 +1,4 @@
+// js
 // alertas
 
 function closeAlert(alertId) {
@@ -71,6 +72,15 @@ if (dots.length > 0) {
     dots.forEach((dot) => dot.addEventListener("click", d));
 }
 
+// categorias da loja
+
+function handleChange(select) {
+    const category = select.value;
+    window.location.href = '/store?category=' + category;
+}
+
+// jquery
+
 // previw de imagens
 
 function previewImage(input, imageClass) {
@@ -84,10 +94,3 @@ function previewImage(input, imageClass) {
         reader.readAsDataURL(input.files[0]); // convert to base64 string
     }
 };
-
-// categorias da loja
-
-function handleChange(select) {
-    const category = select.value;
-    window.location.href = '/store?category=' + category;
-}

@@ -71,6 +71,19 @@ async function createSchema() {
         UserId int(11) DEFAULT NULL,
         PRIMARY KEY (id),
         FOREIGN KEY (UserId) REFERENCES users(id)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;`,
+
+            `CREATE TABLE IF NOT EXISTS shop (
+        id int(11) NOT NULL AUTO_INCREMENT,
+        name VARCHAR(24),
+        description TEXT,
+        rarity VARCHAR(12),
+        price DECIMAL(6,2) NOT NULL,
+        path VARCHAR(24) NOT NULL,
+        onwer VARCHAR(16),
+        createdAt datetime NOT NULL,
+        updatedAt datetime NOT NULL,
+        PRIMARY KEY (id)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;`
         ];
 

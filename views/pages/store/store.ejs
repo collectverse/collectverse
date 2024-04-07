@@ -1,5 +1,9 @@
 <link rel="stylesheet" href="/stylesheet/store/style.css">
 
+<!-- model viewer -->
+
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js" defer></script>
+
 <%- include("../../partials/header.ejs") %>
 <main>
 
@@ -51,6 +55,26 @@
                     </ul>
                 </section>
             </section>
+
+        </section>
+
+        <!-- feed -->
+
+        <section class="feed-itens">
+            
+            <% if (shop.length > 0) { %>
+
+                <% shop.forEach((product) => { %>
+        
+                    <%- include("../../partials/card/forbuy.ejs", {product: product}) %>
+        
+                <% }) %>
+        
+            <% } else { %>
+        
+                <span>Sem collecionaveis no feed.</span>
+        
+            <% } %>
 
         </section>
 
