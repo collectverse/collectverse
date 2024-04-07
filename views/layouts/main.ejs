@@ -63,29 +63,39 @@
 
     <!-- mensagem flash -->
 
-    <% if (typeof error !=='undefined' && error.length> 0) { %>
-        <section class="alert alert-danger" role="alert">
-            <%= error %>
-        </section>
-        <% } %>
+    <% if (typeof error !== 'undefined' && error.length > 0) { %>
+        <div class="noty_bar noty_error">
+            <div class="noty_body">
+                <%= error %>
+            </div>
+            <div class="noty_progressbar" style="width: 70%;"></div>
+        </div>
+    <% } %>
 
-            <% if (typeof success !=='undefined' && success.length> 0) { %>
-                <section class="alert alert-success" role="alert">
-                    <%= success %>
-                </section>
-                <% } %>
+    <% if (typeof success !== 'undefined' && success.length > 0) { %>
+        <div class="noty_bar noty_success">
+            <div class="noty_body">
+                <%= success %>
+            </div>
+            <div class="noty_progressbar" style="width: 70%;"></div>
+        </div>
+    <% } %>
 
-                    <% if (msg.length> 0) { %>
-                        <section class="alert" role="alert">
-                            <%= msg %>
-                        </section>
-                        <% } %>
+    <% if (msg.length > 0) { %>
+        <div class="noty_bar">
+            <div class="noty_body">
+                <%= msg %>
+            </div>
+            <div class="noty_progressbar" style="width: 70%;"></div>
+        </div>
+    <% } %>
+    
 
-                            <!-- paginas -->
+    <!-- paginas -->
 
-                            <%- include(router) %>
+    <%- include(router) %>
 
-                                <script src="/javascript/app.js"></script>
+    <script src="/javascript/app.js"></script>
 </body>
 
 </html>

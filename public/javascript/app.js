@@ -1,3 +1,23 @@
+// alertas
+
+function closeAlert(alertId) {
+    const Element = document.getElementById(alertId);
+    if (Element) {
+        Element.style.display = 'none';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const progressBar = document.querySelector('.noty_progressbar');
+    const alertBox = document.querySelector('.noty_bar');
+
+    if (progressBar && alertBox) {
+        progressBar.addEventListener('animationend', function () {
+            alertBox.remove();
+        });
+    }
+});
+
 // menu
 
 const button = document.querySelector(".li-menu .menu");
@@ -5,7 +25,9 @@ const menu = document.querySelector(".responsive-itens-home");
 const boby = document.querySelector("body");
 
 if (!menu) {
-    button.remove();
+    if(button) {
+        button.remove();
+    }
 } else {
     const e = () => {
 
@@ -23,7 +45,7 @@ if (!menu) {
 const perfil = document.querySelector(".li-dropdown-header .dropdown");
 const dropdown = document.querySelector(".dropdown-content");
 
-if(perfil && dropdown) {
+if (perfil && dropdown) {
     const f = () => {
         dropdown.classList.toggle("onBlock")
     }
@@ -39,7 +61,7 @@ if (dots.length > 0) {
     const d = (event) => {
         const dot = event.currentTarget;
         const menu = dot.querySelector(".dropdown-content");
-        
+
         // Verifica se o menu existe antes de tentar alterar seu estilo
         if (menu) {
             menu.classList.toggle("onBlock");
@@ -54,11 +76,18 @@ if (dots.length > 0) {
 function previewImage(input, imageClass) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
-        
-        reader.onload = function(e) {
+
+        reader.onload = function (e) {
             $('.' + imageClass).attr('src', e.target.result);
         }
-        
+
         reader.readAsDataURL(input.files[0]); // convert to base64 string
     }
 };
+
+// categorias da loja
+
+function handleChange(select) {
+    const category = select.value;
+    window.location.href = '/store?category=' + category;
+}

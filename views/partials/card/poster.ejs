@@ -1,8 +1,8 @@
-<div class="default-card poster-card">
+<a href="/profile/<%= user.id %>" class="default-card poster-card">
 
     <section class="user-profile-infos">            
         <img class="user-banner" src="/uploads/user/banners/<%= user.banner %>" alt="banner de perfil do usuário.">
-        <section>
+        <section class="user-info">
             <section class="perfil">
                 <img class="user-profile perfil" src="/uploads/user/perfils/<%= user.perfil %>" alt="foto de perfil do usuário.">
             </section>
@@ -10,18 +10,20 @@
                 <h3><%= user.name %></h3>
             </section>
         </section>
-        <section>
+        <section class="form">
             <% if (!(locals.userid === user.id)) { %>
                 <form action="/profile/follows" method="post">
                     <input type="hidden" name="id" value="<%= user.id %>">
-                    <% if (user.followers && user.followers.includes(user.id)) { %>
+                    <% if (user.followers && user.followers.includes(locals.userid)) { %>
                         <button type="submit" class="unfollowbtn"><i class="bi bi-person-dash"></i> Deixar de seguir</button>
                     <% } else { %>
                         <button type="submit" class="followbtn"><i class="bi bi-person-check"></i> Seguir</button>
                     <% } %>
                 </form>
-            <% } %>
+            <% } else { %>
+                <span>Você</span>
+            <% }  %>
         </section>
     </section>  
 
-</div>
+</a>

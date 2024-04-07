@@ -8,7 +8,7 @@
             <h2>Usuários destaque.</h2>
             <p>Usuários que se destacaram em sua coleção.</p>
         </section>
-        <section>
+        <section class="highlights-container">
 
             <% if (highlights.length > 0) { %>
 
@@ -25,6 +25,35 @@
             <% } %>
 
         </section>
+    </section>
+
+    <!-- feed -->
+
+    <section class="store-feed">
+
+        <section class="top-for-feed">
+            <section>
+                <h2>Feed</h2>
+            </section>
+            <section class="container-navs">
+                <section class="nav">
+                    
+                    <select onchange="handleChange(this)">
+                        <option value="all" <%= category === 'all' ? 'selected' : '' %>>Todos</option>
+                        <option value="new" <%= category === 'new' ? 'selected' : '' %>>Novo</option>
+                        <option value="best" <%= category === 'best' ? 'selected' : '' %>>Melhores</option>
+                    </select>
+                    
+                </section>
+                <section>
+                    <ul class="clear">
+                        <li><a href="/store">Limpar</a></li>
+                    </ul>
+                </section>
+            </section>
+
+        </section>
+
     </section>
 
 </main>

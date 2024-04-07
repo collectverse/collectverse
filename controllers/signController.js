@@ -31,7 +31,7 @@ module.exports = class SignController {
 
         if (alreadyLoggedIn) {
             req.flash("msg", errorMessages.INTERNAL_ERROR);
-            return res.redirect("/")
+            return res.render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs", error: req.flash("msg") });
         }
 
         res.render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs" });
@@ -78,7 +78,7 @@ module.exports = class SignController {
         } catch (error) {
             console.log(error)
             req.flash("msg", errorMessages.INTERNAL_ERROR);
-            return res.redirect("/sign/in");
+            return res.render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs", error: req.flash("msg") });
         }
     }
     static signUp(req, res) {
@@ -166,7 +166,7 @@ module.exports = class SignController {
         } catch (error) {
             console.log(error)
             req.flash("msg", errorMessages.INTERNAL_ERROR);
-            return res.redirect("/sign/up");
+            return res.render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
         }
     }
     static logout(req, res) {

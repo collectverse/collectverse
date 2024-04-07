@@ -60,7 +60,7 @@
 
 .followbtn, .unfollowbtn {
     padding: 0.6rem 2rem;
-    border-radius: 6px;
+    border-radius: 25px;
     color: #ffffff;
     border: none;
 }

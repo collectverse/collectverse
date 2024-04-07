@@ -118,9 +118,36 @@ hr {
     padding-right: 12px;
 }
 
+.navigation-header li {
+    display: flex;
+    align-items: center;
+}
+
 .navigation-header a {
-    color: #202124;
-    font-size: 18px;
+    display: flex;
+    color: #0056b3;
+    font-size: 14px;
+}
+
+
+.navigation-header a span {
+    display: none;
+}
+
+.navigation-header .activated {
+    background: #0057b30f;
+    border-radius: 25px;
+    padding: 0.4rem 0.6rem;
+}
+
+.navigation-header .activated a{
+    display: flex; 
+    gap: 0.5rem;
+    font-size: 14px;
+}
+
+.navigation-header .activated span {
+    display: block;
 }
 
 .sign-button {
@@ -207,44 +234,78 @@ hr {
     }
     
     .menu i{
-        color: #202124;
-        font-size: 20px;
+        color: #0056b3;
+        font-size: 14px;
         cursor: pointer;
     }
 }
 
 /* alert */
 
-.alert {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 1rem 1.8rem;
-    background: #ffffff;
-    border: 1px solid;
-    border-radius: 8px;
-    text-align: center;
-    width: max-content;
-    max-width: 98%;
-    z-index: 12;
+.noty_bar {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    max-width: 360px;
+    width: 85%;
+    box-shadow: 0 20px 16px 0 #00000011;
+    border-radius: 4px;
+    padding: 1rem;
+    background-color: var(--back);
 }
 
-.alert-danger {
-    color: #ff8e8e;
+.noty_body {
+    font-weight: 400;
+    font-size: 14px;
+    color: #202124;
 }
 
-.alert-success {
-    color: #0056b3;
+.noty_progressbar {
+    margin-top: 12px;
+    height: 0.5rem;
+    background-color: #00000014;
+    width: 0;
+    animation: progressBar 3s linear forwards;
+}
+
+.noty_error .noty_progressbar {
+    background-color: #ff55552d;
+}
+
+.noty_success .noty_progressbar {
+    background-color: #0056b32d;
+}
+
+
+@keyframes slideIn {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes progressBar {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
 }
 
 /* images */
 
 .perfil img {
-    width: 52px;
-    height: 52px;
+    width: 48px;
+    height: 48px;
     border-radius: 10px;
     object-fit: cover;
+}
+
+.inPerfil {
+    border: 4px solid #0057b32d;
 }
 
 /* card */
@@ -290,6 +351,11 @@ hr {
 }
 
 @media screen and (max-width: 768px) {
+
+    .noty_bar {
+        right: 50%;
+        transform: translateX(50%);
+    }
     .responsive-itens-home {
         display: none;
         position: absolute;
