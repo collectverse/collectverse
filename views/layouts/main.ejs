@@ -64,30 +64,30 @@
     <!-- mensagem flash -->
 
     <% if (typeof error !== 'undefined' && error.length > 0) { %>
-        <div class="noty_bar noty_error">
-            <div class="noty_body">
+        <section class="noty_bar noty_error">
+            <section class="noty_body">
                 <%= error %>
-            </div>
-            <div class="noty_progressbar" style="width: 70%;"></div>
-        </div>
+            </section>
+            <section class="noty_progressbar" style="width: 70%;"></section>
+        </section>
     <% } %>
 
     <% if (typeof success !== 'undefined' && success.length > 0) { %>
-        <div class="noty_bar noty_success">
-            <div class="noty_body">
+        <section class="noty_bar noty_success">
+            <section class="noty_body">
                 <%= success %>
-            </div>
-            <div class="noty_progressbar" style="width: 70%;"></div>
-        </div>
+            </section>
+            <section class="noty_progressbar" style="width: 70%;"></section>
+        </section>
     <% } %>
 
     <% if (msg.length > 0) { %>
-        <div class="noty_bar">
-            <div class="noty_body">
+        <section class="noty_bar">
+            <section class="noty_body">
                 <%= msg %>
-            </div>
-            <div class="noty_progressbar" style="width: 70%;"></div>
-        </div>
+            </section>
+            <section class="noty_progressbar" style="width: 70%;"></section>
+        </section>
     <% } %>
     
 
