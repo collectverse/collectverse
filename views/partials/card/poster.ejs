@@ -11,7 +11,7 @@
             </section>
         </section>
         <section class="form">
-            <% if (!(locals.userid === user.id)) { %>
+            <% if (!(locals.userid === user.id) && locals.userid) { %>
                 <form action="/profile/follows" method="post">
                     <input type="hidden" name="id" value="<%= user.id %>">
                     <% if (user.followers && user.followers.includes(locals.userid)) { %>
@@ -20,7 +20,7 @@
                         <button type="submit" class="followbtn"><i class="bi bi-person-check"></i> Seguir</button>
                     <% } %>
                 </form>
-            <% } else { %>
+            <% } else if (locals.userid === user.id){ %>
                 <span>Você</span>
             <% }  %>
         </section>

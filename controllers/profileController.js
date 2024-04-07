@@ -6,6 +6,7 @@ const successMessages = {
     EDITED_ACCOUNT: 'Conta editada com sucesso.',
 };
 const errorMessages = {
+    NOT_SESSION: 'É necessário estár em uma conta.',
     INTERNAL_ERROR: 'Erro interno do servidor.',
     INVALID_EMAIL: 'Por favor, insira um endereço de e-mail válido.',
     EMPTY_INPUT: 'Nenhum parametro pode estar vazio.',
@@ -200,6 +201,13 @@ module.exports = class ProfileController {
     static async follows(req, res) {
         const { id } = req.body;
         const userId = req.session.userid;
+
+        console.log(req.session.userId)
+
+        if(!(req.session.userId)) {
+            req.flash("msg", errorMessages.NOT_SESSION);
+            return res.redirect("/sign/In");
+        }
 
         // Verifique se o usuário já segue o perfil
         const profileFollows = await connection.query("SELECT followers FROM follows WHERE UserId = ?", [id]);
