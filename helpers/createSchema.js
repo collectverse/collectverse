@@ -85,7 +85,14 @@ async function createSchema() {
         createdAt datetime NOT NULL,
         updatedAt datetime NOT NULL,
         PRIMARY KEY (id)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;`
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;`,
+
+            `
+            INSERT INTO shop (palette, name, description, rarity, price, path, onwer, createdAt, updatedAt) 
+        VALUES 
+        ('["#4B83F2", "#F0F1F2", "#EAF2AE", "#D98452"]' ,'Amizade caotíoa', 'Conhecendo pessoas, uma experiência verdadeiramente incrível! Em um mundo cada vez mais conectado digitalmente, descobrir novos perfis e interagir com diferentes personalidades é uma aventura única e enriquecedora. A cada usuário que conhecemos, abrimos as portas para novas ideias, perspectivas e oportunidades de aprendizado. Portanto, vamos explorar, conectar e celebrar a diversidade de pessoas que tornam nossa comunidade tão vibrante e especial. Juntos, estamos construindo laços que transcendem fronteiras e enriquecem nossas vidas de maneiras inesperadas e emocionantes.', 'exceptional', 0.000, '0001.glb', 'Seafoam', NOW(), NOW()),
+        ('["#8CA62E", "#F2913D", "#F2441D", "#F2F2F2"]' ,'Sociactus', 'Sociactus tem um temor profundo do mundo lá fora, mas está pronto para se aventurar em sua jornada. Ele procura um parceiro para ajudá-lo a explorar e enfrentar seus medos juntos. Você está pronto para ser esse parceiro?', "legendary", 1200.00, '0002.glb', 'felipegall', NOW(), NOW());
+        `
         ];
 
         // Executa cada query para criar as tabelas
@@ -96,7 +103,7 @@ async function createSchema() {
         console.log('Tabelas criadas com sucesso!');
     } catch (error) {
         console.error('Erro ao criar banco de dados e tabelas:', error);
-    }finally{
+    } finally {
         await connection.end();
     }
 }
