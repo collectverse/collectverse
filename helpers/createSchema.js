@@ -65,7 +65,7 @@ async function createSchema() {
 
             `CREATE TABLE IF NOT EXISTS carts (
         id int(11) NOT NULL AUTO_INCREMENT,
-        itemIds varchar(60) NOT NULL DEFAULT '[]',
+        itemIds TEXT NOT NULL,
         createdAt datetime NOT NULL,
         updatedAt datetime NOT NULL,
         UserId int(11) DEFAULT NULL,
@@ -80,6 +80,7 @@ async function createSchema() {
         rarity VARCHAR(12),
         price DECIMAL(6,2) NOT NULL,
         path VARCHAR(24) NOT NULL,
+        palette TEXT,
         onwer VARCHAR(16),
         createdAt datetime NOT NULL,
         updatedAt datetime NOT NULL,

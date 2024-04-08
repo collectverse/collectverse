@@ -28,6 +28,7 @@ module.exports = class MainController {
 
         // consulta o item
         const item = await connection.query("SELECT * FROM shop WHERE id = ?", [id]);
+        console.log(item)
 
         res.render("layouts/main.ejs", { router: "../pages/store/item.ejs", user: account[0][0], item: item[0][0] });
     }
