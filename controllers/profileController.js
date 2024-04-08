@@ -202,9 +202,7 @@ module.exports = class ProfileController {
         const { id } = req.body;
         const userId = req.session.userid;
 
-        console.log(req.session.userId)
-
-        if(!(req.session.userId)) {
+        if(!(req.session.userid)) {
             req.flash("msg", errorMessages.NOT_SESSION);
             return res.redirect("/sign/In");
         }

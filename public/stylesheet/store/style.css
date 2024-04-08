@@ -88,7 +88,7 @@
     margin-top: 1rem;
 }
 
-.top-for-feed  {
+.top-for-feed {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -145,33 +145,43 @@
 .feed-itens {
     margin-top: 1rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax( calc( 33.33% - 0.5rem ), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(32.4%, 1fr));
     gap: 1rem;
     justify-content: flex-start;
     align-items: center;
 }
 
-@media screen and (max-width: 576px) {
-    .feed-itens {
-        grid-template-columns: repeat(auto-fill, minmax(calc(100% - 0.5rem), 1fr));
-    }
-}
-
 @media screen and (max-width: 768px) {
     .feed-itens {
-        grid-template-columns: repeat(auto-fill, minmax(calc(50% - 0.5rem), 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
     }
 }
 
 .item-store-card {
+    position: relative;
     width: 100%;
     padding: 0;
 }
 
+.rarity-card {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 1;
+    font-weight: 600;
+    padding: 0.6rem 0.9rem;
+    border-radius: 8px;
+}
+
+.rarity-card i {
+    color: #fff;
+}
+
 .item-store-card model-viewer {
     width: 100%;
-    height: 180px;
+    height: 220px;
     border-radius: 12px 12px 0 0;
+    background-color: #fcfcfc;
 }
 
 .item-store-card .item-content {
@@ -181,4 +191,85 @@
 .item-store-card .item-content h3 {
     color: #202124;
     font-size: 16px;
+}
+
+.item-store-card .desc {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-store-card .item-content span {
+    color: #676767;
+    font-size: 14px;
+}
+
+.item-store-card .view {
+    margin-top: 1rem;
+}
+
+.item-store-card .view a {
+    padding: 0.6rem 1rem;
+    border-radius: 25px;
+    font-size: 14px;
+    background-color: #eeeeee;
+    color: #202124;
+    font-weight: 600;
+}
+
+/* raridades */
+/* raridades */
+
+/* Common */
+.common {
+    color: #c1c1c1 !important;
+    /* Pastel Gray */
+}
+
+.card-common {
+    background: #c1c1c1;
+}
+
+/* Uncommon */
+.uncommon {
+    color: #a0d7a0 !important;
+    /* Pastel Green */
+}
+.card-uncommon {
+    background: #a0d7a0;
+}
+
+/* Rare */
+.rare {
+    color: #a0a0d7 !important;
+    /* Pastel Blue */
+}
+.card-rare {
+    background: #a0a0d7;
+}
+
+/* Epic */
+.epic {
+    color: #d7a0d7 !important;
+    /* Pastel Purple */
+}
+.card-epic {
+    background: #d7a0d7;
+}
+
+/* Legendary */
+.legendary {
+    color: #ffcc66 !important;
+    /* Pastel Yellow */
+}
+.card-legendary {
+    background: #ffcc66;
+}
+
+/* Exceptional */
+.exceptional {
+    color: #ff9999 !important;
+    /* Pastel Red */
+}
+.card-exceptional {
+    background: #ff9999;
 }

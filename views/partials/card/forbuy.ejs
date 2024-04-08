@@ -1,12 +1,13 @@
 <section class="default-card item-store-card">
-    <model-viewer alt="Design ilustrativa do colecionavel <%= product.name %> " src="/source/models/<%= product.path %>" ar shadow-intensity="0.5" camera-controls touch-action="pan-y"></model-viewer>
+    <section class="rarity-card card-<%= product.rarity %>"><i class="bi bi-box"></i></section>
+    <model-viewer class="<%= product.rarity %>" alt="Design ilustrativa do colecionavel <%= product.name %> " src="/source/models/<%= product.path %>" ar shadow-intensity="0.5" camera-controls touch-action="pan-y"></model-viewer>
     <section class="item-content">
         <h3><%= product.name %></h3>
         <section class="desc">
             <span>$ <%= product.price %></span>
             <span class="<%= product.rarity %>"><%= product.rarity %></span>
         </section>
-        <section>
+        <section class="view">
             <a href="/store/shopping/<%= product.id %>">Visualizar</a>
         </section>
     </section>

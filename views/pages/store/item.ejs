@@ -1,0 +1,12 @@
+<link rel="stylesheet" href="/stylesheet/store/style.css">
+
+<!-- model viewer -->
+
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js" defer></script>
+
+<%- include("../../partials/header.ejs") %>
+<main>
+    <model-viewer class="<%= item.rarity %>" alt="Design ilustrativa do colecionavel <%= item.name %> " src="/source/models/<%= item.path %>" ar shadow-intensity="0.5" camera-controls touch-action="pan-y"></model-viewer>
+    <h1><%= item.name %></h1>
+    <p><%= item.description %></p>
+</main>
