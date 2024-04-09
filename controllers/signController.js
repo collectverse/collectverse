@@ -157,6 +157,7 @@ module.exports = class SignController {
                 return res.render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
             }
             await connection.query("INSERT INTO follows (UserId, followers, following, createdAt, updatedAt) VALUES (?, ?, ?, now(), now())", [id, "[]", "[]"]);
+            await connection.query("INSERT INTO carts (itemIds, UserId, createdAt, updatedAt) VALUES (?, ?, now(), now())", ["[]", id]);
             req.session.userid = id;
 
             return req.session.save(() => {

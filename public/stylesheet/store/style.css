@@ -57,7 +57,7 @@
 .poster-card .form button {
     padding: 0.4rem 2rem;
     border-radius: 25px;
-    color: #ffffff;
+    color: #fff;
     border: none;
 }
 
@@ -299,6 +299,25 @@
         padding: 1rem;
         width: 100%;
     }
+}
+
+.container-for-item-store form {
+    margin-top: 2rem;
+}
+
+.container-for-item-store form input[type="submit"] {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    transition: 500ms linear;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 55px;
+    background-color: #0056b3;
+}
+
+.container-for-item-store form input[type="submit"]:hover {
+    filter: brightness(0.8);
 }
 
 /* raridades */

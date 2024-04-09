@@ -1,4 +1,9 @@
 const connection = require("../schema/connection.js");
+const errorMessages = {
+    NOT_SESSION: 'É necessário estár em uma conta.',
+    CART_INCLUDE: 'Item já adicionado em seu inventário.',
+    INTERNAL_ERROR: 'Erro interno do servidor.',
+}
 
 module.exports = class MainController {
     static async store(req, res) {
@@ -22,13 +27,61 @@ module.exports = class MainController {
     }
     static async itemShow(req, res) {
         const id = req.params.id;
+        const session = req.session.userid;
 
         // consulta do usuário logado
-        const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
+        const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [session]);
 
         // consulta o item
         const item = await connection.query("SELECT * FROM shop WHERE id = ?", [id]);
 
-        res.render("layouts/main.ejs", { router: "../pages/store/item.ejs", user: account[0][0], item: item[0][0] });
+        // colsulta se o usuario já tem o item
+        const cart = await connection.query("SELECT id, itemIds FROM carts WHERE UserId = ?", [session]);
+        let alreadyPurchased = null;
+        let collectables = JSON.parse(cart[0][0].itemIds || "[]")
+
+        if (collectables.includes(id)) {
+            alreadyPurchased = true
+        } else {
+            alreadyPurchased = false
+        }
+
+        res.render("layouts/main.ejs", { router: "../pages/store/item.ejs", user: account[0][0], item: item[0][0], alreadyPurchased: alreadyPurchased  });
     }
+    static async getItem(req, res) {
+        const id = req.body.id;
+        const session = req.session.userid;
+
+        if (!(req.session.userid)) {
+            req.flash("msg", errorMessages.NOT_SESSION);
+            return res.redirect("/sign/In");
+        }
+
+        const cart = await connection.query("SELECT id, itemIds FROM carts WHERE UserId = ?", [session]);
+        let collectables = JSON.parse(cart[0][0].itemIds || "[]")
+
+
+        if (collectables.includes(id)) {
+            req.flash("msg", errorMessages.CART_INCLUDE);
+            console.log("gg")
+            return res.redirect(`/store`)
+        }
+
+        collectables.push(id);
+
+        try {
+
+            // atualiza inventário
+            await connection.query("UPDATE carts SET itemIds = ?, updatedAt = NOW() WHERE UserId = ?", [JSON.stringify(collectables), session])
+
+            console.log("try")
+            return res.redirect(`/store/shopping/${id}`)
+
+        } catch (error) {
+            console.log(error)
+            req.flash("msg", errorMessages.INTERNAL_ERROR);
+            return res.redirect(`/store`)
+        }
+    }
+
 }
