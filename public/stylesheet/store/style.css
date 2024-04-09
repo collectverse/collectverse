@@ -3,6 +3,7 @@
     overflow: auto;
     margin-top: 1rem;
     gap: 1rem;
+    padding: 0.6rem;
     justify-content: flex-start;
     align-items: center;
 }
@@ -71,6 +72,13 @@
 
 .unfollowbtn {
     background: #ff5858;
+}
+
+.unfollowbtn {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 16ch;
 }
 
 .poster-card .informations-card h3 {
