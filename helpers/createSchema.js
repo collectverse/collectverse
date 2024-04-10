@@ -32,10 +32,11 @@ async function createSchema() {
         perfil varchar(120) DEFAULT 'default.png',
         banner varchar(120) DEFAULT 'default.png',
         biography varchar(80) DEFAULT 'Usuário sem biografia.',
-        pass tinyint(1) DEFAULT 0,
+        collectible varchar(24) DEFAULT NULL,
         createdAt datetime NOT NULL,
         updatedAt datetime NOT NULL,
-        PRIMARY KEY (id)
+        PRIMARY KEY (id),
+        FOREIGN KEY (collectible) REFERENCES shop(id)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;`,
 
             `CREATE TABLE IF NOT EXISTS follows (

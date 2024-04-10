@@ -25,8 +25,18 @@ module.exports = class ProfileController {
     static async profile(req, res) {
         // busca o usuário pelo id na url
         const id = req.params.id;
-        const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, users.banner, users.biography, follows.followers, follows.following FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [id]);
+        const account = await connection.query(`SELECT users.id, users.name, users.email, users.perfil, users.banner, users.biography, users.collectible, follows.followers, follows.following, carts.itemIds FROM users INNER JOIN follows ON users.id = follows.UserId INNER JOIN carts ON users.id = carts.UserId WHERE users.id = ?`, [id]);
         const session = await connection.query("SELECT id, name, email, perfil, banner, biography FROM users WHERE id = ?", [req.session.userid]);
+
+        const cart = JSON.parse(account[0][0].itemIds || "[]");
+        let iventory = [];
+
+        if(cart.length > 0) {
+            for (let i = 0; i < cart.length; i++) {
+                const item = await connection.query("SELECT * FROM shop WHERE id = ?", [cart[i]]);
+                iventory.push(item[0][0]);
+            }            
+        }
 
         if (!(account[0].length > 0)) {
             return res.status(404).render("layouts/notFound.ejs");
@@ -34,7 +44,7 @@ module.exports = class ProfileController {
         // consulta de publicações do usuário
         const publications = await connection.query("SELECT publications.* , users.name, users.perfil FROM publications INNER JOIN users ON publications.UserId = users.id WHERE users.id = ? ORDER BY createdAt DESC", [id]);
 
-        res.render("layouts/main.ejs", { router: "../pages/profile/profile.ejs", publications: publications[0], user: session[0][0], profile: account[0][0] });
+        res.render("layouts/main.ejs", { router: "../pages/profile/profile.ejs", publications: publications[0], user: session[0][0], profile: account[0][0], iventory: iventory });
     }
     static async edit(req, res) {
         const id = req.params.id;

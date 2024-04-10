@@ -1,26 +1,38 @@
 <link rel="stylesheet" href="/stylesheet/profile/style.css">
+<!-- model viewer -->
+
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js" defer></script>
 
 <%- include("../../partials/header.ejs") %>
 
 <main>
-    <!-- banner de perfil -->
-    <%- include("../../partials/card/profile.ejs", { profile }) %>
+    <section class="main-profile">
+        <section class="responsive-itens-container">
 
-    <!-- form -->
-    <% if (locals.userid === profile.id) { %>
-        <%- include("../../partials/card/publish.ejs") %>
-    <% } %>
+            <%- include('../../partials/card/model.ejs'), { profile } %>
 
-    <section class="container-publications">
-        <% if(publications && publications.length > 0) { %>
+        </section>
+        <section class="main-content">
+            <!-- banner de perfil -->
+        <%- include("../../partials/card/profile.ejs", { profile }) %>
 
-            <% publications.forEach(function(publication) { %>
-                <!-- Include do HTML da publicação -->
-                <%- include("../../partials/card/publication.ejs", {publication: publication}) %>
-            <% }); %>
-
-        <% } else { %>
-            <p class="not-publications-founds">Nenhuma publicação encontrada.</p>
+        <!-- form -->
+        <% if (locals.userid === profile.id) { %>
+            <%- include("../../partials/card/publish.ejs") %>
         <% } %>
+
+            <section class="container-publications">
+                <% if(publications && publications.length > 0) { %>
+                
+                    <% publications.forEach(function(publication) { %>
+                        <!-- Include do HTML da publicação -->
+                        <%- include("../../partials/card/publication.ejs", {publication: publication}) %>
+                    <% }); %>
+                    
+                <% } else { %>
+                    <p class="not-publications-founds">Nenhuma publicação encontrada.</p>
+                <% } %>
+            </section>
+        </section>
     </section>
 </main>

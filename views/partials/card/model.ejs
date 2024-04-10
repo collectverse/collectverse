@@ -1,0 +1,39 @@
+<section class="default-card model-card">
+    <section class="header-model">
+        <ol>
+            <li><button class="active modelButton" onclick="tabToggle('model')"><i class="bi bi-box"></i> Modelo</button></li>
+            <li><button class="inventoryButton" onclick="tabToggle('iventory')"><i class="bi bi-collection"></i> Inventário</button></li>
+        </ol>
+    </section>
+
+    <section class="container">
+        <!-- conteudo -->
+        <section class="model-content">
+            <% if (profile.collectible != null) { %>
+                <section class="model-viewer">
+                    <model-viewer alt="Design ilustrativa do colecionavel de <%= profile.name %> "
+                        src="/source/models/<%= profile.collectible %>" ar shadow-intensity="0" camera-controls
+                        touch-action="pan-y"></model-viewer>
+                </section>
+                <% } else { %>
+                    <section class="model-unviewer">
+                        <span>Sem colecionaveis em uso!</span>
+                    </section>
+                    <% } %>
+        </section>
+        <section class="iventory-viewer">
+            <% if (JSON.parse(profile.itemIds).length > 0) { %>
+                <% iventory.forEach(model => { %>
+                    
+                    <%- include('../../partials/card/iventory.ejs', { model: model }) %>
+
+                <% }) %>
+            <% } else {%>
+                <section class="model-unviewer">
+                    <span>Sem colecionaveis adiquiridos!</span>
+                </section>
+            <% } %>
+        </section>
+    </section>
+
+</section>

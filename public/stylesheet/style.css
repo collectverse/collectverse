@@ -20,7 +20,7 @@ Extra extra large	xxl	≥1400px
 :root {
     /* variaveis */
     --back: #fdfdfd;
-    --card: #ffffff;
+    --card: #fff;
 }
 
 
@@ -336,7 +336,7 @@ hr {
     font-size: 16px;
 }
 
-.responsive-itens-home {
+.responsive-itens-container {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -348,7 +348,7 @@ hr {
         right: 50%;
         transform: translateX(50%);
     }
-    .responsive-itens-home {
+    .responsive-itens-container {
         display: none;
         position: absolute;
         left: 0;
@@ -626,7 +626,7 @@ hr {
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #ffffff;
+    background-color: #fff;
     min-width: 160px;
     border-radius: 8px;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.065);

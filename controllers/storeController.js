@@ -63,7 +63,6 @@ module.exports = class MainController {
 
         if (collectables.includes(id)) {
             req.flash("msg", errorMessages.CART_INCLUDE);
-            console.log("gg")
             return res.redirect(`/store`)
         }
 
@@ -74,7 +73,6 @@ module.exports = class MainController {
             // atualiza inventário
             await connection.query("UPDATE carts SET itemIds = ?, updatedAt = NOW() WHERE UserId = ?", [JSON.stringify(collectables), session])
 
-            console.log("try")
             return res.redirect(`/store/shopping/${id}`)
 
         } catch (error) {

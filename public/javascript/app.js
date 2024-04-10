@@ -22,11 +22,11 @@ document.addEventListener('DOMContentLoaded', function () {
 // menu
 
 const button = document.querySelector(".li-menu .menu");
-const menu = document.querySelector(".responsive-itens-home");
+const menu = document.querySelector(".responsive-itens-container");
 const boby = document.querySelector("body");
 
 if (!menu) {
-    if(button) {
+    if (button) {
         button.remove();
     }
 } else {
@@ -77,6 +77,25 @@ if (dots.length > 0) {
 function handleChange(select) {
     const category = select.value;
     window.location.href = '/store?category=' + category;
+}
+
+// troca de aba do perfil
+
+function tabToggle(tabName) {
+    const modelBtn = document.querySelector('.modelButton');
+    const inventoryBtn = document.querySelector('.inventoryButton');
+    const modelContent = document.querySelector('.model-content');
+    const inventoryContent = document.querySelector('.iventory-viewer');
+
+    modelBtn.classList.toggle('active');
+    inventoryBtn.classList.toggle('active');
+
+    if (modelContent) {
+        modelContent.style.display = tabName === 'model' ? 'block' : 'none';
+    }
+    if (inventoryContent) {
+        inventoryContent.style.display = tabName === 'iventory' ? 'flex' : 'none';
+    }
 }
 
 // jquery

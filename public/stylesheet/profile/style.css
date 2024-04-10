@@ -1,3 +1,110 @@
+.main-profile {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1rem;
+}
+
+.main-profile .main-home .main-content {
+    width: 100%;
+    max-width: 350px;
+}
+
+.model-card {
+    width: 100%;
+}
+
+.model-card .header-model ol {
+    display: flex;
+    gap: 0.4rem;
+    width: 100%;
+}
+
+.model-card .header-model li {
+    width: 100%;
+}
+
+.model-card .header-model li button {
+    width: 100%;
+    color: #0056b3;
+    background-color: #fdfdfd;
+    padding: 0.4rem;
+    border: none;
+    border-radius: 6px;
+}
+
+.model-card .header-model li .active {
+    background-color: #0057b310;
+}
+
+.model-card .container {
+    margin-top: 1rem;
+}
+
+.model-card .model-viewer model-viewer,
+.model-card .model-unviewer {
+    width: 100%;
+    height: calc(100vh - 216px);
+}
+
+.model-card .model-unviewer {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.model-card .model-unviewer p {
+    color: #202124;
+    font-size: 14px;
+}
+
+.iventory-viewer {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.iventory-viewer .default-card h3 {
+    color: #202124;
+    font-size: 16px;
+}
+
+.iventory-viewer .default-card,
+.iventory-viewer model-viewer {
+    width: 100%;
+}
+
+.iventory-viewer model-viewer {
+    height: 240px;
+}
+
+.iventory-viewer input[type="submit"] {
+    width: 100%;
+    border: none;
+    background-color: #0057b310;
+    color: #0056b3;
+    padding: 0.4rem;
+    border-radius: 6px;
+    margin-top: 0.4rem;
+}
+
+@media screen and (max-width: 768px) {
+    .main-profile {
+        display: flex;
+        flex-direction: column;
+    }    
+    .model-card .model-viewer model-viewer,
+    .model-card .model-unviewer {
+        height: calc(100vh - 196px);
+    }
+
+    .iventory-viewer model-viewer {
+        height: 180px;
+    }
+}
+
 .profile-card {
     margin-bottom: 1rem;
 }
@@ -61,7 +168,7 @@
 .followbtn, .unfollowbtn {
     padding: 0.6rem 2rem;
     border-radius: 25px;
-    color: #ffffff;
+    color: #fff;
     border: none;
 }
 
@@ -171,7 +278,7 @@
     border-radius: 8px;
     background: #ff5858;
     border: 1px solid #ff5858;
-    color: #ffffff;
+    color: #fff;
     font-weight: bold;
 }
 
