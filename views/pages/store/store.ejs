@@ -16,7 +16,17 @@
 
             <% if (highlights.length > 0) { %>
 
-                <% highlights.forEach((user) => { %>
+                <% 
+                highlights = highlights.map(user => {
+                    return {
+                        ...user,
+                        followers: JSON.parse(user.followers).length
+                    };
+                });
+    
+                highlights.sort((a, b) => b.followers - a.followers);
+    
+                highlights.forEach(user => { %>
         
                     <%- include("../../partials/card/poster.ejs", {user: user}) %>
         

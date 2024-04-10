@@ -11,7 +11,7 @@ module.exports = class MainController {
         const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
 
         // destaques
-        const highlights = await connection.query("SELECT users.id, users.name, users.perfil, users.banner, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId LIMIT 5");
+        const highlights = await connection.query("SELECT users.id, users.name, users.perfil, users.banner, follows.followers, carts.itemIds FROM users INNER JOIN follows ON users.id = follows.UserId INNER JOIN carts ON users.id = carts.UserId ORDER BY carts.itemIds ASC LIMIT 5");
 
         // filtro de itens
 
