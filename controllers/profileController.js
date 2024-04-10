@@ -196,6 +196,7 @@ module.exports = class ProfileController {
 
         try {
             // exclui o comentário
+            await connection.query("DELETE FROM carts WHERE userId = ?", [id]);
             await connection.query("DELETE FROM publications WHERE userId = ?", [id]);
             await connection.query("DELETE FROM follows WHERE userId = ?", [id]);
             await connection.query("DELETE FROM users WHERE id = ?", [id]);
