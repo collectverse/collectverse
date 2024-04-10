@@ -21,7 +21,12 @@ module.exports = class MainController {
             category = req.query.category;
         }
 
-        const shop = await connection.query("SELECT * FROM shop")
+        let shop = null;
+        if (category == "all" || category == "") {
+            shop = await connection.query("SELECT * FROM shop")
+        } else if (category == "new") {
+            shop = await connection.query("SELECT * FROM shop ORDER BY createdAt DESC LIMIT 5")
+        }
 
         res.render("layouts/main.ejs", { router: "../pages/store/store.ejs", user: account[0][0], highlights: highlights[0], shop: shop[0], category: category });
     }
