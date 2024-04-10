@@ -38,7 +38,9 @@ module.exports = class MainController {
         // colsulta se o usuario já tem o item
         const cart = await connection.query("SELECT id, itemIds FROM carts WHERE UserId = ?", [session]);
         let alreadyPurchased = null;
-        let collectables = JSON.parse(cart[0][0].itemIds || "[]")
+        let collectables = null;
+
+        session ? collectables = JSON.parse(cart[0][0].itemIds || "[]") : collectables = [];
 
         if (collectables.includes(id)) {
             alreadyPurchased = true

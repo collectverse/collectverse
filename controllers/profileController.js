@@ -246,4 +246,13 @@ module.exports = class ProfileController {
             return res.redirect(`/profile/${id}`)
         }
     }
+    static async toggleModel(req, res) {
+        const id = req.body.id;
+        const session = req.session.userid;
+
+        const model = await connection.query("SELECT path FROM shop WHERE id = ?", [id]);
+        await connection.query("UPDATE users SET collectible = ?, updatedAt = NOW() WHERE id = ?", [model[0][0].path, session])
+        
+        res.redirect(`/profile/${session}`);
+    }
 }

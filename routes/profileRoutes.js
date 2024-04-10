@@ -11,5 +11,6 @@ router.post("/edit", upload.fields([{ name: "perfil", maxCount: 1 }, { name: "ba
 router.post("/alter/password", ProfileController.alterPassword);
 router.post("/del/account", ProfileController.deleteAccount);
 router.post("/follows", ProfileController.follows);
+router.post("/toggleModel", ProfileController.toggleModel);
 
 module.exports = router;

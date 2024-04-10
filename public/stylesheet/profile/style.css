@@ -78,6 +78,7 @@
 
 .iventory-viewer model-viewer {
     height: 240px;
+    border-radius: 8px;
 }
 
 .iventory-viewer input[type="submit"] {

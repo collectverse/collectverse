@@ -233,6 +233,7 @@
 .container-for-item-store model-viewer {
     background-color: #fcfcfc;
     width: 50%;
+    border-radius: 12px;
     height: calc( 100vh - 96px );
 }
 

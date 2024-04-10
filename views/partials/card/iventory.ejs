@@ -3,10 +3,12 @@
     <model-viewer alt="Design ilustrativa do colecionavel do iventário"
         src="/source/models/<%= model.path  %>" ar shadow-intensity="0" camera-controls
         touch-action="pan-y"></model-viewer>
-        <section>
-            <form action="/profile/toggleModel" method="post">
-                <input type="hidden" name="id" value="<%= model.id  %>">
-                <input type="submit" value="Usar">
-            </form>
-        </section>
+        <% if (profile.id == locals.userid ) { %>
+            <section>
+                <form action="/profile/toggleModel" method="post">
+                    <input type="hidden" name="id" value="<%= model.id  %>">
+                    <input type="submit" value="Usar">
+                </form>
+            </section>
+        <% } %>
 </div>
