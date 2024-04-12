@@ -263,11 +263,7 @@ module.exports = class ProfileController {
         const session = await connection.query("SELECT id, name, email, perfil, banner, biography FROM users WHERE id = ?", [req.session.userid]);
 
         const followers = await connection.query("SELECT followers FROM follows WHERE UserId = ?", [id]);
-        console.log(followers[0][0])
-        console.log("==================1")
         const following = await connection.query("SELECT following FROM follows WHERE UserId = ?", [id]);
-        console.log(following[0][0].following)
-        console.log("==================2")
 
         let usersFromFollowers = JSON.parse(followers[0][0].followers || "[]");
         let usersFromFollowing = JSON.parse(following[0][0].following || "[]");
@@ -277,15 +273,18 @@ module.exports = class ProfileController {
 
         if(usersFromFollowers.length > 0) {
             for (let i = 0; i < usersFromFollowers.length; i++) {
-                const item = await connection.query("SELECT  FROM users WHERE id = ?", [usersFromFollowers[i]]);
+                const item = await connection.query("SELECT name, perfil FROM users WHERE id = ?", [usersFromFollowers[i]]);
                 resultForFollowers.push(item[0][0]);
-                console.log(item)
-                console.log("==================1")
-                console.log(resultForFollowers)
-                console.log("==================2")
             }            
         }
 
-        res.render("layouts/main.ejs", { router: "../pages/profile/viewFollows.ejs", user: session[0][0] });
+        if(usersFromFollowing.length > 0) {
+            for (let i = 0; i < usersFromFollowing.length; i++) {
+                const item = await connection.query("SELECT name, perfil FROM users WHERE id = ?", [usersFromFollowing[i]]);
+                resultForFollowing.push(item[0][0]);
+            }            
+        }
+
+        res.render("layouts/main.ejs", { router: "../pages/profile/viewFollows.ejs", user: session[0][0], followers: resultForFollowers, following: resultForFollowing });
     }
 }

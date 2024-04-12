@@ -5,11 +5,51 @@
 
 <main>
     <section class="main-viewFollows">
-        <section class="folowing">
-
-        </section>
         <section class="followers">
-            
+            <% if (followers && followers.length > 0) { %>
+
+                <% followers.forEach(user => { %>
+                    <a href="/profile/<%= user.id %>" aria-label="Ir para a página de ver perfil do usuário criador do Comentário">
+                        <section class="user-info">
+                            <section class="perfil">
+                                <img class="" src="/uploads/user/perfils/<%= user.perfil %>" alt="Imagem do perfil de <%= user.name %>">
+                            </section>
+                            <section class="text informations-card">
+                                <h2><%= user.name %></h2>
+                            </section>
+                        </section>
+                    </a>
+                <% }) %>
+    
+    
+            <% } else { %>
+    
+                <span>Sem seguidores atualmente.</span>
+    
+            <% } %>
+        </section>
+        <section class="following">
+            <% if (following && following.length > 0) { %>
+
+                <% following.forEach(user => { %>
+                    <a href="/profile/<%= user.id %>" aria-label="Ir para a página de ver perfil do usuário criador do Comentário">
+                        <section class="user-info">
+                            <section class="perfil">
+                                <img class="" src="/uploads/user/perfils/<%= user.perfil %>" alt="Imagem do perfil de <%= user.name %>">
+                            </section>
+                            <section class="text informations-card">
+                                <h2><%= user.name %></h2>
+                            </section>
+                        </section>
+                    </a>
+                <% }) %>
+    
+    
+            <% } else { %>
+    
+                <span>Sem seguidores atualmente.</span>
+    
+            <% } %>
         </section>
     </section>
 </main>
