@@ -94,7 +94,7 @@ function tabToggle(tabName) {
         modelContent.style.display = tabName === 'model' ? 'block' : 'none';
     }
     if (inventoryContent) {
-        inventoryContent.style.display = tabName === 'iventory' ? 'flex' : 'none';
+        inventoryContent.style.display = tabName === 'iventory' ? 'grid' : 'none';
     }
 }
 

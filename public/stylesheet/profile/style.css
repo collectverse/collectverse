@@ -40,6 +40,10 @@
     margin-top: 1rem;
 }
 
+.model-card .model-viewer model-viewer {
+    border-radius: 8px;
+}
+
 .model-card .model-viewer model-viewer,
 .model-card .model-unviewer {
     width: 100%;
@@ -61,7 +65,7 @@
 .iventory-viewer {
     display: none;
     align-items: center;
-    justify-content: center;
+    justify-content: stretch;
     flex-direction: column;
     gap: 0.8rem;
 }
