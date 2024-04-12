@@ -1,0 +1,97 @@
+<section class="modal-background">
+    <section class="default-modal follows-modal default-card">
+        <section class="close-button">
+            <button onclick="toggleModal()"><i class="bi bi-x"></i></button>
+        </section>
+        <section class="header-follows">
+            <ol>
+                <li><button class="active followersButton" onclick="modaltabToggle('followers')"><i class="bi bi-people"></i> Seguidores</button></li>
+                <li><button class="followingButton" onclick="modaltabToggle('following')"><i class="bi bi-person-check"></i> Seguindo</button></li>
+            </ol>
+        </section>
+        <section class="follows-container followers">
+            <% if (followers && followers.length > 0) { %>
+
+                <% followers.forEach(userF => { %>
+                    <section class="follows-content">
+                        <section>
+                            <a href="/profile/<%= userF.id %>" aria-label="Ir para a página de ver perfil do usuário">
+                                <section class="user-info">
+                                    <section class="perfil">
+                                        <img class="" src="/uploads/user/perfils/<%= userF.perfil %>" alt="Imagem do perfil de <%= userF.name %>">
+                                    </section>
+                                    <section class="text informations-card">
+                                        <h2><%= userF.name %></h2>
+                                    </section>
+                                </section>
+                            </a>
+                        </section>
+                        <section>
+                            <section>
+                                <% if (!(locals.userid === userF.id) && locals.userid) { %>
+                                    <form action="/profile/follows" method="post">
+                                        <input type="hidden" name="id" value="<%= userF.id %>">
+                                        <% if (userF.followers.includes(user.id)) { %>
+                                            <button type="submit" class="unfollowbtn"><i class="bi bi-person-dash"></i></button>
+                                        <% } else { %>
+                                            <button type="submit" class="followbtn"><i class="bi bi-person-check"></i></button>
+                                        <% } %>
+                                    </form>
+                                <% } else { %>
+                                    <span>Você</span>
+                                <% } %>
+                            </section>
+                        </section>
+                    </section>
+                <% }) %>
+    
+    
+            <% } else { %>
+    
+                <span>Sem seguidores atualmente.</span>
+    
+            <% } %>
+        </section>
+        <section class="follows-container following">
+            <% if (following && following.length > 0) { %>
+
+                <% following.forEach(userF => { %>
+                    <section class="follows-content">
+                        <section>
+                            <a href="/profile/<%= userF.id %>" aria-label="Ir para a página de ver perfil do usuário">
+                                <section class="user-info">
+                                    <section class="perfil">
+                                        <img class="" src="/uploads/user/perfils/<%= userF.perfil %>" alt="Imagem do perfil de <%= userF.name %>">
+                                    </section>
+                                    <section class="text informations-card">
+                                        <h2><%= userF.name %></h2>
+                                    </section>
+                                </section>
+                            </a>
+                        </section>
+                        <section>
+                            <% if (!(locals.userid === userF.id) && locals.userid) { %>
+                                <form action="/profile/follows" method="post">
+                                    <input type="hidden" name="id" value="<%= userF.id %>">
+                                    <% if (userF.followers.includes(user.id)) { %>
+                                        <button type="submit" class="unfollowbtn"><i class="bi bi-person-dash"></i></button>
+                                    <% } else { %>
+                                        <button type="submit" class="followbtn"><i class="bi bi-person-check"></i></button>
+                                    <% } %>
+                                </form>
+                            <% } else { %>
+                                <span>Você</span>
+                            <% } %>
+                        </section>
+                    </section>
+                <% }) %>
+    
+    
+            <% } else { %>
+    
+                <span>Não está seguindo ninguém atualmente.</span>
+    
+            <% } %>
+        </section>
+    </section>
+</section>

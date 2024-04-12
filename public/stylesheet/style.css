@@ -317,7 +317,7 @@ hr {
 /* user infos card */
 
 @media screen and (max-width: 380px) {
-    .following-and-followers a{
+    .following-and-followers p{
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -392,7 +392,8 @@ hr {
     border-bottom: 1px solid #6767671b;
 }
 
-.user-info-card .following-and-followers a {
+.user-info-card .following-and-followers p {
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     color: #202124;
@@ -688,4 +689,119 @@ hr {
     font-size: 18px;
     font-weight: bold;
     color: #0056b3;
+}
+
+/* modal */
+/* seguidores e seguindo  */
+
+.follows-modal .header-follows ol {
+    display: flex;
+    gap: 0.4rem;
+    width: 100%;
+}
+
+.follows-modal .header-follows li {
+    width: 100%;
+}
+
+.follows-modal .header-follows li button {
+    width: 100%;
+    color: #0056b3;
+    background-color: #fdfdfd;
+    padding: 0.4rem;
+    border: none;
+    border-radius: 6px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.follows-modal .header-follows li .active {
+    background-color: #0057b310;
+}
+
+.modal-background {
+    position: fixed;
+    z-index: 10;
+    inset: 0;
+    background-color: #2021242d;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.show {
+    display: flex;
+}
+
+.follows-modal {
+    z-index: 12;
+    width: 100%;
+    max-width: 360px;
+    height: 100%;
+    max-height: 400px;
+}
+
+.follows-modal .close-button {
+    padding-bottom: 1rem;
+}
+
+.follows-modal .close-button button {
+    padding: 0.2rem 0.4rem;
+    border: none;
+    border-radius: 6px;
+    background-color: #fdfdfd;
+    color: #202124;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.follows-container {
+    padding: 0.8rem;
+    overflow: auto;
+    width: 100%;
+}
+
+.follows-container .follows-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.2rem;
+    overflow: auto;
+    width: 100%;
+}
+
+.follows-container span {
+    color: #202124;
+    font-size: 14px;
+}
+
+.follows-container a {
+    width: 100%;
+}
+
+.following {
+    display: none;
+}
+
+.follows-modal .user-info {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.follows-modal .user-info h2 {
+    color: #202124;
+    font-size: 16px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 6ch;
+}
+
+.follows-modal .unfollowbtn,
+.follows-modal .followbtn {
+    padding: 0.4rem 1rem !important;
 }

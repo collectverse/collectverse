@@ -10,8 +10,8 @@
                     <%= profile.name %>
                 </h2>
                 <section class="following-and-followers">
-                    <a href="/profile/viewFollows/<%= profile.id %>"><%= JSON.parse(profile.followers).length %> Seguidores</a>
-                    <a href="/profile/viewFollows/<%= profile.id %>"><%= JSON.parse(profile.following).length %> Seguindo</a>
+                    <p onclick="toggleModal()"><%= JSON.parse(profile.followers).length %> Seguidores</p>
+                    <p onclick="toggleModal()"><%= JSON.parse(profile.following).length %> Seguindo</p>
                 </section>
             </section>
         </section>

@@ -23,7 +23,7 @@
     width: 100%;
 }
 
-.model-card .header-model li button {
+.model-card .header-model li button{
     width: 100%;
     color: #0056b3;
     background-color: #fdfdfd;
@@ -99,7 +99,8 @@
     .main-profile {
         display: flex;
         flex-direction: column;
-    }    
+    }
+
     .model-card .model-viewer model-viewer,
     .model-card .model-unviewer {
         height: calc(100vh - 196px);
@@ -152,7 +153,8 @@
     align-items: center;
 }
 
-.following-and-followers a {
+.following-and-followers p {
+    cursor: pointer;
     color: #202124;
     font-size: 14px;
 }
@@ -170,7 +172,8 @@
     margin-top: 1rem;
 }
 
-.followbtn, .unfollowbtn {
+.followbtn,
+.unfollowbtn {
     padding: 0.6rem 2rem;
     border-radius: 25px;
     color: #fff;

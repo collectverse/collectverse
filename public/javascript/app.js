@@ -82,19 +82,53 @@ function handleChange(select) {
 // troca de aba do perfil
 
 function tabToggle(tabName) {
+    // model viewer
     const modelBtn = document.querySelector('.modelButton');
     const inventoryBtn = document.querySelector('.inventoryButton');
     const modelContent = document.querySelector('.model-content');
     const inventoryContent = document.querySelector('.iventory-viewer');
 
-    modelBtn.classList.toggle('active');
-    inventoryBtn.classList.toggle('active');
-
+    if (modelContent || inventoryContent) {
+        modelBtn.classList.toggle('active');
+        inventoryBtn.classList.toggle('active');
+    }
     if (modelContent) {
         modelContent.style.display = tabName === 'model' ? 'block' : 'none';
     }
     if (inventoryContent) {
         inventoryContent.style.display = tabName === 'iventory' ? 'grid' : 'none';
+    }
+
+}
+
+// modal toggle
+
+function toggleModal() {
+    const backgroundModal = document.querySelector(".modal-background");
+
+    if (backgroundModal) {
+        backgroundModal.classList.toggle("show")
+        // body
+        boby.classList.toggle("overflow")
+    }
+}
+
+function modaltabToggle(tabName) {
+    // modal
+    const followersBtn = document.querySelector('.followersButton');
+    const followingBtn = document.querySelector('.followingButton');
+    const followersContent = document.querySelector('.followers');
+    const followingContent = document.querySelector('.following');
+
+    if (followersContent || followingContent) {
+        followersBtn.classList.toggle('active');
+        followingBtn.classList.toggle('active');
+    }
+    if (followersContent) {
+        followersContent.style.display = tabName === 'followers' ? 'block' : 'none';
+    }
+    if (followingContent) {
+        followingContent.style.display = tabName === 'following' ? 'block' : 'none';
     }
 }
 

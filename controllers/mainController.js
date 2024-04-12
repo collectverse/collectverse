@@ -9,6 +9,7 @@ const errorMessages = {
     INTERNAL_ERROR: 'Erro interno do servidor.',
     USER_NOT_FOUND: 'Usuário não encontrado.'
 };
+const returnFollowersAndFollowing = require("../helpers/followingAndFollowersreturn.js")
 
 module.exports = class MainController {
     static async home(req, res) {
@@ -21,7 +22,17 @@ module.exports = class MainController {
         // destaques
         const highlights = await connection.query("SELECT users.id, users.name, users.perfil, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId ORDER BY follows.followers ASC LIMIT 3");
 
-        res.render("layouts/main.ejs", { router: "../pages/home/home.ejs", publications: publications[0], user: account[0][0], highlights: highlights[0] });
+        let resultForFollowers = [];
+        let resultForFollowing = [];
+
+        if (req.session.userid) {
+            // Supondo que "returnFollowersAndFollowing" é uma função assíncrona que retorna um objeto com as listas de seguidores e seguindo
+            const { followers, following } = await returnFollowersAndFollowing(req.session.userid);
+            resultForFollowers = followers;
+            resultForFollowing = following;
+        }
+
+        res.render("layouts/main.ejs", { router: "../pages/home/home.ejs", publications: publications[0], user: account[0][0], highlights: highlights[0], followers: resultForFollowers, following: resultForFollowing });
     }
     static async publish(req, res) {
         let publishImagePath = null;
@@ -59,7 +70,7 @@ module.exports = class MainController {
             // cria o comentário no banco de dados.
             const parentId = req.body.parentId || 0;
 
-            await connection.query("INSERT INTO publications (text, userId, image, likesByUsersIds ,parentId, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, now(), now())", [message, user, publishImagePath, '[]',parentId]);
+            await connection.query("INSERT INTO publications (text, userId, image, likesByUsersIds ,parentId, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, now(), now())", [message, user, publishImagePath, '[]', parentId]);
 
             req.flash("msg", successMessages.CREATED_PUBLISH);
             res.redirect("/");
@@ -133,7 +144,7 @@ module.exports = class MainController {
         // consulta das publicações
         const publication = await connection.query("SELECT publications.*, users.name, users.perfil FROM publications INNER JOIN users ON publications.UserId = users.id WHERE publications.id = ? ORDER BY publications.createdAt DESC", [id]);
 
-        if(!(publication[0].length > 0)) {
+        if (!(publication[0].length > 0)) {
             return res.status(404).render("layouts/notFound.ejs");
         }
 
