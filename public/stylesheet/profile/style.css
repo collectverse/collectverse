@@ -152,7 +152,7 @@
     align-items: center;
 }
 
-.following-and-followers p {
+.following-and-followers a {
     color: #202124;
     font-size: 14px;
 }

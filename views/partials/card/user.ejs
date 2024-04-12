@@ -22,8 +22,8 @@
     <section class="profile-infos">
 
         <section class="following-and-followers">
-            <p href="/profile/followers"><%= JSON.parse(user.followers).length %> <br> Seguidores</p>
-            <p href="/profile/following"><%= JSON.parse(user.following).length %> <br> Seguindo</p>
+            <a href="/profile/viewFollows/<%= user.id %>"><%= JSON.parse(user.followers).length %> <br> Seguidores</a>
+            <a href="/profile/viewFollows/<%= user.id %>"><%= JSON.parse(user.following).length %> <br> Seguindo</a>
         </section>
 
         <section class="view-profile">
