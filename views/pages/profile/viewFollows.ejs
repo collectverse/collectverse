@@ -4,8 +4,15 @@
 <%- include("../../partials/header.ejs") %>
 
 <main>
-    <section class="main-viewFollows">
+    <section class="default-card main-viewFollows">
+        <section class="header-follows">
+            <ol>
+                <li><button class="active followersButton" onclick="tabToggle('followers')"><i class="bi bi-box"></i> Seguidores</button></li>
+                <li><button class="followingButton" onclick="tabToggle('following')"><i class="bi bi-collection"></i> Seguindo</button></li>
+            </ol>
+        </section>
         <section class="followers">
+            <span>Seguidores</span>
             <% if (followers && followers.length > 0) { %>
 
                 <% followers.forEach(user => { %>
@@ -29,6 +36,7 @@
             <% } %>
         </section>
         <section class="following">
+            <span>Seguindo</span>
             <% if (following && following.length > 0) { %>
 
                 <% following.forEach(user => { %>
