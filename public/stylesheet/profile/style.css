@@ -62,7 +62,7 @@
     font-size: 14px;
 }
 
-.iventory-viewer {
+.inventory-viewer {
     display: none;
     align-items: center;
     justify-content: stretch;
@@ -70,22 +70,22 @@
     gap: 0.8rem;
 }
 
-.iventory-viewer .default-card h3 {
+.inventory-viewer .default-card h3 {
     color: #202124;
     font-size: 16px;
 }
 
-.iventory-viewer .default-card,
-.iventory-viewer model-viewer {
+.inventory-viewer .default-card,
+.inventory-viewer model-viewer {
     width: 100%;
 }
 
-.iventory-viewer model-viewer {
+.inventory-viewer model-viewer {
     height: 240px;
     border-radius: 8px;
 }
 
-.iventory-viewer input[type="submit"] {
+.inventory-viewer input[type="submit"] {
     width: 100%;
     border: none;
     background-color: #0057b310;
@@ -106,7 +106,7 @@
         height: calc(100vh - 196px);
     }
 
-    .iventory-viewer model-viewer {
+    .inventory-viewer model-viewer {
         height: 180px;
     }
 }

@@ -86,7 +86,7 @@ function tabToggle(tabName) {
     const modelBtn = document.querySelector('.modelButton');
     const inventoryBtn = document.querySelector('.inventoryButton');
     const modelContent = document.querySelector('.model-content');
-    const inventoryContent = document.querySelector('.iventory-viewer');
+    const inventoryContent = document.querySelector('.inventory-viewer');
 
     if (modelContent || inventoryContent) {
         modelBtn.classList.toggle('active');
@@ -96,7 +96,7 @@ function tabToggle(tabName) {
         modelContent.style.display = tabName === 'model' ? 'block' : 'none';
     }
     if (inventoryContent) {
-        inventoryContent.style.display = tabName === 'iventory' ? 'grid' : 'none';
+        inventoryContent.style.display = tabName === 'inventory' ? 'grid' : 'none';
     }
 
 }
