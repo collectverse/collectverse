@@ -206,12 +206,6 @@ hr {
     min-width: 250px !important;
 }
 
-@media screen and (max-width: 576px) {
-    .dropdown-header {
-        max-width: 180px !important;
-    }
-}
-
 .dropdown-header ul {
     flex-direction: column;
     gap: 0;
@@ -831,7 +825,16 @@ hr {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    max-width: 6ch;
+    max-width: 14ch;
+}
+
+@media screen and (max-width: 576px) {
+    .dropdown-header {
+        max-width: 180px !important;
+    }
+    .follows-modal .user-info h2 {
+        max-width: 10ch;
+    }
 }
 
 .follows-modal .unfollowbtn,
