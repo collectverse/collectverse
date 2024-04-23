@@ -385,10 +385,9 @@ hr {
         top: 68px;
         padding: 1rem;
         z-index: 1;
-        background: #fdfdfd;
         width: 80%;
         min-width: 260px;
-        height: calc(100% - 68px);
+        height: calc( 100vh - 115px );
         box-shadow: 0 20px 16px 0 rgba(0, 0, 0, 0.065);
         overflow-y: scroll;
     }
