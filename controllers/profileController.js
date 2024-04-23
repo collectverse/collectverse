@@ -249,7 +249,7 @@ module.exports = class ProfileController {
             const model = await connection.query("SELECT path FROM shop WHERE id = ?", [id]);
             await connection.query("UPDATE users SET collectible = ?, updatedAt = NOW() WHERE id = ?", [model[0][0].path, req.session.userid])
 
-            res.redirect(`/profile/${session}`);
+            res.redirect(`/profile/${req.session.userid}`);
         } catch (error) {
             console.log(error)
             req.flash("msg", errorMessages.INTERNAL_ERROR);

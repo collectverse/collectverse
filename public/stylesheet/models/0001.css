@@ -48,6 +48,14 @@ a {
     background: #5f7e4065;
 }
 
+@media screen and (max-width: 768px) {
+
+    .responsive-itens-container {
+        background: #769556;
+    }
+
+}
+
 .inPerfil {
     border-color: #5f7e40;
 }
