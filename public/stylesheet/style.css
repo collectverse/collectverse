@@ -387,7 +387,7 @@ hr {
         z-index: 1;
         width: 80%;
         min-width: 260px;
-        height: calc( 100vh - 68px );
+        height: calc(100vh - 68px);
         background: #fff;
         box-shadow: 0 20px 16px 0 rgba(0, 0, 0, 0.065);
         overflow-y: scroll;
@@ -837,4 +837,20 @@ hr {
 .follows-modal .unfollowbtn,
 .follows-modal .followbtn {
     padding: 0.4rem 1rem !important;
+}
+
+.followbtn,
+.unfollowbtn {
+    padding: 0.6rem 2rem;
+    border-radius: 25px;
+    color: #fff;
+    border: none;
+}
+
+.followbtn {
+    background: #0056b3;
+}
+
+.unfollowbtn {
+    background: #ff5858;
 }

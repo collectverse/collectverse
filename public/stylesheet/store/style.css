@@ -12,7 +12,11 @@
     padding: 0;
     max-width: 220px !important;
     min-width: 220px !important;
-    height: 250px;
+    height: 220px;
+}
+
+.your-poster {
+    border: 4px solid #98adc4 !important;
 }
 
 .poster-card .user-banner {
@@ -43,42 +47,6 @@
 
 .poster-card .informations-card {
     margin-top: 2rem;
-}
-
-.poster-card .form {
-    margin-top: 0.4rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 0 1rem;
-}
-
-.poster-card .form button {
-    padding: 0.4rem 2rem;
-    border-radius: 25px;
-    color: #fff;
-    border: none;
-}
-
-.poster-card .form span {
-    color: #676767;
-    font-size: 14px;
-}
-
-.followbtn {
-    background: #0056b3;
-}
-
-.unfollowbtn {
-    background: #ff5858;
-}
-
-.unfollowbtn {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    max-width: 16ch;
 }
 
 .poster-card .informations-card h3 {

@@ -91,7 +91,7 @@ async function createSchema() {
             `INSERT INTO shop (palette, name, description, rarity, price, path, onwer, createdAt, updatedAt) 
         VALUES 
         ('["#382f32", "#ffeaf2", "#fcd9e5", "#fbc5d8"]' ,'Expresso milk Shake', 'Não é inegavel que no calor ter um desses só para você seria incrivel.', 'exceptional', 1400.000, '0002.glb', 'Eleanore Falck', NOW(), NOW()),
-        ('["#325015", "#5f7e40", "#769556", "#8cac6b", "#dceec9"]' ,'Sociactus', 'Sociactus tem um temor profundo do mundo lá fora, mas está pronto para se aventurar em sua jornada. Ele procura um parceiro para ajudá-lo a explorar e enfrentar seus medos juntos. Você está pronto para ser esse parceiro?', "legendary", 1200.00, '0001.glb', 'felipegall', NOW(), NOW()),
+        ('["#325015", "#5f7e40", "#769556", "#8cac6b", "#dceec9"]' ,'Sociactus', 'Sociactus tem um temor profundo do mundo lá fora, mas está pronto para se aventurar em sua jornada. Ele procura um parceiro para ajudá-lo a explorar e enfrentar seus medos juntos. Você está pronto para ser esse parceiro?', "legendary", 1200.00, '0001.glb', 'felipegall', NOW(), NOW())
         `
         ];
 

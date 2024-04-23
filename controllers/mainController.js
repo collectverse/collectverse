@@ -23,17 +23,12 @@ module.exports = class MainController {
             // consulta os usuários com mais seguidores
             const highlights = await connection.query("SELECT users.id, users.name, users.perfil, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId ORDER BY follows.followers ASC LIMIT 3");
 
-            let resultForFollowers = [];
-            let resultForFollowing = [];
+            let forFollowers = [];
+            let forFollowing = [];
+            const { resultForFollowers, resultForFollowing } = await returnFollowersAndFollowing(req.session.userid);
 
-            if (req.session.userid) {
-                // Supondo que "returnFollowersAndFollowing" é uma função assíncrona que retorna um objeto com as listas de seguidores e seguindo
-                const { followers, following } = await returnFollowersAndFollowing(req.session.userid);
-                resultForFollowers = followers;
-                resultForFollowing = following;
-            }
 
-            res.render("layouts/main.ejs", { router: "../pages/home/home.ejs", publications: publications[0], user: account[0][0], highlights: highlights[0], followers: resultForFollowers, following: resultForFollowing });
+            res.render("layouts/main.ejs", { router: "../pages/home/home.ejs", publications: publications[0], user: account[0][0], highlights: highlights[0], followers: resultForFollowers || forFollowers, following: resultForFollowing || forFollowing});
         } catch (error) {
             console.error(error);
             req.flash("msg", errorMessages.INTERNAL_ERROR);

@@ -172,22 +172,6 @@
     margin-top: 1rem;
 }
 
-.followbtn,
-.unfollowbtn {
-    padding: 0.6rem 2rem;
-    border-radius: 25px;
-    color: #fff;
-    border: none;
-}
-
-.followbtn {
-    background: #0056b3;
-}
-
-.unfollowbtn {
-    background: #ff5858;
-}
-
 /* edit */
 
 .edit-card {
