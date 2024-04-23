@@ -1,0 +1,125 @@
+/* sociocactus */
+
+:root {
+    --first: #325015;
+    --second: #5f7e40;
+    --third: #769556;
+    --fourth: #8cac6b;
+    --fifth: #dceec9;
+}
+
+body {
+    background: #8cac6b;
+}
+
+h1,
+h2,
+h3,
+span,
+p,
+small,
+ul,
+li a,
+a {
+    color: #325015 !important;
+}
+
+.header {
+    background: #769556;
+}
+
+.internal-header {
+    background: #769556;
+}
+
+.header .dropdown-content {
+    background: #769556;
+}
+
+.header .dropdown-content i {
+    background: transparent !important;
+}
+
+.header .menu i {
+    color: #325015 !important;
+}
+
+.responsive-itens-container {
+    background: #769556;
+}
+
+.responsive-itens-container .default-card {
+    background: #5f7e4065;
+}
+
+.inPerfil {
+    border-color: #5f7e40;
+}
+
+.default-card {
+    background: #769556;
+}
+
+input {
+    background: #8cac6b !important;
+    color: #325015 !important;
+    outline: none;
+}
+
+.publish-card input[type="text"] {
+    border: none;
+}
+
+input:focus,
+input::placeholder {
+    color: #325015 !important;
+}
+
+button {
+    background: #8cac6b !important;
+    color: #325015 !important;
+}
+
+button.active {
+    background: #325015 !important;
+    color: #dceec9 !important;
+}
+
+.more-icon i,
+.dropdown-content i {
+    background: #8cac6b !important;
+    color: #325015 !important;
+}
+
+.more-icon .dropdown-content {
+    background: #8cac6b !important;
+}
+
+.more-icon .dropdown-content a {
+    color: #325015 !important;
+}
+
+.custom-file-upload {
+    background-color: #8cac6b;
+}
+
+.custom-file-upload i {
+    color: #325015;
+}
+
+/* scroll */
+
+/* Estilizando o scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #769556;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #5f7e40;
+}

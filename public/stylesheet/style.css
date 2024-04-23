@@ -25,7 +25,7 @@ Extra extra large	xxl	≥1400px
 
 
 body {
-    background: var(--back);
+    background: #fff;
 }
 
 .overflow {
@@ -39,7 +39,8 @@ main {
     padding: 1rem;
 }
 
-button[disabled], input[disabled] {
+button[disabled],
+input[disabled] {
     cursor: not-allowed !important;
 }
 
@@ -57,7 +58,7 @@ hr {
 /* header */
 
 .header {
-    background: var(--card);
+    background: #fdfdfd;
 }
 
 .internal-header {
@@ -65,7 +66,7 @@ hr {
     justify-content: space-between;
     align-items: center;
     padding: 0.8rem 1rem;
-    background: var(--card);
+    background: #fdfdfd;
     max-width: 1200px;
     margin: 0 auto;
     width: 100%;
@@ -73,6 +74,32 @@ hr {
 
 .header .logomarca img {
     width: 60px;
+}
+
+.header .logo-gradient-model {
+    padding: 0.35rem 0.6rem;
+    border-radius: 8px;
+    background: linear-gradient(132deg, rgba(250, 171, 0), rgb(237, 19, 19), rgb(213, 74, 255));
+    background-size: 250% 250%;
+    animation: gradient-animation 8s ease infinite;
+}
+
+@keyframes gradient-animation {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    50% {
+        background-position: 100% 100%;
+    }
+
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+.header .logo-gradient-model i {
+    color: #ffffff5a;
 }
 
 .header ul {
@@ -140,8 +167,8 @@ hr {
     padding: 0.4rem 0.6rem;
 }
 
-.navigation-header .activated a{
-    display: flex; 
+.navigation-header .activated a {
+    display: flex;
     gap: 0.5rem;
     font-size: 14px;
 }
@@ -185,7 +212,7 @@ hr {
     }
 }
 
-.dropdown-header ul{
+.dropdown-header ul {
     flex-direction: column;
     gap: 0;
 }
@@ -203,7 +230,7 @@ hr {
     all: unset;
 }
 
-.dropdown-header .signOut{ 
+.dropdown-header .signOut {
     margin-top: 12px;
     transition: background 500ms linear;
 }
@@ -224,8 +251,8 @@ hr {
         align-items: center;
         margin-right: 8px;
     }
-    
-    .menu i{
+
+    .menu i {
         color: #0056b3;
         font-size: 14px;
         cursor: pointer;
@@ -243,7 +270,7 @@ hr {
     box-shadow: 0 20px 16px 0 #00000011;
     border-radius: 4px;
     padding: 1rem;
-    background-color: var(--back);
+    background-color: #fff;
 }
 
 .noty_body {
@@ -273,6 +300,7 @@ hr {
     from {
         transform: translateY(100%);
     }
+
     to {
         transform: translateY(0);
     }
@@ -282,6 +310,7 @@ hr {
     from {
         width: 0;
     }
+
     to {
         width: 100%;
     }
@@ -303,7 +332,7 @@ hr {
 /* card */
 
 .default-card {
-    background-color: var(--card);
+    background-color: #fdfdfd;
     border-radius: 8px;
     border: 1px solid #afafaf1c;
     padding: 20px;
@@ -317,7 +346,7 @@ hr {
 /* user infos card */
 
 @media screen and (max-width: 380px) {
-    .following-and-followers p{
+    .following-and-followers p {
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -348,6 +377,7 @@ hr {
         right: 50%;
         transform: translateX(50%);
     }
+
     .responsive-itens-container {
         display: none;
         position: absolute;
@@ -355,25 +385,27 @@ hr {
         top: 68px;
         padding: 1rem;
         z-index: 1;
-        background: var(--card);
+        background: #fdfdfd;
         width: 80%;
         min-width: 260px;
-        height: calc( 100% - 68px );
+        height: calc(100% - 68px);
         box-shadow: 0 20px 16px 0 rgba(0, 0, 0, 0.065);
         overflow-y: scroll;
-    }    
+    }
+
     .activated {
         display: flex !important;
         flex-direction: column;
         gap: 1rem;
     }
+
     .user-info-card {
         max-width: 100%;
         width: 100%;
     }
 }
 
-.user-info-card .user-banner{
+.user-info-card .user-banner {
     width: 100%;
     height: 150px;
     border-radius: 6px;
@@ -400,7 +432,7 @@ hr {
     font-size: 14px;
 }
 
-.user-profile-infos > section {
+.user-profile-infos>section {
     display: flex;
     gap: 12px;
     align-items: center;
@@ -469,7 +501,7 @@ hr {
     border-radius: 8px;
     padding: 0.4rem 0.5rem;
     font-size: 18px;
-    background: var(--back);
+    background: #fff;
 }
 
 .button-container {
@@ -507,6 +539,7 @@ hr {
     min-width: 160px;
     padding: 1rem;
     transition: background 500ms linear;
+    border-radius: 8px;
 }
 
 .unset-submit:hover {

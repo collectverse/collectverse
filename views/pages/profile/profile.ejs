@@ -1,4 +1,19 @@
 <link rel="stylesheet" href="/stylesheet/profile/style.css">
+
+<!-- styles for profile -->
+
+<% if (profile.collectible === "0001.glb") { %>
+    <link rel="stylesheet" href="/stylesheet/models/0001.css">
+<% } %>
+
+<% if (profile.collectible === "0002.glb") { %>
+    <link rel="stylesheet" href="/stylesheet/models/0002.css">
+<% } %>
+
+<% if (profile.collectible === "0003.glb") { %>
+    <link rel="stylesheet" href="/stylesheet/models/0003.css">
+<% } %>
+
 <!-- model viewer -->
 
 <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js" defer></script>

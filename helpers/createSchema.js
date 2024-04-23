@@ -90,9 +90,8 @@ async function createSchema() {
 
             `INSERT INTO shop (palette, name, description, rarity, price, path, onwer, createdAt, updatedAt) 
         VALUES 
-        ('["#4B83F2", "#F0F1F2", "#EAF2AE", "#D98452"]' ,'nova amizade caotíca', 'Conhecendo pessoas, uma experiência verdadeiramente incrível! Em um mundo cada vez mais conectado digitalmente, descobrir novos perfis e interagir com diferentes personalidades é uma aventura única e enriquecedora. A cada usuário que conhecemos, abrimos as portas para novas ideias, perspectivas e oportunidades de aprendizado. Portanto, vamos explorar, conectar e celebrar a diversidade de pessoas que tornam nossa comunidade tão vibrante e especial. Juntos, estamos construindo laços que transcendem fronteiras e enriquecem nossas vidas de maneiras inesperadas e emocionantes.', 'exceptional', 0.000, '0001.glb', 'Seafoam', NOW(), NOW()),
-        ('["#8CA62E", "#F2913D", "#F2441D", "#F2F2F2"]' ,'Sociactus', 'Sociactus tem um temor profundo do mundo lá fora, mas está pronto para se aventurar em sua jornada. Ele procura um parceiro para ajudá-lo a explorar e enfrentar seus medos juntos. Você está pronto para ser esse parceiro?', "legendary", 1200.00, '0002.glb', 'felipegall', NOW(), NOW()),
-        ('["#8CA62E", "#735229", "#BF8A49", "#D99F6C", "#F2F2F2"]' ,'O Finalmente', 'Até que enfim você começou sua coleção!', "common", 0.00, '0003.glb', 'thomas.danze', NOW(), NOW());
+        ('["#382f32", "#ffeaf2", "#fcd9e5", "#fbc5d8"]' ,'Expresso milk Shake', 'Não é inegavel que no calor ter um desses só para você seria incrivel.', 'exceptional', 1400.000, '0002.glb', 'Eleanore Falck', NOW(), NOW()),
+        ('["#325015", "#5f7e40", "#769556", "#8cac6b", "#dceec9"]' ,'Sociactus', 'Sociactus tem um temor profundo do mundo lá fora, mas está pronto para se aventurar em sua jornada. Ele procura um parceiro para ajudá-lo a explorar e enfrentar seus medos juntos. Você está pronto para ser esse parceiro?', "legendary", 1200.00, '0001.glb', 'felipegall', NOW(), NOW()),
         `
         ];
 
@@ -109,6 +108,6 @@ async function createSchema() {
     }
 }
 
-// // Chama a função para criar o banco de dados e tabelas ao inicializar
+// Chama a função para criar o banco de dados e tabelas ao inicializar
 
 createSchema();

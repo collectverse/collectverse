@@ -2,7 +2,11 @@
     <section class="internal-header">
         <section class="logomarca">
             <a href="/" aria-label="Ir para a página principal">
-                <img src="/source/images/string.svg" alt="Collectverse Marca">
+                <% if (router === "../pages/profile/profile.ejs" && profile && profile.collectible !== null) { %>
+                    <h1 class="logo-gradient-model"><i class="bi bi-box-fill"></i></h1>
+                <% } else  { %>
+                    <img src="/source/images/string.svg" alt="Collectverse Marca">
+                <% } %>
             </a>
         </section>
         <section class="navigation">
