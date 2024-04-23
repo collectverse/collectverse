@@ -256,4 +256,15 @@ module.exports = class ProfileController {
             return res.redirect(`/profile/${req.session.userid}`)
         }
     }
+    static async nullModel(req, res) {
+        try {
+            await connection.query("UPDATE users SET collectible = ?, updatedAt = NOW() WHERE id = ?", [null, req.session.userid])
+        
+            res.redirect(`/profile/${req.session.userid}`);
+        } catch (error) {
+            console.log(error)
+            req.flash("msg", errorMessages.INTERNAL_ERROR);
+            return res.redirect(`/profile/${req.session.userid}`)
+        }
+    }
 }

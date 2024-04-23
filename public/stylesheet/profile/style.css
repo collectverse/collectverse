@@ -13,6 +13,12 @@
     width: 100%;
 }
 
+.model-card .header-model {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
 .model-card .header-model ol {
     display: flex;
     gap: 0.4rem;
@@ -47,7 +53,7 @@
 .model-card .model-viewer model-viewer,
 .model-card .model-unviewer {
     width: 100%;
-    height: calc(100vh - 216px);
+    height: calc(100vh - 235px);
 }
 
 .model-card .model-unviewer {

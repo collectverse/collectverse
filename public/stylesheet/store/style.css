@@ -15,8 +15,9 @@
     height: 220px;
 }
 
-.your-poster {
-    border: 4px solid #98adc4 !important;
+.your-poster span {
+    font-size: 12px;
+    color: #676767;
 }
 
 .poster-card .user-banner {
@@ -36,7 +37,7 @@
 
 .poster-card .user-profile {
     position: absolute;
-    top: -3.5rem;
+    top: -3.8rem;
     right: 50%;
     transform: translateX(50%);
     width: 95px;
@@ -46,7 +47,8 @@
 }
 
 .poster-card .informations-card {
-    margin-top: 2rem;
+    text-align: center;
+    margin-top: 1.2rem;
 }
 
 .poster-card .informations-card h3 {
