@@ -79,7 +79,7 @@ hr {
 .header .logo-gradient-model {
     padding: 0.35rem 0.6rem;
     border-radius: 8px;
-    background: linear-gradient(132deg, rgba(250, 171, 0), rgb(237, 19, 19), rgb(213, 74, 255));
+    background: linear-gradient(132deg, rgba(250, 171, 0, 0.215), rgb(237, 19, 19, 0.215), rgb(213, 74, 255, 0.215));
     background-size: 250% 250%;
     animation: gradient-animation 8s ease infinite;
 }
