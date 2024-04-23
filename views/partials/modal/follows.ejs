@@ -13,36 +13,55 @@
             <% if (followers && followers.length > 0) { %>
 
                 <% followers.forEach(userF => { %>
-                    <section class="follows-content">
-                        <section>
-                            <a href="/profile/<%= userF.id %>" aria-label="Ir para a página de ver perfil do usuário">
-                                <section class="user-info">
-                                    <section class="perfil">
-                                        <img class="" src="/uploads/user/perfils/<%= userF.perfil %>" alt="Imagem do perfil de <%= userF.name %>">
-                                    </section>
-                                    <section class="text informations-card">
-                                        <h2><%= userF.name %></h2>
-                                    </section>
-                                </section>
-                            </a>
-                        </section>
-                        <section>
+                    <% if (userF !== undefined) { %>
+
+                        <section class="follows-content">
                             <section>
-                                <% if (!(locals.userid === userF.id) && locals.userid) { %>
-                                    <form action="/profile/follows" method="post">
-                                        <input type="hidden" name="id" value="<%= userF.id %>">
-                                        <% if (userF.followers.includes(user.id)) { %>
-                                            <button type="submit" class="unfollowbtn"><i class="bi bi-person-dash"></i></button>
-                                        <% } else { %>
-                                            <button type="submit" class="followbtn"><i class="bi bi-person-check"></i></button>
-                                        <% } %>
-                                    </form>
-                                <% } else { %>
-                                    <span>Você</span>
-                                <% } %>
+                                <a href="/profile/<%= userF.id %>" aria-label="Ir para a página de ver perfil do usuário">
+                                    <section class="user-info">
+                                        <section class="perfil">
+                                            <img class="" src="/uploads/user/perfils/<%= userF.perfil %>" alt="Imagem do perfil de <%= userF.name %>">
+                                        </section>
+                                        <section class="text informations-card">
+                                            <h2><%= userF.name %></h2>
+                                        </section>
+                                    </section>
+                                </a>
+                            </section>
+                            <section>
+                                <section>
+                                    <% if (!(locals.userid === userF.id) && locals.userid) { %>
+                                        <form action="/profile/follows" method="post">
+                                            <input type="hidden" name="id" value="<%= userF.id %>">
+                                            <% if (userF.followers.includes(user.id)) { %>
+                                                <button type="submit" class="unfollowbtn"><i class="bi bi-person-dash"></i></button>
+                                            <% } else { %>
+                                                <button type="submit" class="followbtn"><i class="bi bi-person-check"></i></button>
+                                            <% } %>
+                                        </form>
+                                    <% } else { %>
+                                        <span>Você</span>
+                                    <% } %>
+                                </section>
                             </section>
                         </section>
-                    </section>
+
+                    <% } else { %>
+
+                        <section class="follows-content">
+                            <section>
+                                   <section class="user-info">
+                                        <section class="perfil">
+                                            <img class="" src="/uploads/user/perfils/default.png" alt="Imagem do perfil não encontrado">
+                                        </section>
+                                        <section class="text informations-card">
+                                            <h2>Usuário não encontrado.</h2>
+                                        </section>
+                                    </section>
+                            </section>
+                        </section>
+
+                    <% } %>
                 <% }) %>
     
     
@@ -56,6 +75,8 @@
             <% if (following && following.length > 0) { %>
 
                 <% following.forEach(userF => { %>
+
+                    <% if (userF !== undefined) { %>
                     <section class="follows-content">
                         <section>
                             <a href="/profile/<%= userF.id %>" aria-label="Ir para a página de ver perfil do usuário">
@@ -84,6 +105,24 @@
                             <% } %>
                         </section>
                     </section>
+
+                    <% } else { %>
+
+                        <section class="follows-content">
+                            <section>
+                                   <section class="user-info">
+                                        <section class="perfil">
+                                            <img class="" src="/uploads/user/perfils/default.png" alt="Imagem do perfil não encontrado">
+                                        </section>
+                                        <section class="text informations-card">
+                                            <h2>Usuário não encontrado.</h2>
+                                        </section>
+                                    </section>
+                            </section>
+                        </section>
+
+                    <% } %>
+
                 <% }) %>
     
     

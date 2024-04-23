@@ -25,10 +25,18 @@ module.exports = class MainController {
 
             let forFollowers = [];
             let forFollowing = [];
-            const { resultForFollowers, resultForFollowing } = await returnFollowersAndFollowing(req.session.userid);
+            
+            if(req.session.userid) {
+                const { resultForFollowers, resultForFollowing } = await returnFollowersAndFollowing(req.session.userid);
+                
+                forFollowers = resultForFollowers
+                forFollowing = resultForFollowing
 
+                console.log(resultForFollowers)
+                console.log(resultForFollowing)
+            }
 
-            res.render("layouts/main.ejs", { router: "../pages/home/home.ejs", publications: publications[0], user: account[0][0], highlights: highlights[0], followers: resultForFollowers || forFollowers, following: resultForFollowing || forFollowing});
+            res.render("layouts/main.ejs", { router: "../pages/home/home.ejs", publications: publications[0], user: account[0][0], highlights: highlights[0], followers: forFollowers, following: forFollowing});
         } catch (error) {
             console.error(error);
             req.flash("msg", errorMessages.INTERNAL_ERROR);
