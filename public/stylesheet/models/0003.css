@@ -1,7 +1,7 @@
 /* sociocactus */
 
 :root {
-    --first: #F21D56;
+    --first: #f74675;
     --second: #BF265E;
     --third: #242426;
     --fourth: #212123;
@@ -20,7 +20,7 @@ small,
 ul,
 li a,
 a {
-    color: #F21D56 !important;
+    color: #f74675 !important;
 }
 
 .header {
@@ -40,7 +40,7 @@ a {
 }
 
 .header .menu i {
-    color: #F21D56 !important;
+    color: #f74675 !important;
 }
 
 .responsive-itens-container .default-card {
@@ -65,7 +65,7 @@ a {
 
 input {
     background: #242426 !important;
-    color: #F21D56 !important;
+    color: #f74675 !important;
     outline: none;
 }
 
@@ -75,23 +75,23 @@ input {
 
 input:focus,
 input::placeholder {
-    color: #F21D56 !important;
+    color: #f74675 !important;
 }
 
 button {
     background: #242426 !important;
-    color: #F21D56 !important;
+    color: #f74675 !important;
 }
 
 button.active {
-    background: #F21D56 !important;
+    background: #f74675 !important;
     color: #242426 !important;
 }
 
 .more-icon i,
 .dropdown-content i {
     background: #242426 !important;
-    color: #F21D56 !important;
+    color: #f74675 !important;
 }
 
 .more-icon .dropdown-content {
@@ -99,7 +99,7 @@ button.active {
 }
 
 .more-icon .dropdown-content a {
-    color: #F21D56 !important;
+    color: #f74675 !important;
 }
 
 .custom-file-upload {
@@ -107,7 +107,7 @@ button.active {
 }
 
 .custom-file-upload i {
-    color: #F21D56;
+    color: #f74675;
 }
 
 /* scroll */
