@@ -109,7 +109,7 @@
 
     .model-card .model-viewer model-viewer,
     .model-card .model-unviewer {
-        height: calc(100vh - 196px);
+        height: calc(100vh - 235px);
     }
 
     .inventory-viewer model-viewer {

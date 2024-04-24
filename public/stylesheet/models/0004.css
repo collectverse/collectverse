@@ -1,0 +1,128 @@
+/* sociocactus */
+
+:root {
+    --first: #BAABE4;
+    --second: #9B8DBF;
+    --third: #242426;
+    --fourth: #212123;
+}
+
+body {
+    background: #242426;
+}
+
+h1,
+h2,
+h3,
+span,
+p,
+small,
+ul,
+li a,
+a {
+    color: #BAABE4 !important;
+}
+
+.header {
+    background: #212123;
+}
+
+.internal-header {
+    background: #212123;
+}
+
+.header .dropdown-content {
+    background: #212123;
+}
+
+.header .dropdown-content i {
+    background: transparent !important;
+}
+
+.header .menu i {
+    color: #BAABE4 !important;
+}
+
+.responsive-itens-container .default-card {
+    background: #21212365;
+}
+
+@media screen and (max-width: 768px) {
+
+    .responsive-itens-container {
+        background: #212123;
+    }
+
+}
+
+.inPerfil {
+    border-color: #9b8dbf65;
+}
+
+.default-card {
+    background: #212123;
+}
+
+input {
+    background: #242426 !important;
+    color: #BAABE4 !important;
+    outline: none;
+}
+
+.publish-card input[type="text"] {
+    border: none;
+}
+
+input:focus,
+input::placeholder {
+    color: #BAABE4 !important;
+}
+
+button {
+    background: #242426 !important;
+    color: #BAABE4 !important;
+}
+
+button.active {
+    background: #BAABE4 !important;
+    color: #242426 !important;
+}
+
+.more-icon i,
+.dropdown-content i {
+    background: #242426 !important;
+    color: #BAABE4 !important;
+}
+
+.more-icon .dropdown-content {
+    background: #242426 !important;
+}
+
+.more-icon .dropdown-content a {
+    color: #BAABE4 !important;
+}
+
+.custom-file-upload {
+    background-color: #242426;
+}
+
+.custom-file-upload i {
+    color: #BAABE4;
+}
+
+/* scroll */
+
+/* Estilizando o scrollbar */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #242426;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #212123;
+}

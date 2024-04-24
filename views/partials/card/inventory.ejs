@@ -1,6 +1,6 @@
 <section class="default-card">
     <h3><%= model.name %></h3>
-    <model-viewer alt="Design ilustrativa do colecionavel do iventário"
+    <model-viewer autoplay ar ar-modes="webxr scene-viewer" alt="Design ilustrativa do colecionavel do iventário"
         src="/source/models/<%= model.path  %>" ar shadow-intensity="0" camera-controls
         touch-action="pan-y"></model-viewer>
         <% if (profile.id == locals.userid ) { %>

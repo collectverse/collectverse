@@ -20,7 +20,7 @@
         <section class="model-content">
             <% if (profile.collectible != null) { %>
                 <section class="model-viewer">
-                    <model-viewer alt="Design ilustrativa do colecionavel de <%= profile.name %> "
+                    <model-viewer autoplay ar ar-modes="webxr scene-viewer" alt="Design ilustrativa do colecionavel de <%= profile.name %> "
                         src="/source/models/<%= profile.collectible %>" ar shadow-intensity="0" camera-controls
                         touch-action="pan-y"></model-viewer>
                 </section>
