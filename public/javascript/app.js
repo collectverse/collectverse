@@ -54,6 +54,19 @@ if (perfil && dropdown) {
     perfil.addEventListener("click", f);
 };
 
+// notification
+
+const notify = document.querySelector(".li-dropdown-header .dropdown-notification");
+const Ndropdown = document.querySelector(".dropdown-notification-content");
+
+if (notify && Ndropdown) {
+    const g = () => {
+        Ndropdown.classList.toggle("onBlock")
+    }
+
+    notify.addEventListener("click", g);
+};
+
 // menu itens
 
 const dots = document.querySelectorAll(".more-icon");

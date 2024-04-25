@@ -22,6 +22,8 @@ module.exports = class MainController {
             const publications = await connection.query("SELECT publications.* , users.name, users.perfil FROM publications INNER JOIN users ON publications.UserId = users.id ORDER BY createdAt DESC");
             // consulta os usuários com mais seguidores
             const highlights = await connection.query("SELECT users.id, users.name, users.perfil, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId ORDER BY follows.followers ASC LIMIT 3");
+            // consulta as notificações do usuário logado
+            const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
 
             let forFollowers = [];
             let forFollowing = [];
@@ -32,11 +34,9 @@ module.exports = class MainController {
                 forFollowers = resultForFollowers
                 forFollowing = resultForFollowing
 
-                console.log(resultForFollowers)
-                console.log(resultForFollowing)
             }
 
-            res.render("layouts/main.ejs", { router: "../pages/home/home.ejs", publications: publications[0], user: account[0][0], highlights: highlights[0], followers: forFollowers, following: forFollowing});
+            res.render("layouts/main.ejs", { router: "../pages/home/home.ejs", publications: publications[0], user: account[0][0], highlights: highlights[0], followers: forFollowers, following: forFollowing, notifications: notifications[0] });
         } catch (error) {
             console.error(error);
             req.flash("msg", errorMessages.INTERNAL_ERROR);
@@ -62,7 +62,7 @@ module.exports = class MainController {
             }
 
             // verificando se usuário existe
-            const account = await connection.query("SELECT id FROM users WHERE id = ?", [user]);
+            const account = await connection.query("SELECT id, name FROM users WHERE id = ?", [user]);
 
             if (!(account[0].length > 0)) {
                 req.flash("msg", errorMessages.USER_NOT_FOUND);
@@ -71,7 +71,12 @@ module.exports = class MainController {
 
             // cria o comentário no banco de dados.
             const parentId = req.body.parentId || 0;
-            await connection.query("INSERT INTO publications (text, userId, image, likesByUsersIds ,parentId, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, now(), now())", [message, user, publishImagePath, '[]', parentId]);
+            const publication = await connection.query("INSERT INTO publications (text, userId, image, likesByUsersIds ,parentId, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, now(), now())", [message, user, publishImagePath, '[]', parentId]);
+
+            if(parentId !== 0 && parentId !== user) {
+                const content = `${account[0][0].name} Respondeu seu comentário.`
+                await connection.query("INSERT INTO notify (UserId, ifCommented ,parentId, type, content, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, NOW(), NOW())", [user , publication[0].insertId, parentId, "response", content]);
+            }
 
             req.flash("msg", successMessages.CREATED_PUBLISH);
             res.redirect("/");
@@ -107,11 +112,11 @@ module.exports = class MainController {
     static async likePublication(req, res) {
         try {
             const id = req.body.id;
+            const user = req.body.user;
 
             // Obter as informações do comentário atual
             const publication = await connection.query("SELECT likes, likesByUsersIds FROM publications WHERE id = ? LIMIT 1", [id]);
-
-            console.log(publication)
+            const account = await connection.query("SELECT id, name FROM users WHERE id = ?", [req.session.userid]);
 
             // Verificar se o usuário já curtiu o comentário
             let likedByUserIds = JSON.parse(publication[0][0].likesByUsersIds || '[]');
@@ -124,6 +129,7 @@ module.exports = class MainController {
 
                 // Atualizar o banco de dados
                 await connection.query('UPDATE publications SET likes = ?, likesByUsersIds = ?, updatedAt = now() WHERE id = ?', [updatedLikes, JSON.stringify(likedByUserIds), id]);
+
                 return res.redirect("/");
             }
 
@@ -132,6 +138,11 @@ module.exports = class MainController {
 
             // Atualizar o banco de dados
             await connection.query('UPDATE publications SET likes = ?, likesByUsersIds = ?, updatedAt = now() WHERE id = ?', [updatedLikes, JSON.stringify(likedByUserIds), id]);
+            
+            const content = `${account[0][0].name} Curtiu seu comentário`
+            await connection.query("INSERT INTO notify (UserId, parentId, ifLiked, type, content, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, NOW(), NOW())", [req.session.userid ,user, id,"like", content]);
+
+
             return res.redirect("/");
         } catch (error) {
             console.log(error)
@@ -155,12 +166,14 @@ module.exports = class MainController {
             // consulta do usuário logado
             const account = await connection.query("SELECT name, email, perfil, banner FROM users WHERE id = ?", [req.session.userid]);
 
+            const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
+
             if (account.length === 0) {
                 req.flash("msg", errorMessages.INTERNAL_ERROR);
                 return res.redirect("/");
             }
 
-            res.render("layouts/main", { router: "../pages/home/publication.ejs", publication: publication[0][0], publications: publications[0], user: account[0][0] });
+            res.render("layouts/main", { router: "../pages/home/publication.ejs", publication: publication[0][0], publications: publications[0], user: account[0][0], notifications: notifications[0] });
         } catch (error) {
             console.log(error)
             req.flash("msg", errorMessages.INTERNAL_ERROR);

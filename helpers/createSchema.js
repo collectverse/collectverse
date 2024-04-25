@@ -88,6 +88,25 @@ async function createSchema() {
         FOREIGN KEY (UserId) REFERENCES users(id)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;`,
 
+        // type da tabela notify varia entre:
+        // response, like e follow
+
+            `CREATE TABLE IF NOT EXISTS notify (
+        id int(11) NOT NULL AUTO_INCREMENT,
+        UserId int(11) DEFAULT NULL,
+        parentId INT NOT NULL,
+        ifLiked INT,
+        ifCommented INT,
+        type VARCHAR(24),
+        content VARCHAR(32),
+        createdAt datetime NOT NULL,
+        updatedAt datetime NOT NULL,
+        PRIMARY KEY (id),
+        FOREIGN KEY (UserId) REFERENCES users(id)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;`,
+
+        // insert
+
             `INSERT INTO shop (palette, name, description, rarity, price, path, onwer, createdAt, updatedAt) 
         VALUES 
         ('["#325015", "#5f7e40", "#769556", "#8cac6b", "#dceec9"]' ,'Sociactus', 'Sociactus tem um temor profundo do mundo lá fora, mas está pronto para se aventurar em sua jornada. Ele procura um parceiro para ajudá-lo a explorar e enfrentar seus medos juntos. Você está pronto para ser esse parceiro?', "legendary", 1200.00, '0001.glb', 'felipegall', NOW(), NOW()),

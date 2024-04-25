@@ -9,7 +9,7 @@ module.exports = class MainController {
     static async store(req, res) {
         const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
         const highlights = await connection.query("SELECT users.id, users.name, users.perfil, users.banner, follows.followers, carts.itemIds FROM users INNER JOIN follows ON users.id = follows.UserId INNER JOIN carts ON users.id = carts.UserId ORDER BY carts.itemIds ASC LIMIT 5");
-        
+        const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
         // filtro de itens
         let category = req.query.category || "";
         let shop = null;
@@ -20,13 +20,15 @@ module.exports = class MainController {
             shop = await connection.query("SELECT * FROM shop ORDER BY createdAt DESC LIMIT 2");
         }
 
-        res.render("layouts/main.ejs", { router: "../pages/store/store.ejs", user: account[0][0], highlights: highlights[0], shop: shop[0], category: category });
+        res.render("layouts/main.ejs", { router: "../pages/store/store.ejs", user: account[0][0], highlights: highlights[0], shop: shop[0], category: category, notifications: notifications[0] });
     }
     static async itemShow(req, res) {
         const id = req.params.id;
 
         // consulta do usuário logado
         const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
+
+        const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
 
         // consulta o item
         const item = await connection.query("SELECT * FROM shop WHERE id = ?", [id]);
@@ -44,7 +46,7 @@ module.exports = class MainController {
             alreadyPurchased = false
         }
 
-        res.render("layouts/main.ejs", { router: "../pages/store/item.ejs", user: account[0][0], item: item[0][0], alreadyPurchased: alreadyPurchased });
+        res.render("layouts/main.ejs", { router: "../pages/store/item.ejs", user: account[0][0], item: item[0][0], alreadyPurchased: alreadyPurchased, notifications: notifications[0] });
     }
     static async getItem(req, res) {
         const id = req.body.id;

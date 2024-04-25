@@ -70,9 +70,10 @@
 
 .inventory-viewer {
     display: none;
-    align-items: center;
+    align-items: flex-start;
     justify-content: stretch;
-    flex-direction: column;
+    overflow-y: auto;
+    height: calc(100vh - 235px);
     gap: 0.8rem;
 }
 
@@ -105,11 +106,6 @@
     .main-profile {
         display: flex;
         flex-direction: column;
-    }
-
-    .model-card .model-viewer model-viewer,
-    .model-card .model-unviewer {
-        height: calc(100vh - 235px);
     }
 
     .inventory-viewer model-viewer {

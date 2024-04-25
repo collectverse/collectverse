@@ -24,14 +24,85 @@
                         </a>
                     </li>
                 </ul>
-                <ul>
+                <ul class="header-ul-itens">
                     <li class="li-menu">
                         <section class="menu">
                             <i class="bi bi-grid-fill"></i>
                         </section>
                     </li>
                     <% if (locals.userid) { %>
+
                         <!-- logado -->
+
+                        <% if (notifications) { %>
+                            <li class="li-dropdown-header">
+                                <section class="more-icon">
+                                    <section class="dropdown-notification">
+                                        <i class="bi bi-bell-fill dropbtn"></i>
+                                        <section class="dropdown-notification-content">
+                                            <ul>
+                                                <% if (notifications.length > 0) { %>
+                                                    <% notifications.forEach((notification) => { %>
+                                                        <li>
+                                                            <% if (notification.type === "follow") { %>
+                                                                <a href="/profile/<%= notification.UserId  %>">
+                                                                    <section class="notification-item">
+                                                                        <section>
+                                                                            <i class="bi bi-person-check-fill"></i>
+                                                                        </section>
+                                                                        <section>
+                                                                            <h2>Novo Seguidor.</h2>
+                                                                            <p><%= notification.content %></p>
+                                                                        </section>
+                                                                    </section>
+                                                                </a>
+                                                            <% } %>
+        
+                                                            <% if (notification.type === "response") { %>
+                                                                <a href="/publication/<%= notification.ifCommented  %>">
+                                                                    <section class="notification-item">
+                                                                        <section>
+                                                                            <i class="bi bi-chat-left-text-fill"></i>
+                                                                        </section>
+                                                                        <section>
+                                                                            <h2>Nova resposta.</h2>
+                                                                            <p><%= notification.content %></p>
+                                                                        </section>
+                                                                    </section>
+                                                                </a>
+                                                            <% } %>
+        
+                                                            <% if (notification.type === "like") { %>
+                                                                <a href="/publication/<%= notification.ifLiked  %>">
+                                                                    <section class="notification-item">
+                                                                        <section>
+                                                                            <i class="bi bi-chat-heart-fill"></i>
+                                                                        </section>
+                                                                        <section>
+                                                                            <h2>Nova curtida.</h2>
+                                                                            <p><%= notification.content %></p>
+                                                                        </section>
+                                                                    </section>
+                                                                </a>
+                                                            <% } %>
+        
+                                                        </li>
+                                                    <% }); %>
+                                                        <li>
+                                                            <span>Sem mais notificações.</span>
+                                                        </li>
+                                                <% } else { %>
+                                                    <li class="not-have-notification">
+                                                        <span>Sem notificações.</span>
+                                                    </li>
+                                                <% } %>
+                                            </ul>
+                                        </section>
+                                    </section>
+                                </section>
+                            </li>
+                        <% } %>
+
                         <li class="li-dropdown-header">
                             <section class="dropdown header-dropdown">
 

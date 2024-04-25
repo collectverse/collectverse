@@ -40,6 +40,10 @@ a {
     background: transparent !important;
 }
 
+.dropdown-notification-content {
+    background: #769556;
+}
+
 .header .menu i {
     color: #325015 !important;
 }

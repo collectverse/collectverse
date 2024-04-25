@@ -43,6 +43,10 @@ a {
     color: #382f32 !important;
 }
 
+.dropdown-notification-content {
+    background: #fcd9e5;
+}
+
 .responsive-itens-container .default-card {
     background: #fbc5d835;
 }

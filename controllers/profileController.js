@@ -35,6 +35,8 @@ module.exports = class ProfileController {
                 connection.query("SELECT id, name, email, perfil, banner, biography FROM users WHERE id = ?", [req.session.userid])
             ]);
 
+            const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
+
             const cart = JSON.parse(account[0][0].itemIds || "[]");
             const inventory = await Promise.all(cart.map(async (itemId) => {
                 const [item] = await connection.query("SELECT * FROM shop WHERE id = ?", [itemId]);
@@ -50,7 +52,7 @@ module.exports = class ProfileController {
             // retorna modal de seguidores e seguindo
             const { resultForFollowers, resultForFollowing } = await returnFollowersAndFollowing(id);
 
-            res.render("layouts/main.ejs", { router: "../pages/profile/profile.ejs", publications: publications[0], user: session[0][0], profile: account[0][0], inventory: inventory, followers: resultForFollowers, following: resultForFollowing });
+            res.render("layouts/main.ejs", { router: "../pages/profile/profile.ejs", publications: publications[0], user: session[0][0], profile: account[0][0], inventory: inventory, followers: resultForFollowers, following: resultForFollowing, notifications: notifications[0] });
 
         } catch (error) {
             console.log(error)
@@ -62,6 +64,8 @@ module.exports = class ProfileController {
         try {
             const id = req.params.id;
             const account = await connection.query("SELECT * FROM users WHERE id = ?", [id]);
+            
+            const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
 
             if (!(account[0].length > 0)) {
                 req.flash("msg", errorMessages.INTERNAL_ERROR);
@@ -72,7 +76,7 @@ module.exports = class ProfileController {
                 return res.redirect("/");
             }
 
-            res.render("layouts/main.ejs", { router: "../pages/profile/edit.ejs", user: account[0][0] });
+            res.render("layouts/main.ejs", { router: "../pages/profile/edit.ejs", user: account[0][0], notifications: notifications[0] });
         } catch (error) {
             console.log(error)
             req.flash("msg", errorMessages.INTERNAL_ERROR);
@@ -217,6 +221,7 @@ module.exports = class ProfileController {
 
             // Verifique se o usuário já segue o perfil
             const profileFollows = await connection.query("SELECT followers FROM follows WHERE UserId = ?", [id]);
+            const profile = await connection.query("SELECT id, name FROM users WHERE id = ?", [req.session.userid])
             const userFollowing = await connection.query("SELECT following FROM follows WHERE UserId = ?", [req.session.userid]);
             let followingByProfile = JSON.parse(profileFollows[0][0].followers || "[]");
             let followingByUser = JSON.parse(userFollowing[0][0].following || "[]");
@@ -230,6 +235,9 @@ module.exports = class ProfileController {
                 // Se não segue, comece a seguir
                 followingByProfile.push(req.session.userid);
                 followingByUser.push(id);
+
+                const content = `${profile[0][0].name} Começou a seguir você.`
+                await connection.query("INSERT INTO notify (UserId, parentId, type, content, createdAt, updatedAt) VALUES (?, ?, ?, ?, NOW(), NOW())", [req.session.userid , id, "follow", content]);
             }
 
             // Atualize a lista de seguidores na tabela
