@@ -98,7 +98,7 @@ async function createSchema() {
         ifLiked INT,
         ifCommented INT,
         type VARCHAR(8),
-        content VARCHAR(82),
+        content TINYTEXT,
         createdAt datetime NOT NULL,
         updatedAt datetime NOT NULL,
         PRIMARY KEY (id),
