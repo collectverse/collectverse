@@ -416,6 +416,7 @@ hr {
     width: 100%;
     display: flex;
     align-items: center;
+    overflow-x: auto;
     justify-content: space-around;
     text-align: center;
     gap: 16px;
