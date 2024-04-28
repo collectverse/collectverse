@@ -7,5 +7,7 @@ router.post('/makeSignIn', signController.makeSignIn);
 router.get('/up', signController.signUp);
 router.post('/makeSignUp', signController.makeSignUp);
 router.get('/logout', signController.logout);
+router.get('/recover', signController.recover);
+router.post('/makeRecover', signController.makeRecover);
 
 module.exports = router;

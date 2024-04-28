@@ -3,7 +3,8 @@ const bcrypt = require("bcryptjs");
 
 const successMessages = {
     CREATED_ACCOUNT: 'Conta criada com sucesso.',
-    LOGIN_ACCOUNT: 'Entrada feita com sucesso.'
+    LOGIN_ACCOUNT: 'Entrada feita com sucesso.',
+    ALTER_PASSWORD: 'Senha alterada com sucesso.'
 };
 
 const errorMessages = {
@@ -169,8 +170,68 @@ module.exports = class SignController {
     }
     static logout(req, res) {
         try {
-            req.session.destroy();
-        res.redirect("/sign/in");
+            req.session.destroy(() => {
+                res.redirect("/sign/in");
+            });
+        } catch (error) {
+            console.log(error)
+            req.flash("msg", errorMessages.INTERNAL_ERROR);
+            return res.redirect("/");
+        }
+    }
+    static async recover(req, res) {
+        try {
+            res.render("layouts/main.ejs", { router: "../pages/sign/recover.ejs" });
+        } catch (error) {
+            console.log(error)
+            req.flash("msg", errorMessages.INTERNAL_ERROR);
+            return res.redirect("/");
+        }
+    }
+    static async makeRecover(req, res) {
+        try {
+            const { email, password } = req.body;
+
+            if (itIsEmail.test(email)) {
+                req.flash("msg", errorMessages.INVALID_EMAIL);
+                return res.render("layouts/main.ejs", { router: "../pages/sign/recover.ejs", error: req.flash("msg") });
+            } else if (email.length === 0) {
+                req.flash("msg", errorMessages.EMPTY_EMAIL);
+                return res.render("layouts/main.ejs", { router: "../pages/sign/recover.ejs", error: req.flash("msg") });
+            }
+
+            // verifica se usuário existe
+            const user = await connection.query("SELECT id, email, password FROM users WHERE email = ?", [email]);
+
+            console.log(user[0][0].id)
+
+            if (!(user[0].length > 0)) {
+                req.flash("msg", errorMessages.EMAIL_NOT_IN_USE);
+                return res.render("layouts/main.ejs", { router: "../pages/sign/recover.ejs", error: req.flash("msg") });
+            }
+
+            if (!wasSpecialCharacters.test(password)) {
+                req.flash("msg", errorMessages.NO_SPECIAL_CHARACTERS);
+                return res.render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
+            }
+            if (password.length < 8) {
+                req.flash("msg", errorMessages.WEAK_PASSWORD);
+                return res.render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
+            }
+            if (password.length > 64) {
+                req.flash("msg", errorMessages.LIMIT_PASSWORD);
+                return res.render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
+            }
+
+            // criptografando a senha do usuário.
+
+            const salt = bcrypt.genSaltSync(10);
+            const hashedPassword = bcrypt.hashSync(password, salt);
+
+            await connection.query("UPDATE users SET password = ?, updatedAt = NOW() WHERE id = ?", [hashedPassword, user[0][0].id]);
+
+            req.flash("msg", successMessages.ALTER_PASSWORD);
+            res.redirect("/sign/in")
         } catch (error) {
             console.log(error)
             req.flash("msg", errorMessages.INTERNAL_ERROR);

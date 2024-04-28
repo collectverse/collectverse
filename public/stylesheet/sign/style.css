@@ -93,6 +93,11 @@ main {
     text-decoration: none;
 }
 
+.alert i {
+    color: #4798e2;
+    font-size: 24px;
+}
+
 @media screen and (max-width: 768px) {
     .header-card-text h1 {
         font-size: 16px;

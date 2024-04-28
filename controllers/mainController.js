@@ -10,7 +10,8 @@ const errorMessages = {
     INVALID_SESSION: 'Erro ao validar sessão do usuário.',
     EMPTY_TEXT: 'Para fazer uma publicação deve preencher a área de texto.',
     INTERNAL_ERROR: 'Erro interno do servidor.',
-    USER_NOT_FOUND: 'Usuário não encontrado.'
+    USER_NOT_FOUND: 'Usuário não encontrado.',
+    NOT_FOUND: 'Não encontrado.'
 };
 
 module.exports = class MainController {
@@ -157,8 +158,8 @@ module.exports = class MainController {
             // consulta das publicações
             const publication = await connection.query("SELECT publications.*, users.name, users.perfil FROM publications INNER JOIN users ON publications.UserId = users.id WHERE publications.id = ? ORDER BY publications.createdAt DESC", [id]);
 
-            if (publication.length === 0) {
-                req.flash("msg", errorMessages.INTERNAL_ERROR);
+            if (publication.length === 0 || !(publication[0][0].length > 0) ) {
+                req.flash("msg", errorMessages.NOT_FOUND);
                 return res.redirect("/");
             }
 

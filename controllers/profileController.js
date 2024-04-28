@@ -19,7 +19,8 @@ const errorMessages = {
     NO_MATCH_PASSWORDS: 'As senhas não coincidem.',
     NO_CORRECT_PASSWORDS: 'Senha atual incorreta.',
     ALTERED_PASSWORD: 'Senha alterada com sucesso.',
-    NO_SPECIAL_CHARACTERS: 'A senha deve incluir letras maiúsculas, minúsculas, números e caracteres especiais.'
+    NO_SPECIAL_CHARACTERS: 'A senha deve incluir letras maiúsculas, minúsculas, números e caracteres especiais.',
+    NOT_FOUND: 'Não encontrado.'
 };
 
 const itIsEmail = /S+@S+.S+/;
@@ -44,7 +45,8 @@ module.exports = class ProfileController {
             }));
 
             if (!(account[0].length > 0)) {
-                return res.status(404).render("layouts/notFound.ejs");
+                req.flash("msg", errorMessages.NOT_FOUND);
+                return res.redirect("/");
             }
             // consulta de publicações do usuário
             const publications = await connection.query("SELECT publications.* , users.name, users.perfil FROM publications INNER JOIN users ON publications.UserId = users.id WHERE users.id = ? ORDER BY createdAt DESC", [id]);
@@ -202,8 +204,9 @@ module.exports = class ProfileController {
             await connection.query("DELETE FROM follows WHERE userId = ?", [id]);
             await connection.query("DELETE FROM users WHERE id = ?", [id]);
             req.flash("msg", successMessages.DELETED_ACCOUNT);
-            req.session.destroy();
-            return res.redirect("/sign/in");
+            req.session.destroy(() => {
+                return res.redirect("/sign/in");
+            });
         } catch (error) {
             console.log(error)
             req.flash("msg", errorMessages.INTERNAL_ERROR);
