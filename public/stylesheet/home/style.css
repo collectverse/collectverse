@@ -19,6 +19,10 @@
     }    
 }
 
+.users-highlights-card {
+    max-width: 350px;
+}
+
 .users-highlights-card .user-info {
     padding: 1rem;
     display: flex;

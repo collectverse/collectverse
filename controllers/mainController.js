@@ -28,10 +28,10 @@ module.exports = class MainController {
 
             let forFollowers = [];
             let forFollowing = [];
-            
-            if(req.session.userid) {
+
+            if (req.session.userid) {
                 const { resultForFollowers, resultForFollowing } = await returnFollowersAndFollowing(req.session.userid);
-                
+
                 forFollowers = resultForFollowers
                 forFollowing = resultForFollowing
 
@@ -65,7 +65,7 @@ module.exports = class MainController {
             // verificando se usuário existe
             const account = await connection.query("SELECT id, name FROM users WHERE id = ?", [user]);
 
-            if (!(account[0].length > 0)) {
+            if (account[0].length == 0) {
                 req.flash("msg", errorMessages.USER_NOT_FOUND);
                 return res.redirect("/");
             }
@@ -74,9 +74,9 @@ module.exports = class MainController {
             const parentId = req.body.parentId || 0;
             const publication = await connection.query("INSERT INTO publications (text, userId, image, likesByUsersIds ,parentId, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, now(), now())", [message, user, publishImagePath, '[]', parentId]);
 
-            if(parentId !== 0 && parentId !== user) {
+            if (parentId !== 0 && parentId !== user) {
                 const content = `${account[0][0].name} Respondeu seu comentário.`
-                await connection.query("INSERT INTO notify (UserId, ifCommented ,parentId, type, content, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, NOW(), NOW())", [user , publication[0].insertId, parentId, "response", content]);
+                await connection.query("INSERT INTO notify (UserId, ifCommented ,parentId, type, content, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, NOW(), NOW())", [user, publication[0].insertId, parentId, "response", content]);
             }
 
             req.flash("msg", successMessages.CREATED_PUBLISH);
@@ -139,9 +139,9 @@ module.exports = class MainController {
 
             // Atualizar o banco de dados
             await connection.query('UPDATE publications SET likes = ?, likesByUsersIds = ?, updatedAt = now() WHERE id = ?', [updatedLikes, JSON.stringify(likedByUserIds), id]);
-            
+
             const content = `${account[0][0].name} Curtiu seu comentário`
-            await connection.query("INSERT INTO notify (UserId, parentId, ifLiked, type, content, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, NOW(), NOW())", [req.session.userid ,user, id,"like", content]);
+            await connection.query("INSERT INTO notify (UserId, parentId, ifLiked, type, content, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, NOW(), NOW())", [req.session.userid, user, id, "like", content]);
 
 
             return res.redirect("/");
@@ -158,7 +158,7 @@ module.exports = class MainController {
             // consulta das publicações
             const publication = await connection.query("SELECT publications.*, users.name, users.perfil FROM publications INNER JOIN users ON publications.UserId = users.id WHERE publications.id = ? ORDER BY publications.createdAt DESC", [id]);
 
-            if (publication.length === 0 || !(publication[0].length > 0) ) {
+            if (publication[0].length == 0) {
                 req.flash("msg", errorMessages.NOT_FOUND);
                 return res.redirect("/");
             }
