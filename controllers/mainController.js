@@ -158,7 +158,7 @@ module.exports = class MainController {
             // consulta das publicações
             const publication = await connection.query("SELECT publications.*, users.name, users.perfil FROM publications INNER JOIN users ON publications.UserId = users.id WHERE publications.id = ? ORDER BY publications.createdAt DESC", [id]);
 
-            if (publication.length === 0 || !(publication[0][0].length > 0) ) {
+            if (publication.length === 0 || !(publication[0].length > 0) ) {
                 req.flash("msg", errorMessages.NOT_FOUND);
                 return res.redirect("/");
             }
