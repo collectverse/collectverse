@@ -18,7 +18,7 @@ module.exports = class MainController {
     static async home(req, res) {
         try {
             // consulta o usuário logado
-            const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, users.banner, users.biography, follows.followers, follows.following FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
+            const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, users.banner, users.biography, users.points, follows.followers, follows.following FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
             // consulta os comentários
             const publications = await connection.query("SELECT publications.* , users.name, users.perfil FROM publications INNER JOIN users ON publications.UserId = users.id ORDER BY createdAt DESC");
             // consulta os usuários com mais seguidores
@@ -165,7 +165,7 @@ module.exports = class MainController {
 
             const publications = await connection.query("SELECT publications.*, users.name, users.perfil FROM publications INNER JOIN users ON publications.UserId = users.id WHERE publications.parentId = ? ORDER BY publications.createdAt DESC", [id]);
             // consulta do usuário logado
-            const account = await connection.query("SELECT name, email, perfil, banner FROM users WHERE id = ?", [req.session.userid]);
+            const account = await connection.query("SELECT name, email, perfil, points FROM users WHERE id = ?", [req.session.userid]);
 
             const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
 

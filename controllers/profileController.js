@@ -33,7 +33,7 @@ module.exports = class ProfileController {
             const id = req.params.id;
             const [account, session] = await Promise.all([
                 connection.query(`SELECT users.id, users.name, users.email, users.perfil, users.banner, users.biography, users.collectible, follows.followers, follows.following, carts.itemIds FROM users INNER JOIN follows ON users.id = follows.UserId INNER JOIN carts ON users.id = carts.UserId WHERE users.id = ?`, [id]),
-                connection.query("SELECT id, name, email, perfil, banner, biography FROM users WHERE id = ?", [req.session.userid])
+                connection.query("SELECT id, name, email, perfil, banner, points, biography FROM users WHERE id = ?", [req.session.userid])
             ]);
 
             const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);

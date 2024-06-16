@@ -7,7 +7,7 @@ const errorMessages = {
 
 module.exports = class MainController {
     static async store(req, res) {
-        const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
+        const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, users.points, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
         const highlights = await connection.query("SELECT users.id, users.name, users.perfil, users.banner, follows.followers, carts.itemIds FROM users INNER JOIN follows ON users.id = follows.UserId INNER JOIN carts ON users.id = carts.UserId ORDER BY carts.itemIds ASC LIMIT 5");
         const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
         // filtro de itens
@@ -26,7 +26,7 @@ module.exports = class MainController {
         const id = req.params.id;
 
         // consulta do usuário logado
-        const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
+        const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, users.points, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
 
         const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
 

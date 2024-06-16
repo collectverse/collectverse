@@ -47,6 +47,7 @@ async function createSchema() {
         perfil varchar(120) DEFAULT 'default.png',
         banner varchar(120) DEFAULT 'default.png',
         biography varchar(80) DEFAULT 'Usuário sem biografia.',
+        points DECIMAL(6, 2) NOT NULL DEFAULT '0.00',
         collectible varchar(24) DEFAULT NULL,
         createdAt datetime NOT NULL,
         updatedAt datetime NOT NULL,
@@ -114,7 +115,8 @@ async function createSchema() {
         ('["#F21D56", "#BF265E", "#363859", "#141E26"]' ,'Skullsita', 'Ela está com um humor terrível e pronta para arrasar qualquer coisa em seu caminho! Com olhos faiscantes e um sorriso que só um colecionador destemido ousaria enfrentar', 'exceptional', 2400.000, '0003.glb', 'tofox', NOW(), NOW()),
         ('["#BAABE4", "#9B8DBF", "#242426"]' ,'Kuromi', 'Bem fofinha, não? mas ainda sim tenho medo, ela é misteriosa.', "rare", 800.00, '0004.glb', 'Kuromi', NOW(), NOW())
         
-        `
+        `,
+
         ];
 
         // Executa cada query para criar as tabelas

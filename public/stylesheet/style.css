@@ -135,14 +135,24 @@ hr {
 .header .user-info-dropdown section h3,
 .informations-card h3 {
     color: #202124;
-    font-size: 18px;
+    font-size: 16px;
+    line-height: 1rem;
 }
 
 .header .user-info-dropdown section span,
 .informations-card span {
     color: #676767;
-    font-size: 14px;
+    font-size: 12px;
     max-width: 14ch;
+    line-height: 1rem;
+}
+
+.informations-card .span-for-points {
+    background-color: #dfedff;
+    color: #0056b3 !important;
+    padding: 0.2rem 0.4rem;
+    font-size: 0.6rem !important;
+    border-radius: 12px;
 }
 
 .navigation-header {
