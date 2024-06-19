@@ -47,7 +47,7 @@ async function createSchema() {
         perfil varchar(120) DEFAULT 'default.png',
         banner varchar(120) DEFAULT 'default.png',
         biography varchar(80) DEFAULT 'Usuário sem biografia.',
-        points DECIMAL(6, 2) NOT NULL DEFAULT '0.00',
+        points DECIMAL(6, 0) NOT NULL DEFAULT '0.00',
         collectible varchar(24) DEFAULT NULL,
         createdAt datetime NOT NULL,
         updatedAt datetime NOT NULL,

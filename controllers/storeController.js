@@ -3,6 +3,7 @@ const errorMessages = {
     NOT_SESSION: 'É necessário estar em uma conta.',
     CART_INCLUDE: 'Item já adicionado em seu inventário.',
     INTERNAL_ERROR: 'Erro interno do servidor.',
+    DONT_HAVE_POINTS: 'Não há pontos o suficiente.'
 };
 
 module.exports = class MainController {
@@ -49,16 +50,24 @@ module.exports = class MainController {
         res.render("layouts/main.ejs", { router: "../pages/store/item.ejs", user: account[0][0], item: item[0][0], alreadyPurchased: alreadyPurchased, notifications: notifications[0] });
     }
     static async getItem(req, res) {
-        const id = req.body.id;
+        const {id, price} = req.body;
 
         if (!(req.session.userid)) {
             req.flash("msg", errorMessages.NOT_SESSION);
             return res.redirect("/sign/In");
         }
 
+        const account = await connection.query("SELECT id, points FROM users WHERE id = ?", [req.session.userid]);
+
+        const remainder = account[0][0].points - price
+
+        if(Math.sign(remainder) == -1) {
+            req.flash("msg", errorMessages.DONT_HAVE_POINTS)
+            return res.redirect(`/store/shopping/${id}`)
+        }
+
         const cart = await connection.query("SELECT id, itemIds FROM carts WHERE UserId = ?", [req.session.userid]);
         let collectables = JSON.parse(cart[0][0].itemIds || "[]")
-
 
         if (collectables.includes(id)) {
             req.flash("msg", errorMessages.CART_INCLUDE);
@@ -70,6 +79,7 @@ module.exports = class MainController {
         try {
 
             // atualiza inventário
+            await connection.query("UPDATE users SET points = ?, updatedAt = NOW() WHERE id = ?", [remainder, req.session.userid])
             await connection.query("UPDATE carts SET itemIds = ?, updatedAt = NOW() WHERE UserId = ?", [JSON.stringify(collectables), req.session.userid])
 
             return res.redirect(`/store/shopping/${id}`)

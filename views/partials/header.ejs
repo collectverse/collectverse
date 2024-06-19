@@ -12,7 +12,7 @@
         <section class="navigation">
             <nav>
                 <ul class="navigation-header">
-                    <li class="<%= router === '../pages/store/store.ejs' ? 'activated' : '' %>">
+                    <li class="<%= router === '../pages/store/store.ejs' ? 'activated' : '' %> <%= router === '../pages/store/item.ejs' ? 'activated' : '' %>">
                         <a href="/store" aria-label="Ir para a loja de colecionáveis">
                             <i class="bi bi-bag-fill"></i> <span>Loja</span>
                         </a>
@@ -105,7 +105,6 @@
 
                         <li class="li-dropdown-header">
                             <section class="dropdown header-dropdown">
-
                                 <section class="perfil">
                                     <img class="user-profile-header <%= router === '../pages/profile/profile.ejs' ? 'inPerfil' : '' %>" src="/uploads/user/perfils/<%= user.perfil %>"
                                         alt="foto de perfil do usuário.">
@@ -122,7 +121,7 @@
                                                 </section>
                                                 <section class="informations-card">
                                                     <span class="span-for-points">
-                                                        $<%= user.points  %>
+                                                        <a href="/">$<%= user.points  %></a>
                                                     </span>
                                                     <h3>
                                                         <%= user.name %>

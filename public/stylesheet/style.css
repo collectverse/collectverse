@@ -147,12 +147,17 @@ hr {
     line-height: 1rem;
 }
 
-.informations-card .span-for-points {
+.span-for-points {
     background-color: #dfedff;
     color: #0056b3 !important;
     padding: 0.2rem 0.4rem;
     font-size: 0.6rem !important;
     border-radius: 12px;
+}
+
+.span-for-points a {
+    all: unset !important;
+    cursor: pointer !important;
 }
 
 .navigation-header {

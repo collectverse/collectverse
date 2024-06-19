@@ -12,15 +12,20 @@
     border: none;
 }
 
+.users-highlights-card {
+    max-width: 350px;
+    width: 100%;
+}
+
 @media screen and (max-width: 768px) {
     .main-home {
         display: flex;
         flex-direction: column;
     }    
-}
-
-.users-highlights-card {
-    max-width: 350px;
+    .users-highlights-card {
+        max-width: 100% !important;
+        width: 100%;
+    }
 }
 
 .users-highlights-card .user-info {

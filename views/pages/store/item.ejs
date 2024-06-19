@@ -36,14 +36,15 @@
                     </section>
                 </section>
                 <section>
+
                     <% if (alreadyPurchased) { %>
                         <form action="/store/get" method="post">
-                            <input type="hidden" name="id" value="<%= item.id  %>">
                             <input type="submit" value="Parabéns, este item já está em sua coleção!" disabled >
                         </form>
                     <% } else { %>
                         <form action="/store/get" method="post">
                             <input type="hidden" name="id" value="<%= item.id  %>">
+                            <input type="hidden" name="price" value="<%= item.price  %>">
                             <input type="submit" value="Adiquirir" style="background-color: <%= paletteArray[0]; %>" <%= locals.userid ? '' : 'disabled' %>>
                         </form>
                     <% } %>

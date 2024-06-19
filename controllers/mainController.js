@@ -17,6 +17,11 @@ const errorMessages = {
 module.exports = class MainController {
     static async home(req, res) {
         try {
+
+            if(!(req.session.userid)){
+                return res.redirect("/sign/in")
+            }
+
             // consulta o usuário logado
             const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, users.banner, users.biography, users.points, follows.followers, follows.following FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
             // consulta os comentários
