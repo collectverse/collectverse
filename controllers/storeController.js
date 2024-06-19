@@ -21,7 +21,7 @@ module.exports = class MainController {
             shop = await connection.query("SELECT * FROM shop ORDER BY createdAt DESC LIMIT 2");
         }
 
-        res.render("layouts/main.ejs", { router: "../pages/store/store.ejs", user: account[0][0], highlights: highlights[0], shop: shop[0], category: category, notifications: notifications[0] });
+        res.render("layouts/main.ejs", { router: "../pages/store/store.ejs", user: account[0][0], highlights: highlights[0], shop: shop[0], category: category, notifications: notifications[0],  title: "Collectverse - Loja" });
     }
     static async itemShow(req, res) {
         const id = req.params.id;
@@ -47,7 +47,7 @@ module.exports = class MainController {
             alreadyPurchased = false
         }
 
-        res.render("layouts/main.ejs", { router: "../pages/store/item.ejs", user: account[0][0], item: item[0][0], alreadyPurchased: alreadyPurchased, notifications: notifications[0] });
+        res.render("layouts/main.ejs", { router: "../pages/store/item.ejs", user: account[0][0], item: item[0][0], alreadyPurchased: alreadyPurchased, notifications: notifications[0],  title: `Collectverse - ${item[0][0].name}` });
     }
     static async getItem(req, res) {
         const {id, price} = req.body;

@@ -54,7 +54,7 @@ module.exports = class ProfileController {
             // retorna modal de seguidores e seguindo
             const { resultForFollowers, resultForFollowing } = await returnFollowersAndFollowing(id);
 
-            res.render("layouts/main.ejs", { router: "../pages/profile/profile.ejs", publications: publications[0], user: session[0][0], profile: account[0][0], inventory: inventory, followers: resultForFollowers, following: resultForFollowing, notifications: notifications[0] });
+            res.render("layouts/main.ejs", { router: "../pages/profile/profile.ejs", publications: publications[0], user: session[0][0], profile: account[0][0], inventory: inventory, followers: resultForFollowers, following: resultForFollowing, notifications: notifications[0], title: `Collectverse - ${account[0][0].name}` });
 
         } catch (error) {
             console.log(error)
@@ -78,7 +78,7 @@ module.exports = class ProfileController {
                 return res.redirect("/");
             }
 
-            res.render("layouts/main.ejs", { router: "../pages/profile/edit.ejs", user: account[0][0], notifications: notifications[0] });
+            res.render("layouts/main.ejs", { router: "../pages/profile/edit.ejs", user: account[0][0], notifications: notifications[0], title: "Collectverse - Editar perfil" });
         } catch (error) {
             console.log(error)
             req.flash("msg", errorMessages.INTERNAL_ERROR);

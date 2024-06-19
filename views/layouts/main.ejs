@@ -9,7 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- titulo -->
-    <title>Collectverse</title>
+    <% if (typeof title !== 'undefined' && title) { %>
+        <title><%= title %></title>
+    <% } else { %>
+        <title>Collectverse</title>
+    <% } %>
 
     <!-- seo -->
 

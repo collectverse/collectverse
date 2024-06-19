@@ -35,7 +35,7 @@ module.exports = class SignController {
         } catch (error) {
             console.log(error)
             req.flash("msg", errorMessages.INTERNAL_ERROR);
-            return res.render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs", error: req.flash("msg") });
+            return res.render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs", error: req.flash("msg"), title: "Collectverse - Entrar" });
         }
     }
     static async makeSignIn(req, res) {
@@ -87,7 +87,7 @@ module.exports = class SignController {
         } catch (error) {
             console.log(error)
             req.flash("msg", errorMessages.INTERNAL_ERROR);
-            return res.render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
+            return res.render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg"), title: "Collectverse - Registrar"  });
         }
     }
     static async makeSignUp(req, res) {
@@ -181,7 +181,7 @@ module.exports = class SignController {
     }
     static async recover(req, res) {
         try {
-            res.render("layouts/main.ejs", { router: "../pages/sign/recover.ejs" });
+            res.render("layouts/main.ejs", { router: "../pages/sign/recover.ejs", title: "Collectverse - Recuperação"  });
         } catch (error) {
             console.log(error)
             req.flash("msg", errorMessages.INTERNAL_ERROR);

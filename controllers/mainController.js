@@ -42,7 +42,7 @@ module.exports = class MainController {
 
             }
 
-            res.render("layouts/main.ejs", { router: "../pages/home/home.ejs", publications: publications[0], user: account[0][0], highlights: highlights[0], followers: forFollowers, following: forFollowing, notifications: notifications[0] });
+            res.render("layouts/main.ejs", { router: "../pages/home/home.ejs", publications: publications[0], user: account[0][0], highlights: highlights[0], followers: forFollowers, following: forFollowing, notifications: notifications[0], title: "Collectverse - Home" });
         } catch (error) {
             console.error(error);
             req.flash("msg", errorMessages.INTERNAL_ERROR);
@@ -179,7 +179,7 @@ module.exports = class MainController {
                 return res.redirect("/");
             }
 
-            res.render("layouts/main", { router: "../pages/home/publication.ejs", publication: publication[0][0], publications: publications[0], user: account[0][0], notifications: notifications[0] });
+            res.render("layouts/main", { router: "../pages/home/publication.ejs", publication: publication[0][0], publications: publications[0], user: account[0][0], notifications: notifications[0], title: `Collectverse - Publicação de ${publication[0][0].name}`  });
         } catch (error) {
             console.log(error)
             req.flash("msg", errorMessages.INTERNAL_ERROR);
