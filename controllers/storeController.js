@@ -90,5 +90,32 @@ module.exports = class MainController {
             return res.redirect(`/store`)
         }
     }
+    static async getUniverse(req, res) {
+        const accout = await connection.query("SELECT id, points FROM users WHERE id = ?", [req.session.userid]);
+
+        if(accout[0].length == 0) {
+            return res.redirect("/sign/in");
+        }
+
+        const universePrice = 3000
+
+        const remainder = accout[0][0].points - universePrice
+        
+        if(Math.sign(remainder) == -1) {
+            req.flash("msg", errorMessages.DONT_HAVE_POINTS)
+            return res.redirect("/store")
+        }
+
+        try {
+            await connection.query("UPDATE users, pass SET points = ?, updatedAt = NOW() WHERE id = ?", [remainder, req.session.userid])
+
+            return res.redirect("/store")
+        } catch (error) {
+            console.log(error)
+            req.flash("msg", errorMessages.INTERNAL_ERROR);
+            return res.redirect(`/store`)
+        }
+        
+    }
 
 }

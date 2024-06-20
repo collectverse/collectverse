@@ -194,6 +194,10 @@
     font-weight: 600;
 }
 
+.plans-card {
+    background-color: ;
+}
+
 .container-for-item-store {
     display: flex;
     align-items: flex-start;

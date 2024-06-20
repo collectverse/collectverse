@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const signController = require('../controllers/storeController.js');
+const storeController = require('../controllers/storeController.js');
 
-router.get('/', signController.store);
-router.get('/shopping/:id', signController.itemShow);
-router.post('/get', signController.getItem);
+router.get('/', storeController.store);
+router.get('/shopping/:id', storeController.itemShow);
+router.post('/get', storeController.getItem);
+router.post('/getUniverse', storeController.getUniverse)
 
 module.exports = router;
