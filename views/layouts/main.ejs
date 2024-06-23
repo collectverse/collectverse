@@ -64,10 +64,6 @@
 
     <!-- mensagem flash -->
 
-    <% if (msg.length > 0) { %>
-        <%= JSON.stringify(msg) %>
-    <% } %>
-
     <% if (typeof error !== 'undefined' && error.length > 0) { %>
         <section class="noty_bar noty_error">
             <section class="noty_body">
