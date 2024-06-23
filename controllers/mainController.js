@@ -148,7 +148,6 @@ module.exports = class MainController {
             const content = `${account[0][0].name} Curtiu seu comentário`
             await connection.query("INSERT INTO notify (UserId, parentId, ifLiked, type, content, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, NOW(), NOW())", [req.session.userid, user, id, "like", content]);
 
-
             return res.redirect("/");
         } catch (error) {
             console.log(error)
