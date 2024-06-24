@@ -25,7 +25,7 @@ module.exports = class MainController {
             shop = await connection.query("SELECT * FROM shop ORDER BY createdAt DESC LIMIT 2");
         }
 
-        res.status(200).render("layouts/main.ejs", { router: "../pages/store/store.ejs", user: account[0][0], highlights: highlights[0], shop: shop[0], category: category, notifications: notifications[0],  title: "Collectverse - Loja" });
+        res.status(200).render("layouts/main.ejs", { router: "../pages/store/store.ejs", user: account[0][0], highlights: highlights[0], shop: shop[0], category: category, notifications: notifications[0], title: "Collectverse - Loja" });
     }
     static async itemShow(req, res) {
         const id = req.params.id;
@@ -51,10 +51,10 @@ module.exports = class MainController {
             alreadyPurchased = false
         }
 
-        res.status(200).render("layouts/main.ejs", { router: "../pages/store/item.ejs", user: account[0][0], item: item[0][0], alreadyPurchased: alreadyPurchased, notifications: notifications[0],  title: `Collectverse - ${item[0][0].name}` });
+        res.status(200).render("layouts/main.ejs", { router: "../pages/store/item.ejs", user: account[0][0], item: item[0][0], alreadyPurchased: alreadyPurchased, notifications: notifications[0], title: `Collectverse - ${item[0][0].name}` });
     }
     static async getItem(req, res) {
-        const {id, price} = req.body;
+        const { id, price } = req.body;
 
         if (!(req.session.userid)) {
             req.flash("msg", errorMessages.NOT_SESSION);
@@ -65,7 +65,7 @@ module.exports = class MainController {
 
         const remainder = account[0][0].points - price
 
-        if(Math.sign(remainder) == -1) {
+        if (Math.sign(remainder) == -1) {
             req.flash("msg", errorMessages.DONT_HAVE_POINTS)
             return res.status(401).redirect(`/store/shopping/${id}`)
         }
@@ -97,11 +97,11 @@ module.exports = class MainController {
     static async getUniverse(req, res) {
         const account = await connection.query("SELECT id, points, pass FROM users WHERE id = ?", [req.session.userid]);
 
-        if(account[0].length == 0) {
+        if (account[0].length == 0) {
             return res.status(400).redirect("/sign/in");
         }
 
-        if(account[0][0].pass == 1) {
+        if (account[0][0].pass == 1) {
             req.flash("msg", successMessages.ALREADY_HAVE_PASS)
             return res.status(400).redirect("/store")
         }
@@ -109,8 +109,8 @@ module.exports = class MainController {
         const universePrice = 3000
 
         const remainder = account[0][0].points - universePrice
-        
-        if(Math.sign(remainder) == -1) {
+
+        if (Math.sign(remainder) == -1) {
             req.flash("msg", errorMessages.DONT_HAVE_POINTS)
             return res.status(401).redirect("/store")
         }
@@ -125,7 +125,12 @@ module.exports = class MainController {
             req.flash("msg", errorMessages.INTERNAL_ERROR);
             return res.status(500).redirect(`/store`)
         }
-        
     }
 
+    static async points(req, res) {
+        const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, users.points, users.pass, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
+        const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
+
+        res.status(200).render("layouts/main.ejs", { router: "../pages/store/points.ejs", user: account[0][0], notifications: notifications[0], title: "Collectverse - Loja" });
+    }
 }

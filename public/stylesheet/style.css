@@ -76,6 +76,12 @@ hr {
     width: 60px;
 }
 
+@media screen and (max-width: 576px) {
+    .header .logomarca img {
+        width: 40px;
+    }
+}
+
 .header .logo-gradient-model {
     padding: 0.35rem 0.6rem;
     border-radius: 8px;
@@ -166,6 +172,7 @@ hr {
 }
 
 .navigation-header li {
+    margin-left: 6px;
     display: flex;
     align-items: center;
 }
@@ -195,6 +202,7 @@ hr {
 
 .navigation-header .activated span {
     display: block;
+    font-size: 12px;
 }
 
 .sign-button {
@@ -316,17 +324,6 @@ hr {
     color: #ffcc66 !important;
 }
 
-
-@keyframes slideIn {
-    from {
-        transform: translateY(100%);
-    }
-
-    to {
-        transform: translateY(0);
-    }
-}
-
 @keyframes progressBar {
     from {
         width: 0;
@@ -339,11 +336,24 @@ hr {
 
 /* images */
 
+.perfil {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .perfil img {
     width: 48px;
     height: 48px;
     border-radius: 10px;
     object-fit: cover;
+}
+
+@media screen and (max-width: 576px) {
+    .perfil img {
+        width: 36px;
+        height: 36px;
+    }
 }
 
 .inPerfil {
@@ -685,6 +695,10 @@ hr {
 }
 
 /* dropdown */
+
+.dropdown-notification i {
+    font-size: 16px;
+}
 
 .dropdown,
 .dropdown-notification {
