@@ -25,7 +25,7 @@ module.exports = class MainController {
             shop = await connection.query("SELECT * FROM shop ORDER BY createdAt DESC LIMIT 2");
         }
 
-        res.render("layouts/main.ejs", { router: "../pages/store/store.ejs", user: account[0][0], highlights: highlights[0], shop: shop[0], category: category, notifications: notifications[0],  title: "Collectverse - Loja" });
+        res.status(200).render("layouts/main.ejs", { router: "../pages/store/store.ejs", user: account[0][0], highlights: highlights[0], shop: shop[0], category: category, notifications: notifications[0],  title: "Collectverse - Loja" });
     }
     static async itemShow(req, res) {
         const id = req.params.id;
@@ -51,14 +51,14 @@ module.exports = class MainController {
             alreadyPurchased = false
         }
 
-        res.render("layouts/main.ejs", { router: "../pages/store/item.ejs", user: account[0][0], item: item[0][0], alreadyPurchased: alreadyPurchased, notifications: notifications[0],  title: `Collectverse - ${item[0][0].name}` });
+        res.status(200).render("layouts/main.ejs", { router: "../pages/store/item.ejs", user: account[0][0], item: item[0][0], alreadyPurchased: alreadyPurchased, notifications: notifications[0],  title: `Collectverse - ${item[0][0].name}` });
     }
     static async getItem(req, res) {
         const {id, price} = req.body;
 
         if (!(req.session.userid)) {
             req.flash("msg", errorMessages.NOT_SESSION);
-            return res.redirect("/sign/In");
+            return res.status(401).redirect("/sign/In");
         }
 
         const account = await connection.query("SELECT id, points FROM users WHERE id = ?", [req.session.userid]);
@@ -67,7 +67,7 @@ module.exports = class MainController {
 
         if(Math.sign(remainder) == -1) {
             req.flash("msg", errorMessages.DONT_HAVE_POINTS)
-            return res.redirect(`/store/shopping/${id}`)
+            return res.status(401).redirect(`/store/shopping/${id}`)
         }
 
         const cart = await connection.query("SELECT id, itemIds FROM carts WHERE UserId = ?", [req.session.userid]);
@@ -75,7 +75,7 @@ module.exports = class MainController {
 
         if (collectables.includes(id)) {
             req.flash("msg", errorMessages.CART_INCLUDE);
-            return res.redirect(`/store`)
+            return res.status(401).redirect(`/store`)
         }
 
         collectables.push(id);
@@ -86,24 +86,24 @@ module.exports = class MainController {
             await connection.query("UPDATE users SET points = ?, updatedAt = NOW() WHERE id = ?", [remainder, req.session.userid])
             await connection.query("UPDATE carts SET itemIds = ?, updatedAt = NOW() WHERE UserId = ?", [JSON.stringify(collectables), req.session.userid])
 
-            return res.redirect(`/store/shopping/${id}`)
+            return res.status(200).redirect(`/store/shopping/${id}`)
 
         } catch (error) {
             console.log(error)
             req.flash("msg", errorMessages.INTERNAL_ERROR);
-            return res.redirect(`/store`)
+            return res.status(500).redirect(`/store`)
         }
     }
     static async getUniverse(req, res) {
         const account = await connection.query("SELECT id, points, pass FROM users WHERE id = ?", [req.session.userid]);
 
         if(account[0].length == 0) {
-            return res.redirect("/sign/in");
+            return res.status(400).redirect("/sign/in");
         }
 
         if(account[0][0].pass == 1) {
             req.flash("msg", successMessages.ALREADY_HAVE_PASS)
-            return res.redirect("/store")
+            return res.status(400).redirect("/store")
         }
 
         const universePrice = 3000
@@ -112,18 +112,18 @@ module.exports = class MainController {
         
         if(Math.sign(remainder) == -1) {
             req.flash("msg", errorMessages.DONT_HAVE_POINTS)
-            return res.redirect("/store")
+            return res.status(401).redirect("/store")
         }
 
         try {
             await connection.query("UPDATE users SET points = ?, pass = ?, updatedAt = NOW() WHERE id = ?", [remainder, true, req.session.userid])
 
             req.flash("msg", successMessages.SUCESS_BUY_PASS)
-            return res.redirect("/store")
+            return res.status(200).redirect("/store")
         } catch (error) {
             console.log(error)
             req.flash("msg", errorMessages.INTERNAL_ERROR);
-            return res.redirect(`/store`)
+            return res.status(500).redirect(`/store`)
         }
         
     }

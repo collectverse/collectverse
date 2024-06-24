@@ -54,12 +54,12 @@ module.exports = class ProfileController {
             // retorna modal de seguidores e seguindo
             const { resultForFollowers, resultForFollowing } = await returnFollowersAndFollowing(id);
 
-            res.render("layouts/main.ejs", { router: "../pages/profile/profile.ejs", publications: publications[0], user: session[0][0], profile: account[0][0], inventory: inventory, followers: resultForFollowers, following: resultForFollowing, notifications: notifications[0], title: `Collectverse - ${account[0][0].name}` });
+            res.status(200).render("layouts/main.ejs", { router: "../pages/profile/profile.ejs", publications: publications[0], user: session[0][0], profile: account[0][0], inventory: inventory, followers: resultForFollowers, following: resultForFollowing, notifications: notifications[0], title: `Collectverse - ${account[0][0].name}` });
 
         } catch (error) {
             console.log(error)
             req.flash("msg", errorMessages.INTERNAL_ERROR);
-            return res.redirect("/");
+            return res.status(500).redirect("/");
         }
     }
     static async edit(req, res) {
@@ -71,18 +71,18 @@ module.exports = class ProfileController {
 
             if (!(account[0].length > 0)) {
                 req.flash("msg", errorMessages.INTERNAL_ERROR);
-                return res.redirect("/");
+                return res.status(401).redirect("/");
             }
             if (account[0][0].id !== req.session.userid) {
                 req.flash("msg", errorMessages.INTERNAL_ERROR);
-                return res.redirect("/");
+                return res.status(401).redirect("/");
             }
 
-            res.render("layouts/main.ejs", { router: "../pages/profile/edit.ejs", user: account[0][0], notifications: notifications[0], title: "Collectverse - Editar perfil" });
+            res.status(200).render("layouts/main.ejs", { router: "../pages/profile/edit.ejs", user: account[0][0], notifications: notifications[0], title: "Collectverse - Editar perfil" });
         } catch (error) {
             console.log(error)
             req.flash("msg", errorMessages.INTERNAL_ERROR);
-            return res.redirect("/");
+            return res.status(500).redirect("/");
         }
     }
     static async makeEdit(req, res) {
@@ -92,11 +92,11 @@ module.exports = class ProfileController {
 
             if (itIsEmail.test(email)) {
                 req.flash("msg", errorMessages.INVALID_EMAIL);
-                return res.redirect(`/profile/${id}/edit`);
+                return res.status(400).redirect(`/profile/${id}/edit`);
             }
             if (name.length === 0) {
                 req.flash("msg", errorMessages.EMPTY_INPUT);
-                return res.redirect(`/profile/${id}/edit`);
+                return res.status(400).redirect(`/profile/${id}/edit`);
             }
 
             let userPerfilPath = null;
@@ -110,12 +110,12 @@ module.exports = class ProfileController {
 
             if (!(account[0].length > 0) && (email !== account[0][0].email && id !== account[0][0].id)) {
                 req.flash("msg", errorMessages.EMAIL_IN_USE);
-                return res.redirect(`/profile/${id}/edit`);
+                return res.status(400).redirect(`/profile/${id}/edit`);
             }
 
             if (nameWasInDb[0].length > 0 && (name !== account[0][0].name && id !== account[0][0].id)) {
                 req.flash("msg", errorMessages.USERNAME_IN_USE);
-                return res.redirect(`/profile/${id}/edit`);
+                return res.status(400).redirect(`/profile/${id}/edit`);
             }
 
             // caminho dos arquivos
@@ -134,12 +134,12 @@ module.exports = class ProfileController {
 
             await connection.query("UPDATE users SET name = ?, email = ?, perfil = ?, banner = ?, biography = ?, updatedAt = NOW() WHERE id = ?", [name, email, userPerfilPath, userBannerPath, biography, id]);
             req.flash("msg", successMessages.EDITED_ACCOUNT);
-            return res.redirect(`/profile/${id}`);
+            return res.status(200).redirect(`/profile/${id}`);
 
         } catch (error) {
             console.log(error)
             req.flash("msg", errorMessages.INTERNAL_ERROR);
-            return res.redirect(`/profile/${req.session.userid}/edit`);
+            return res.status(500).redirect(`/profile/${req.session.userid}/edit`);
         }
     }
     static async alterPassword(req, res) {
@@ -149,20 +149,20 @@ module.exports = class ProfileController {
             // Verifica se a senha não possui caracteres especiais
             if (!wasSpecialCharacters.test(newPassword)) {
                 req.flash("msg", errorMessages.NO_SPECIAL_CHARACTERS);
-                return res.redirect(`/profile/${id}/edit`)
+                return res.status(400).redirect(`/profile/${id}/edit`)
             }
 
             if (newPassword.length < 6) {
                 req.flash("msg", errorMessages.WEAK_PASSWORD);
-                return res.redirect(`/profile/${id}/edit`)
+                return res.status(400).redirect(`/profile/${id}/edit`)
             }
             if (newPassword.length > 64) {
                 req.flash("msg", errorMessages.LIMIT_PASSWORD);
-                return res.redirect(`/profile/${id}/edit`)
+                return res.status(400).redirect(`/profile/${id}/edit`)
             }
             if (newPassword !== confirmNewPassword) {
                 req.flash("msg", errorMessages.NO_MATCH_PASSWORDS);
-                return res.redirect(`/profile/${id}/edit`)
+                return res.status(400).redirect(`/profile/${id}/edit`)
             }
 
             const account = await connection.query("SELECT id, password, password FROM users WHERE id = ?", [id]);
@@ -171,7 +171,7 @@ module.exports = class ProfileController {
 
             if (!passwordMatch) {
                 req.flash("msg", errorMessages.NO_CORRECT_PASSWORDS);
-                return res.redirect(`/profile/${id}/edit`)
+                return res.status(400).redirect(`/profile/${id}/edit`)
             }
 
             // criptografando a senha do usuário.
@@ -181,12 +181,12 @@ module.exports = class ProfileController {
 
             await connection.query("UPDATE users SET password = ?, updatedAt = NOW() WHERE id = ?", [hashedPassword, id]);
             req.flash("msg", successMessages.ALTERED_PASSWORD);
-            return res.redirect(`/profile/${id}`);
+            return res.status(200).redirect(`/profile/${id}`);
 
         } catch (error) {
             console.log(error)
             req.flash("msg", errorMessages.INTERNAL_ERROR);
-            return res.redirect(`/profile/${req.session.userid}/edit`)
+            return res.status(500).redirect(`/profile/${req.session.userid}/edit`)
         }
     }
     static async deleteAccount(req, res) {
@@ -195,7 +195,7 @@ module.exports = class ProfileController {
 
             if (id != req.session.userid) {
                 req.flash("msg", errorMessages.INTERNAL_ERROR);
-                return res.redirect(`/profile/${id}/edit`);
+                return res.status(401).redirect(`/profile/${id}/edit`);
             }
 
             // exclui o comentário
@@ -205,12 +205,12 @@ module.exports = class ProfileController {
             await connection.query("DELETE FROM users WHERE id = ?", [id]);
             req.flash("msg", successMessages.DELETED_ACCOUNT);
             req.session.destroy(() => {
-                return res.redirect("/sign/in");
+                return res.status(200).redirect("/sign/in");
             });
         } catch (error) {
             console.log(error)
             req.flash("msg", errorMessages.INTERNAL_ERROR);
-            return res.redirect(`/profile/${req.session.userid}/edit`)
+            return res.status(500).redirect(`/profile/${req.session.userid}/edit`)
         }
     }
     static async follows(req, res) {
@@ -219,7 +219,7 @@ module.exports = class ProfileController {
 
             if (!(req.session.userid)) {
                 req.flash("msg", errorMessages.NOT_SESSION);
-                return res.redirect("/sign/In");
+                return res.status(401).redirect("/sign/In");
             }
 
             // Verifique se o usuário já segue o perfil
@@ -246,11 +246,11 @@ module.exports = class ProfileController {
             // Atualize a lista de seguidores na tabela
             await connection.query("UPDATE follows SET followers = ?, updatedAt = now() WHERE UserId = ?", [JSON.stringify(followingByProfile), id]);
             await connection.query("UPDATE follows SET following = ?, updatedAt = now() WHERE UserId = ?", [JSON.stringify(followingByUser), req.session.userid]);
-            return res.redirect(`/profile/${id}`)
+            return res.status(200).redirect(`/profile/${id}`)
         } catch (error) {
             console.log(error)
             req.flash("msg", errorMessages.INTERNAL_ERROR);
-            return res.redirect("/")
+            return res.status(500).redirect("/")
         }
     }
     static async toggleModel(req, res) {
@@ -260,22 +260,22 @@ module.exports = class ProfileController {
             const model = await connection.query("SELECT path FROM shop WHERE id = ?", [id]);
             await connection.query("UPDATE users SET collectible = ?, updatedAt = NOW() WHERE id = ?", [model[0][0].path, req.session.userid])
 
-            res.redirect(`/profile/${req.session.userid}`);
+            res.status(200).redirect(`/profile/${req.session.userid}`);
         } catch (error) {
             console.log(error)
             req.flash("msg", errorMessages.INTERNAL_ERROR);
-            return res.redirect(`/profile/${req.session.userid}`)
+            return res.status(500).redirect(`/profile/${req.session.userid}`)
         }
     }
     static async nullModel(req, res) {
         try {
             await connection.query("UPDATE users SET collectible = ?, updatedAt = NOW() WHERE id = ?", [null, req.session.userid])
         
-            res.redirect(`/profile/${req.session.userid}`);
+            res.status(200).redirect(`/profile/${req.session.userid}`);
         } catch (error) {
             console.log(error)
             req.flash("msg", errorMessages.INTERNAL_ERROR);
-            return res.redirect(`/profile/${req.session.userid}`)
+            return res.status(500).redirect(`/profile/${req.session.userid}`)
         }
     }
 }

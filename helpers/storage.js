@@ -8,9 +8,15 @@ function randowNumber() {
 
 // Função para validar o tipo de arquivo
 function filterTypes(req, file, cb) {
-    const allowedTypes = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
+    const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+    if (req.isPremium) {
+        allowedTypes.push("image/gif")
+    }
     if (allowedTypes.includes(file.mimetype)) {
         cb(null, true);
+        req.flash("msg", "Imagem enviada com sucesso.")
+    } else if (file.mimetype == "image/gif") {
+        cb(new Error('Formato de imagem suportado apenas para usuários Premium.'));
     } else {
         cb(new Error('Formato de imagem não suportado.'));
     }

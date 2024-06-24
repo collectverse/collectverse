@@ -19,7 +19,7 @@ module.exports = class MainController {
         try {
 
             if(!(req.session.userid)){
-                return res.redirect("/sign/in")
+                return res.status(401).redirect("/sign/in")
             }
 
             // consulta o usuário logado
@@ -42,11 +42,11 @@ module.exports = class MainController {
 
             }
 
-            res.render("layouts/main.ejs", { router: "../pages/home/home.ejs", publications: publications[0], user: account[0][0], highlights: highlights[0], followers: forFollowers, following: forFollowing, notifications: notifications[0], title: "Collectverse - Home" });
+            res.status(200).render("layouts/main.ejs", { router: "../pages/home/home.ejs", publications: publications[0], user: account[0][0], highlights: highlights[0], followers: forFollowers, following: forFollowing, notifications: notifications[0], title: "Collectverse - Home" });
         } catch (error) {
             console.error(error);
             req.flash("msg", errorMessages.INTERNAL_ERROR);
-            res.redirect("/");
+            res.status(500).redirect("/");
         }
     }
     static async publish(req, res) {
@@ -55,11 +55,11 @@ module.exports = class MainController {
 
             if (!user || user.length === 0) {
                 req.flash("msg", errorMessages.INVALID_SESSION);
-                return res.redirect("/");
+                return res.status(401).redirect("/");
             }
             if (!message || message.length === 0) {
                 req.flash("msg", errorMessages.EMPTY_TEXT);
-                return res.redirect("/");
+                return res.status(400).redirect("/");
             }
 
             let publishImagePath = "";
@@ -72,7 +72,7 @@ module.exports = class MainController {
 
             if (account[0].length == 0) {
                 req.flash("msg", errorMessages.USER_NOT_FOUND);
-                return res.redirect("/");
+                return res.status(401).redirect("/");
             }
 
             // cria o comentário no banco de dados.
@@ -85,11 +85,11 @@ module.exports = class MainController {
             }
 
             req.flash("msg", successMessages.CREATED_PUBLISH);
-            res.redirect("/");
+            res.status(200).redirect("/");
         } catch (error) {
             console.error(error);
             req.flash("msg", errorMessages.INTERNAL_ERROR);
-            res.redirect("/");
+            res.status(500).redirect("/");
         }
     }
     static async deletePublication(req, res) {
@@ -101,18 +101,18 @@ module.exports = class MainController {
 
             if (publication.length === 0 || publication[0][0].UserId !== req.session.userid) {
                 req.flash("msg", errorMessages.INTERNAL_ERROR);
-                return res.redirect("/");
+                return res.status(400).redirect("/");
             }
 
             // exclui o comentário
             await connection.query("DELETE FROM publications WHERE id = ?", [id]);
 
             req.flash("msg", successMessages.DELETE_PUBLISH);
-            res.redirect("/");
+            res.status(200).redirect("/");
         } catch (error) {
             console.log(error)
             req.flash("msg", errorMessages.INTERNAL_ERROR);
-            return res.redirect("/");
+            return res.status(500).redirect("/");
         }
     }
     static async likePublication(req, res) {
@@ -136,7 +136,7 @@ module.exports = class MainController {
                 // Atualizar o banco de dados
                 await connection.query('UPDATE publications SET likes = ?, likesByUsersIds = ?, updatedAt = now() WHERE id = ?', [updatedLikes, JSON.stringify(likedByUserIds), id]);
 
-                return res.redirect("/");
+                return res.status(200).redirect("/");
             }
 
             const updatedLikes = publication[0][0].likes + 1;
@@ -148,11 +148,11 @@ module.exports = class MainController {
             const content = `${account[0][0].name} Curtiu seu comentário`
             await connection.query("INSERT INTO notify (UserId, parentId, ifLiked, type, content, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, NOW(), NOW())", [req.session.userid, user, id, "like", content]);
 
-            return res.redirect("/");
+            return res.status(200).redirect("/");
         } catch (error) {
             console.log(error)
             req.flash("msg", errorMessages.INTERNAL_ERROR);
-            return res.redirect("/");
+            return res.status(500).redirect("/");
         }
     }
     static async publication(req, res) {
@@ -175,14 +175,14 @@ module.exports = class MainController {
 
             if (account.length === 0) {
                 req.flash("msg", errorMessages.INTERNAL_ERROR);
-                return res.redirect("/");
+                return res.status(500).redirect("/");
             }
 
             res.render("layouts/main", { router: "../pages/home/publication.ejs", publication: publication[0][0], publications: publications[0], user: account[0][0], notifications: notifications[0], title: `Collectverse - Publicação de ${publication[0][0].name}`  });
         } catch (error) {
             console.log(error)
             req.flash("msg", errorMessages.INTERNAL_ERROR);
-            return res.redirect("/");
+            return res.status(500).redirect("/");
         }
     }
 }
