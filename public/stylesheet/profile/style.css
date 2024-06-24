@@ -133,6 +133,18 @@
     object-fit: cover;
 }
 
+@media screen and (max-width:576px) {
+    .profile-card .profile-banner img {
+        height: 250px;
+    }
+}
+
+@media screen and (max-width:380px) {
+    .profile-card .profile-banner img {
+        height: 180px;
+    }
+}
+
 .profile-card .profile-infos {
     padding-top: 1rem;
     display: flex;
@@ -217,6 +229,18 @@
     height: 300px;
     border-radius: 12px;
     object-fit: cover;
+}
+
+@media screen and (max-width:576px) {
+    .grid-edit .banner {
+        height: 250px;
+    }
+}
+
+@media screen and (max-width:380px) {
+    .grid-edit .banner {
+        height: 180px;
+    }
 }
 
 .grid-edit .perfil {

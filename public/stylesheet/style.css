@@ -433,6 +433,18 @@ hr {
     object-fit: cover;
 }
 
+@media screen and (max-width:576px) {
+    .user-info-card .user-banner {
+        height: 250px;
+    }
+}
+
+@media screen and (max-width:380px) {
+    .user-info-card .user-banner {
+        height: 180px;
+    }
+}
+
 .user-info-card .following-and-followers {
     width: 100%;
     display: flex;
