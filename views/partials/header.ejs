@@ -124,7 +124,7 @@
                                                         <a href="/">$<%= user.points  %></a>
                                                     </span>
                                                     <h3>
-                                                        <%= user.name %>
+                                                        <%= user.name %> <% if (user.pass == 1) { %> <i class="bi bi-robot with-pass"></i> <% } %>
                                                     </h3>
                                                     <span>
                                                         <%= user.email %>

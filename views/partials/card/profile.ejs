@@ -7,7 +7,7 @@
             <img src="/uploads/user/perfils/<%= profile.perfil %>" alt="Foto do perfil de <%= profile.name %>">
             <section>
                 <h2>
-                    <%= profile.name %>
+                    <%= profile.name %> <% if (profile.pass == 1) { %> <i class="bi bi-robot with-pass"></i> <% } %>
                 </h2>
                 <section class="following-and-followers">
                     <p onclick="toggleModal()"><%= JSON.parse(profile.followers).length %> Seguidores</p>

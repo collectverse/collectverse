@@ -1,4 +1,8 @@
 const connection = require("../schema/connection.js");
+const successMessages = {
+    SUCESS_BUY_PASS: 'Passe comprado com sucesso.',
+    ALREADY_HAVE_PASS: 'Você já tem o Passe.'
+};
 const errorMessages = {
     NOT_SESSION: 'É necessário estar em uma conta.',
     CART_INCLUDE: 'Item já adicionado em seu inventário.',
@@ -8,8 +12,8 @@ const errorMessages = {
 
 module.exports = class MainController {
     static async store(req, res) {
-        const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, users.points, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
-        const highlights = await connection.query("SELECT users.id, users.name, users.perfil, users.banner, follows.followers, carts.itemIds FROM users INNER JOIN follows ON users.id = follows.UserId INNER JOIN carts ON users.id = carts.UserId ORDER BY carts.itemIds ASC LIMIT 5");
+        const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, users.points, users.pass, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
+        const highlights = await connection.query("SELECT users.id, users.name, users.perfil, users.banner, users.pass, follows.followers, carts.itemIds FROM users INNER JOIN follows ON users.id = follows.UserId INNER JOIN carts ON users.id = carts.UserId ORDER BY carts.itemIds ASC LIMIT 5");
         const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
         // filtro de itens
         let category = req.query.category || "";
@@ -27,7 +31,7 @@ module.exports = class MainController {
         const id = req.params.id;
 
         // consulta do usuário logado
-        const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, users.points, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
+        const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, users.points, users.pass, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
 
         const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
 
@@ -91,15 +95,20 @@ module.exports = class MainController {
         }
     }
     static async getUniverse(req, res) {
-        const accout = await connection.query("SELECT id, points FROM users WHERE id = ?", [req.session.userid]);
+        const account = await connection.query("SELECT id, points, pass FROM users WHERE id = ?", [req.session.userid]);
 
-        if(accout[0].length == 0) {
+        if(account[0].length == 0) {
             return res.redirect("/sign/in");
+        }
+
+        if(account[0][0].pass == 1) {
+            req.flash("msg", successMessages.ALREADY_HAVE_PASS)
+            return res.redirect("/store")
         }
 
         const universePrice = 3000
 
-        const remainder = accout[0][0].points - universePrice
+        const remainder = account[0][0].points - universePrice
         
         if(Math.sign(remainder) == -1) {
             req.flash("msg", errorMessages.DONT_HAVE_POINTS)
@@ -107,8 +116,9 @@ module.exports = class MainController {
         }
 
         try {
-            await connection.query("UPDATE users, pass SET points = ?, updatedAt = NOW() WHERE id = ?", [remainder, req.session.userid])
+            await connection.query("UPDATE users SET points = ?, pass = ?, updatedAt = NOW() WHERE id = ?", [remainder, true, req.session.userid])
 
+            req.flash("msg", successMessages.SUCESS_BUY_PASS)
             return res.redirect("/store")
         } catch (error) {
             console.log(error)

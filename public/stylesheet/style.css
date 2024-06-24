@@ -310,6 +310,12 @@ hr {
     background-color: #0056b32d;
 }
 
+/* pass */
+
+.with-pass {
+    color: #ffcc66 !important;
+}
+
 
 @keyframes slideIn {
     from {

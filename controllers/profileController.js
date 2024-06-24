@@ -32,8 +32,8 @@ module.exports = class ProfileController {
             // busca o usuário pelo id na url
             const id = req.params.id;
             const [account, session] = await Promise.all([
-                connection.query(`SELECT users.id, users.name, users.email, users.perfil, users.banner, users.biography, users.collectible, follows.followers, follows.following, carts.itemIds FROM users INNER JOIN follows ON users.id = follows.UserId INNER JOIN carts ON users.id = carts.UserId WHERE users.id = ?`, [id]),
-                connection.query("SELECT id, name, email, perfil, banner, points, biography FROM users WHERE id = ?", [req.session.userid])
+                connection.query(`SELECT users.id, users.name, users.email, users.perfil, users.banner, users.biography, users.collectible, users.pass, follows.followers, follows.following, carts.itemIds FROM users INNER JOIN follows ON users.id = follows.UserId INNER JOIN carts ON users.id = carts.UserId WHERE users.id = ?`, [id]),
+                connection.query("SELECT id, name, email, perfil, banner, points, pass, biography FROM users WHERE id = ?", [req.session.userid])
             ]);
 
             const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
@@ -44,9 +44,9 @@ module.exports = class ProfileController {
                 return item[0];
             }));
 
-            if (!(account[0].length > 0)) {
+            if (account[0].length == 0) {
                 req.flash("msg", errorMessages.NOT_FOUND);
-                return res.redirect("/");
+                return res.status(404).redirect("/");
             }
             // consulta de publicações do usuário
             const publications = await connection.query("SELECT publications.* , users.name, users.perfil FROM publications INNER JOIN users ON publications.UserId = users.id WHERE users.id = ? ORDER BY createdAt DESC", [id]);
