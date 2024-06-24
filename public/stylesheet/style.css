@@ -377,7 +377,7 @@ hr {
 
 .user-info-card {
     max-width: 350px;
-    width: max-content;
+    width: 100%;
 }
 
 .user-info-card .biography {
@@ -421,7 +421,7 @@ hr {
     }
 
     .user-info-card {
-        max-width: 100%;
+        max-width: 100% !important;
         width: 100%;
     }
 }
