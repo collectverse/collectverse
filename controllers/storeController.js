@@ -15,6 +15,7 @@ module.exports = class MainController {
         const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, users.points, users.pass, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
         const highlights = await connection.query("SELECT users.id, users.name, users.perfil, users.banner, users.pass, follows.followers, carts.itemIds FROM users INNER JOIN follows ON users.id = follows.UserId INNER JOIN carts ON users.id = carts.UserId ORDER BY carts.itemIds ASC LIMIT 5");
         const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
+        const pass = await connection.query("SELECT value, name, description, rarity, path, palette, onwer FROM pass WHERE id = 1 LIMIT 1 ")
         // filtro de itens
         let category = req.query.category || "";
         let shop = null;
@@ -25,7 +26,7 @@ module.exports = class MainController {
             shop = await connection.query("SELECT * FROM shop ORDER BY createdAt DESC LIMIT 2");
         }
 
-        res.status(200).render("layouts/main.ejs", { router: "../pages/store/store.ejs", user: account[0][0], highlights: highlights[0], shop: shop[0], category: category, notifications: notifications[0], title: "Collectverse - Loja" });
+        res.status(200).render("layouts/main.ejs", { router: "../pages/store/store.ejs", user: account[0][0], highlights: highlights[0], shop: shop[0], category: category, notifications: notifications[0], pass: pass[0][0], title: "Collectverse - Loja" });
     }
     static async itemShow(req, res) {
         const id = req.params.id;
@@ -94,8 +95,9 @@ module.exports = class MainController {
             return res.status(500).redirect(`/store`)
         }
     }
-    static async getUniverse(req, res) {
+    static async getPass(req, res) {
         const account = await connection.query("SELECT id, points, pass FROM users WHERE id = ?", [req.session.userid]);
+        const pass = await connection.query("SELECT value FROM pass WHERE id = 1 LIMIT 1 ")
 
         if (account[0].length == 0) {
             return res.status(400).redirect("/sign/in");
@@ -106,7 +108,7 @@ module.exports = class MainController {
             return res.status(400).redirect("/store")
         }
 
-        const universePrice = 3000
+        const universePrice = pass[0][0].value
 
         const remainder = account[0][0].points - universePrice
 

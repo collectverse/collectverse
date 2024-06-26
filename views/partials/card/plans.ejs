@@ -1,21 +1,76 @@
-<section class="default-card plans-card">
-    <section class="main-for-plans">
-        <section class="title-for-plans">
-            <h2>UNIVERSE</h2>
-            <section class="values">
-                <h2>$ 5000</h2>
-            </section>
-        </section>
-        <section>
-            <p>Transforme sua coleção em uma obra-prima pessoal</p>
-            <p>Desbloqueie todo o potencial da sua rede social de colecionadores agora.</p>
-            <span>Consiga 35% de desconto para collecionaveis e muito mais.</span>
-        </section>
+<section class="plans-control">
 
-        <section class="form-control">
-            <form action="/store/getUniverse" method="post">
-                <input type="submit" value="Pegar">
+    <article class="default-card feature-plans-card">
+        <span class="tag">Características</span>
+        <h2 class="title">Não perca a chance</h2>
+        <p class="info">
+            Você terá acesso a todos os itens exclusivos, garantindo que nunca perca a oportunidade de expandir sua coleção.
+        </p>
+    </article>
+
+    <article class="default-card get-plans-card">
+        <section class="inner">
+
+            <span class="pricing">
+                <span>
+                    $<%= pass.value %>
+                </span>
+            </span>
+            <h2 class="title">Premium</h2>
+            <p class="info">Ideal para aqueles que desejam uma experiência completa e personalizada.</p>
+            <ul class="features">
+                <li>
+                    <span class="icon">
+                        <i class="bi bi-check-lg"></i>
+                    </span>
+                    <span><strong>Descontos</strong> exclusivos em compras na loja</span>
+                </li>
+                <li>
+                    <span class="icon">
+                        <i class="bi bi-check-lg"></i>
+                    </span>
+                    <span>Opções avançadas de <strong>personalização</strong></span>
+                </li>
+                <li>
+                    <span class="icon">
+                        <i class="bi bi-check-lg"></i>
+                    </span>
+                    <span>Colecionáveis exclusivos mensais</span>
+                </li>
+            </ul>
+            <form action="/store/getPass" method="post">
+                <input type="submit" value="Assinar plano">
             </form>
         </section>
+    </article>
+
+</section>
+
+<section class="plans-model">
+    <section class="default-card">
+        <model-viewer autoplay ar ar-modes="webxr scene-viewer" alt="Design ilustrativa do colecionavel <%= pass.name %> "
+            src="/source/models/<%= pass.path %>" ar shadow-intensity="0" camera-controls
+            touch-action="pan-y"></model-viewer>
+            <section class="description-pass-model">
+                <h3><%= pass.name %></h3>
+                <section class="desc">
+                    <span class="<%= pass.rarity %>"><%= pass.rarity %></span>
+                </section>
+
+                <section>
+                    <h3>Paleta de cores</h3>
+                    <section class="color-Palette">
+                        <% if (pass.palette) { %>
+                            <% var paletteArray = JSON.parse(pass.palette); %>
+                            <% paletteArray.forEach((color) => { console.log(color) %>
+                                <section class="box" style="background-color: <%= color %>;"></section>
+                            <% }); %>
+                        <% } %>
+                    </section>
+                </section>
+
+            </section>
     </section>
 </section>
+
+<!-- form:  -->

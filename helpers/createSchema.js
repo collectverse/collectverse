@@ -25,6 +25,20 @@ async function createSchema() {
         // Array contendo as queries para criar cada tabela (igual ao exemplo anterior)
         const createTableQueries = [
 
+            `CREATE TABLE IF NOT EXISTS pass (
+        id int(11) NOT NULL AUTO_INCREMENT,
+        value DECIMAL(6) NOT NULL,
+        name VARCHAR(24),
+        description TEXT,
+        rarity VARCHAR(12),
+        path VARCHAR(24) NOT NULL,
+        palette TEXT,
+        onwer VARCHAR(16),
+        createdAt datetime NOT NULL,
+        updatedAt datetime NOT NULL,
+        PRIMARY KEY (id)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;`,
+
             `CREATE TABLE IF NOT EXISTS shop (
         id int(11) NOT NULL AUTO_INCREMENT,
         name VARCHAR(24),
@@ -117,6 +131,10 @@ async function createSchema() {
         ('["#BAABE4", "#9B8DBF", "#242426"]' ,'Kuromi', 'Bem fofinha, não? mas ainda sim tenho medo, ela é misteriosa.', "rare", 800.00, '0004.glb', 'Kuromi', NOW(), NOW())
         
         `,
+
+        `INSERT INTO pass (value, name, description, rarity, path, palette, onwer, createdAt, updatedAt) 
+        VALUES (5600, 'Não caindo, está bom', 'Voa e voa...', 'exceptional', '0005.glb', '["#54728C", "#D0F2F2", "#C59368", "#FFCE72"]', 'AntijnvanderGun', NOW(), NOW())
+        `
 
         ];
 
