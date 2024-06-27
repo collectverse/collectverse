@@ -16,6 +16,7 @@ const errorMessages = {
     USERNAME_IN_USE: 'Este nome de usuário já está em uso.',
     WEAK_PASSWORD: 'A senha é muito fraca. Por favor, escolha uma senha mais forte.',
     LIMIT_PASSWORD: 'A senha não deve ter mais de 64 caracteres',
+    NOT_MATCH_PASSWORD: 'As senhas não conferem.',
     INCORRECT_PASSWORD: 'A senha está incorreta.',
     INTERNAL_ERROR: 'Erro interno do servidor.',
     NO_SPECIAL_CHARACTERS: 'A senha deve incluir letras maiúsculas, minúsculas, números e caracteres especiais.'
@@ -92,7 +93,7 @@ module.exports = class SignController {
     }
     static async makeSignUp(req, res) {
         try {
-            const { email, name, password } = req.body;
+            const { email, name, password, passwordResend } = req.body;
 
             if (itIsEmail.test(email)) {
                 req.flash("msg", errorMessages.INVALID_EMAIL);
@@ -115,6 +116,10 @@ module.exports = class SignController {
             }
             if (password.length > 64) {
                 req.flash("msg", errorMessages.LIMIT_PASSWORD);
+                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
+            }
+            if(password != passwordResend) {
+                req.flash("msg", errorMessages.NOT_MATCH_PASSWORD);
                 return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
             }
 
