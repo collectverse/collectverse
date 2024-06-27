@@ -150,4 +150,23 @@ module.exports = class MainController {
 
         res.status(200).render("layouts/main.ejs", { router: "../pages/store/points.ejs", user: account[0][0], notifications: notifications[0], title: "Collectverse - Loja" });
     }
+
+    static async getPoints(req, res) {
+        const { points } = req.body;
+
+        try {
+
+            const account = await connection.query("SELECT id, points FROM users WHERE id = ?", [req.session.userid])
+
+            const newPoints = parseInt(account[0][0].points) + parseInt(points)
+
+            await connection.query("UPDATE users SET points = ?, updatedAt = now() WHERE id = ?", [newPoints, req.session.userid])
+
+            res.status(200).redirect("/store")
+        } catch (error) {
+            console.log(error)
+            req.flash("msg", errorMessages.INTERNAL_ERROR);
+            return res.status(500).redirect(`/store`)
+        }
+    }
 }

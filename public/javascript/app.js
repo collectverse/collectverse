@@ -145,6 +145,29 @@ function modaltabToggle(tabName) {
     }
 }
 
+// proibir copiar e colar
+
+function blockCopyAndPaste(inputElement) {
+    // Desabilitar a capacidade de colar texto no input
+    inputElement.addEventListener('paste', function(event) {
+        event.preventDefault();
+        return false;
+    });
+
+    // Desabilitar a capacidade de copiar texto do input
+    inputElement.addEventListener('copy', function(event) {
+        event.preventDefault();
+        return false;
+    });
+
+    // Desabilitar a capacidade de cortar texto do input
+    inputElement.addEventListener('cut', function(event) {
+        event.preventDefault();
+        return false;
+    });
+}
+
+
 // jquery
 
 // previw de imagens
