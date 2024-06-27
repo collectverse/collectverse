@@ -15,15 +15,16 @@ module.exports = class MainController {
         const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, users.points, users.pass, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
         const highlights = await connection.query("SELECT users.id, users.name, users.perfil, users.banner, users.pass, follows.followers, carts.itemIds FROM users INNER JOIN follows ON users.id = follows.UserId INNER JOIN carts ON users.id = carts.UserId ORDER BY carts.itemIds ASC LIMIT 5");
         const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
-        const pass = await connection.query("SELECT value, name, description, rarity, path, palette, onwer FROM pass WHERE id = 1 LIMIT 1 ")
+        const pass = await connection.query("SELECT pass.value, pass.shopId, shop.* FROM pass INNER JOIN shop ON shop.id = pass.shopId LIMIT 1");
+            
         // filtro de itens
         let category = req.query.category || "";
         let shop = null;
 
         if (category === "all" || category === "") {
-            shop = await connection.query("SELECT * FROM shop");
+            shop = await connection.query("SELECT * FROM shop WHERE forPass != 1");
         } else if (category === "new") {
-            shop = await connection.query("SELECT * FROM shop ORDER BY createdAt DESC LIMIT 2");
+            shop = await connection.query("SELECT * FROM shop ORDER BY createdAt DESC forPass != 1 LIMIT 2");
         }
 
         res.status(200).render("layouts/main.ejs", { router: "../pages/store/store.ejs", user: account[0][0], highlights: highlights[0], shop: shop[0], category: category, notifications: notifications[0], pass: pass[0][0], title: "Collectverse - Loja" });
@@ -97,7 +98,7 @@ module.exports = class MainController {
     }
     static async getPass(req, res) {
         const account = await connection.query("SELECT id, points, pass FROM users WHERE id = ?", [req.session.userid]);
-        const pass = await connection.query("SELECT value FROM pass WHERE id = 1 LIMIT 1 ")
+        const pass = await connection.query("SELECT value, shopId FROM pass LIMIT 1 ")
 
         if (account[0].length == 0) {
             return res.status(400).redirect("/sign/in");
@@ -117,8 +118,21 @@ module.exports = class MainController {
             return res.status(401).redirect("/store")
         }
 
+        const cart = await connection.query("SELECT id, itemIds FROM carts WHERE UserId = ?", [req.session.userid]);
+        let collectables = JSON.parse(cart[0][0].itemIds || "[]")
+
+        const id = pass[0][0].shopId
+
+        if (collectables.includes(id)) {
+            req.flash("msg", errorMessages.CART_INCLUDE);
+            return res.status(401).redirect(`/store`)
+        }
+
+        collectables.push(id);
+
         try {
             await connection.query("UPDATE users SET points = ?, pass = ?, updatedAt = NOW() WHERE id = ?", [remainder, true, req.session.userid])
+            await connection.query("UPDATE carts SET itemIds = ?, updatedAt = NOW() WHERE UserId = ?", [JSON.stringify(collectables), req.session.userid])
 
             req.flash("msg", successMessages.SUCESS_BUY_PASS)
             return res.status(200).redirect("/store")

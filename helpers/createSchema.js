@@ -25,20 +25,6 @@ async function createSchema() {
         // Array contendo as queries para criar cada tabela (igual ao exemplo anterior)
         const createTableQueries = [
 
-            `CREATE TABLE IF NOT EXISTS pass (
-        id int(11) NOT NULL AUTO_INCREMENT,
-        value DECIMAL(6) NOT NULL,
-        name VARCHAR(24),
-        description TEXT,
-        rarity VARCHAR(12),
-        path VARCHAR(24) NOT NULL,
-        palette TEXT,
-        onwer VARCHAR(16),
-        createdAt datetime NOT NULL,
-        updatedAt datetime NOT NULL,
-        PRIMARY KEY (id)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;`,
-
             `CREATE TABLE IF NOT EXISTS shop (
         id int(11) NOT NULL AUTO_INCREMENT,
         name VARCHAR(24),
@@ -48,9 +34,20 @@ async function createSchema() {
         path VARCHAR(24) NOT NULL,
         palette TEXT,
         onwer VARCHAR(16),
+        forPass BOOL,
         createdAt datetime NOT NULL,
         updatedAt datetime NOT NULL,
         PRIMARY KEY (id)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;`,
+
+            `CREATE TABLE IF NOT EXISTS pass (
+        id int(11) NOT NULL AUTO_INCREMENT,
+        value DECIMAL(6) NOT NULL,
+        shopId int(11),
+        createdAt datetime NOT NULL,
+        updatedAt datetime NOT NULL,
+        PRIMARY KEY (id),
+        FOREIGN KEY (shopId) REFERENCES shop(id)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;`,
 
             `CREATE TABLE IF NOT EXISTS users (
@@ -104,8 +101,8 @@ async function createSchema() {
         FOREIGN KEY (UserId) REFERENCES users(id)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;`,
 
-        // type da tabela notify varia entre:
-        // response, like e follow
+            // type da tabela notify varia entre:
+            // response, like e follow
 
             `CREATE TABLE IF NOT EXISTS notify (
         id int(11) NOT NULL AUTO_INCREMENT,
@@ -123,17 +120,17 @@ async function createSchema() {
 
         // insert
 
-            `INSERT INTO shop (palette, name, description, rarity, price, path, onwer, createdAt, updatedAt) 
+            `INSERT INTO shop (palette, name, description, rarity, price, path, onwer, forPass, createdAt, updatedAt) 
         VALUES 
-        ('["#325015", "#5f7e40", "#769556", "#8cac6b", "#dceec9"]' ,'Sociactus', 'Sociactus tem um temor profundo do mundo lá fora, mas está pronto para se aventurar em sua jornada. Ele procura um parceiro para ajudá-lo a explorar e enfrentar seus medos juntos. Você está pronto para ser esse parceiro?', "epic", 1200.00, '0001.glb', 'felipegall', NOW(), NOW()),
-        ('["#382f32", "#ffeaf2", "#fcd9e5", "#fbc5d8"]' ,'Expresso milk Shake', 'Não é inegavel que no calor ter um desses só para você seria incrivel.', 'legendary', 1400.000, '0002.glb', 'Eleanore Falck', NOW(), NOW()),
-        ('["#F21D56", "#BF265E", "#363859", "#141E26"]' ,'Skullsita', 'Ela está com um humor terrível e pronta para arrasar qualquer coisa em seu caminho! Com olhos faiscantes e um sorriso que só um colecionador destemido ousaria enfrentar', 'exceptional', 2400.000, '0003.glb', 'tofox', NOW(), NOW()),
-        ('["#BAABE4", "#9B8DBF", "#242426"]' ,'Kuromi', 'Bem fofinha, não? mas ainda sim tenho medo, ela é misteriosa.', "rare", 800.00, '0004.glb', 'Kuromi', NOW(), NOW())
-        
+        ('["#325015", "#5f7e40", "#769556", "#8cac6b", "#dceec9"]' ,'Sociactus', 'Sociactus tem um temor profundo do mundo lá fora, mas está pronto para se aventurar em sua jornada. Ele procura um parceiro para ajudá-lo a explorar e enfrentar seus medos juntos. Você está pronto para ser esse parceiro?', "epic", 1200.00, '0001.glb', 'felipegall', 0, NOW(), NOW()),
+        ('["#382f32", "#ffeaf2", "#fcd9e5", "#fbc5d8"]' ,'Expresso milk Shake', 'Não é inegavel que no calor ter um desses só para você seria incrivel.', 'legendary', 1400.000, '0002.glb', 'Eleanore Falck', 0, NOW(), NOW()),
+        ('["#F21D56", "#BF265E", "#363859", "#141E26"]' ,'Skullsita', 'Ela está com um humor terrível e pronta para arrasar qualquer coisa em seu caminho! Com olhos faiscantes e um sorriso que só um colecionador destemido ousaria enfrentar', 'exceptional', 2400.000, '0003.glb', 'tofox', 0, NOW(), NOW()),
+        ('["#BAABE4", "#9B8DBF", "#242426"]' ,'Kuromi', 'Bem fofinha, não? mas ainda sim tenho medo, ela é misteriosa.', "rare", 800.00, '0004.glb', 'Kuromi', 0, NOW(), NOW()),
+        ('["#54728C", "#D0F2F2", "#C59368", "#FFCE72"]' ,'Não caindo, está bom', 'Voa e voa...', "exceptional", 2400.00, '0005.glb', 'AntijnvanderGun', 1, NOW(), NOW())
         `,
 
-        `INSERT INTO pass (value, name, description, rarity, path, palette, onwer, createdAt, updatedAt) 
-        VALUES (5600, 'Não caindo, está bom', 'Voa e voa...', 'exceptional', '0005.glb', '["#54728C", "#D0F2F2", "#C59368", "#FFCE72"]', 'AntijnvanderGun', NOW(), NOW())
+        `INSERT INTO pass (value, shopId, createdAt, updatedAt) 
+        VALUES (5600, 5, NOW(), NOW())
         `
 
         ];
