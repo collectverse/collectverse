@@ -8,7 +8,9 @@
                     <img class="user-profile perfil" src="/uploads/user/perfils/<%= user.perfil %>" alt="foto de perfil do usuário.">
                 </section>
                 <section class="informations-card">
-                    <h3><%= user.name %></h3>
+                    <section class="name-for-user">
+                        <h3><%= user.name %></h3> <% if (user.pass == 1) { %> <i class="bi bi-robot with-pass"></i> <% } %>
+                    </section>
                     <span><%= user.email %></span>
                 </section>
             </section>

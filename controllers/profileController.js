@@ -45,7 +45,7 @@ module.exports = class ProfileController {
             }));
 
             if (account[0].length == 0) {
-                req.flash("msg", errorMessages.NOT_FOUND);
+                req.flash("error", errorMessages.NOT_FOUND);
                 return res.status(404).redirect("/");
             }
             // consulta de publicações do usuário
@@ -58,7 +58,7 @@ module.exports = class ProfileController {
 
         } catch (error) {
             console.log(error)
-            req.flash("msg", errorMessages.INTERNAL_ERROR);
+            req.flash("error", errorMessages.INTERNAL_ERROR);
             return res.status(500).redirect("/");
         }
     }
@@ -70,18 +70,18 @@ module.exports = class ProfileController {
             const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
 
             if (!(account[0].length > 0)) {
-                req.flash("msg", errorMessages.INTERNAL_ERROR);
+                req.flash("error", errorMessages.INTERNAL_ERROR);
                 return res.status(401).redirect("/");
             }
             if (account[0][0].id !== req.session.userid) {
-                req.flash("msg", errorMessages.INTERNAL_ERROR);
+                req.flash("error", errorMessages.INTERNAL_ERROR);
                 return res.status(401).redirect("/");
             }
 
             res.status(200).render("layouts/main.ejs", { router: "../pages/profile/edit.ejs", user: account[0][0], notifications: notifications[0], title: "Collectverse - Editar perfil" });
         } catch (error) {
             console.log(error)
-            req.flash("msg", errorMessages.INTERNAL_ERROR);
+            req.flash("error", errorMessages.INTERNAL_ERROR);
             return res.status(500).redirect("/");
         }
     }
@@ -91,11 +91,11 @@ module.exports = class ProfileController {
             const { id, name, email, biography } = req.body;
 
             if (itIsEmail.test(email)) {
-                req.flash("msg", errorMessages.INVALID_EMAIL);
+                req.flash("error", errorMessages.INVALID_EMAIL);
                 return res.status(400).redirect(`/profile/${id}/edit`);
             }
             if (name.length === 0) {
-                req.flash("msg", errorMessages.EMPTY_INPUT);
+                req.flash("error", errorMessages.EMPTY_INPUT);
                 return res.status(400).redirect(`/profile/${id}/edit`);
             }
 
@@ -109,12 +109,12 @@ module.exports = class ProfileController {
             ]);
 
             if (!(account[0].length > 0) && (email !== account[0][0].email && id !== account[0][0].id)) {
-                req.flash("msg", errorMessages.EMAIL_IN_USE);
+                req.flash("error", errorMessages.EMAIL_IN_USE);
                 return res.status(400).redirect(`/profile/${id}/edit`);
             }
 
             if (nameWasInDb[0].length > 0 && (name !== account[0][0].name && id !== account[0][0].id)) {
-                req.flash("msg", errorMessages.USERNAME_IN_USE);
+                req.flash("error", errorMessages.USERNAME_IN_USE);
                 return res.status(400).redirect(`/profile/${id}/edit`);
             }
 
@@ -133,12 +133,12 @@ module.exports = class ProfileController {
             }
 
             await connection.query("UPDATE users SET name = ?, email = ?, perfil = ?, banner = ?, biography = ?, updatedAt = NOW() WHERE id = ?", [name, email, userPerfilPath, userBannerPath, biography, id]);
-            req.flash("msg", successMessages.EDITED_ACCOUNT);
+            req.flash("success", successMessages.EDITED_ACCOUNT);
             return res.status(200).redirect(`/profile/${id}`);
 
         } catch (error) {
             console.log(error)
-            req.flash("msg", errorMessages.INTERNAL_ERROR);
+            req.flash("error", errorMessages.INTERNAL_ERROR);
             return res.status(500).redirect(`/profile/${req.session.userid}/edit`);
         }
     }
@@ -148,20 +148,20 @@ module.exports = class ProfileController {
 
             // Verifica se a senha não possui caracteres especiais
             if (!wasSpecialCharacters.test(newPassword)) {
-                req.flash("msg", errorMessages.NO_SPECIAL_CHARACTERS);
+                req.flash("error", errorMessages.NO_SPECIAL_CHARACTERS);
                 return res.status(400).redirect(`/profile/${id}/edit`)
             }
 
             if (newPassword.length < 6) {
-                req.flash("msg", errorMessages.WEAK_PASSWORD);
+                req.flash("error", errorMessages.WEAK_PASSWORD);
                 return res.status(400).redirect(`/profile/${id}/edit`)
             }
             if (newPassword.length > 64) {
-                req.flash("msg", errorMessages.LIMIT_PASSWORD);
+                req.flash("error", errorMessages.LIMIT_PASSWORD);
                 return res.status(400).redirect(`/profile/${id}/edit`)
             }
             if (newPassword !== confirmNewPassword) {
-                req.flash("msg", errorMessages.NO_MATCH_PASSWORDS);
+                req.flash("error", errorMessages.NO_MATCH_PASSWORDS);
                 return res.status(400).redirect(`/profile/${id}/edit`)
             }
 
@@ -170,7 +170,7 @@ module.exports = class ProfileController {
             const passwordMatch = bcrypt.compareSync(oldPassoword, account[0][0].password);
 
             if (!passwordMatch) {
-                req.flash("msg", errorMessages.NO_CORRECT_PASSWORDS);
+                req.flash("error", errorMessages.NO_CORRECT_PASSWORDS);
                 return res.status(400).redirect(`/profile/${id}/edit`)
             }
 
@@ -180,12 +180,12 @@ module.exports = class ProfileController {
             const hashedPassword = bcrypt.hashSync(newPassword, salt);
 
             await connection.query("UPDATE users SET password = ?, updatedAt = NOW() WHERE id = ?", [hashedPassword, id]);
-            req.flash("msg", successMessages.ALTERED_PASSWORD);
+            req.flash("success", successMessages.ALTERED_PASSWORD);
             return res.status(200).redirect(`/profile/${id}`);
 
         } catch (error) {
             console.log(error)
-            req.flash("msg", errorMessages.INTERNAL_ERROR);
+            req.flash("error", errorMessages.INTERNAL_ERROR);
             return res.status(500).redirect(`/profile/${req.session.userid}/edit`)
         }
     }
@@ -194,7 +194,7 @@ module.exports = class ProfileController {
             const id = req.body.id;
 
             if (id != req.session.userid) {
-                req.flash("msg", errorMessages.INTERNAL_ERROR);
+                req.flash("error", errorMessages.INTERNAL_ERROR);
                 return res.status(401).redirect(`/profile/${id}/edit`);
             }
 
@@ -203,13 +203,13 @@ module.exports = class ProfileController {
             await connection.query("DELETE FROM publications WHERE userId = ?", [id]);
             await connection.query("DELETE FROM follows WHERE userId = ?", [id]);
             await connection.query("DELETE FROM users WHERE id = ?", [id]);
-            req.flash("msg", successMessages.DELETED_ACCOUNT);
+            req.flash("success", successMessages.DELETED_ACCOUNT);
             req.session.destroy(() => {
                 return res.status(200).redirect("/sign/in");
             });
         } catch (error) {
             console.log(error)
-            req.flash("msg", errorMessages.INTERNAL_ERROR);
+            req.flash("error", errorMessages.INTERNAL_ERROR);
             return res.status(500).redirect(`/profile/${req.session.userid}/edit`)
         }
     }
@@ -218,7 +218,7 @@ module.exports = class ProfileController {
             const id = req.body.id;
 
             if (!(req.session.userid)) {
-                req.flash("msg", errorMessages.NOT_SESSION);
+                req.flash("error", errorMessages.NOT_SESSION);
                 return res.status(401).redirect("/sign/In");
             }
 
@@ -249,7 +249,7 @@ module.exports = class ProfileController {
             return res.status(200).redirect(`/profile/${id}`)
         } catch (error) {
             console.log(error)
-            req.flash("msg", errorMessages.INTERNAL_ERROR);
+            req.flash("error", errorMessages.INTERNAL_ERROR);
             return res.status(500).redirect("/")
         }
     }
@@ -263,7 +263,7 @@ module.exports = class ProfileController {
             res.status(200).redirect(`/profile/${req.session.userid}`);
         } catch (error) {
             console.log(error)
-            req.flash("msg", errorMessages.INTERNAL_ERROR);
+            req.flash("error", errorMessages.INTERNAL_ERROR);
             return res.status(500).redirect(`/profile/${req.session.userid}`)
         }
     }
@@ -274,7 +274,7 @@ module.exports = class ProfileController {
             res.status(200).redirect(`/profile/${req.session.userid}`);
         } catch (error) {
             console.log(error)
-            req.flash("msg", errorMessages.INTERNAL_ERROR);
+            req.flash("error", errorMessages.INTERNAL_ERROR);
             return res.status(500).redirect(`/profile/${req.session.userid}`)
         }
     }

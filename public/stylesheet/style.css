@@ -252,6 +252,18 @@ hr {
     all: unset;
 }
 
+.name-for-user {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.name-for-user h3 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 .dropdown-header .signOut {
     margin-top: 12px;
     transition: background 500ms linear;
@@ -279,43 +291,6 @@ hr {
         font-size: 14px;
         cursor: pointer;
     }
-}
-
-/* alert */
-
-.noty_bar {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    max-width: 360px;
-    width: 85%;
-    box-shadow: 0 20px 16px 0 #00000011;
-    border-radius: 4px;
-    padding: 1rem;
-    background-color: #fff;
-    z-index: 100;
-}
-
-.noty_body {
-    font-weight: 400;
-    font-size: 14px;
-    color: #202124;
-}
-
-.noty_progressbar {
-    margin-top: 12px;
-    height: 0.5rem;
-    background-color: #00000014;
-    width: 0;
-    animation: progressBar 3s linear forwards;
-}
-
-.noty_error .noty_progressbar {
-    background-color: #ff55552d;
-}
-
-.noty_success .noty_progressbar {
-    background-color: #0056b32d;
 }
 
 /* pass */
@@ -403,11 +378,6 @@ hr {
 }
 
 @media screen and (max-width: 768px) {
-
-    .noty_bar {
-        right: 50%;
-        transform: translateX(50%);
-    }
 
     .responsive-itens-container {
         display: none;

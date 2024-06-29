@@ -163,6 +163,9 @@
     display: flex;
     align-items: center;
     gap: 16px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .profile-card .user-infos h2 {

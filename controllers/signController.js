@@ -29,14 +29,14 @@ module.exports = class SignController {
     static signIn(req, res) {
         try {
             if (req.session.userid) {
-                req.flash("msg", errorMessages.INTERNAL_ERROR);
-                return res.status(401).render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs", error: req.flash("msg") });
+                req.flash("error", errorMessages.INTERNAL_ERROR);
+                return res.status(401).render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs" });
             }
             res.status(200).render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs" });
         } catch (error) {
             console.log(error)
-            req.flash("msg", errorMessages.INTERNAL_ERROR);
-            return res.status(500).render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs", error: req.flash("msg"), title: "Collectverse - Entrar" });
+            req.flash("error", errorMessages.INTERNAL_ERROR);
+            return res.status(500).render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs", title: "Collectverse - Entrar" });
         }
     }
     static async makeSignIn(req, res) {
@@ -44,51 +44,51 @@ module.exports = class SignController {
             const { email, password } = req.body;
 
             if (itIsEmail.test(email)) {
-                req.flash("msg", errorMessages.INVALID_EMAIL);
-                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs", error: req.flash("msg") });
+                req.flash("error", errorMessages.INVALID_EMAIL);
+                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs" });
             } else if (email.length === 0) {
-                req.flash("msg", errorMessages.EMPTY_EMAIL);
-                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs", error: req.flash("msg") });
+                req.flash("error", errorMessages.EMPTY_EMAIL);
+                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs" });
             }
 
             // verifica se usuário existe
             const user = await connection.query("SELECT id, email, password FROM users WHERE email = ?", [email]);
 
             if (!(user[0].length > 0)) {
-                req.flash("msg", errorMessages.EMAIL_NOT_IN_USE);
-                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs", error: req.flash("msg") });
+                req.flash("error", errorMessages.EMAIL_NOT_IN_USE);
+                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs" });
             }
 
             // verificar se as senhas conheecidem
             const passwordMatch = bcrypt.compareSync(password, user[0][0].password)
 
             if (!passwordMatch) {
-                req.flash('msg', errorMessages.INCORRECT_PASSWORD);
-                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs", error: req.flash("msg") });
+                req.flash('error', errorMessages.INCORRECT_PASSWORD);
+                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs" });
             }
 
             req.session.userid = user[0][0].id
             return req.session.save(() => {
-                req.flash("msg", successMessages.LOGIN_ACCOUNT);
+                req.flash("success", successMessages.LOGIN_ACCOUNT);
                 res.status(200).redirect("/")
             });
         } catch (error) {
             console.log(error)
-            req.flash("msg", errorMessages.INTERNAL_ERROR);
-            return res.status(500).render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs", error: req.flash("msg") });
+            req.flash("error", errorMessages.INTERNAL_ERROR);
+            return res.status(500).render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs" });
         }
     }
     static signUp(req, res) {
         try {
             if (req.session.userid) {
-                req.flash("msg", errorMessages.INTERNAL_ERROR);
+                req.flash("error", errorMessages.INTERNAL_ERROR);
                 return res.status(401).redirect("/")
             }
             res.status(200).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs" });
         } catch (error) {
             console.log(error)
-            req.flash("msg", errorMessages.INTERNAL_ERROR);
-            return res.status(500).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg"), title: "Collectverse - Registrar"  });
+            req.flash("error", errorMessages.INTERNAL_ERROR);
+            return res.status(500).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", title: "Collectverse - Registrar" });
         }
     }
     static async makeSignUp(req, res) {
@@ -96,31 +96,31 @@ module.exports = class SignController {
             const { email, name, password, passwordResend } = req.body;
 
             if (itIsEmail.test(email)) {
-                req.flash("msg", errorMessages.INVALID_EMAIL);
-                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
+                req.flash("error", errorMessages.INVALID_EMAIL);
+                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs" });
             } else if (email.length === 0) {
-                req.flash("msg", errorMessages.EMPTY_EMAIL);
-                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
+                req.flash("error", errorMessages.EMPTY_EMAIL);
+                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs" });
             }
             if (name.length === 0) {
-                req.flash("msg", errorMessages.EMPTY_USERNAME);
-                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
+                req.flash("error", errorMessages.EMPTY_USERNAME);
+                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs" });
             }
             if (!wasSpecialCharacters.test(password)) {
-                req.flash("msg", errorMessages.NO_SPECIAL_CHARACTERS);
-                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
+                req.flash("error", errorMessages.NO_SPECIAL_CHARACTERS);
+                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs" });
             }
             if (password.length < 8) {
-                req.flash("msg", errorMessages.WEAK_PASSWORD);
-                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
+                req.flash("error", errorMessages.WEAK_PASSWORD);
+                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs" });
             }
             if (password.length > 64) {
-                req.flash("msg", errorMessages.LIMIT_PASSWORD);
-                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
+                req.flash("error", errorMessages.LIMIT_PASSWORD);
+                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs" });
             }
-            if(password != passwordResend) {
-                req.flash("msg", errorMessages.NOT_MATCH_PASSWORD);
-                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
+            if (password != passwordResend) {
+                req.flash("error", errorMessages.NOT_MATCH_PASSWORD);
+                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs" });
             }
 
             // verifica se usuário existe
@@ -128,12 +128,12 @@ module.exports = class SignController {
             const nameWasInDb = await connection.query("SELECT name FROM users WHERE name = ?", [name]);
 
             if (emailWasInDb[0].length > 0) {
-                req.flash("msg", errorMessages.EMAIL_IN_USE);
-                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
+                req.flash("error", errorMessages.EMAIL_IN_USE);
+                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs" });
             }
             if (nameWasInDb[0].length > 0) {
-                req.flash("msg", errorMessages.USERNAME_IN_USE);
-                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
+                req.flash("error", errorMessages.USERNAME_IN_USE);
+                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs" });
             }
 
             // criptografando a senha do usuário.
@@ -153,8 +153,8 @@ module.exports = class SignController {
             const userWasTableFollows = await connection.query("SELECT id FROM follows WHERE UserId = ?", [id])
 
             if (userWasTableFollows && userWasTableFollows[0].length > 0) {
-                req.flash("msg", errorMessages.INTERNAL_ERROR);
-                return res.status(500).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
+                req.flash("error", errorMessages.INTERNAL_ERROR);
+                return res.status(500).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs" });
             }
 
             await Promise.all([
@@ -164,13 +164,13 @@ module.exports = class SignController {
 
             req.session.userid = id;
             return req.session.save(() => {
-                req.flash("msg", successMessages.CREATED_ACCOUNT);
+                req.flash("success", successMessages.CREATED_ACCOUNT);
                 res.status(200).redirect("/")
             });
         } catch (error) {
             console.log(error)
-            req.flash("msg", errorMessages.INTERNAL_ERROR);
-            return res.status(500).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
+            req.flash("error", errorMessages.INTERNAL_ERROR);
+            return res.status(500).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs" });
         }
     }
     static logout(req, res) {
@@ -180,16 +180,16 @@ module.exports = class SignController {
             });
         } catch (error) {
             console.log(error)
-            req.flash("msg", errorMessages.INTERNAL_ERROR);
+            req.flash("error", errorMessages.INTERNAL_ERROR);
             return res.status(500).redirect("/");
         }
     }
     static async recover(req, res) {
         try {
-            res.status(200).render("layouts/main.ejs", { router: "../pages/sign/recover.ejs", title: "Collectverse - Recuperação"  });
+            res.status(200).render("layouts/main.ejs", { router: "../pages/sign/recover.ejs", title: "Collectverse - Recuperação" });
         } catch (error) {
             console.log(error)
-            req.flash("msg", errorMessages.INTERNAL_ERROR);
+            req.flash("error", errorMessages.INTERNAL_ERROR);
             return res.status(500).redirect("/");
         }
     }
@@ -198,11 +198,11 @@ module.exports = class SignController {
             const { email, password } = req.body;
 
             if (itIsEmail.test(email)) {
-                req.flash("msg", errorMessages.INVALID_EMAIL);
-                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/recover.ejs", error: req.flash("msg") });
+                req.flash("error", errorMessages.INVALID_EMAIL);
+                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/recover.ejs" });
             } else if (email.length === 0) {
-                req.flash("msg", errorMessages.EMPTY_EMAIL);
-                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/recover.ejs", error: req.flash("msg") });
+                req.flash("error", errorMessages.EMPTY_EMAIL);
+                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/recover.ejs" });
             }
 
             // verifica se usuário existe
@@ -211,21 +211,21 @@ module.exports = class SignController {
             console.log(user[0][0].id)
 
             if (!(user[0].length > 0)) {
-                req.flash("msg", errorMessages.EMAIL_NOT_IN_USE);
-                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/recover.ejs", error: req.flash("msg") });
+                req.flash("error", errorMessages.EMAIL_NOT_IN_USE);
+                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/recover.ejs" });
             }
 
             if (!wasSpecialCharacters.test(password)) {
-                req.flash("msg", errorMessages.NO_SPECIAL_CHARACTERS);
-                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
+                req.flash("error", errorMessages.NO_SPECIAL_CHARACTERS);
+                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs" });
             }
             if (password.length < 8) {
-                req.flash("msg", errorMessages.WEAK_PASSWORD);
-                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
+                req.flash("error", errorMessages.WEAK_PASSWORD);
+                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs" });
             }
             if (password.length > 64) {
-                req.flash("msg", errorMessages.LIMIT_PASSWORD);
-                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs", error: req.flash("msg") });
+                req.flash("error", errorMessages.LIMIT_PASSWORD);
+                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs" });
             }
 
             // criptografando a senha do usuário.
@@ -235,11 +235,11 @@ module.exports = class SignController {
 
             await connection.query("UPDATE users SET password = ?, updatedAt = NOW() WHERE id = ?", [hashedPassword, user[0][0].id]);
 
-            req.flash("msg", successMessages.ALTER_PASSWORD);
+            req.flash("success", successMessages.ALTER_PASSWORD);
             res.status(200).redirect("/sign/in")
         } catch (error) {
             console.log(error)
-            req.flash("msg", errorMessages.INTERNAL_ERROR);
+            req.flash("error", errorMessages.INTERNAL_ERROR);
             return res.status(500).redirect("/");
         }
     }

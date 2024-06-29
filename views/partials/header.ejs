@@ -124,9 +124,12 @@
                                                     <span class="span-for-points">
                                                         <a href="/store/points">$<%= user.points  %></a>
                                                     </span>
-                                                    <h3>
-                                                        <%= user.name %> <% if (user.pass == 1) { %> <i class="bi bi-robot with-pass"></i> <% } %>
-                                                    </h3>
+                                                    <section class="name-for-user">
+                                                        <h3>
+                                                            <%= user.name %>
+                                                        </h3>
+                                                        <% if (user.pass == 1) { %> <i class="bi bi-robot with-pass"></i> <% } %>
+                                                    </section>
                                                     <span>
                                                         <%= user.email %>
                                                     </span>

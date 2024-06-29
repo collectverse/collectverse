@@ -39,7 +39,10 @@ app.use(session({
 // Configurando o flash para mensagens de erro/sucesso
 app.use(flash());
 
+// mensagem
 app.use((req, res, next) => {
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     res.locals.msg = req.flash("msg");
     next();
 });

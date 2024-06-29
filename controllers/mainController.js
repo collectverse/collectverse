@@ -45,7 +45,7 @@ module.exports = class MainController {
             res.status(200).render("layouts/main.ejs", { router: "../pages/home/home.ejs", publications: publications[0], user: account[0][0], highlights: highlights[0], followers: forFollowers, following: forFollowing, notifications: notifications[0], title: "Collectverse - Home" });
         } catch (error) {
             console.error(error);
-            req.flash("msg", errorMessages.INTERNAL_ERROR);
+            req.flash("error", errorMessages.INTERNAL_ERROR);
             res.status(500).redirect("/");
         }
     }
@@ -54,11 +54,11 @@ module.exports = class MainController {
             const { user, message } = req.body;
 
             if (!user || user.length === 0) {
-                req.flash("msg", errorMessages.INVALID_SESSION);
+                req.flash("error", errorMessages.INVALID_SESSION);
                 return res.status(401).redirect("/");
             }
             if (!message || message.length === 0) {
-                req.flash("msg", errorMessages.EMPTY_TEXT);
+                req.flash("error", errorMessages.EMPTY_TEXT);
                 return res.status(400).redirect("/");
             }
 
@@ -71,7 +71,7 @@ module.exports = class MainController {
             const account = await connection.query("SELECT id, name FROM users WHERE id = ?", [user]);
 
             if (account[0].length == 0) {
-                req.flash("msg", errorMessages.USER_NOT_FOUND);
+                req.flash("error", errorMessages.USER_NOT_FOUND);
                 return res.status(401).redirect("/");
             }
 
@@ -84,11 +84,11 @@ module.exports = class MainController {
                 await connection.query("INSERT INTO notify (UserId, ifCommented ,parentId, type, content, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, NOW(), NOW())", [user, publication[0].insertId, parentId, "response", content]);
             }
 
-            req.flash("msg", successMessages.CREATED_PUBLISH);
+            req.flash("success", successMessages.CREATED_PUBLISH);
             res.status(200).redirect("/");
         } catch (error) {
             console.error(error);
-            req.flash("msg", errorMessages.INTERNAL_ERROR);
+            req.flash("error", errorMessages.INTERNAL_ERROR);
             res.status(500).redirect("/");
         }
     }
@@ -100,18 +100,18 @@ module.exports = class MainController {
             const publication = await connection.query("SELECT UserId FROM publications WHERE id = ?", [id]);
 
             if (publication.length === 0 || publication[0][0].UserId !== req.session.userid) {
-                req.flash("msg", errorMessages.INTERNAL_ERROR);
+                req.flash("error", errorMessages.INTERNAL_ERROR);
                 return res.status(400).redirect("/");
             }
 
             // exclui o comentário
             await connection.query("DELETE FROM publications WHERE id = ?", [id]);
 
-            req.flash("msg", successMessages.DELETE_PUBLISH);
+            req.flash("success", successMessages.DELETE_PUBLISH);
             res.status(200).redirect("/");
         } catch (error) {
             console.log(error)
-            req.flash("msg", errorMessages.INTERNAL_ERROR);
+            req.flash("error", errorMessages.INTERNAL_ERROR);
             return res.status(500).redirect("/");
         }
     }
@@ -151,7 +151,7 @@ module.exports = class MainController {
             return res.status(200).redirect("/");
         } catch (error) {
             console.log(error)
-            req.flash("msg", errorMessages.INTERNAL_ERROR);
+            req.flash("error", errorMessages.INTERNAL_ERROR);
             return res.status(500).redirect("/");
         }
     }
@@ -163,7 +163,7 @@ module.exports = class MainController {
             const publication = await connection.query("SELECT publications.*, users.name, users.perfil, users.pass FROM publications INNER JOIN users ON publications.UserId = users.id WHERE publications.id = ? ORDER BY publications.createdAt DESC", [id]);
 
             if (publication[0].length == 0) {
-                req.flash("msg", errorMessages.NOT_FOUND);
+                req.flash("error", errorMessages.NOT_FOUND);
                 return res.status(404).redirect("/");
             }
 
@@ -174,14 +174,14 @@ module.exports = class MainController {
             const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
 
             if (account.length === 0) {
-                req.flash("msg", errorMessages.INTERNAL_ERROR);
+                req.flash("error", errorMessages.INTERNAL_ERROR);
                 return res.status(500).redirect("/");
             }
 
             res.render("layouts/main", { router: "../pages/home/publication.ejs", publication: publication[0][0], publications: publications[0], user: account[0][0], notifications: notifications[0], title: `Collectverse - Publicação de ${publication[0][0].name}`  });
         } catch (error) {
             console.log(error)
-            req.flash("msg", errorMessages.INTERNAL_ERROR);
+            req.flash("error", errorMessages.INTERNAL_ERROR);
             return res.status(500).redirect("/");
         }
     }

@@ -58,45 +58,64 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
         media="print" onload="this.media='all'">
 
+    <!-- simple notify -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.css" />
+
 </head>
 
 <body>
+    <!-- paginas -->
+    
+    <%- include(router) %>
+
+    <!-- simple notify -->
+    <script src="https://cdn.jsdelivr.net/npm/simple-notify@1.0.4/dist/simple-notify.min.js"></script>
+
+    <script>
+        function pushNotify(status, title, text) {
+        new Notify({
+            status: status,
+            title: title,
+            text: text,
+            effect: 'fade',
+            speed: 300,
+            customClass: null,
+            customIcon: null,
+            showIcon: true,
+            showCloseButton: true,
+            autoclose: true,
+            autotimeout: 3500,
+            gap: 20,
+            distance: 20,
+            type: 'outline',
+            position: 'center'
+        })
+}
+    </script>
+
+    <!-- script app -->
+    <script src="/javascript/app.js" defer></script>
 
     <!-- mensagem flash -->
 
-    <% if (typeof error !== 'undefined' && error.length > 0) { %>
-        <section class="noty_bar noty_error">
-            <section class="noty_body">
-                <%= error %>
-            </section>
-            <section class="noty_progressbar" style="width: 70%;"></section>
-        </section>
+    <% if (error.length > 0) { %>
+        <script>
+            pushNotify('error', 'Tivemos um erro', '<%= error %>')
+        </script>
     <% } %>
 
-    <% if (typeof success !== 'undefined' && success.length > 0) { %>
-        <section class="noty_bar noty_success">
-            <section class="noty_body">
-                <%= success %>
-            </section>
-            <section class="noty_progressbar" style="width: 70%;"></section>
-        </section>
+    <% if (success.length > 0) { %>
+        <script>
+            pushNotify('success', 'Tudo ocorreu como esperado', '<%= success %>')
+        </script>
     <% } %>
 
     <% if (msg.length > 0) { %>
-        <section class="noty_bar">
-            <section class="noty_body">
-                <%= msg %>
-            </section>
-            <section class="noty_progressbar" style="width: 70%;"></section>
-        </section>
+        <script>
+            pushNotify('info', 'Notificação!', '<%= msg %>')
+        </script>
     <% } %>
-    
-
-    <!-- paginas -->
-
-    <%- include(router) %>
-
-    <script src="/javascript/app.js"></script>
 </body>
 
 </html>

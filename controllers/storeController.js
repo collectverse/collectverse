@@ -60,7 +60,7 @@ module.exports = class MainController {
         const { id, price } = req.body;
 
         if (!(req.session.userid)) {
-            req.flash("msg", errorMessages.NOT_SESSION);
+            req.flash("error", errorMessages.NOT_SESSION);
             return res.status(401).redirect("/sign/In");
         }
 
@@ -69,7 +69,7 @@ module.exports = class MainController {
         const remainder = account[0][0].points - price
 
         if (Math.sign(remainder) == -1) {
-            req.flash("msg", errorMessages.DONT_HAVE_POINTS)
+            req.flash("error", errorMessages.DONT_HAVE_POINTS)
             return res.status(401).redirect(`/store/shopping/${id}`)
         }
 
@@ -77,7 +77,7 @@ module.exports = class MainController {
         let collectables = JSON.parse(cart[0][0].itemIds || "[]")
 
         if (collectables.includes(id)) {
-            req.flash("msg", errorMessages.CART_INCLUDE);
+            req.flash("error", errorMessages.CART_INCLUDE);
             return res.status(401).redirect(`/store`)
         }
 
@@ -93,7 +93,7 @@ module.exports = class MainController {
 
         } catch (error) {
             console.log(error)
-            req.flash("msg", errorMessages.INTERNAL_ERROR);
+            req.flash("error", errorMessages.INTERNAL_ERROR);
             return res.status(500).redirect(`/store`)
         }
     }
@@ -106,7 +106,7 @@ module.exports = class MainController {
         }
 
         if (account[0][0].pass == 1) {
-            req.flash("msg", successMessages.ALREADY_HAVE_PASS)
+            req.flash("success", successMessages.ALREADY_HAVE_PASS)
             return res.status(400).redirect("/store")
         }
 
@@ -115,7 +115,7 @@ module.exports = class MainController {
         const remainder = account[0][0].points - universePrice
 
         if (Math.sign(remainder) == -1) {
-            req.flash("msg", errorMessages.DONT_HAVE_POINTS)
+            req.flash("error", errorMessages.DONT_HAVE_POINTS)
             return res.status(401).redirect("/store")
         }
 
@@ -125,7 +125,7 @@ module.exports = class MainController {
         const id = pass[0][0].shopId
 
         if (collectables.includes(id)) {
-            req.flash("msg", errorMessages.CART_INCLUDE);
+            req.flash("error", errorMessages.CART_INCLUDE);
             return res.status(401).redirect(`/store`)
         }
 
@@ -135,11 +135,11 @@ module.exports = class MainController {
             await connection.query("UPDATE users SET points = ?, pass = ?, updatedAt = NOW() WHERE id = ?", [remainder, true, req.session.userid])
             await connection.query("UPDATE carts SET itemIds = ?, updatedAt = NOW() WHERE UserId = ?", [JSON.stringify(collectables), req.session.userid])
 
-            req.flash("msg", successMessages.SUCESS_BUY_PASS)
+            req.flash("success", successMessages.SUCESS_BUY_PASS)
             return res.status(200).redirect("/store")
         } catch (error) {
             console.log(error)
-            req.flash("msg", errorMessages.INTERNAL_ERROR);
+            req.flash("error", errorMessages.INTERNAL_ERROR);
             return res.status(500).redirect(`/store`)
         }
     }
@@ -165,7 +165,7 @@ module.exports = class MainController {
             res.status(200).redirect("/store")
         } catch (error) {
             console.log(error)
-            req.flash("msg", errorMessages.INTERNAL_ERROR);
+            req.flash("error", errorMessages.INTERNAL_ERROR);
             return res.status(500).redirect(`/store`)
         }
     }

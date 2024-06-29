@@ -1,24 +1,3 @@
-// js
-// alertas
-
-function closeAlert(alertId) {
-    const Element = document.getElementById(alertId);
-    if (Element) {
-        Element.style.display = 'none';
-    }
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    const progressBar = document.querySelector('.noty_progressbar');
-    const alertBox = document.querySelector('.noty_bar');
-
-    if (progressBar && alertBox) {
-        progressBar.addEventListener('animationend', function () {
-            alertBox.remove();
-        });
-    }
-});
-
 // menu
 
 const button = document.querySelector(".li-menu .menu");
@@ -149,24 +128,23 @@ function modaltabToggle(tabName) {
 
 function blockCopyAndPaste(inputElement) {
     // Desabilitar a capacidade de colar texto no input
-    inputElement.addEventListener('paste', function(event) {
+    inputElement.addEventListener('paste', function (event) {
         event.preventDefault();
         return false;
     });
 
     // Desabilitar a capacidade de copiar texto do input
-    inputElement.addEventListener('copy', function(event) {
+    inputElement.addEventListener('copy', function (event) {
         event.preventDefault();
         return false;
     });
 
     // Desabilitar a capacidade de cortar texto do input
-    inputElement.addEventListener('cut', function(event) {
+    inputElement.addEventListener('cut', function (event) {
         event.preventDefault();
         return false;
     });
 }
-
 
 // jquery
 
