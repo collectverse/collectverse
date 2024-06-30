@@ -145,6 +145,20 @@ function blockCopyAndPaste(inputElement) {
         return false;
     });
 }
+// desabilitar span de submit no form
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    const forms = document.querySelectorAll('form');
+
+    forms.forEach((form) => {
+        form.addEventListener('submit', (event) => {
+            const submitButton = form.querySelector('button[type="submit"], input[type="submit"]');
+            if (submitButton) {
+                submitButton.disabled = true;
+            }
+        });
+    });
+});
 
 // jquery
 

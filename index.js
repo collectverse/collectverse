@@ -41,9 +41,9 @@ app.use(flash());
 
 // mensagem
 app.use((req, res, next) => {
-    res.locals.error = req.flash("error");
-    res.locals.success = req.flash("success");
-    res.locals.msg = req.flash("msg");
+    res.locals.error = req.flash("error") || [];
+    res.locals.success = req.flash("success") || [];
+    res.locals.msg = req.flash("msg") || [];
     next();
 });
 

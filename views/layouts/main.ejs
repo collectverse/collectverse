@@ -100,22 +100,29 @@
     <!-- mensagem flash -->
 
     <% if (error.length > 0) { %>
-        <script>
-            pushNotify('error', 'Tivemos um erro', '<%= error %>')
-        </script>
+        <% error.forEach(function(message) { %>
+            <script>
+                pushNotify('error', 'Tivemos um erro', '<%= message %>')
+            </script>
+        <% }) %>
     <% } %>
-
+    
     <% if (success.length > 0) { %>
-        <script>
-            pushNotify('success', 'Tudo ocorreu como esperado', '<%= success %>')
-        </script>
+        <% success.forEach(function(message) { %>
+            <script>
+                pushNotify('success', 'Tudo ocorreu como esperado', '<%= message %>')
+            </script>
+        <% }) %>
     <% } %>
-
+    
     <% if (msg.length > 0) { %>
-        <script>
-            pushNotify('info', 'Notificação!', '<%= msg %>')
-        </script>
+        <% msg.forEach(function(message) { %>
+            <script>
+                pushNotify('info', 'Notificação!', '<%= message %>')
+            </script>
+        <% }) %>
     <% } %>
+    
 </body>
 
 </html>
