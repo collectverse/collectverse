@@ -324,13 +324,6 @@ hr {
     object-fit: cover;
 }
 
-@media screen and (max-width: 576px) {
-    .perfil img {
-        width: 36px;
-        height: 36px;
-    }
-}
-
 .inPerfil {
     border: 4px solid #0057b32d;
 }
