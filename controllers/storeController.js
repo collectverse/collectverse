@@ -25,7 +25,7 @@ module.exports = class MainController {
         if (category === "all" || category === "") {
             shop = await connection.query("SELECT * FROM shop WHERE forPass != 1");
         } else if (category === "new") {
-            shop = await connection.query("SELECT * FROM shop ORDER BY createdAt DESC forPass != 1 LIMIT 2");
+            shop = await connection.query("SELECT * FROM shop WHERE forPass != 1 ORDER BY createdAt DESC LIMIT 2");
         }
 
         res.status(200).render("layouts/main.ejs", { router: "../pages/store/store.ejs", user: account[0][0], highlights: highlights[0], shop: shop[0], category: category, notifications: notifications[0], pass: pass[0][0], title: "Collectverse - Loja" });
