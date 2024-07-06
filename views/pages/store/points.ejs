@@ -7,8 +7,34 @@
             <%- include('../../partials/card/activeTask.ejs') %>
         </section>
 
-        <section class="tasks-container">
-            <%- include('../../partials/card/task.ejs') %>
+        <section class="task-content">
+            <section class="task-header filter-itens">
+
+                <section>
+                    <h2>Atividades</h2>
+                </section>
+                <section class="container-navs">
+                    <section class="nav">
+                        
+                        <select onchange="handleChange(this)">
+                            <option value="all">Todos</option>
+                            <option value="new">Novo</option>
+                        </select>
+                        
+                    </section>
+                    <section>
+                        <ul class="clear">
+                            <li><a href="/store/points">Limpar</a></li>
+                        </ul>
+                    </section>
+                </section>
+
+            </section>
+            <section class="tasks-container">
+                <%- include('../../partials/card/task.ejs') %>
+                <%- include('../../partials/card/task.ejs') %>
+                <%- include('../../partials/card/task.ejs') %>
+            </section>
         </section>
 
     </main>
