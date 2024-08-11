@@ -202,6 +202,8 @@ module.exports = class ProfileController {
             await connection.query("DELETE FROM carts WHERE userId = ?", [id]);
             await connection.query("DELETE FROM publications WHERE userId = ?", [id]);
             await connection.query("DELETE FROM follows WHERE userId = ?", [id]);
+            await connection.query("DELETE FROM challengesForUser WHERE userId = ?", [id]);
+            await connection.query("DELETE FROM notify WHERE userId = ?", [id]);
             await connection.query("DELETE FROM users WHERE id = ?", [id]);
             req.flash("success", successMessages.DELETED_ACCOUNT);
             req.session.destroy(() => {
@@ -213,7 +215,7 @@ module.exports = class ProfileController {
             return res.status(500).redirect(`/profile/${req.session.userid}/edit`)
         }
     }
-    static async follows(req, res) {
+    static async follows(req, res, next) {
         try {
             const id = req.body.id;
 
@@ -236,6 +238,10 @@ module.exports = class ProfileController {
                 followingByUser = followingByUser.filter(id => id !== profileId);
             } else {
                 // Se não segue, comece a seguir
+
+                // chamada da verificação do desafio
+                const infosForChallenges = await connection.query("SELECT id FROM challenges INNER JOIN challenges on challengesForUser.challengeId = challenges.id WHERE challengesForUser.userId = ?", [req.session.userid])
+
                 followingByProfile.push(req.session.userid);
                 followingByUser.push(id);
 

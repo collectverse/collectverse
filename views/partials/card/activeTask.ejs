@@ -1,17 +1,50 @@
 <section class="default-card activeTask-card">
 	<section class="task-preview">
 		<h6>Atividade</h6>
-		<h2>Fazer 5 publicações</h2>
+		<h2>
+			<%= challengesForUser.title %>
+		</h2>
 	</section>
 	<section class="task-info">
 		<section class="progress-container">
-			<section class="progress"></section>
+			<section class="progress">
+				<section class="progress-item"></section>
+			</section>
 			<span class="progress-text">
-				6/9 Challenges
+				<%= (challengesForUser.completionPercentage / 10) * 100; %>% Completo
 			</span>
 		</section>
-		<h6>Atividade simples</h6>
-		<h2>Ao completa-la, receberá $ 600 em pontos!</h2>
-		<button class="del-btn">Desistir</button>
+		<h2>
+			<%= challengesForUser.description %>
+		</h2>
+		<form action="/store/declineChallenge" method="post">
+			<input type="submit" class="del-btn" value="Desistir">
+		</form>
 	</section>
 </section>
+
+<style>
+	.activeTask-card .task-info .progress-container .progress {
+		width: 50%;
+		background-color: #8181812d;
+	}
+	.activeTask-card .task-info .progress-container .progress,
+	.activeTask-card .task-info .progress-container .progress-item {
+		height: 6px;
+		border-radius: 4px;
+	}
+	.activeTask-card .task-info .progress-container .progress-item{
+		background-color: #6767674b;
+	}
+</style>
+
+<script>
+    const progressValue = Number('<%= challengesForUser.completionPercentage %>'); // Exemplo de valor entre 0.0 e 10.0
+
+    // Calcula a porcentagem baseada no valor de 0 a 10
+    const progressPercentage = (progressValue / 10) * 100;
+
+    // Atualiza a largura da barra de progresso e o texto dentro dela
+    const progressBar = document.querySelector('.activeTask-card .task-info .progress-container .progress-item');
+    progressBar.style.width = progressPercentage + '%';
+</script>

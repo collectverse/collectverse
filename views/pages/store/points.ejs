@@ -4,7 +4,13 @@
     <main>
 
         <section class="activeTask">
-            <%- include('../../partials/card/activeTask.ejs') %>
+
+            <% if (challengesForUser) { %>
+                <%- include('../../partials/card/activeTask.ejs', {challengesForUser: challengesForUser}) %>
+            <% } else { %>
+                <p>sem nenhum desafio ativo</p>
+            <% } %>
+
         </section>
 
         <section class="task-content">
@@ -31,9 +37,11 @@
 
             </section>
             <section class="tasks-container">
-                <%- include('../../partials/card/task.ejs') %>
-                <%- include('../../partials/card/task.ejs') %>
-                <%- include('../../partials/card/task.ejs') %>
+
+                <% challenges.forEach((challenge) => { %>
+                    <%- include('../../partials/card/task.ejs', { challenge: challenge }) %>
+                <% }) %>
+
             </section>
         </section>
 

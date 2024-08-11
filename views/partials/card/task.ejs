@@ -12,18 +12,24 @@
 <section class="default-card task-card">
 	<article class="card">
 	<figure class="card-image">
-		<img src="https://images.unsplash.com/photo-1494253109108-2e30c049369b?crop=entropy&cs=srgb&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTYyNDcwMTUwOQ&ixlib=rb-1.2.1&q=85" alt="An orange painted blue, cut in half laying on a blue background" />
+		<img src="https://i.pinimg.com/564x/32/81/5a/32815a59e9c91922a02a7fe43d3af82b.jpg" alt="An orange painted blue, cut in half laying on a blue background" />
 	</figure>
 	<section class="card-header">
-		<h2>When life gives you oranges</h2>
-		<button class="icon-button">
-			<i class="bi bi-hand-index-thumb"></i>
-		</button>
+		<section>
+			<h2><%= challenge.title %></h2>
+			<p><%= challenge.description %></p>
+		</section>
+			<form action="/store/startChallenge" method="post">
+				<input type="hidden" name="challengeId" value="<%= challenge.id %>">
+				<button type="submit" class="icon-button" <%= locals.userid ? '' : 'disabled' %>>
+					<i class="bi bi-hand-index-thumb"></i>
+				</button>
+			</form>
 	</section>
 	<section class="card-footer">
 		<span class="card-meta card-meta-points">
 			<i class="bi bi-currency-dollar"></i>
-			600
+			<%= challenge.points %>
 		</span>
 	</section>
 </article>

@@ -118,6 +118,26 @@ async function createSchema() {
         FOREIGN KEY (UserId) REFERENCES users(id)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;`,
 
+            `CREATE TABLE IF NOT EXISTS challenges (
+        id int(11) AUTO_INCREMENT PRIMARY KEY,
+        title VARCHAR(255) NOT NULL,
+        description VARCHAR(255) NOT NULL,
+        points DECIMAL(6, 0) NOT NULL DEFAULT 0,
+        createdAt datetime NOT NULL,
+        updatedAt datetime NOT NULL,
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;`,
+
+            `CREATE TABLE challengesForUser (
+        id int(11) AUTO_INCREMENT PRIMARY KEY,
+        userId INT(11) NOT NULL,
+        challengeId INT NOT NULL,
+        completionPercentage DECIMAL(4, 2) DEFAULT 0,
+        createdAt datetime NOT NULL,
+        updatedAt datetime NOT NULL,
+        FOREIGN KEY (userId) REFERENCES users(id),
+        FOREIGN KEY (challengeId) REFERENCES challenges(id)
+        )`,
+
         // insert
 
             `INSERT INTO shop (palette, name, description, rarity, price, path, onwer, forPass, createdAt, updatedAt) 
@@ -129,9 +149,24 @@ async function createSchema() {
         ('["#54728C", "#D0F2F2", "#C59368", "#FFCE72"]' ,'Não caindo, está bom', 'Voa e voa...', "exceptional", 2400.00, '0005.glb', 'AntijnvanderGun', 1, NOW(), NOW())
         `,
 
-        `INSERT INTO pass (value, shopId, createdAt, updatedAt) 
+            `INSERT INTO pass (value, shopId, createdAt, updatedAt) 
         VALUES (5600, 5, NOW(), NOW())
-        `
+        `,
+
+            `INSERT INTO Challenges (title, description, points) 
+        VALUES ('Seguir 5 novas pessoas', 'Siga 5 novos usuários na rede social', 550)`,
+
+            `INSERT INTO Challenges (title, description, points) 
+        VALUES ('Comentar em 3 postagens', 'Comente em 3 postagens de diferentes usuários', 600)`,
+
+            `INSERT INTO Challenges (title, description, points) 
+        VALUES ('Curtir 10 postagens', 'Dê like em 10 postagens diferentes', 800)`,
+
+            `INSERT INTO Challenges (title, description, points) 
+        VALUES ('Criar uma nova postagem', 'Publique algo novo no seu perfil', 200)`,
+
+        `INSERT INTO Challenges (title, description, points) 
+        VALUES ('Atualizar a foto de perfil', 'Troque sua foto de perfil para uma nova', 150)`
 
         ];
 

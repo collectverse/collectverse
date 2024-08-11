@@ -1,7 +1,9 @@
 const connection = require("../schema/connection.js");
 const successMessages = {
     SUCESS_BUY_PASS: 'Passe comprado com sucesso.',
-    ALREADY_HAVE_PASS: 'Você já tem o Passe.'
+    ALREADY_HAVE_PASS: 'Você já tem o Passe.',
+    SUCESS_CHALLENGE_ACCEPTED: 'Desafio aceito com sucesso.',
+    SUCESS_CHALLENGE_DELETED: 'Desafio removido com sucesso.'
 };
 const errorMessages = {
     NOT_SESSION: 'É necessário estar em uma conta.',
@@ -17,7 +19,7 @@ module.exports = class MainController {
         const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
         const idForPassItem = 1;
         const pass = await connection.query("SELECT pass.value, pass.shopId, shop.* FROM pass INNER JOIN shop ON shop.id = pass.shopId WHERE pass.id = ? LIMIT 1", [idForPassItem]);
-        
+
         // filtro de itens
         let category = req.query.category || "";
         let shop = null;
@@ -148,25 +150,58 @@ module.exports = class MainController {
         const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, users.points, users.pass, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
         const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
 
-        res.status(200).render("layouts/main.ejs", { router: "../pages/store/points.ejs", user: account[0][0], notifications: notifications[0], title: "Collectverse - Loja" });
+        const challenges = await connection.query("SELECT * FROM challenges");
+        const challengesForUser = await connection.query("SELECT * FROM challengesForUser INNER JOIN challenges on challengesForUser.challengeId = challenges.id WHERE challengesForUser.userId = ?", [req.session.userid])
+
+        console.log(challengesForUser[0][0])
+
+        res.status(200).render("layouts/main.ejs", { router: "../pages/store/points.ejs", user: account[0][0], notifications: notifications[0], challenges: challenges[0], challengesForUser: challengesForUser[0][0], title: "Collectverse - Loja" });
     }
 
-    static async getPoints(req, res) {
-        const { points } = req.body;
+    // static async getPoints(req, res) {
+    //     const { points } = req.body;
+
+    //     try {
+
+    //         const account = await connection.query("SELECT id, points FROM users WHERE id = ?", [req.session.userid])
+
+    //         const newPoints = parseInt(account[0][0].points) + parseInt(points)
+
+    //         await connection.query("UPDATE users SET points = ?, updatedAt = now() WHERE id = ?", [newPoints, req.session.userid])
+
+    //         res.status(200).redirect("/store")
+    //     } catch (error) {
+    //         console.log(error)
+    //         req.flash("error", errorMessages.INTERNAL_ERROR);
+    //         return res.status(500).redirect(`/store`)
+    //     }
+    // }
+
+    static async startChallenge(req, res) {
+        const { challengeId } = req.body;
 
         try {
+            await connection.query("DELETE FROM challengesForUser WHERE userId = ?", [req.session.userid])
+            await connection.query("INSERT INTO challengesForUser(userId, challengeId) VALUES (?, ?)", [req.session.userid, challengeId]);
 
-            const account = await connection.query("SELECT id, points FROM users WHERE id = ?", [req.session.userid])
-
-            const newPoints = parseInt(account[0][0].points) + parseInt(points)
-
-            await connection.query("UPDATE users SET points = ?, updatedAt = now() WHERE id = ?", [newPoints, req.session.userid])
-
-            res.status(200).redirect("/store")
+            req.flash("success", successMessages.SUCESS_CHALLENGE_ACCEPTED)
+            return res.status(200).redirect("/store/points")
         } catch (error) {
             console.log(error)
             req.flash("error", errorMessages.INTERNAL_ERROR);
-            return res.status(500).redirect(`/store`)
+            return res.status(500).redirect(`/store/points`)
+        }
+    }
+
+    static async declineChallenge(req, res) {
+        try {
+            await connection.query("DELETE FROM challengesForUser WHERE userId = ?", [req.session.userid])
+        req.flash("success", successMessages.SUCESS_CHALLENGE_DELETED)
+        return res.status(200).redirect("/store/points")
+        } catch (error) {
+            console.log(error)
+            req.flash("error", errorMessages.INTERNAL_ERROR);
+            return res.status(500).redirect(`/store/points`)
         }
     }
 }
