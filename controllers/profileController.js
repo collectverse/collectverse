@@ -2,6 +2,8 @@ const connection = require("../schema/connection.js");
 const bcrypt = require("bcryptjs");
 const returnFollowersAndFollowing = require("../helpers/followingAndFollowersreturn.js");
 
+const ChallengeHelpers = require("../helpers/challenges.js")
+
 const successMessages = {
     EDITED_ACCOUNT: 'Conta editada com sucesso.',
     DELETED_ACCOUNT: 'Conta deletada com sucesso.'
@@ -85,7 +87,7 @@ module.exports = class ProfileController {
             return res.status(500).redirect("/");
         }
     }
-    static async makeEdit(req, res) {
+    static async makeEdit(req, res, next) {
         try {
             // editar perfil
             const { id, name, email, biography } = req.body;
@@ -122,6 +124,7 @@ module.exports = class ProfileController {
             // perfil
             if (req.files && req.files["perfil"]) {
                 userPerfilPath = req.files["perfil"][0].filename;
+                ChallengeHelpers.redeemChallenge(req, res, next, req.session.userId, 5)
             } else {
                 userPerfilPath = account[0][0].perfil;
             }

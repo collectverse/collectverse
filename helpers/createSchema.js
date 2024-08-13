@@ -124,7 +124,7 @@ async function createSchema() {
         description VARCHAR(255) NOT NULL,
         points DECIMAL(6, 0) NOT NULL DEFAULT 0,
         createdAt datetime NOT NULL,
-        updatedAt datetime NOT NULL,
+        updatedAt datetime NOT NULL
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;`,
 
             `CREATE TABLE challengesForUser (
@@ -153,20 +153,20 @@ async function createSchema() {
         VALUES (5600, 5, NOW(), NOW())
         `,
 
-            `INSERT INTO Challenges (title, description, points) 
-        VALUES ('Seguir 5 novas pessoas', 'Siga 5 novos usuários na rede social', 550)`,
+            `INSERT INTO challenges (title, description, points, createdAt, updatedAt) 
+        VALUES ('Seguir 5 novas pessoas', 'Siga 5 novos usuários dentro do Collectverse', 550, NOW(), NOW())`,
 
-            `INSERT INTO Challenges (title, description, points) 
-        VALUES ('Comentar em 3 postagens', 'Comente em 3 postagens de diferentes usuários', 600)`,
+            `INSERT INTO challenges (title, description, points, createdAt, updatedAt) 
+        VALUES ('Comentar em 3 postagens', 'Comente em 3 postagens de diferentes usuários', 600, NOW(), NOW())`,
 
-            `INSERT INTO Challenges (title, description, points) 
-        VALUES ('Curtir 10 postagens', 'Dê like em 10 postagens diferentes', 800)`,
+            `INSERT INTO challenges (title, description, points, createdAt, updatedAt) 
+        VALUES ('Curtir 10 postagens', 'Dê like em 10 postagens diferentes', 800, NOW(), NOW())`,
 
-            `INSERT INTO Challenges (title, description, points) 
-        VALUES ('Criar uma nova postagem', 'Publique algo novo no seu perfil', 200)`,
+            `INSERT INTO challenges (title, description, points, createdAt, updatedAt) 
+        VALUES ('Criar uma nova postagem', 'Publique algo novo no seu perfil', 200, NOW(), NOW())`,
 
-        `INSERT INTO Challenges (title, description, points) 
-        VALUES ('Atualizar a foto de perfil', 'Troque sua foto de perfil para uma nova', 150)`
+        `INSERT INTO challenges (title, description, points, createdAt, updatedAt) 
+        VALUES ('Atualizar a foto de perfil', 'Troque sua foto de perfil para uma nova', 150, NOW(), NOW())`
 
         ];
 

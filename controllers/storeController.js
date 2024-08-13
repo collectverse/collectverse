@@ -158,31 +158,31 @@ module.exports = class MainController {
         res.status(200).render("layouts/main.ejs", { router: "../pages/store/points.ejs", user: account[0][0], notifications: notifications[0], challenges: challenges[0], challengesForUser: challengesForUser[0][0], title: "Collectverse - Loja" });
     }
 
-    // static async getPoints(req, res) {
-    //     const { points } = req.body;
+    static async getPoints(req, res) {
+        const { points } = req.body;
 
-    //     try {
+        try {
 
-    //         const account = await connection.query("SELECT id, points FROM users WHERE id = ?", [req.session.userid])
+            const account = await connection.query("SELECT id, points FROM users WHERE id = ?", [req.session.userid])
 
-    //         const newPoints = parseInt(account[0][0].points) + parseInt(points)
+            const newPoints = parseInt(account[0][0].points) + parseInt(points)
 
-    //         await connection.query("UPDATE users SET points = ?, updatedAt = now() WHERE id = ?", [newPoints, req.session.userid])
+            await connection.query("UPDATE users SET points = ?, updatedAt = now() WHERE id = ?", [newPoints, req.session.userid])
 
-    //         res.status(200).redirect("/store")
-    //     } catch (error) {
-    //         console.log(error)
-    //         req.flash("error", errorMessages.INTERNAL_ERROR);
-    //         return res.status(500).redirect(`/store`)
-    //     }
-    // }
+            res.status(200).redirect("/store")
+        } catch (error) {
+            console.log(error)
+            req.flash("error", errorMessages.INTERNAL_ERROR);
+            return res.status(500).redirect(`/store`)
+        }
+    }
 
     static async startChallenge(req, res) {
         const { challengeId } = req.body;
 
         try {
             await connection.query("DELETE FROM challengesForUser WHERE userId = ?", [req.session.userid])
-            await connection.query("INSERT INTO challengesForUser(userId, challengeId) VALUES (?, ?)", [req.session.userid, challengeId]);
+            await connection.query("INSERT INTO challengesForUser(userId, challengeId, createdAt, updatedAt) VALUES (?, ?, NOW(), NOW())", [req.session.userid, challengeId]);
 
             req.flash("success", successMessages.SUCESS_CHALLENGE_ACCEPTED)
             return res.status(200).redirect("/store/points")
