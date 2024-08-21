@@ -124,7 +124,7 @@ module.exports = class ProfileController {
             // perfil
             if (req.files && req.files["perfil"]) {
                 userPerfilPath = req.files["perfil"][0].filename;
-                ChallengeHelpers.redeemChallenge(req, res, next, req.session.userId, 5)
+                // ChallengeHelpers.redeemChallenge(req, res, next, req.session.userId, 5)
             } else {
                 userPerfilPath = account[0][0].perfil;
             }
