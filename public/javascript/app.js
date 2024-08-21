@@ -66,11 +66,11 @@ if (dots.length > 0) {
 
 // categorias da loja
 
-function handleChange(select) {
+function handleChange(select, action) {
     const category = select.value;
-    window.location.href = '/store?category=' + category;
+    
+    window.location.href = `/${action}?category=` + category;
 }
-
 // troca de aba do perfil
 
 function tabToggle(tabName) {

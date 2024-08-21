@@ -242,9 +242,6 @@ module.exports = class ProfileController {
             } else {
                 // Se não segue, comece a seguir
 
-                // chamada da verificação do desafio
-                const infosForChallenges = await connection.query("SELECT id FROM challenges INNER JOIN challenges on challengesForUser.challengeId = challenges.id WHERE challengesForUser.userId = ?", [req.session.userid])
-
                 followingByProfile.push(req.session.userid);
                 followingByUser.push(id);
 

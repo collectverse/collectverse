@@ -474,6 +474,8 @@
     gap: 1rem;
     background-color: #dfedff;
     border-radius: 8px 0 0 8px;
+    height: auto;
+    width: 50%;
 }
 
 @media screen and (max-width: 768px) {
@@ -483,6 +485,15 @@
 
     .activeTask-card .task-preview {
         border-radius: 8px 8px 0 0;
+        height: 320px;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 576px) {
+
+    .activeTask-card .task-preview {
+        height: 230px;
     }
 }
 

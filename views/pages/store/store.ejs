@@ -63,7 +63,7 @@
             <section class="container-navs">
                 <section class="nav">
                     
-                    <select onchange="handleChange(this)">
+                    <select onchange="handleChange(this, 'store')">
                         <option value="all" <%= category === 'all' ? 'selected' : '' %>>Todos</option>
                         <option value="new" <%= category === 'new' ? 'selected' : '' %>>Novo</option>
                     </select>

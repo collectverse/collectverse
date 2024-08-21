@@ -150,10 +150,17 @@ module.exports = class MainController {
         const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, users.points, users.pass, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
         const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
 
-        const challenges = await connection.query("SELECT * FROM challenges");
         const challengesForUser = await connection.query("SELECT * FROM challengesForUser INNER JOIN challenges on challengesForUser.challengeId = challenges.id WHERE challengesForUser.userId = ?", [req.session.userid])
 
-        console.log(challengesForUser[0][0])
+        // filtro de itens
+        let category = req.query.category || "";
+        let challenges = null;
+
+        if (category === "all" || category === "") {
+            challenges = await await connection.query("SELECT * FROM challenges")
+        } else if (category === "new") {
+            challenges = await connection.query("SELECT * FROM challenges ORDER BY createdAt DESC LIMIT 2")
+        }
 
         res.status(200).render("layouts/main.ejs", { router: "../pages/store/points.ejs", user: account[0][0], notifications: notifications[0], challenges: challenges[0], challengesForUser: challengesForUser[0][0], title: "Collectverse - Loja" });
     }
@@ -196,8 +203,8 @@ module.exports = class MainController {
     static async declineChallenge(req, res) {
         try {
             await connection.query("DELETE FROM challengesForUser WHERE userId = ?", [req.session.userid])
-        req.flash("success", successMessages.SUCESS_CHALLENGE_DELETED)
-        return res.status(200).redirect("/store/points")
+            req.flash("success", successMessages.SUCESS_CHALLENGE_DELETED)
+            return res.status(200).redirect("/store/points")
         } catch (error) {
             console.log(error)
             req.flash("error", errorMessages.INTERNAL_ERROR);

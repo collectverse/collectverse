@@ -22,7 +22,7 @@
                 <section class="container-navs">
                     <section class="nav">
                         
-                        <select onchange="handleChange(this)">
+                        <select onchange="handleChange(this, 'store/points')">
                             <option value="all">Todos</option>
                             <option value="new">Novo</option>
                         </select>
@@ -54,7 +54,7 @@
                 <span>Após um periodo de desenvolvimento, será removido</span>
             
                 <form action="/store/getPoints" method="post">
-                    <input type="number" name="points" placeholder="Quantidade de pontos" min="0" max="999999">
+                    <input type="number" name="points" placeholder="Pontos" min="0" max="999999">
                     <input type="submit" value="Confirmar">
                 </form>
             </section>
