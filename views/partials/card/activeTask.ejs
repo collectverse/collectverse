@@ -1,9 +1,6 @@
 <section class="default-card activeTask-card">
 	<section class="task-preview">
-		<h6>Atividade</h6>
-		<h2>
-			<%= challengesForUser.title %>
-		</h2>
+		<img src="/source/images/challenge.png" alt="Imagem ilustrativa">
 	</section>
 	<section class="task-info">
 		<section class="progress-container">
@@ -14,9 +11,15 @@
 				<%= (challengesForUser.completionPercentage / 10) * 100; %>% Completo
 			</span>
 		</section>
-		<h2>
-			<%= challengesForUser.description %>
-		</h2>
+		<section class="task-preview-information">
+			<h6>Atividade</h6>
+			<h2>
+				<%= challengesForUser.title %>
+			</h2>
+			<h2>
+				<%= challengesForUser.description %>
+			</h2>
+		</section>
 		<form action="/store/declineChallenge" method="post">
 			<input type="submit" class="del-btn" value="Desistir">
 		</form>
