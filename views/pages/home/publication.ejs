@@ -3,16 +3,16 @@
 <%- include("../../partials/header.ejs") %>
 
 <main>
-    <%- include("../../partials/card/publication.ejs", {publication: publication}) %>
+    <%- include("../../partials/card/publication.ejs", {publication: publication, router : 'publication/'+publication.id}) %>
 
     <br>
 
     <section class="default-card comments-card">
         <%- include("../../partials/card/publish.ejs", { inComment: true, publication: publication, router: 'publication/'+publication.id }) %>
         <% if (publications && publications.length > 0) { %>
-            <% publications.forEach(function(publication) { %>
+            <% publications.forEach(function(coment) { %>
             <!-- Include do HTML da publicação -->
-            <%- include("../../partials/card/publication.ejs", { publication: publication }) %>
+            <%- include("../../partials/card/publication.ejs", { publication: coment, router : 'publication/'+publication.id }) %>
             <br>
             <% }); %>
         <% } else { %>

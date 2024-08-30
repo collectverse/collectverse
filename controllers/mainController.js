@@ -51,7 +51,7 @@ module.exports = class MainController {
     }
     static async publish(req, res) {
         try {
-            const { user, message, ForRedirect } = req.body;
+            const { user, message, forRedirect } = req.body;
 
             if (!user || user.length === 0) {
                 req.flash("error", errorMessages.INVALID_SESSION);
@@ -85,9 +85,7 @@ module.exports = class MainController {
             }
 
             req.flash("success", successMessages.CREATED_PUBLISH);
-            // const finalForRedirect = ForRedirect.stringify()
-            console.log(ForRedirect)
-            res.status(200).redirect(ForRedirect);
+            res.status(200).redirect(forRedirect);
         } catch (error) {
             console.error(error);
             req.flash("error", errorMessages.INTERNAL_ERROR);
@@ -96,7 +94,7 @@ module.exports = class MainController {
     }
     static async deletePublication(req, res) {
         try {
-            const id = req.params.id;
+            const {id, forRedirect} = req.params;
 
             // verifica se o comentário pertense ao usuário da sessão
             const publication = await connection.query("SELECT UserId FROM publications WHERE id = ?", [id]);
@@ -110,7 +108,7 @@ module.exports = class MainController {
             await connection.query("DELETE FROM publications WHERE id = ?", [id]);
 
             req.flash("success", successMessages.DELETE_PUBLISH);
-            res.status(200).redirect("/");
+            res.status(200).redirect(forRedirect);
         } catch (error) {
             console.log(error)
             req.flash("error", errorMessages.INTERNAL_ERROR);
@@ -150,7 +148,7 @@ module.exports = class MainController {
             const content = `${account[0][0].name} Curtiu seu comentário`
             await connection.query("INSERT INTO notify (UserId, parentId, ifLiked, type, content, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, NOW(), NOW())", [req.session.userid, user, id, "like", content]);
 
-            return res.status(200).redirect("/");
+            return res.status(200).redirect(`publication/${id}`);
         } catch (error) {
             console.log(error)
             req.flash("error", errorMessages.INTERNAL_ERROR);

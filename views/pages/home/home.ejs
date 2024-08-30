@@ -15,13 +15,13 @@
         </section>
     
         <section class="main-content">
-            <%- include("../../partials/card/publish.ejs", {router: "/"}) %>
+            <%- include("../../partials/card/publish.ejs", { router: "/" }) %>
 
             <section class="container-publications">
                 <% if (publications && publications.length > 0) { %>
                     <% publications.forEach(function(publication) { %>
                     <!-- Include do HTML da publicação -->
-                    <%- include("../../partials/card/publication.ejs", { publication: publication }) %>
+                    <%- include("../../partials/card/publication.ejs", { publication: publication, router: '/' }) %>
                     <% }); %>
                 <% } else { %>
                     <p class="not-publications-founds">Nenhuma publicação encontrada.</p>

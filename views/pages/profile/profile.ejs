@@ -45,7 +45,7 @@
                 
                     <% publications.forEach(function(publication) { %>
                         <!-- Include do HTML da publicação -->
-                        <%- include("../../partials/card/publication.ejs", {publication: publication}) %>
+                        <%- include("../../partials/card/publication.ejs", {publication: publication, roter: 'profile/'+locals.userid}) %>
                     <% }); %>
                     
                 <% } else { %>
