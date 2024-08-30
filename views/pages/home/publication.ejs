@@ -8,7 +8,7 @@
     <br>
 
     <section class="default-card comments-card">
-        <%- include("../../partials/card/publish.ejs", { inComment: true, publication: publication }) %>
+        <%- include("../../partials/card/publish.ejs", { inComment: true, publication: publication, router: 'publication/'+publication.id }) %>
         <% if (publications && publications.length > 0) { %>
             <% publications.forEach(function(publication) { %>
             <!-- Include do HTML da publicação -->

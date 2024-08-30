@@ -51,7 +51,7 @@ module.exports = class MainController {
     }
     static async publish(req, res) {
         try {
-            const { user, message } = req.body;
+            const { user, message, ForRedirect } = req.body;
 
             if (!user || user.length === 0) {
                 req.flash("error", errorMessages.INVALID_SESSION);
@@ -85,7 +85,9 @@ module.exports = class MainController {
             }
 
             req.flash("success", successMessages.CREATED_PUBLISH);
-            res.status(200).redirect("/");
+            // const finalForRedirect = ForRedirect.stringify()
+            console.log(ForRedirect)
+            res.status(200).redirect(ForRedirect);
         } catch (error) {
             console.error(error);
             req.flash("error", errorMessages.INTERNAL_ERROR);

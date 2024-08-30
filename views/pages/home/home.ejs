@@ -15,7 +15,7 @@
         </section>
     
         <section class="main-content">
-            <%- include("../../partials/card/publish.ejs") %>
+            <%- include("../../partials/card/publish.ejs", {router: "/"}) %>
 
             <section class="container-publications">
                 <% if (publications && publications.length > 0) { %>
