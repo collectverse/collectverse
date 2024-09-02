@@ -1,4 +1,4 @@
 <label class="custom-file-upload" for="<%= name %>">
     <i class="bi bi-cloud-arrow-down-fill"></i>
-    <input type="file" name="<%= name %>" id="<%= name %>" style="display:none;" onchange="previewImage(this, '<%= name %>')">
+    <input  type="file" name="<%= name %>" id="<%= name %>" style="display:none;" onchange="<%= previewForPublication ? 'previewImageForPublication(this)' : 'previewImage(this, \'' + name + '\')' %>">
 </label>

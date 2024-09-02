@@ -485,6 +485,14 @@ hr {
     outline-color: #0056b3;
 }
 
+.publish-card .image-preview img {
+    width: 100%;
+    height: auto;
+    max-width: 320px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
 .not-publications-founds {
     padding: 1rem;
     color: #676767;

@@ -68,7 +68,7 @@ if (dots.length > 0) {
 
 function handleChange(select, action) {
     const category = select.value;
-    
+
     window.location.href = `/${action}?category=` + category;
 }
 // troca de aba do perfil
@@ -175,3 +175,26 @@ function previewImage(input, imageClass) {
         reader.readAsDataURL(input.files[0]); // convert to base64 string
     }
 };
+
+function previewImageForPublication(input) {
+    const file = input.files[0];
+    const container = document.getElementById('imagePreviewContainer');
+
+    // Limpa o container antes de adicionar uma nova imagem
+    container.innerHTML = '';
+
+    if (file) {
+        const reader = new FileReader();
+        const img = document.createElement('img');
+
+        img.style.maxWidth = '100%';
+        img.style.height = 'auto';
+
+        reader.onload = function (e) {
+            img.src = e.target.result;
+            container.appendChild(img); // Adiciona a imagem ao container
+        }
+
+        reader.readAsDataURL(file);
+    }
+}

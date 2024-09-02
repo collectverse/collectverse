@@ -18,7 +18,7 @@ module.exports = class MainController {
     static async home(req, res) {
         try {
 
-            if(!(req.session.userid)){
+            if (!(req.session.userid)) {
                 return res.status(401).redirect("/sign/in")
             }
 
@@ -100,7 +100,12 @@ module.exports = class MainController {
     }
     static async deletePublication(req, res) {
         try {
-            const {id, forRedirect} = req.params;
+            const { id } = req.params;
+            const { forRedirect } = req.body;
+
+            console.log(forRedirect)
+            console.log("Redirecting to:", forRedirect);
+
 
             // verifica se o comentário pertense ao usuário da sessão
             const publication = await connection.query("SELECT UserId FROM publications WHERE id = ?", [id]);
@@ -184,7 +189,7 @@ module.exports = class MainController {
                 return res.status(500).redirect("/");
             }
 
-            res.render("layouts/main", { router: "../pages/home/publication.ejs", publication: publication[0][0], publications: publications[0], user: account[0][0], notifications: notifications[0], title: `Collectverse - Publicação de ${publication[0][0].name}`  });
+            res.render("layouts/main", { router: "../pages/home/publication.ejs", publication: publication[0][0], publications: publications[0], user: account[0][0], notifications: notifications[0], title: `Collectverse - Publicação de ${publication[0][0].name}` });
         } catch (error) {
             console.log(error)
             req.flash("error", errorMessages.INTERNAL_ERROR);
