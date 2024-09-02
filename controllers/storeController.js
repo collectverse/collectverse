@@ -91,7 +91,7 @@ module.exports = class MainController {
             await connection.query("UPDATE users SET points = ?, updatedAt = NOW() WHERE id = ?", [remainder, req.session.userid])
             await connection.query("UPDATE carts SET itemIds = ?, updatedAt = NOW() WHERE UserId = ?", [JSON.stringify(collectables), req.session.userid])
 
-            return res.status(200).redirect(`/store/points`)
+            return res.status(200).redirect(`/store/shopping/${id}`)
 
         } catch (error) {
             console.log(error)
@@ -118,7 +118,7 @@ module.exports = class MainController {
 
         if (Math.sign(remainder) == -1) {
             req.flash("error", errorMessages.DONT_HAVE_POINTS)
-            return res.status(401).redirect("/store")
+            return res.status(401).redirect("/store/points")
         }
 
         const cart = await connection.query("SELECT id, itemIds FROM carts WHERE UserId = ?", [req.session.userid]);
@@ -176,11 +176,11 @@ module.exports = class MainController {
 
             await connection.query("UPDATE users SET points = ?, updatedAt = now() WHERE id = ?", [newPoints, req.session.userid])
 
-            res.status(200).redirect("/store")
+            res.status(200).redirect("/store/points")
         } catch (error) {
             console.log(error)
             req.flash("error", errorMessages.INTERNAL_ERROR);
-            return res.status(500).redirect(`/store`)
+            return res.status(500).redirect(`/store/points`)
         }
     }
 
