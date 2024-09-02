@@ -81,6 +81,7 @@ async function createSchema() {
         id int(11) NOT NULL AUTO_INCREMENT,
         text TEXT NOT NULL,
         image varchar(120) DEFAULT NULL,
+        imageBase64 LONGTEXT,
         likes INT DEFAULT 0,
         likesByUsersIds TEXT ,
         parentId INT DEFAULT 0,

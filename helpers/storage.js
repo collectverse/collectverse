@@ -7,18 +7,37 @@ function randowNumber() {
 }
 
 // Função para validar o tipo de arquivo
-function filterTypes(req, file, cb) {
-    const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
-    if (req.isPremium) {
-        allowedTypes.push("image/gif")
-    }
-    if (allowedTypes.includes(file.mimetype)) {
+const filterTypes = {
+    image: (req, file, cb) => {
         cb(null, true);
-        req.flash("msg", "Imagem enviada com sucesso.")
-    } else if (file.mimetype == "image/gif") {
-        cb(new Error('Formato de imagem suportado apenas para usuários Premium.'));
-    } else {
-        cb(new Error('Formato de imagem não suportado.'));
+    },
+    perfil: (req, file, cb) => {
+        const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+        if (req.isPremium) {
+            allowedTypes.push("image/gif")
+        }
+        if (allowedTypes.includes(file.mimetype)) {
+            cb(null, true);
+            req.flash("msg", "Imagem enviada com sucesso.")
+        } else if (file.mimetype == "image/gif") {
+            cb(new Error('Formato de imagem suportado apenas para usuários Premium.'));
+        } else {
+            cb(new Error('Formato de imagem não suportado.'));
+        }
+    },
+    banner: (req, file, cb) => {
+        const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+        if (req.isPremium) {
+            allowedTypes.push("image/gif")
+        }
+        if (allowedTypes.includes(file.mimetype)) {
+            cb(null, true);
+            req.flash("msg", "Imagem enviada com sucesso.")
+        } else if (file.mimetype == "image/gif") {
+            cb(new Error('Formato de imagem suportado apenas para usuários Premium.'));
+        } else {
+            cb(new Error('Formato de imagem não suportado.'));
+        }
     }
 }
 
@@ -42,7 +61,13 @@ const storage = multer.diskStorage({
 
 const upload = multer({
     storage: storage,
-    fileFilter: filterTypes,
+    fileFilter: (req, file, cb) => {
+        if (file.fieldname in filterTypes) {
+            filterTypes[file.fieldname](req, file, cb);
+        } else {
+            cb(new Error('Campo de upload desconhecido.'));
+        }
+    },
     limits: {
         fileSize: 5 * 1024 * 1024
     }

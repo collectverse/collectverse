@@ -65,6 +65,10 @@ const diffYears = Math.floor(diffMonths / 12);
             <% if (publication.image !== "") { %>
             <img src="/uploads/publication/images/<%= publication.image %>" alt="Imagem da publicação de <%= publication.name %>">
             <% } %>
+
+            <% if (publication.imageBase64 != undefined && publication.imageBase64 !== "") { %>
+                <img src="data:image/jpeg;base64,<%= imageBase64 %>" alt="Imagem da publicação de <%= publication.name %>">
+            <% } %>
         </section>
     </section>
     <br>

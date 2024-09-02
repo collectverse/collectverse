@@ -34,6 +34,8 @@ module.exports = class MainController {
             let forFollowers = [];
             let forFollowing = [];
 
+            console.log(publications[0])
+
             if (req.session.userid) {
                 const { resultForFollowers, resultForFollowing } = await returnFollowersAndFollowing(req.session.userid);
 
@@ -63,7 +65,11 @@ module.exports = class MainController {
             }
 
             let publishImagePath = "";
+            let publishImageBase64 = null;
             if (req.files && req.files["image"]) {
+                // Converte a imagem para Base64
+                // publishImageBase64 = req.files["image"][0].buffer.toString('base64');
+                // imagem padrão em uploads
                 publishImagePath = req.files["image"][0].filename;
             }
 
@@ -77,7 +83,7 @@ module.exports = class MainController {
 
             // cria o comentário no banco de dados.
             const parentId = req.body.parentId || 0;
-            const publication = await connection.query("INSERT INTO publications (text, userId, image, likesByUsersIds ,parentId, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, now(), now())", [message, user, publishImagePath, '[]', parentId]);
+            const publication = await connection.query("INSERT INTO publications (text, userId, image, imageBase64, likesByUsersIds ,parentId, createdAt, updatedAt) VALUES (? , ?, ?, ?, ?, ?, now(), now())", [message, user, publishImagePath, publishImageBase64, '[]', parentId]);
 
             if (parentId !== 0 && parentId !== user) {
                 const content = `${account[0][0].name} Respondeu seu comentário.`
