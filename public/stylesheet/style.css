@@ -493,6 +493,16 @@ hr {
     border-radius: 12px;
 }
 
+.publish-card .remove-button {
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    padding: 8px 10px;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
 .not-publications-founds {
     padding: 1rem;
     color: #676767;

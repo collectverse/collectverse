@@ -19,6 +19,7 @@
             <section class="button-container">
                 <section class="actions-container">
                     <%- include("../input/files.ejs", {name: "image", previewForPublication: true}) %>
+                    <button class="remove-button" onclick="removeImage()"><i class="bi bi-file-earmark-x-fill"></i></button>
                 </section>
                 <input title="<%= locals.userid ? 'Publicar' : 'Entre em uma conta.' %>" class="<%= locals.userid ? 'submit' : 'submit-disabled' %>" type="submit" value="Publicar" <%= locals.userid ? '' : 'disabled' %>>
             </section>

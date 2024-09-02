@@ -198,3 +198,31 @@ function previewImageForPublication(input) {
         reader.readAsDataURL(file);
     }
 }
+
+function removeImage() {
+    const input = document.getElementById('imageUpload');
+    const container = document.getElementById('imagePreviewContainer');
+
+    // Limpa o container de imagem
+    container.innerHTML = '';
+
+    // Limpa o valor do input
+    input.value = '';
+
+    // Envia uma solicitação para limpar a imagem da sessão
+    fetch('/remove-image', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({ remove: true })
+    }).then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log('Imagem removida com sucesso');
+            } else {
+                console.log('Erro ao remover imagem');
+            }
+        });
+}
