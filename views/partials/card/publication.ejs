@@ -42,6 +42,7 @@ const diffYears = Math.floor(diffMonths / 12);
                         <% if (locals.userid === publication.UserId) { %>
                         <li>
                             <form action="/publish/del/<%= publication.id %>" method="post">
+                                <input type="hidden" name="forRedirect" value="<%= router %>">
                                 <button class="unset-submit" type="submit"><i class="bi bi-trash"></i> Excluir publicação</button>
                             </form>
                         </li>

@@ -10,6 +10,7 @@
                 <input type="hidden" name="parentId" value="<%= publication.id %>">
             <% } %>
             
+            <input type="hidden" name="forRedirect" value="<%= router %>">
             <input type="hidden" name="user" value="<%= locals.userid %>">
             <input type="text" name="message" placeholder="O Que está rolando?" required maxlength="600">
             <section class="button-container">
