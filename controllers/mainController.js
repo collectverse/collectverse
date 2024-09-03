@@ -34,8 +34,6 @@ module.exports = class MainController {
             let forFollowers = [];
             let forFollowing = [];
 
-            console.log(publications[0])
-
             if (req.session.userid) {
                 const { resultForFollowers, resultForFollowing } = await returnFollowersAndFollowing(req.session.userid);
 
@@ -68,7 +66,15 @@ module.exports = class MainController {
             let publishImageBase64 = null;
             if (req.files && req.files["image"]) {
                 // Converte a imagem para Base64
-                // publishImageBase64 = req.files["image"][0].buffer.toString('base64');
+                console.log("Imagem: ")
+                console.log(req.files["image"])
+                console.log("===============")
+                console.log("buffer: ")
+                console.log(req.files["image"].buffer)
+                console.log("===============")
+                publishImageBase64 = req.files["image"].buffer;
+                console.log(publishImageBase64)
+                
                 // imagem padrão em uploads
                 publishImagePath = req.files["image"][0].filename;
             }
