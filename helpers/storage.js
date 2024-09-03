@@ -41,23 +41,25 @@ const filterTypes = {
     }
 }
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        if (file.fieldname === 'perfil') {
-            cb(null, './public/uploads/user/perfils/');
-        } else if (file.fieldname === 'banner') {
-            cb(null, './public/uploads/user/banners/');
-        } else if (file.fieldname === 'image') {
-            cb(null, './public/uploads/publication/images/');
-        } else {
-            cb(new Error('Tipo de imagem desconhecido.'));
-        }
-    },
-    filename: (req, file, cb) => {
-        const uniqueName = `${Date.now()}-${randowNumber()}-${file.originalname}`;
-        cb(null, uniqueName);
-    },
-});
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         if (file.fieldname === 'perfil') {
+//             cb(null, './public/uploads/user/perfils/');
+//         } else if (file.fieldname === 'banner') {
+//             cb(null, './public/uploads/user/banners/');
+//         } else if (file.fieldname === 'image') {
+//             cb(null, './public/uploads/publication/images/');
+//         } else {
+//             cb(new Error('Tipo de imagem desconhecido.'));
+//         }
+//     },
+//     filename: (req, file, cb) => {
+//         const uniqueName = `${Date.now()}-${randowNumber()}-${file.originalname}`;
+//         cb(null, uniqueName);
+//     },
+// });
+
+const storage = multer.memoryStorage();
 
 const upload = multer({
     storage: storage,

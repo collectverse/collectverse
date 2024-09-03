@@ -31,6 +31,8 @@ module.exports = class MainController {
             // consulta as notificações do usuário logado
             const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
 
+            console.log(publications)
+
             let forFollowers = [];
             let forFollowing = [];
 
@@ -62,21 +64,16 @@ module.exports = class MainController {
                 return res.status(400).redirect("/");
             }
 
-            let publishImagePath = "";
+            // let publishImagePath = "";
             let publishImageBase64 = null;
-            if (req.files && req.files["image"]) {
-                // Converte a imagem para Base64
-                console.log("Imagem: ")
-                console.log(req.files["image"])
-                console.log("===============")
-                console.log("buffer: ")
-                console.log(req.files["image"].buffer)
-                console.log("===============")
-                publishImageBase64 = req.files["image"].buffer;
-                console.log(publishImageBase64)
-                
-                // imagem padrão em uploads
-                publishImagePath = req.files["image"][0].filename;
+            if (req.files) {
+                // `req.files["image"]` é um array de arquivos
+                req.files["image"].forEach(file => {
+                    publishImageBase64 = file.buffer.toString('base64');
+
+                    // Definindo o caminho do arquivo
+                    // publishImagePath = file.filename;
+                });
             }
 
             // verificando se usuário existe
@@ -89,7 +86,7 @@ module.exports = class MainController {
 
             // cria o comentário no banco de dados.
             const parentId = req.body.parentId || 0;
-            const publication = await connection.query("INSERT INTO publications (text, userId, image, imageBase64, likesByUsersIds ,parentId, createdAt, updatedAt) VALUES (? , ?, ?, ?, ?, ?, now(), now())", [message, user, publishImagePath, publishImageBase64, '[]', parentId]);
+            const publication = await connection.query("INSERT INTO publications (text, userId, image, imageBase64, likesByUsersIds ,parentId, createdAt, updatedAt) VALUES (? , ?, ?, ?, ?, ?, now(), now())", [message, user, null, publishImageBase64, '[]', parentId]);
 
             if (parentId !== 0 && parentId !== user) {
                 const content = `${account[0][0].name} Respondeu seu comentário.`

@@ -68,7 +68,7 @@ module.exports = class ProfileController {
         try {
             const id = req.params.id;
             const account = await connection.query("SELECT * FROM users WHERE id = ?", [id]);
-            
+
             const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
 
             if (!(account[0].length > 0)) {
@@ -101,9 +101,6 @@ module.exports = class ProfileController {
                 return res.status(400).redirect(`/profile/${id}/edit`);
             }
 
-            let userPerfilPath = null;
-            let userBannerPath = null;
-
             // verifica se usuário existe
             const [account, nameWasInDb] = await Promise.all([
                 connection.query("SELECT id, name, email, perfil, banner FROM users WHERE id = ?", [id]),
@@ -119,23 +116,45 @@ module.exports = class ProfileController {
                 req.flash("error", errorMessages.USERNAME_IN_USE);
                 return res.status(400).redirect(`/profile/${id}/edit`);
             }
-
             // caminho dos arquivos
+
+            // let userPerfilPath = null;
+            // let userBannerPath = null;
             // perfil
+            // if (req.files && req.files["perfil"]) {
+            //     userPerfilPath = req.files["perfil"][0].filename;
+            //     // ChallengeHelpers.redeemChallenge(req, res, next, req.session.userId, 5)
+            // } else {
+            //     userPerfilPath = account[0][0].perfil;
+            // }
+            // // banner
+            // if (req.files && req.files["banner"]) {
+            //     userBannerPath = req.files["banner"][0].filename;
+            // } else {
+            //     userBannerPath = account[0][0].banner;
+            // }
+
+            let userPerfilImageBase64 = null;
+            let userBannerImageBase64 = null;
             if (req.files && req.files["perfil"]) {
-                userPerfilPath = req.files["perfil"][0].filename;
-                // ChallengeHelpers.redeemChallenge(req, res, next, req.session.userId, 5)
+                // `req.files["image"]` é um array de arquivos
+                req.files["perfil"].forEach(file => {
+                    userPerfilImageBase64 = file.buffer.toString('base64');
+                });
             } else {
-                userPerfilPath = account[0][0].perfil;
-            }
-            // banner
-            if (req.files && req.files["banner"]) {
-                userBannerPath = req.files["banner"][0].filename;
-            } else {
-                userBannerPath = account[0][0].banner;
+                userPerfilImageBase64 = account[0][0].perfilBase64;
             }
 
-            await connection.query("UPDATE users SET name = ?, email = ?, perfil = ?, banner = ?, biography = ?, updatedAt = NOW() WHERE id = ?", [name, email, userPerfilPath, userBannerPath, biography, id]);
+            if (req.files && req.files["banner"]) {
+                // `req.files["image"]` é um array de arquivos
+                req.files["banner"].forEach(file => {
+                    userBannerImageBase64 = file.buffer.toString('base64');
+                });
+            } else {
+                userBannerImageBase64 = account[0][0].bannerBase64;
+            }
+
+            await connection.query("UPDATE users SET name = ?, email = ?, perfil = ? , perfilBase64 = ?, banner = ?, bannerBase64 = ?, biography = ?, updatedAt = NOW() WHERE id = ?", [name, email, null, userPerfilImageBase64, null, userBannerImageBase64, biography, id]);
             req.flash("success", successMessages.EDITED_ACCOUNT);
             return res.status(200).redirect(`/profile/${id}`);
 
@@ -246,7 +265,7 @@ module.exports = class ProfileController {
                 followingByUser.push(id);
 
                 const content = `${profile[0][0].name} Começou a seguir você.`
-                await connection.query("INSERT INTO notify (UserId, parentId, type, content, createdAt, updatedAt) VALUES (?, ?, ?, ?, NOW(), NOW())", [req.session.userid , id, "follow", content]);
+                await connection.query("INSERT INTO notify (UserId, parentId, type, content, createdAt, updatedAt) VALUES (?, ?, ?, ?, NOW(), NOW())", [req.session.userid, id, "follow", content]);
             }
 
             // Atualize a lista de seguidores na tabela
@@ -276,7 +295,7 @@ module.exports = class ProfileController {
     static async nullModel(req, res) {
         try {
             await connection.query("UPDATE users SET collectible = ?, updatedAt = NOW() WHERE id = ?", [null, req.session.userid])
-        
+
             res.status(200).redirect(`/profile/${req.session.userid}`);
         } catch (error) {
             console.log(error)
