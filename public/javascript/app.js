@@ -226,3 +226,79 @@ function removeImage() {
             }
         });
 }
+
+// modal de boas vindas
+
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('welcome-modal');
+
+    // Verifica se o usuário já viu o modal antes
+    if (!localStorage.getItem('modalSeen')) {
+        modal.style.display = 'flex'; // Exibe o modal
+        document.getElementById('phase-1').style.display = 'block'; // Mostra a primeira fase
+    }
+});
+
+// Função para passar para a próxima fase
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('welcome-modal');
+    const phases = document.querySelectorAll('.modal-phase');
+    
+    // Inicializa o indicador de progresso
+    initializeProgressIndicator(phases.length);
+
+    // Verifica se o usuário já viu o modal antes
+    if (!localStorage.getItem('modalSeen')) {
+        modal.style.display = 'flex'; // Exibe o modal
+        phases[0].style.display = 'block'; // Mostra a primeira fase
+    }
+});
+
+// Função para inicializar o indicador de progresso
+function initializeProgressIndicator(numPhases) {
+    const progressIndicator = document.getElementById('progress-indicator');
+    for (let i = 1; i <= numPhases; i++) {
+        const dot = document.createElement('span');
+        dot.id = `progress-${i}`;
+        dot.className = 'progress-dot';
+        if (i === 1) dot.classList.add('active'); // Marca a primeira fase como ativa
+        progressIndicator.appendChild(dot);
+    }
+}
+
+// Função para passar para a próxima fase
+function nextPhase(phase) {
+    const phases = document.querySelectorAll('.modal-phase');
+    // Esconde todas as fases
+    phases.forEach(element => element.style.display = 'none');
+    // Mostra a fase específica
+    document.getElementById(`phase-${phase}`).style.display = 'block';
+    updateProgress(phase);
+}
+
+// Função para voltar à fase anterior
+function prevPhase(phase) {
+    const phases = document.querySelectorAll('.modal-phase');
+    // Esconde todas as fases
+    phases.forEach(element => element.style.display = 'none');
+    // Mostra a fase específica
+    document.getElementById(`phase-${phase}`).style.display = 'block';
+    updateProgress(phase);
+}
+
+// Função para atualizar o indicador de progresso
+function updateProgress(currentPhase) {
+    document.querySelectorAll('.progress-dot').forEach((dot, index) => {
+        if (index < currentPhase) {
+            dot.classList.add('active');
+        } else {
+            dot.classList.remove('active');
+        }
+    });
+}
+
+// Função para fechar o modal e salvar no localStorage
+function closeModal() {
+    document.getElementById('welcome-modal').style.display = 'none';
+    // localStorage.setItem('modalSeen', 'true'); // Marca o modal como visualizado
+}
