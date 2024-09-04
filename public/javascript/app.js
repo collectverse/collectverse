@@ -300,5 +300,5 @@ function updateProgress(currentPhase) {
 // Função para fechar o modal e salvar no localStorage
 function closeModal() {
     document.getElementById('welcome-modal').style.display = 'none';
-    // localStorage.setItem('modalSeen', 'true'); // Marca o modal como visualizado
+    localStorage.setItem('modalSeen', 'true'); // Marca o modal como visualizado
 }

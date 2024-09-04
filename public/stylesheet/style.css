@@ -974,20 +974,79 @@ hr {
     background-color: #2021242d;
     justify-content: center;
     align-items: center;
+    z-index: 100;
 }
 
 .modal-content {
     background-color: white;
     padding: 20px;
     border-radius: 8px;
-    width: 80%;
+    width: 90%;
     max-width: 400px;
+    height: 540px;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     position: relative;
+}
+
+.modal-content h2 {
+    color: #202124;
+    font-size: 24px;
+    margin: 1rem 0;
+}
+
+.modal-content p {
+    color: #494949;
+    font-size: 16px;
+    margin: 0 0 1rem 0;
+}
+
+.modal-content button {
+    width: 100%;
+    padding: 0.6rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: bolder;
+}
+
+.modal-content .button-content {
+    display: flex;
+    gap: 4px;
+}
+
+.modal-content .button-content .next {
+    background-color: #0056b3;
+    color: #fdfdfd;
+}
+
+.modal-content .button-content .prev {
+    background-color: #ff8e8e;
+    color: #fdfdfd;
+    max-width: 40px;
+}
+
+.modal-content .button-content .ok {
+    background-color: #0056b3;
+    color: #fdfdfd;
 }
 
 .modal-phase {
     display: none;
+}
+
+.modal-phase img {
+    width: 50%;
+    padding: 2rem 2rem 0;
+}
+
+.modal-phase .user-profile {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    padding: 0;
 }
 
 /* Estilo do indicador de progresso */
@@ -995,11 +1054,23 @@ hr {
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.modal-phase .button-content {
+    width: 90%;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .progress-dot {
-    width: 10px;
-    height: 10px;
+    width: 4px;
+    height: 4px;
     margin: 0 5px;
     background-color: #ddd;
     border-radius: 50%;
@@ -1007,5 +1078,5 @@ hr {
 }
 
 .progress-dot.active {
-    background-color: #007bff;
+    background-color: #0056b3;
 }
