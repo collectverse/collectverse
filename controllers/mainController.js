@@ -23,15 +23,13 @@ module.exports = class MainController {
             }
 
             // consulta o usuário logado
-            const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, users.banner, users.biography, users.points, users.pass, follows.followers, follows.following FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
+            const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, users.perfilBase64, users.bannerBase64, users.banner, users.biography, users.points, users.pass, follows.followers, follows.following FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
             // consulta os comentários
-            const publications = await connection.query("SELECT publications.* , users.name, users.perfil, users.pass FROM publications INNER JOIN users ON publications.UserId = users.id ORDER BY createdAt DESC");
+            const publications = await connection.query("SELECT publications.* , users.name, users.perfil, users.perfilBase64, users.pass FROM publications INNER JOIN users ON publications.UserId = users.id ORDER BY createdAt DESC");
             // consulta os usuários com mais seguidores
-            const highlights = await connection.query("SELECT users.id, users.name, users.perfil, users.pass, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId ORDER BY follows.followers ASC LIMIT 3");
+            const highlights = await connection.query("SELECT users.id, users.name, users.perfil, users.perfilBase64, users.pass, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId ORDER BY follows.followers ASC LIMIT 3");
             // consulta as notificações do usuário logado
             const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
-
-            console.log(publications)
 
             let forFollowers = [];
             let forFollowing = [];
@@ -66,7 +64,7 @@ module.exports = class MainController {
 
             // let publishImagePath = "";
             let publishImageBase64 = null;
-            if (req.files) {
+            if (req.files && req.files["image"]) {
                 // `req.files["image"]` é um array de arquivos
                 req.files["image"].forEach(file => {
                     publishImageBase64 = file.buffer.toString('base64');
@@ -105,10 +103,6 @@ module.exports = class MainController {
         try {
             const { id } = req.params;
             const { forRedirect } = req.body;
-
-            console.log(forRedirect)
-            console.log("Redirecting to:", forRedirect);
-
 
             // verifica se o comentário pertense ao usuário da sessão
             const publication = await connection.query("SELECT UserId FROM publications WHERE id = ?", [id]);
@@ -174,16 +168,16 @@ module.exports = class MainController {
             const id = req.params.id;
 
             // consulta das publicações
-            const publication = await connection.query("SELECT publications.*, users.name, users.perfil, users.pass FROM publications INNER JOIN users ON publications.UserId = users.id WHERE publications.id = ? ORDER BY publications.createdAt DESC", [id]);
+            const publication = await connection.query("SELECT publications.*, users.name, users.perfil, users.perfilBase64, users.pass FROM publications INNER JOIN users ON publications.UserId = users.id WHERE publications.id = ? ORDER BY publications.createdAt DESC", [id]);
 
             if (publication[0].length == 0) {
                 req.flash("error", errorMessages.NOT_FOUND);
                 return res.status(404).redirect("/");
             }
 
-            const publications = await connection.query("SELECT publications.*, users.name, users.perfil FROM publications INNER JOIN users ON publications.UserId = users.id WHERE publications.parentId = ? ORDER BY publications.createdAt DESC", [id]);
+            const publications = await connection.query("SELECT publications.*, users.name, users.perfil, users.perfilBase64 FROM publications INNER JOIN users ON publications.UserId = users.id WHERE publications.parentId = ? ORDER BY publications.createdAt DESC", [id]);
             // consulta do usuário logado
-            const account = await connection.query("SELECT name, email, perfil, points, pass FROM users WHERE id = ?", [req.session.userid]);
+            const account = await connection.query("SELECT name, email, perfil, perfilBase64, points, pass FROM users WHERE id = ?", [req.session.userid]);
 
             const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
 

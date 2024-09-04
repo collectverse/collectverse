@@ -16,8 +16,10 @@ const diffYears = Math.floor(diffMonths / 12);
     <section class="header-card">
         <!-- sessão de usuário -->
         <section class="user-info">
-            <img src="/uploads/user/perfils/<%= publication.perfil %>" alt="Imagem do perfil de <%= publication.name %>">
-            <section>
+            <img class="perfil" 
+            src="<%= publication.perfilBase64 ? `data:image/png;base64,${publication.perfilBase64}` : '/uploads/user/perfils/default.png' %>" 
+            alt="Foto de perfil de <%= publication.name %>">
+        <section>
                 <a href="/profile/<%= publication.UserId %>" aria-label="Ir para a página de ver perfil do usuário criador do Comentário"><%= publication.name %><% if (publication.pass == 1) { %> <i class="bi bi-robot with-pass"></i> <% } %></a>
                 <!-- data -->
                 <% if (diffYears > 0) { %>

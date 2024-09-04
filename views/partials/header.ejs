@@ -107,8 +107,10 @@
                         <li class="li-dropdown-header">
                             <section class="dropdown header-dropdown">
                                 <section class="perfil">
-                                    <img class="user-profile-header <%= router === '../pages/profile/profile.ejs' ? 'inPerfil' : '' %>" src="/uploads/user/perfils/<%= user.perfil %>"
+                                    <img class="user-profile-header <%= router === '../pages/profile/profile.ejs' ? 'inPerfil' : '' %>"
+                                        src="<%= user.perfilBase64 ? `data:image/png;base64,${user.perfilBase64}` : '/uploads/user/perfils/default.png' %>"
                                         alt="foto de perfil do usuário.">
+
                                 </section>
 
                                 <section class="dropdown-content dropdown-header">
@@ -116,9 +118,10 @@
                                         <li>
                                             <section class="user-info-dropdown">
                                                 <section class="perfil">
-                                                    <img class="user-profile-dropdown"
-                                                        src="/uploads/user/perfils/<%= user.perfil %>"
-                                                        alt="foto de perfil do usuário.">
+                                                    <img class="user-profile-header <%= router === '../pages/profile/profile.ejs' ? 'inPerfil' : '' %>"
+                                                    src="<%= user.perfilBase64 ? `data:image/png;base64,${user.perfilBase64}` : '/uploads/user/perfils/default.png' %>"
+                                                    alt="foto de perfil do usuário.">
+            
                                                 </section>
                                                 <section class="informations-card">
                                                     <span class="span-for-points">

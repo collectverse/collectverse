@@ -1,20 +1,28 @@
 <a href="/profile/<%= user.id %>" class="default-card poster-card">
 
-    <section class="user-profile-infos">            
-        <img class="user-banner" src="/uploads/user/banners/<%= user.banner %>" alt="banner de perfil do usuário.">
+    <section class="user-profile-infos">
+        <img class="user-banner"
+            src="<%= user.bannerBase64 ? `data:image/png;base64,${user.bannerBase64}` : `/uploads/user/banners/default.png` %>"
+            alt="Banner do perfil de <%= user.name %>">
         <section class="user-info">
             <section class="perfil">
-                <img class="user-profile perfil" src="/uploads/user/perfils/<%= user.perfil %>" alt="foto de perfil do usuário.">
+                <img class="user-profile perfil"
+                    src="<%= user.perfilBase64 ? `data:image/png;base64,${user.perfilBase64}` : `/uploads/user/perfils/default.png` %>"
+                    alt="Foto do perfil de <%= user.name %>">
             </section>
             <section class="informations-card">
-                <h3><%= user.name %> <% if (user.pass == 1) { %> <i class="bi bi-robot with-pass"></i> <% } %></h3>
-                <% if (locals.userid && locals.userid === user.id) { %>
+                <h3>
+                    <%= user.name %>
+                        <% if (user.pass==1) { %> <i class="bi bi-robot with-pass"></i>
+                            <% } %>
+                </h3>
+                <% if (locals.userid && locals.userid===user.id) { %>
                     <section class="your-poster">
                         <span>Você</span>
                     </section>
-                <% } %>
+                    <% } %>
             </section>
         </section>
-    </section>  
+    </section>
 
 </a>

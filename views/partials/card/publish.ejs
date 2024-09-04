@@ -2,7 +2,7 @@
 
 <section class="default-card publish-card <%= typeof inComment !== 'undefined' && inComment ? 'publication-comment-card' : '' %>">
     <section class="perfil">
-        <img src="<%= locals.userid ? '/uploads/user/perfils/' + (user?.perfil || 'default.png') : '/uploads/user/perfils/default.png' %>" alt="Imagem de perfil">
+        <img src="<%= locals.userid ? (user.perfilBase64 ? `data:image/png;base64,${user.perfilBase64}` : `/uploads/user/perfils/default.png`) : `/uploads/user/perfils/default.png` %>" alt="Imagem de perfil de <%= user.name %>">
     </section>
     <section class="form">
         <form action="/publish" method="post" enctype="multipart/form-data">

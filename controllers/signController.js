@@ -208,8 +208,6 @@ module.exports = class SignController {
             // verifica se usuário existe
             const user = await connection.query("SELECT id, email, password FROM users WHERE email = ?", [email]);
 
-            console.log(user[0][0].id)
-
             if (!(user[0].length > 0)) {
                 req.flash("error", errorMessages.EMAIL_NOT_IN_USE);
                 return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/recover.ejs" });

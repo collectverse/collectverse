@@ -21,15 +21,19 @@
                         <section class="grid-edit">
                             <section class="input-control-files control-perfil">
                                 <section class="image-edit">
-                                    <img class="perfil" src="/uploads/user/perfils/<%= user.perfil %>"
+                                    <img class="perfil" 
+                                        src="<%= user.perfilBase64 ? `data:image/png;base64,${user.perfilBase64}` : '/uploads/user/perfils/default.png' %>" 
                                         alt="Foto de perfil de <%= user.name %>">
+
                                     <%- include("../../partials/input/files.ejs", {name: "perfil", previewForPublication: false }) %>
                                 </section>
                             </section>
                             <section class="input-control-files control-banner">
                                 <section class="image-edit">
-                                    <img class="banner" src="/uploads/user/banners/<%= user.banner %>"
-                                        alt="Banner de perfil de <%= user.name %>">
+                                    <img class="banner" 
+                                        src="<%= user.bannerBase64 ? `data:image/png;base64,${user.bannerBase64}` : '/uploads/user/banners/default.png' %>" 
+                                        alt="banner de perfil de <%= user.name %>">
+                                        
                                     <%- include("../../partials/input/files.ejs", {name: "banner", previewForPublication: false }) %>
                                 </section>
                             </section>

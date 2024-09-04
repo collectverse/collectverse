@@ -21,7 +21,9 @@
                 <a href="/profile/<%= user.id %>" aria-label="Ir para a página de ver perfil do usuário criador do Comentário">
                     <section class="user-info">
                         <section class="perfil">
-                            <img class="" src="/uploads/user/perfils/<%= user.perfil %>" alt="Imagem do perfil de <%= user.name %>">
+                            <img
+                                src="<%= user.perfilBase64 ? `data:image/png;base64,${user.perfilBase64}` : `/uploads/user/perfils/default.png` %>"
+                                alt="Imagem do perfil de <%= user.name %>">
                         </section>
                         <section class="text informations-card">
                             <h2><%= user.name %><% if (user.pass == 1) { %> <i class="bi bi-robot with-pass"></i> <% } %></h2>

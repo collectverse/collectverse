@@ -1,10 +1,14 @@
 <section class="default-card profile-card">
     <section class="profile-banner">
-        <img src="/uploads/user/banners/<%= profile.banner %>" alt="Banner do perfil de <%= profile.name %>">
+        <img class="profile-banner" 
+            src="<%= profile.bannerBase64 ? `data:image/png;base64,${profile.bannerBase64}` : '/uploads/user/banners/default.png' %>" 
+            alt="Banner de perfil de <%= profile.name %>">
     </section>
     <section class="profile-infos">
         <section class="user-infos">
-            <img src="/uploads/user/perfils/<%= profile.perfil %>" alt="Foto do perfil de <%= profile.name %>">
+            <img
+                src="<%= profile.perfilBase64 ? `data:image/png;base64,${profile.perfilBase64}` : '/uploads/user/perfils/default.png' %>" 
+                alt="Foto de perfil de <%= profile.name %>">
             <section>
                 <h2>
                     <%= profile.name %> <% if (profile.pass == 1) { %> <i class="bi bi-robot with-pass"></i> <% } %>

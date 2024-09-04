@@ -2,10 +2,14 @@
     <section class="header-card">
 
         <section class="user-profile-infos">            
-            <img class="user-banner" src="/uploads/user/banners/<%= user.banner %>" alt="banner de perfil do usuário.">
-            <section>
+            <img class="user-banner"
+                src="<%= user.bannerBase64 ? `data:image/png;base64,${user.bannerBase64}` : `/uploads/user/banners/default.png` %>"
+                alt="banner de perfil do usuário.">
+        <section>
                 <section class="perfil">
-                    <img class="user-profile perfil" src="/uploads/user/perfils/<%= user.perfil %>" alt="foto de perfil do usuário.">
+                    <img class="user-profile perfil"
+                        src="<%= user.perfilBase64 ? `data:image/png;base64,${user.perfilBase64}` : `/uploads/user/perfils/default.png` %>"
+                        alt="foto de perfil do usuário.">
                 </section>
                 <section class="informations-card">
                     <section class="name-for-user">
