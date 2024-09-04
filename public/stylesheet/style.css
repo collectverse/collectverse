@@ -432,6 +432,10 @@ hr {
     border-bottom: 1px solid #6767671b;
 }
 
+.user-info-card .following-and-followers::-webkit-scrollbar {
+    display: none;
+}
+
 .user-info-card .following-and-followers p {
     cursor: pointer;
     display: flex;
@@ -746,6 +750,10 @@ hr {
     height: 320px;
     overflow-x: auto;
     scrollbar-width: none;
+}
+
+.dropdown-notification ul::-webkit-scrollbar {
+    display: none;
 }
 
 .dropdown-notification-content li {

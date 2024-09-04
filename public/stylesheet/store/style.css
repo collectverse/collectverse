@@ -602,13 +602,46 @@
     scrollbar-width: none;
 }
 
-.container-buy .default-card {
-    width: 350px;
+.container-buy::-webkit-scrollbar {
+    display: none;
 }
 
-.container-buy .default-card img {
+.container-buy .buy-card-archor {
+    width: max-content;
+    min-width: 225px;
+}
+
+.container-buy .buy-card {
+    padding: 0;
+    all: unset;
+}
+
+.container-buy .buy-card img {
     width: 100%;
-    height: auto;
+    height: 260px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.container-buy .buy-card .about {
+    padding: 1rem;
+    padding-left: 2px;
+}
+
+.container-buy .buy-card .about h3 {
+    color: #676767;
+    font-size: 12px;
+}
+
+.container-buy .buy-card .about h2 {
+    color: #202124;
+    font-size: 18px;
+}
+
+.container-buy .buy-card .about h4 {
+    color: #202124;
+    font-size: 14px;
+    font-weight: normal;
 }
 
 /* raridades */
