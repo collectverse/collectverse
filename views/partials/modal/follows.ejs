@@ -20,7 +20,11 @@
                                 <a href="/profile/<%= userF.id %>" aria-label="Ir para a página de ver perfil do usuário">
                                     <section class="user-info">
                                         <section class="perfil">
-                                            <img class="" src="/uploads/user/perfils/<%= userF.perfil %>" alt="Imagem do perfil de <%= userF.name %>">
+
+                                            <img
+                                                src="<%= userF.perfilBase64 ? `data:image/png;base64,${userF.perfilBase64}` : `/uploads/user/perfils/default.png` %>"
+                                                alt="Imagem do perfil de <%= user.name %>">
+
                                         </section>
                                         <section class="text informations-card">
                                             <h2><%= userF.name %></h2>
@@ -82,7 +86,11 @@
                             <a href="/profile/<%= userF.id %>" aria-label="Ir para a página de ver perfil do usuário">
                                 <section class="user-info">
                                     <section class="perfil">
-                                        <img class="" src="/uploads/user/perfils/<%= userF.perfil %>" alt="Imagem do perfil de <%= userF.name %>">
+
+                                        <img
+                                            src="<%= userF.perfilBase64 ? `data:image/png;base64,${userF.perfilBase64}` : `/uploads/user/perfils/default.png` %>"
+                                            alt="Imagem do perfil de <%= user.name %>">
+
                                     </section>
                                     <section class="text informations-card">
                                         <h2><%= userF.name %></h2>
@@ -110,7 +118,7 @@
 
                         <section class="follows-content">
                             <section>
-                                   <section class="user-info">
+                                <section class="user-info">
                                         <section class="perfil">
                                             <img class="" src="/uploads/user/perfils/default.png" alt="Imagem do perfil não encontrado">
                                         </section>

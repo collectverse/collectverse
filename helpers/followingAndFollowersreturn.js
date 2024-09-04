@@ -14,14 +14,14 @@ async function returnFollowersAndFollowing(id) {
 
     if (usersFromFollowers.length > 0) {
         for (let i = 0; i < usersFromFollowers.length; i++) {
-            const item = await connection.query("SELECT users.id, users.name, users.perfil, follows.following, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [usersFromFollowers[i]]);
+            const item = await connection.query("SELECT users.id, users.name, users.perfil, users.perfilBase64, follows.following, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [usersFromFollowers[i]]);
             resultForFollowers.push(item[0][0]);
         }
     }
 
     if (usersFromFollowing.length > 0) {
         for (let i = 0; i < usersFromFollowing.length; i++) {
-            const item = await connection.query("SELECT users.id, users.name, users.perfil, follows.following, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [usersFromFollowing[i]]);
+            const item = await connection.query("SELECT users.id, users.name, users.perfil, users.perfilBase64, follows.following, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [usersFromFollowing[i]]);
             resultForFollowing.push(item[0][0]);
         }
     }
