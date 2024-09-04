@@ -103,7 +103,7 @@ module.exports = class ProfileController {
 
             // verifica se usuário existe
             const [account, nameWasInDb] = await Promise.all([
-                connection.query("SELECT id, name, email, perfil, banner FROM users WHERE id = ?", [id]),
+                connection.query("SELECT id, name, email, perfil, perfilBase64, banner, bannerBase64 FROM users WHERE id = ?", [id]),
                 connection.query("SELECT id, name FROM users WHERE name = ?", [name])
             ]);
 
