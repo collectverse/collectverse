@@ -590,6 +590,27 @@
     padding-top: 1.2rem;
 }
 
+.buy-points {
+    margin-top: 1rem;
+}
+
+.container-buy {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.container-buy .default-card {
+    width: 350px;
+}
+
+.container-buy .default-card img {
+    width: 100%;
+    height: auto;
+}
+
 /* raridades */
 
 /* Common */
