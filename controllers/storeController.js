@@ -211,4 +211,11 @@ module.exports = class MainController {
             return res.status(500).redirect(`/store/points`)
         }
     }
+
+    static async pointsShow(req, res) {
+        const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, users.perfilBase64, users.points, users.pass, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
+        const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
+
+        res.status(200).render("layouts/main.ejs", { router: "../pages/store/getPoints.ejs", user: account[0][0], notifications: notifications[0], title: "Collectverse - Pontos" });
+    }
 }

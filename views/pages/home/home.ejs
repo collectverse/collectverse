@@ -36,4 +36,7 @@
 <!-- inclui modal de seguidores e seguindo -->
 
 <%- include("../../partials/modal/follows.ejs") %>
-<%- include("../../partials/modal/welcome.ejs", { user: user }) %>
+
+<% if (user.tutorial == 0) { %>
+   <%- include("../../partials/modal/welcome.ejs", { user: user }) %>
+<% } %>

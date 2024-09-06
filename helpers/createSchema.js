@@ -63,6 +63,7 @@ async function createSchema() {
         points DECIMAL(6, 0) NOT NULL DEFAULT '0.00',
         pass BOOL DEFAULT 0,
         collectible varchar(24) DEFAULT NULL,
+        tutorial BOOL DEFAULT 0,
         createdAt datetime NOT NULL,
         updatedAt datetime NOT NULL,
         PRIMARY KEY (id)

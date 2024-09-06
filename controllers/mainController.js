@@ -23,7 +23,7 @@ module.exports = class MainController {
             }
 
             // consulta o usuário logado
-            const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, users.perfilBase64, users.bannerBase64, users.banner, users.biography, users.points, users.pass, follows.followers, follows.following FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
+            const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, users.perfilBase64, users.bannerBase64, users.banner, users.biography, users.points, users.pass, users.tutorial, follows.followers, follows.following FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
             // consulta os comentários
             const publications = await connection.query("SELECT publications.* , users.name, users.perfil, users.perfilBase64, users.pass FROM publications INNER JOIN users ON publications.UserId = users.id ORDER BY createdAt DESC");
             // consulta os usuários com mais seguidores
@@ -41,6 +41,8 @@ module.exports = class MainController {
                 forFollowing = resultForFollowing
 
             }
+
+            await connection.query("UPDATE users SET tutorial = ? WHERE id = ?", [true, req.session.userid])
 
             res.status(200).render("layouts/main.ejs", { router: "../pages/home/home.ejs", publications: publications[0], user: account[0][0], highlights: highlights[0], followers: forFollowers, following: forFollowing, notifications: notifications[0], title: "Collectverse - Home" });
         } catch (error) {
