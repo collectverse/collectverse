@@ -9,5 +9,6 @@ router.post("/publish", upload.fields([{ name: "image", maxCount: 1 }]), MainCon
 router.post("/publish/del/:id", MainController.deletePublication);
 router.post("/likePublication", MainController.likePublication);
 router.get("/publication/:id", MainController.publication)
+router.get("/sendMessage", MainController.sendmMessage)
 
 module.exports = router;
