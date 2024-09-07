@@ -31,7 +31,7 @@ class ChallengeHelpers {
                 await connection.query("UPDATE users SET points = ?, updatedAt = NOW() WHERE id = ?", [newPoints, userId]);
                 await connection.query("DELETE FROM challengesForUser WHERE userId = ? AND challengeId = ?", [userId, challengeId]);
 
-                req.flash("success", "Desafio concluído! Pontos adicionados.");
+                req.flash("success", "Desafio concluído! Tokens adicionados.");
                 return res.redirect("/store/points");
             }
 

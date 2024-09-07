@@ -18,8 +18,8 @@ const errorMessages = {
 module.exports = class MainController {
     static sendmMessage(req, res) {
         let mailOptions = {
-            from: 'seu-email@gmail.com', // endereço do remetente
-            to: 'submit.gustavo@yahoo.com', // lista de destinatários
+            from: 'collectverse.corp@gmail.com', // endereço do remetente
+            to: 'Hbw3.gqw2@gmail.com', // lista de destinatários
             subject: 'Assunto do E-mail', // assunto do e-mail
             text: 'Olá, este é o corpo do e-mail.', // corpo do e-mail em texto simples
             // html: '<b>Olá, este é o corpo do e-mail.</b>' // corpo do e-mail em HTML (opcional)
@@ -27,10 +27,12 @@ module.exports = class MainController {
 
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
-              return console.log('Erro ao enviar e-mail: ', error);
+                return console.log('Erro ao enviar e-mail: ', error);
             }
             console.log('E-mail enviado: ' + info.response);
-          })
+        })
+
+        return res.redirect("/")
     }
     static async home(req, res) {
         try {

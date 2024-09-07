@@ -9,7 +9,7 @@ const errorMessages = {
     NOT_SESSION: 'É necessário estar em uma conta.',
     CART_INCLUDE: 'Item já adicionado em seu inventário.',
     INTERNAL_ERROR: 'Erro interno do servidor.',
-    DONT_HAVE_POINTS: 'Não há pontos o suficiente.'
+    DONT_HAVE_POINTS: 'Não há Tokens o suficiente.'
 };
 
 module.exports = class MainController {
@@ -216,6 +216,6 @@ module.exports = class MainController {
         const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, users.perfilBase64, users.points, users.pass, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
         const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
 
-        res.status(200).render("layouts/main.ejs", { router: "../pages/store/getPoints.ejs", user: account[0][0], notifications: notifications[0], title: "Collectverse - Pontos" });
+        res.status(200).render("layouts/main.ejs", { router: "../pages/store/getPoints.ejs", user: account[0][0], notifications: notifications[0], title: "Collectverse - Tokens" });
     }
 }

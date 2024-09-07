@@ -644,6 +644,143 @@
     font-weight: normal;
 }
 
+/* Tokens */
+
+.container-for-points-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr;
+    grid-column-gap: 1rem;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+@media screen and (max-width:768px) {
+    .container-for-points-item {
+        display: flex;
+        gap: 1rem;
+        flex-direction: column;
+    }
+}
+
+.title-for-points-item h2 {
+    margin-bottom: 1rem;
+    color: #202124;
+    font-size: 32px;
+    font-weight: bold;
+    width: 100%;
+}
+
+.container-for-points-item .left-container,
+.container-for-points-item .right-container {
+    width: 100%;
+}
+
+.container-for-points-item .left-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin-bottom: 3rem;
+}
+
+.container-for-points-item .left-container .description p{
+    font-size: 14px;
+    color: #202124;
+    margin-bottom: 1rem;
+}
+
+.container-for-points-item .left-container .description ul{
+    display: flex;
+    gap: 1.6rem;
+    padding: 1rem 1rem 1rem 0;
+    width: 100%;
+}
+
+.container-for-points-item .left-container .description li {
+    width: 100%;
+}
+
+.container-for-points-item .left-container .description>p + ul>li:first-child{
+    border-right: 1px solid #6767673d;
+}
+
+.container-for-points-item .left-container .description ul li>ul{
+    display: flex;
+    gap: 0.2rem;
+    flex-direction: column;
+    width: 100%;
+}
+
+.container-for-points-item .left-container .description ul li>ul li span {
+    color: #676767;
+    font-size: 14px;
+}
+
+.container-for-points-item .left-container .description ul li>ul li p {
+    font-size: 14px;
+    color: #202124;
+    background: #20212418;
+    padding: 4px 14px;
+    border-radius: 12px;
+}
+
+.container-for-points-item .left-container .ul-description {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.container-for-points-item .right-container>span { 
+    color: #202124;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.container-for-points-item .right-container .buttons {
+    margin: 1rem 0;
+    display: flex;
+    gap: 0.6rem;
+    flex-direction: column;
+}
+
+.container-for-points-item .right-container .buttons button,
+.container-for-points-item .right-container .buttons a {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.container-for-points-item .right-container .buttons button {
+    background-color: #0056b3;
+    color: #fcfcfc;
+}
+
+.container-for-points-item .right-container .buttons a {
+    background-color: #20212418;
+    color: #676767;
+    text-align: center;
+}
+
+.container-for-points-item .right-container .informations ul li {
+    display: flex;
+    gap: 0.4rem;
+    border-bottom: 1px solid #2021243d;
+    padding-bottom: 0.4rem;
+}
+
+.container-for-points-item .right-container .informations ul li span {
+    color: #676767;
+    font-size: 12px;
+}
+
+.container-for-points-item .right-container .informations ul li p {
+    color: #202124;
+    font-size: 14px;
+}
+
 /* raridades */
 
 /* Common */
