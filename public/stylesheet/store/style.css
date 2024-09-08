@@ -527,16 +527,13 @@
     font-weight: normal;
 }
 
-.activeTask-card .task-info button {
-    margin-top: 0.6rem;
-}
-
 .activeTask-card .del-btn {
-    padding: 0.4rem 1rem;
+    padding: 0;
     border-radius: 8px;
-    background: #ff5858;
-    border: 1px solid #ff5858;
-    color: #fff;
+    color: #ff5858;
+    background: none;
+    border: none;
+    text-decoration: underline;
     font-weight: bold;
     margin-top: 1rem;
 }
