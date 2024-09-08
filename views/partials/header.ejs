@@ -13,7 +13,7 @@
             <nav>
                 <ul class="navigation-header">
 
-                    <li class="<%= router === '../pages/store/store.ejs' || '../pages/store/points.ejs' || '../pages/store/getPoints.ejs' || '../pages/store/item.ejs' ? 'activated' : '' %> <%= router === '../pages/store/item.ejs' ? 'activated' : '' %>">
+                    <li class="<%= ['../pages/store/store.ejs', '../pages/store/points.ejs', '../pages/store/getPoints.ejs', '../pages/store/item.ejs'].includes(router) ? 'activated' : '' %>">
                         <!-- <a href="/store" aria-label="Ir para a loja de colecionáveis"> -->
 
                             <section class="dropdown-store">
