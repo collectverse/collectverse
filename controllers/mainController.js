@@ -1,6 +1,7 @@
 const connection = require("../schema/connection.js");
 const returnFollowersAndFollowing = require("../helpers/followingAndFollowersreturn.js");
 const transporter = require("../helpers/transporter.js")
+const ChallengeHelpers = require("../helpers/challenges.js");
 
 const successMessages = {
     CREATED_PUBLISH: 'Publicação feita com sucesso.',
@@ -70,7 +71,7 @@ module.exports = class MainController {
             res.status(500).redirect("/");
         }
     }
-    static async publish(req, res) {
+    static async publish(req, res, next) {
         try {
             const { user, message, forRedirect } = req.body;
 
@@ -110,6 +111,14 @@ module.exports = class MainController {
             if (parentId !== 0 && parentId !== user) {
                 const content = `${account[0][0].name} Respondeu seu comentário.`
                 await connection.query("INSERT INTO notify (UserId, ifCommented ,parentId, type, content, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, NOW(), NOW())", [user, publication[0].insertId, parentId, "response", content]);
+            }
+
+            // desafio
+
+            const challengeForUser = await connection.query("SELECT * FROM challengesforuser WHERE userId = ?", [req.session.userid]);
+            
+            if(challengeForUser && challengeForUser[0][0].challengeId && challengeForUser[0][0].challengeId == 2) {
+                ChallengeHelpers.redeemChallenge(req, res, next, req.session.userid, challengeForUser[0][0].challengeId);
             }
 
             req.flash("success", successMessages.CREATED_PUBLISH);

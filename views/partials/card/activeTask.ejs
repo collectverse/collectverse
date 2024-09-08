@@ -7,7 +7,7 @@
 				<section class="progress-item"></section>
 			</section>
 			<span class="progress-text">
-				<%= (challengesForUser.completionPercentage / 10) * 100; %>% Completo
+				<%= ((challengesForUser.completionPercentage / 10) * 100).toFixed(2); %>%
 			</span>
 		</section>
 		<section class="task-preview-information">
@@ -15,9 +15,9 @@
 			<h2>
 				<%= challengesForUser.title %>
 			</h2>
-			<h2>
+			<h3>
 				<%= challengesForUser.description %>
-			</h2>
+			</h3>
 		</section>
 		<form action="/store/declineChallenge" method="post">
 			<input type="submit" class="del-btn" value="Desistir">

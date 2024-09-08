@@ -266,6 +266,14 @@ module.exports = class ProfileController {
 
                 const content = `${profile[0][0].name} Começou a seguir você.`
                 await connection.query("INSERT INTO notify (UserId, parentId, type, content, createdAt, updatedAt) VALUES (?, ?, ?, ?, NOW(), NOW())", [req.session.userid, id, "follow", content]);
+
+                // desafio
+
+                const challengeForUser = await connection.query("SELECT * FROM challengesforuser WHERE userId = ?", [req.session.userid]);
+
+                if (challengeForUser && challengeForUser[0][0].challengeId && challengeForUser[0][0].challengeId == 1) {
+                    ChallengeHelpers.redeemChallenge(req, res, next, req.session.userid, challengeForUser[0][0].challengeId);
+                }
             }
 
             // Atualize a lista de seguidores na tabela

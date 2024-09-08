@@ -45,7 +45,7 @@
                         </section>
                         <section class="input-control">
                             <label for="name">Nome</label>
-                            <input type="text" name="name" value="<%= user.name %>" required maxlength="40">
+                            <input type="text" name="name" value="<%= user.name %>" required maxlength="40" pattern="[a-zA-Z0-9_]+">
                             <span>Seu nome aparecera em sua conta. Você pode altera-lo a qualquer momento.</span>
                         </section>
                         <section class="input-control">

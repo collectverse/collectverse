@@ -149,7 +149,7 @@ async function createSchema() {
         id int(11) AUTO_INCREMENT PRIMARY KEY,
         userId INT(11) NOT NULL,
         challengeId INT NOT NULL,
-        completionPercentage DECIMAL(4, 2) DEFAULT 0,
+        completionPercentage DECIMAL(5, 2) DEFAULT 0,
         createdAt datetime NOT NULL,
         updatedAt datetime NOT NULL,
         FOREIGN KEY (userId) REFERENCES users(id),
@@ -175,7 +175,7 @@ async function createSchema() {
         VALUES ('Seguir 5 novas pessoas', 'Siga 5 novos usuários dentro do Collectverse', 550, NOW(), NOW())`,
 
             `INSERT INTO challenges (title, description, points, createdAt, updatedAt) 
-        VALUES ('Comentar em 3 postagens', 'Comente em 3 postagens de diferentes usuários', 600, NOW(), NOW())`,
+        VALUES ('Comentar em 4 postagens', 'Comente em 4 postagens de usuários', 600, NOW(), NOW())`,
 
             `INSERT INTO challenges (title, description, points, createdAt, updatedAt) 
         VALUES ('Curtir 10 postagens', 'Dê like em 10 postagens diferentes', 800, NOW(), NOW())`,
