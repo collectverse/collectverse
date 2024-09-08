@@ -171,20 +171,27 @@ hr {
     padding-right: 12px;
 }
 
-.navigation-header li {
+.navigation-header li,
+.navigation-header .button-for-store {
     margin-left: 6px;
     display: flex;
     align-items: center;
 }
 
-.navigation-header a {
+.navigation-header .button-for-store {
+    gap: 0.6rem;
+}
+
+.navigation-header a,
+.navigation-header .dropdown-store i {
     display: flex;
     color: #0056b3;
     font-size: 14px;
 }
 
 
-.navigation-header a span {
+.navigation-header a span,
+.navigation-header .button-for-store span {
     display: none;
 }
 
@@ -204,6 +211,25 @@ hr {
     display: block;
     font-size: 12px;
 }
+
+.dropdown-store-content ul {
+    display: flex;
+    gap: 0.4rem;
+    flex-direction: column;
+}
+
+.dropdown-store-content ul li a>section {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropdown-store-content ul li a>section i {
+    font-size: 18px !important;
+}
+
+/*  */
 
 .sign-button {
     padding: 0.4rem 1rem;
@@ -720,6 +746,43 @@ hr {
 .dropdown-content a:hover,
 .dropdown-notification-content a:hover {
     background-color: #0057b30c;
+}
+
+/* store dropdown */
+
+.dropdown-store i {
+    font-size: 16px;
+}
+
+.dropdown,
+.dropdown-store {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content,
+.dropdown-store-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.065);
+    right: 0px;
+    top: 2.5rem;
+    z-index: 100;
+}
+
+.header .dropdown-content,
+.header .dropdown-store-content {
+    top: 3.5rem;
+}
+
+.dropdown-content a,
+.dropdown-store-content a {
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
 }
 
 /* .dropdown:hover .dropdown-content {

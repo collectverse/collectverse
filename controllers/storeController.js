@@ -151,6 +151,7 @@ module.exports = class MainController {
         const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
 
         const challengesForUser = await connection.query("SELECT * FROM challengesForUser INNER JOIN challenges on challengesForUser.challengeId = challenges.id WHERE challengesForUser.userId = ?", [req.session.userid])
+        const tokens = await connection.query("SELECT * FROM tokens")
 
         // filtro de itens
         let category = req.query.category || "";
@@ -162,7 +163,7 @@ module.exports = class MainController {
             challenges = await connection.query("SELECT * FROM challenges ORDER BY createdAt DESC LIMIT 2")
         }
 
-        res.status(200).render("layouts/main.ejs", { router: "../pages/store/points.ejs", user: account[0][0], notifications: notifications[0], challenges: challenges[0], challengesForUser: challengesForUser[0][0], title: "Collectverse - Loja" });
+        res.status(200).render("layouts/main.ejs", { router: "../pages/store/points.ejs", user: account[0][0], notifications: notifications[0], challenges: challenges[0], challengesForUser: challengesForUser[0][0], tokens: tokens[0],  title: "Collectverse - Loja" });
     }
 
     static async getPoints(req, res) {
@@ -213,9 +214,12 @@ module.exports = class MainController {
     }
 
     static async pointsShow(req, res) {
+        const id = req.params.id;
+
+        const token = await connection.query("SELECT * FROM tokens WHERE id = ?", [id])
         const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, users.perfilBase64, users.points, users.pass, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
         const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
 
-        res.status(200).render("layouts/main.ejs", { router: "../pages/store/getPoints.ejs", user: account[0][0], notifications: notifications[0], title: "Collectverse - Tokens" });
+        res.status(200).render("layouts/main.ejs", { router: "../pages/store/getPoints.ejs", user: account[0][0], notifications: notifications[0], token: token[0][0], title: "Collectverse - Tokens" });
     }
 }

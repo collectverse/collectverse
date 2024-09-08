@@ -55,11 +55,10 @@
 
             <section class="container-buy">
 
-                <%- include('../../partials/card/buyPoints.ejs') %>
-                <%- include('../../partials/card/buyPoints.ejs') %>
-                <%- include('../../partials/card/buyPoints.ejs') %>
-                <%- include('../../partials/card/buyPoints.ejs') %>
-                <%- include('../../partials/card/buyPoints.ejs') %>
+                <% tokens.forEach(token => { %>
+                    <%- include('../../partials/card/buyPoints.ejs', {token: token}) %>
+    
+                <% }) %>
 
             </section>
 

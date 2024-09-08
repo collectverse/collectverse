@@ -13,10 +13,42 @@
             <nav>
                 <ul class="navigation-header">
 
-                    <li class="<%= router === '../pages/store/store.ejs' ? 'activated' : '' %> <%= router === '../pages/store/item.ejs' ? 'activated' : '' %>">
-                        <a href="/store" aria-label="Ir para a loja de colecionáveis">
-                            <i class="bi bi-bag-fill"></i> <span>Loja</span>
-                        </a>
+                    <li class="<%= router === '../pages/store/store.ejs' || '../pages/store/points.ejs' || '../pages/store/getPoints.ejs' || '../pages/store/item.ejs' ? 'activated' : '' %> <%= router === '../pages/store/item.ejs' ? 'activated' : '' %>">
+                        <!-- <a href="/store" aria-label="Ir para a loja de colecionáveis"> -->
+
+                            <section class="dropdown-store">
+                                <section class="button-for-store">
+                                    <i class="bi bi-bag-fill"></i> <span>Loja</span>
+                                </section>
+                                <section class="dropdown-store-content">
+                                    <ul>
+                                        <li>
+                                            <a href="/store">
+                                                <section>
+                                                    <i class="bi bi-shop"></i>
+                                                    <section>
+                                                        <h3>Loja</h3>
+                                                        <p>Loja de colecionaveis</p>
+                                                    </section>
+                                                </section>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="/store/points">
+                                                <section>
+                                                    <i class="bi bi-coin"></i>
+                                                    <section>
+                                                        <h3>Tokens</h3>
+                                                        <p>Tokens e desafios</p>
+                                                    </section>
+                                                </section>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </section>
+                            </section>
+
+                        <!-- </a> -->
                     </li>
 
                     <li class="<%= router === '../pages/home/home.ejs' ? 'activated' : '' %>">

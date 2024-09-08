@@ -20,31 +20,26 @@ if (!menu) {
     button.addEventListener("click", e);
 };
 
-// dropdown
+// Função para configurar o dropdown
 
-const perfil = document.querySelector(".li-dropdown-header .dropdown");
-const dropdown = document.querySelector(".dropdown-content");
+function setupDropdown(triggerSelector, contentSelector) {
+    const trigger = document.querySelector(triggerSelector);
+    const content = document.querySelector(contentSelector);
 
-if (perfil && dropdown) {
-    const f = () => {
-        dropdown.classList.toggle("onBlock")
+    if (trigger && content) {
+        trigger.addEventListener("click", () => {
+            content.classList.toggle("onBlock");
+            console.log('teste')
+        });
     }
+}
 
-    perfil.addEventListener("click", f);
-};
-
-// notification
-
-const notify = document.querySelector(".li-dropdown-header .dropdown-notification");
-const Ndropdown = document.querySelector(".dropdown-notification-content");
-
-if (notify && Ndropdown) {
-    const g = () => {
-        Ndropdown.classList.toggle("onBlock")
-    }
-
-    notify.addEventListener("click", g);
-};
+// Configuração dos dropdowns
+document.addEventListener("DOMContentLoaded", () => {
+    setupDropdown(".li-dropdown-header .dropdown", ".dropdown-content");
+    setupDropdown(".li-dropdown-header .dropdown-notification", ".dropdown-notification-content");
+    setupDropdown(".dropdown-store", ".dropdown-store-content");
+});
 
 // menu itens
 
