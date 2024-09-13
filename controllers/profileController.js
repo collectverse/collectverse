@@ -270,9 +270,12 @@ module.exports = class ProfileController {
                 // desafio
 
                 const challengeForUser = await connection.query("SELECT * FROM challengesforuser WHERE userId = ?", [req.session.userid]);
+            
 
-                if (challengeForUser && challengeForUser[0][0].challengeId && challengeForUser[0][0].challengeId == 1) {
-                    ChallengeHelpers.redeemChallenge(req, res, next, req.session.userid, challengeForUser[0][0].challengeId);
+                if(challengeForUser[0][0] != undefined) {
+                    if (challengeForUser && challengeForUser[0][0].challengeId && challengeForUser[0][0].challengeId == 1) {
+                        ChallengeHelpers.redeemChallenge(req, res, next, req.session.userid, challengeForUser[0][0].challengeId);
+                    }
                 }
             }
 

@@ -55,7 +55,7 @@ async function createSchema() {
         price DECIMAL(6) NOT NULL,
         type VARCHAR(11) DEFAULT 'Complemento',
         title VARCHAR(32) NOT NULL,
-        description VARCHAR(255),
+        description TEXT,
         image VARCHAR(255),
         gender TEXT,
         resources TEXT,

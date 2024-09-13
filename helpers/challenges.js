@@ -15,7 +15,7 @@ class ChallengeHelpers {
 
             if (!task.length) {
                 req.flash("error", errorMessages.NOT_HAVE_TASK);
-                return res.status(404).redirect("/"); // Resposta enviada, encerre a função
+                return next();
             }
 
             let currentPercentage = parseFloat(task[0].completionPercentage);
@@ -29,7 +29,7 @@ class ChallengeHelpers {
                 await connection.query("DELETE FROM challengesForUser WHERE userId = ? AND challengeId = ?", [userId, challengeId]);
 
                 req.flash("success", "Desafio concluído! Tokens adicionados.");
-                return res.redirect("/store/points"); // Resposta enviada, encerre a função
+                return next();
             }
 
             await connection.query("UPDATE challengesForUser SET completionPercentage = ?, updatedAt = NOW() WHERE userId = ? AND challengeId = ?", [percentage, userId, challengeId]);
@@ -37,7 +37,7 @@ class ChallengeHelpers {
         } catch (error) {
             console.log(error);
             req.flash("error", errorMessages.INTERNAL_ERROR);
-            return res.status(500).redirect(`/`); // Resposta enviada, encerre a função
+            return next();
         }
     }
 
@@ -50,7 +50,7 @@ class ChallengeHelpers {
 
             if (!task.length) {
                 req.flash("error", errorMessages.NOT_HAVE_TASK);
-                return res.status(404).redirect("/store/points"); // Resposta enviada, encerre a função
+                return next();
             }
 
             let progressForTask = this.calculateProgress(challengeId);
@@ -66,7 +66,7 @@ class ChallengeHelpers {
         } catch (error) {
             console.log(error);
             req.flash("error", errorMessages.INTERNAL_ERROR);
-            return res.status(500).redirect(`/`); // Resposta enviada, encerre a função
+            return next();
         }
     }
 
