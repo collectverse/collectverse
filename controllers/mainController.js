@@ -117,7 +117,7 @@ module.exports = class MainController {
                 const challengeForUser = await connection.query("SELECT * FROM challengesforuser WHERE userId = ?", [req.session.userid]);
 
                 if (challengeForUser[0][0] != undefined) {
-                    if (challengeForUser && challengeForUser[0][0].challengeId && challengeForUser[0][0].challengeId == 4) {
+                    if (challengeForUser && challengeForUser[0][0].challengeId && challengeForUser[0][0].challengeId == 2) {
                         ChallengeHelpers.redeemChallenge(req, res, next, req.session.userid, challengeForUser[0][0].challengeId);
                     }
                 }
@@ -128,7 +128,7 @@ module.exports = class MainController {
             const challengeForUser = await connection.query("SELECT * FROM challengesforuser WHERE userId = ?", [req.session.userid]);
 
             if (challengeForUser[0][0] != undefined) {
-                if (challengeForUser && challengeForUser[0][0].challengeId && challengeForUser[0][0].challengeId == 2) {
+                if (challengeForUser && challengeForUser[0][0].challengeId && challengeForUser[0][0].challengeId == 4) {
                     ChallengeHelpers.redeemChallenge(req, res, next, req.session.userid, challengeForUser[0][0].challengeId);
                 }
             }
