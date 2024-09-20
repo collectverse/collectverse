@@ -141,6 +141,15 @@ module.exports = class ProfileController {
                 req.files["perfil"].forEach(file => {
                     userPerfilImageBase64 = file.buffer.toString('base64');
                 });
+                // desafio
+
+                const challengeForUser = await connection.query("SELECT * FROM challengesforuser WHERE userId = ?", [req.session.userid]);
+
+                if (challengeForUser[0][0] != undefined) {
+                    if (challengeForUser && challengeForUser[0][0].challengeId && challengeForUser[0][0].challengeId == 5) {
+                        ChallengeHelpers.redeemChallenge(req, res, next, req.session.userid, challengeForUser[0][0].challengeId);
+                    }
+                }
             } else {
                 userPerfilImageBase64 = account[0][0].perfilBase64;
             }
@@ -270,9 +279,9 @@ module.exports = class ProfileController {
                 // desafio
 
                 const challengeForUser = await connection.query("SELECT * FROM challengesforuser WHERE userId = ?", [req.session.userid]);
-            
 
-                if(challengeForUser[0][0] != undefined) {
+
+                if (challengeForUser[0][0] != undefined) {
                     if (challengeForUser && challengeForUser[0][0].challengeId && challengeForUser[0][0].challengeId == 1) {
                         ChallengeHelpers.redeemChallenge(req, res, next, req.session.userid, challengeForUser[0][0].challengeId);
                     }
