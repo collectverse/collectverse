@@ -1,3 +1,5 @@
+<% let percentage = ((challengesForUser.completionPercentage / 10) * 100).toFixed(2); %>
+
 <section class="default-card activeTask-card">
 	<section class="task-preview" style="background: url('/source/images/challenge.png') no-repeat center center; background-size: cover;">
 	</section>
@@ -7,7 +9,7 @@
 				<section class="progress-item"></section>
 			</section>
 			<span class="progress-text">
-				<%= ((challengesForUser.completionPercentage / 10) * 100).toFixed(2); %>%
+				<%= percentage %>%
 			</span>
 		</section>
 		<section class="task-preview-information">
@@ -19,9 +21,16 @@
 				<%= challengesForUser.description %>
 			</h3>
 		</section>
-		<form action="/store/declineChallenge" method="post">
-			<input type="submit" class="del-btn" value="Desistir">
-		</form>
+
+		<% if (percentage >= 100) { %>
+			<form action="/store/redeemChallenge" method="get">
+				<input type="submit" class="redeem-btn" value="Regastart">
+			</form>
+		<% } else { %>
+			<form action="/store/declineChallenge" method="post">
+				<input type="submit" class="del-btn" value="Desistir">
+			</form>
+		<% } %>
 	</section>
 </section>
 

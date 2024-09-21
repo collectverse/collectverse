@@ -9,7 +9,8 @@ router.post('/getPass', StoreController.getPass);
 router.get('/points', StoreController.points);
 router.post('/getPoints', StoreController.getPoints);
 router.post('/startChallenge', StoreController.startChallenge);
-router.post('/declineChallenge', StoreController.declineChallenge)
-router.get('/buy/points/:id', StoreController.pointsShow)
+router.post('/declineChallenge', StoreController.declineChallenge);
+router.get('/buy/points/:id', StoreController.pointsShow);
+router.get('/redeemChallenge', StoreController.redeemChallenge);
 
 module.exports = router;

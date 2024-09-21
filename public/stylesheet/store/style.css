@@ -538,6 +538,17 @@
     margin-top: 1rem;
 }
 
+.activeTask-card .redeem-btn {
+    padding: 0;
+    border-radius: 8px;
+    color: #0056b3;
+    background: none;
+    border: none;
+    text-decoration: underline;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
 /* cards para tasks */
 
 .task-card img {

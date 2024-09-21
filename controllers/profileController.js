@@ -87,7 +87,7 @@ module.exports = class ProfileController {
             return res.status(500).redirect("/");
         }
     }
-    static async makeEdit(req, res, next) {
+    static async makeEdit(req, res) {
         try {
             // editar perfil
             const { id, name, email, biography } = req.body;
@@ -147,7 +147,7 @@ module.exports = class ProfileController {
 
                 if (challengeForUser[0][0] != undefined) {
                     if (challengeForUser && challengeForUser[0][0].challengeId && challengeForUser[0][0].challengeId == 5) {
-                        ChallengeHelpers.redeemChallenge(req, res, next, req.session.userid, challengeForUser[0][0].challengeId);
+                        ChallengeHelpers.redeemChallenge(req, res, req.session.userid, challengeForUser[0][0].challengeId);
                     }
                 }
             } else {
@@ -246,7 +246,7 @@ module.exports = class ProfileController {
             return res.status(500).redirect(`/profile/${req.session.userid}/edit`)
         }
     }
-    static async follows(req, res, next) {
+    static async follows(req, res) {
         try {
             const id = req.body.id;
 
@@ -283,7 +283,7 @@ module.exports = class ProfileController {
 
                 if (challengeForUser[0][0] != undefined) {
                     if (challengeForUser && challengeForUser[0][0].challengeId && challengeForUser[0][0].challengeId == 1) {
-                        ChallengeHelpers.redeemChallenge(req, res, next, req.session.userid, challengeForUser[0][0].challengeId);
+                        ChallengeHelpers.redeemChallenge(req, res, req.session.userid, challengeForUser[0][0].challengeId);
                     }
                 }
             }

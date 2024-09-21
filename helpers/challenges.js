@@ -3,10 +3,13 @@ const errorMessages = {
     INTERNAL_ERROR: 'Erro interno do servidor.',
     NOT_HAVE_TASK: 'Não há um desafio selecionado.'
 };
+const successMessages = {
+    SUCESS_TASK: 'Tarefa concluida.',
+};
 const incrementPercentage = require("../helpers/incrementPercentage");
 
 class ChallengeHelpers {
-    static async updateChallengeProgress(req, res, next, userId, challengeId, progress) {
+    static async updateChallengeProgress(req, res, userId, challengeId, progress) {
         try {
             const [task] = await connection.query(
                 "SELECT completionPercentage, points FROM challengesForUser INNER JOIN challenges ON challengesForUser.challengeId = challenges.id WHERE challengesForUser.userId = ? AND challengesForUser.challengeId = ?",
@@ -22,14 +25,9 @@ class ChallengeHelpers {
             let percentage = Math.min(100, (currentPercentage + parseFloat(progress)).toFixed(2));
 
             if (percentage >= 10) {
-                const [account] = await connection.query("SELECT id, points FROM users WHERE id = ?", [userId]);
-                const newPoints = parseInt(account[0].points) + parseInt(task[0].points);
-
-                await connection.query("UPDATE users SET points = ?, updatedAt = NOW() WHERE id = ?", [newPoints, userId]);
-                await connection.query("DELETE FROM challengesForUser WHERE userId = ? AND challengeId = ?", [userId, challengeId]);
-
-                req.flash("success", "Desafio concluído! Tokens adicionados.");
-                return next();
+                // retorna a função para poder pegar o desafio manualmente na rota correta
+                percentage = 10
+                req.flash("success", successMessages.SUCESS_TASK);;
             }
 
             await connection.query("UPDATE challengesForUser SET completionPercentage = ?, updatedAt = NOW() WHERE userId = ? AND challengeId = ?", [percentage, userId, challengeId]);
@@ -37,11 +35,11 @@ class ChallengeHelpers {
         } catch (error) {
             console.log(error);
             req.flash("error", errorMessages.INTERNAL_ERROR);
-            return next();
+            return;
         }
     }
 
-    static async redeemChallenge(req, res, next, userId, challengeId) {
+    static async redeemChallenge(req, res, userId, challengeId) {
         try {
             const [task] = await connection.query(
                 "SELECT id, completionPercentage FROM challengesForUser WHERE userId = ? AND challengeId = ?",
@@ -59,14 +57,14 @@ class ChallengeHelpers {
             await incrementPercentage(updatedPercentage, userId, challengeId);
 
             if (updatedPercentage >= 10) {
-                return await this.updateChallengeProgress(req, res, next, userId, challengeId, 0); // Resposta gerida pela função chamada
+                return await this.updateChallengeProgress(req, res, userId, challengeId, 0); // Resposta gerida pela função chamada
             } else {
                 return // Sem resposta enviada, siga para o próximo middleware
             }
         } catch (error) {
             console.log(error);
             req.flash("error", errorMessages.INTERNAL_ERROR);
-            return next();
+            return;
         }
     }
 

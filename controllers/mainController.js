@@ -47,13 +47,13 @@ module.exports = class MainController {
             // consulta os comentários
             const publications = await connection.query("SELECT publications.* , users.name, users.perfil, users.perfilBase64, users.pass FROM publications INNER JOIN users ON publications.UserId = users.id ORDER BY createdAt DESC");
             // consulta os usuários com mais seguidores
-            const highlights = await connection.query("SELECT users.id, users.name, users.perfil, users.perfilBase64, users.pass, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId ORDER BY follows.followers ASC LIMIT 3");
+            const highlights = await connection.query("SELECT users.id, users.name, users.email, users.perfil, users.perfilBase64, users.pass, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId ORDER BY follows.followers ASC LIMIT 3");
             // consulta as notificações do usuário logado
             const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
 
             let forFollowers = [];
             let forFollowing = [];
-
+            
             if (req.session.userid) {
                 const { resultForFollowers, resultForFollowing } = await returnFollowersAndFollowing(req.session.userid);
 
@@ -71,7 +71,7 @@ module.exports = class MainController {
             res.status(500).redirect("/");
         }
     }
-    static async publish(req, res, next) {
+    static async publish(req, res) {
         try {
             const { user, message, forRedirect } = req.body;
 
@@ -118,7 +118,7 @@ module.exports = class MainController {
 
                 if (challengeForUser[0][0] != undefined) {
                     if (challengeForUser && challengeForUser[0][0].challengeId && challengeForUser[0][0].challengeId == 2) {
-                        ChallengeHelpers.redeemChallenge(req, res, next, req.session.userid, challengeForUser[0][0].challengeId);
+                        ChallengeHelpers.redeemChallenge(req, res, req.session.userid, challengeForUser[0][0].challengeId);
                     }
                 }
             }
@@ -129,7 +129,7 @@ module.exports = class MainController {
 
             if (challengeForUser[0][0] != undefined) {
                 if (challengeForUser && challengeForUser[0][0].challengeId && challengeForUser[0][0].challengeId == 4) {
-                    ChallengeHelpers.redeemChallenge(req, res, next, req.session.userid, challengeForUser[0][0].challengeId);
+                    ChallengeHelpers.redeemChallenge(req, res, req.session.userid, challengeForUser[0][0].challengeId);
                 }
             }
 
@@ -165,7 +165,7 @@ module.exports = class MainController {
             return res.status(500).redirect("/");
         }
     }
-    static async likePublication(req, res, next) {
+    static async likePublication(req, res) {
         try {
             const id = req.body.id;
             const user = req.body.user;
@@ -204,7 +204,7 @@ module.exports = class MainController {
 
             if (challengeForUser[0][0] != undefined) {
                 if (challengeForUser && challengeForUser[0][0].challengeId && challengeForUser[0][0].challengeId == 3) {
-                    ChallengeHelpers.redeemChallenge(req, res, next, req.session.userid, challengeForUser[0][0].challengeId);
+                    ChallengeHelpers.redeemChallenge(req, res, req.session.userid, challengeForUser[0][0].challengeId);
                 }
             }
 

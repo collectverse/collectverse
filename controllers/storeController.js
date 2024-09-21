@@ -163,7 +163,7 @@ module.exports = class MainController {
             challenges = await connection.query("SELECT * FROM challenges ORDER BY createdAt DESC LIMIT 2")
         }
 
-        res.status(200).render("layouts/main.ejs", { router: "../pages/store/points.ejs", user: account[0][0], notifications: notifications[0], challenges: challenges[0], challengesForUser: challengesForUser[0][0], tokens: tokens[0],  title: "Collectverse - Loja" });
+        res.status(200).render("layouts/main.ejs", { router: "../pages/store/points.ejs", user: account[0][0], notifications: notifications[0], challenges: challenges[0], challengesForUser: challengesForUser[0][0], tokens: tokens[0], title: "Collectverse - Loja" });
     }
 
     static async getPoints(req, res) {
@@ -211,6 +211,22 @@ module.exports = class MainController {
             req.flash("error", errorMessages.INTERNAL_ERROR);
             return res.status(500).redirect(`/store/points`)
         }
+    }
+
+    static async redeemChallenge(req, res) {
+        const [account] = await connection.query("SELECT id, points FROM users WHERE id = ?", [req.session.userid]);
+        const challengeForUser = await connection.query("SELECT * FROM challengesforuser WHERE userId = ?", [req.session.userid]);
+        const [task] = await connection.query(
+            "SELECT id, points FROM challenges WHERE id = ?",
+            [challengeForUser[0][0].challengeId]
+        );
+        const newPoints = parseInt(account[0].points) + parseInt(task[0].points);
+        
+        await connection.query("UPDATE users SET points = ?, updatedAt = NOW() WHERE id = ?", [newPoints, req.session.userid]);
+        await connection.query("DELETE FROM challengesForUser WHERE userId = ? AND challengeId = ?", [req.session.userid, challengeForUser[0][0].challengeId]);
+
+        req.flash("success", "Desafio concluído! Tokens adicionados.");
+        res.status(200).redirect("/store/points")
     }
 
     static async pointsShow(req, res) {
