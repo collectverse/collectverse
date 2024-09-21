@@ -15,7 +15,7 @@ class ChallengeHelpers {
 
             if (!task.length) {
                 req.flash("error", errorMessages.NOT_HAVE_TASK);
-                return next();
+                return
             }
 
             let currentPercentage = parseFloat(task[0].completionPercentage);
@@ -33,7 +33,7 @@ class ChallengeHelpers {
             }
 
             await connection.query("UPDATE challengesForUser SET completionPercentage = ?, updatedAt = NOW() WHERE userId = ? AND challengeId = ?", [percentage, userId, challengeId]);
-            return next(); // Sem resposta enviada, siga para o próximo middleware
+            return // Sem resposta enviada, siga para o próximo middleware
         } catch (error) {
             console.log(error);
             req.flash("error", errorMessages.INTERNAL_ERROR);
@@ -50,7 +50,7 @@ class ChallengeHelpers {
 
             if (!task.length) {
                 req.flash("error", errorMessages.NOT_HAVE_TASK);
-                return next();
+                return
             }
 
             let progressForTask = this.calculateProgress(challengeId);
@@ -61,7 +61,7 @@ class ChallengeHelpers {
             if (updatedPercentage >= 10) {
                 return await this.updateChallengeProgress(req, res, next, userId, challengeId, 0); // Resposta gerida pela função chamada
             } else {
-                return next(); // Sem resposta enviada, siga para o próximo middleware
+                return // Sem resposta enviada, siga para o próximo middleware
             }
         } catch (error) {
             console.log(error);
