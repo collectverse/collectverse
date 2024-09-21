@@ -111,6 +111,16 @@ module.exports = class MainController {
             if (parentId !== 0 && parentId !== user) {
                 const content = `${account[0][0].name} Respondeu seu comentário.`
                 await connection.query("INSERT INTO notify (UserId, ifCommented ,parentId, type, content, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, NOW(), NOW())", [user, publication[0].insertId, parentId, "response", content]);
+
+                // desafio
+
+                const challengeForUser = await connection.query("SELECT * FROM challengesforuser WHERE userId = ?", [req.session.userid]);
+
+                if (challengeForUser[0][0] != undefined) {
+                    if (challengeForUser && challengeForUser[0][0].challengeId && challengeForUser[0][0].challengeId == 2) {
+                        ChallengeHelpers.redeemChallenge(req, res, next, req.session.userid, challengeForUser[0][0].challengeId);
+                    }
+                }
             }
 
             // desafio
@@ -118,7 +128,7 @@ module.exports = class MainController {
             const challengeForUser = await connection.query("SELECT * FROM challengesforuser WHERE userId = ?", [req.session.userid]);
 
             if (challengeForUser[0][0] != undefined) {
-                if (challengeForUser && challengeForUser[0][0].challengeId && challengeForUser[0][0].challengeId == 2) {
+                if (challengeForUser && challengeForUser[0][0].challengeId && challengeForUser[0][0].challengeId == 4) {
                     ChallengeHelpers.redeemChallenge(req, res, next, req.session.userid, challengeForUser[0][0].challengeId);
                 }
             }
@@ -155,7 +165,7 @@ module.exports = class MainController {
             return res.status(500).redirect("/");
         }
     }
-    static async likePublication(req, res) {
+    static async likePublication(req, res, next) {
         try {
             const id = req.body.id;
             const user = req.body.user;
@@ -187,6 +197,16 @@ module.exports = class MainController {
 
             const content = `${account[0][0].name} Curtiu seu comentário`
             await connection.query("INSERT INTO notify (UserId, parentId, ifLiked, type, content, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, NOW(), NOW())", [req.session.userid, user, id, "like", content]);
+
+            // desafio
+
+            const challengeForUser = await connection.query("SELECT * FROM challengesforuser WHERE userId = ?", [req.session.userid]);
+
+            if (challengeForUser[0][0] != undefined) {
+                if (challengeForUser && challengeForUser[0][0].challengeId && challengeForUser[0][0].challengeId == 3) {
+                    ChallengeHelpers.redeemChallenge(req, res, next, req.session.userid, challengeForUser[0][0].challengeId);
+                }
+            }
 
             return res.status(200).redirect(`publication/${id}`);
         } catch (error) {
