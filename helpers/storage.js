@@ -20,9 +20,11 @@ const filterTypes = {
             cb(null, true);
             req.flash("msg", "Imagem enviada com sucesso.")
         } else if (file.mimetype == "image/gif") {
-            cb(new Error('Formato de imagem suportado apenas para usuários Premium.'));
+            cb(null, false);
+            req.flash("error", "Formato de imagem suportado apenas para usuários Premium.")
         } else {
-            cb(new Error('Formato de imagem não suportado.'));
+            cb(null, false);
+            req.flash("error", "Formato de imagem não suportado.")
         }
     },
     banner: (req, file, cb) => {
@@ -34,9 +36,11 @@ const filterTypes = {
             cb(null, true);
             req.flash("msg", "Imagem enviada com sucesso.")
         } else if (file.mimetype == "image/gif") {
-            cb(new Error('Formato de imagem suportado apenas para usuários Premium.'));
+            cb(null, false);
+            req.flash("error", "Formato de imagem suportado apenas para usuários Premium.")
         } else {
-            cb(new Error('Formato de imagem não suportado.'));
+            cb(null, false);
+            req.flash("error", "Formato de imagem não suportado.")
         }
     }
 }
