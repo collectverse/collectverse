@@ -114,7 +114,7 @@ module.exports = class MainController {
 
                 // desafio
 
-                const challengeForUser = await connection.query("SELECT * FROM challengesforuser WHERE userId = ?", [req.session.userid]);
+                const challengeForUser = await connection.query("SELECT * FROM challengesForUser WHERE userId = ?", [req.session.userid]);
 
                 if (challengeForUser[0][0] != undefined) {
                     if (challengeForUser && challengeForUser[0][0].challengeId && challengeForUser[0][0].challengeId == 2) {
@@ -125,7 +125,7 @@ module.exports = class MainController {
 
             // desafio
 
-            const challengeForUser = await connection.query("SELECT * FROM challengesforuser WHERE userId = ?", [req.session.userid]);
+            const challengeForUser = await connection.query("SELECT * FROM challengesForUser WHERE userId = ?", [req.session.userid]);
 
             if (challengeForUser[0][0] != undefined) {
                 if (challengeForUser && challengeForUser[0][0].challengeId && challengeForUser[0][0].challengeId == 4) {
@@ -200,7 +200,7 @@ module.exports = class MainController {
 
             // desafio
 
-            const challengeForUser = await connection.query("SELECT * FROM challengesforuser WHERE userId = ?", [req.session.userid]);
+            const challengeForUser = await connection.query("SELECT * FROM challengesForUser WHERE userId = ?", [req.session.userid]);
 
             if (challengeForUser[0][0] != undefined) {
                 if (challengeForUser && challengeForUser[0][0].challengeId && challengeForUser[0][0].challengeId == 3) {

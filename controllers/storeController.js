@@ -167,13 +167,13 @@ module.exports = class MainController {
     }
 
     static async getPoints(req, res) {
-        const { points } = req.body;
+        const { n } = req.params;
 
         try {
 
             const account = await connection.query("SELECT id, points FROM users WHERE id = ?", [req.session.userid])
 
-            const newPoints = parseInt(account[0][0].points) + parseInt(points)
+            const newPoints = parseInt(account[0][0].points) + parseInt(n)
 
             await connection.query("UPDATE users SET points = ?, updatedAt = now() WHERE id = ?", [newPoints, req.session.userid])
 
@@ -215,7 +215,7 @@ module.exports = class MainController {
 
     static async redeemChallenge(req, res) {
         const [account] = await connection.query("SELECT id, points FROM users WHERE id = ?", [req.session.userid]);
-        const challengeForUser = await connection.query("SELECT * FROM challengesforuser WHERE userId = ?", [req.session.userid]);
+        const challengeForUser = await connection.query("SELECT * FROM challengesForUser WHERE userId = ?", [req.session.userid]);
         const [task] = await connection.query(
             "SELECT id, points FROM challenges WHERE id = ?",
             [challengeForUser[0][0].challengeId]

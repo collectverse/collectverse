@@ -7,7 +7,7 @@ router.get('/shopping/:id', StoreController.itemShow);
 router.post('/get', StoreController.getItem);
 router.post('/getPass', StoreController.getPass);
 router.get('/points', StoreController.points);
-router.post('/getPoints', StoreController.getPoints);
+router.get('/getPoints/:n', StoreController.getPoints);
 router.post('/startChallenge', StoreController.startChallenge);
 router.post('/declineChallenge', StoreController.declineChallenge);
 router.get('/buy/points/:id', StoreController.pointsShow);
