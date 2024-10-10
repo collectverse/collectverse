@@ -1,7 +1,7 @@
 const connection = require("../schema/connection")
 
 async function returnFollowersAndFollowing(id) {
-    // consulta seguidores e seguindo
+    // consulta seguidor(es) e seguindo
 
     const followers = await connection.query("SELECT followers FROM follows WHERE UserId = ?", [id]);
     const following = await connection.query("SELECT following FROM follows WHERE UserId = ?", [id]);

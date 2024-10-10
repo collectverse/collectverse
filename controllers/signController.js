@@ -149,7 +149,7 @@ module.exports = class SignController {
 
             const createdAccont = await connection.query("INSERT INTO users (name, email, password, createdAt, updatedAt) VALUES (?, ?, ?, now(), now())", [account.name, account.email, account.password]);
             const id = createdAccont[0].insertId;
-            // cria a tabela de seguidores e seguindo do usuário
+            // cria a tabela de seguidor(es) e seguindo do usuário
             const userWasTableFollows = await connection.query("SELECT id FROM follows WHERE UserId = ?", [id])
 
             if (userWasTableFollows && userWasTableFollows[0].length > 0) {

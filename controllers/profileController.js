@@ -53,7 +53,7 @@ module.exports = class ProfileController {
             // consulta de publicações do usuário
             const publications = await connection.query("SELECT publications.* , users.name, users.perfil, users.perfilBase64 FROM publications INNER JOIN users ON publications.UserId = users.id WHERE users.id = ? ORDER BY createdAt DESC", [id]);
 
-            // retorna modal de seguidores e seguindo
+            // retorna modal de seguidor(es) e seguindo
             const { resultForFollowers, resultForFollowing } = await returnFollowersAndFollowing(id);
 
             res.status(200).render("layouts/main.ejs", { router: "../pages/profile/profile.ejs", publications: publications[0], user: session[0][0], profile: account[0][0], inventory: inventory, followers: resultForFollowers, following: resultForFollowing, notifications: notifications[0], title: `Collectverse - ${account[0][0].name}` });
@@ -143,7 +143,7 @@ module.exports = class ProfileController {
                 });
                 // desafio
 
-                const challengeForUser = await connection.query("SELECT * FROM challengesforuser WHERE userId = ?", [req.session.userid]);
+                const challengeForUser = await connection.query("SELECT * FROM challengesForUser WHERE userId = ?", [req.session.userid]);
 
                 if (challengeForUser[0][0] != undefined) {
                     if (challengeForUser && challengeForUser[0][0].challengeId && challengeForUser[0][0].challengeId == 5) {
@@ -278,7 +278,7 @@ module.exports = class ProfileController {
 
                 // desafio
 
-                const challengeForUser = await connection.query("SELECT * FROM challengesforuser WHERE userId = ?", [req.session.userid]);
+                const challengeForUser = await connection.query("SELECT * FROM challengesForUser WHERE userId = ?", [req.session.userid]);
 
 
                 if (challengeForUser[0][0] != undefined) {
@@ -288,7 +288,7 @@ module.exports = class ProfileController {
                 }
             }
 
-            // Atualize a lista de seguidores na tabela
+            // Atualize a lista de seguidor(es) na tabela
             await connection.query("UPDATE follows SET followers = ?, updatedAt = now() WHERE UserId = ?", [JSON.stringify(followingByProfile), id]);
             await connection.query("UPDATE follows SET following = ?, updatedAt = now() WHERE UserId = ?", [JSON.stringify(followingByUser), req.session.userid]);
             return res.status(200).redirect(`/profile/${id}`)

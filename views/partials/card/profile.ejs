@@ -14,7 +14,7 @@
                     <%= profile.name %> <% if (profile.pass == 1) { %> <i class="bi bi-robot with-pass"></i> <% } %>
                 </h2>
                 <section class="following-and-followers">
-                    <p onclick="toggleModal()"><%= JSON.parse(profile.followers).length %> Seguidores</p>
+                    <p onclick="toggleModal()"><%= JSON.parse(profile.followers).length %> seguidor(es)</p>
                     <p onclick="toggleModal()"><%= JSON.parse(profile.following).length %> Seguindo</p>
                 </section>
             </section>
