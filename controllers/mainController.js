@@ -195,8 +195,10 @@ module.exports = class MainController {
             // Atualizar o banco de dados
             await connection.query('UPDATE publications SET likes = ?, likesByUsersIds = ?, updatedAt = now() WHERE id = ?', [updatedLikes, JSON.stringify(likedByUserIds), id]);
 
-            const content = `${account[0][0].name} Curtiu seu comentário`
-            await connection.query("INSERT INTO notify (UserId, parentId, ifLiked, type, content, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, NOW(), NOW())", [req.session.userid, user, id, "like", content]);
+            if(user !== 0 && parseInt(user) !== req.session.userid) {
+                const content = `${account[0][0].name} Curtiu seu comentário`
+                await connection.query("INSERT INTO notify (UserId, parentId, ifLiked, type, content, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, NOW(), NOW())", [req.session.userid, user, id, "like", content]);    
+            }
 
             // desafio
 
@@ -208,7 +210,7 @@ module.exports = class MainController {
                 }
             }
 
-            return res.status(200).redirect(`publication/${id}`);
+            return res.status(200).redirect(`/`);
         } catch (error) {
             console.log(error)
             req.flash("error", errorMessages.INTERNAL_ERROR);

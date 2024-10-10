@@ -170,7 +170,6 @@ module.exports = class MainController {
         const { points } = req.body;
 
         try {
-
             const account = await connection.query("SELECT id, points FROM users WHERE id = ?", [req.session.userid])
 
             const newPoints = parseInt(account[0][0].points) + parseInt(points)
