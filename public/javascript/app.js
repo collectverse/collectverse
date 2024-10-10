@@ -140,6 +140,7 @@ function blockCopyAndPaste(inputElement) {
         return false;
     });
 }
+
 // desabilitar span de submit no form
 
 document.addEventListener('DOMContentLoaded', (event) => {

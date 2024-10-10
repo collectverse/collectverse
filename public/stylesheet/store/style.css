@@ -160,6 +160,11 @@
     height: 350px;
 }
 
+.plans-model .details {
+    color: #676767;
+    font-size: 12px;
+}
+
 .feature-plans-card {
     display: flex;
     flex-direction: column;

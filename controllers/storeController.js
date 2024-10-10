@@ -58,8 +58,26 @@ module.exports = class MainController {
 
         res.status(200).render("layouts/main.ejs", { router: "../pages/store/item.ejs", user: account[0][0], item: item[0][0], alreadyPurchased: alreadyPurchased, notifications: notifications[0], title: `Collectverse - ${item[0][0].name}` });
     }
-    static async getItem(req, res) {
-        const { id, price } = req.body;
+    static async getItem(req, res, redirect, values) {
+
+        let id, price = undefined;
+
+        console.log(redirect)
+        console.log(values)
+
+        if(redirect) {
+            if (values && values.id && values.price) {
+                id = values.id;
+                price = values.price;
+            } else {
+                req.flash("error", errorMessages.INTERNAL_ERROR);
+                return res.status(400).redirect("/store");
+            }
+        } else {
+            id = req.body.id
+            price = req.body.price
+        }
+
 
         if (!(req.session.userid)) {
             req.flash("error", errorMessages.NOT_SESSION);
@@ -91,7 +109,11 @@ module.exports = class MainController {
             await connection.query("UPDATE users SET points = ?, updatedAt = NOW() WHERE id = ?", [remainder, req.session.userid])
             await connection.query("UPDATE carts SET itemIds = ?, updatedAt = NOW() WHERE UserId = ?", [JSON.stringify(collectables), req.session.userid])
 
-            return res.status(200).redirect(`/store/shopping/${id}`)
+            if(redirect) {
+                return
+            } else {
+                return res.status(200).redirect(`/store/shopping/${id}`)
+            }
 
         } catch (error) {
             console.log(error)
@@ -121,21 +143,33 @@ module.exports = class MainController {
             return res.status(401).redirect("/store/points")
         }
 
-        const cart = await connection.query("SELECT id, itemIds FROM carts WHERE UserId = ?", [req.session.userid]);
-        let collectables = JSON.parse(cart[0][0].itemIds || "[]")
+        // const cart = await connection.query("SELECT id, itemIds FROM carts WHERE UserId = ?", [req.session.userid]);
+        // let collectables = JSON.parse(cart[0][0].itemIds || "[]")
 
         const id = pass[0][0].shopId
 
-        if (collectables.includes(id)) {
-            req.flash("error", errorMessages.CART_INCLUDE);
-            return res.status(401).redirect(`/store`)
-        }
+        // if (collectables.includes(id)) {
+        //     req.flash("error", errorMessages.CART_INCLUDE);
+        //     return res.status(401).redirect(`/store`)
+        // }
 
-        collectables.push(id);
+        // collectables.push(id);
 
         try {
             await connection.query("UPDATE users SET points = ?, pass = ?, updatedAt = NOW() WHERE id = ?", [remainder, true, req.session.userid])
-            await connection.query("UPDATE carts SET itemIds = ?, updatedAt = NOW() WHERE UserId = ?", [JSON.stringify(collectables), req.session.userid])
+            // await connection.query("UPDATE carts SET itemIds = ?, updatedAt = NOW() WHERE UserId = ?", [JSON.stringify(collectables), req.session.userid])
+
+            const collectables = await connection.query("SELECT * FROM shop WHERE id = ?", [id])
+
+            const values = {
+                id : collectables[0][0].id,
+                price : collectables[0][0].price
+            }
+
+            console.log(collectables[0][0])
+            console.log(values)
+
+            this.getItem(req, res, true, values)
 
             req.flash("success", successMessages.SUCESS_BUY_PASS)
             return res.status(200).redirect("/store")

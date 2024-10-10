@@ -111,6 +111,17 @@
     margin-top: 0.4rem;
 }
 
+.buttons-model {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+}
+
+.buttons-model a {
+    margin-top: 0.4rem;
+    font-size: 18px;
+} 
+
 @media screen and (max-width: 768px) {
     .main-profile {
         display: flex;

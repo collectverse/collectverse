@@ -5,9 +5,10 @@
         touch-action="pan-y"></model-viewer>
         <% if (profile.id == locals.userid ) { %>
             <section>
-                <form action="/profile/toggleModel" method="post">
+                <form class="buttons-model" action="/profile/toggleModel" method="post">
                     <input type="hidden" name="id" value="<%= model.id  %>">
                     <input type="submit" value="Usar">
+                    <a href="/store/shopping/<%= model.id  %>"><i class="bi bi-info-circle-fill"></i></a>
                 </form>
             </section>
         <% } %>
