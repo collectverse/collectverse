@@ -59,6 +59,18 @@ a {
 
 }
 
+.button-for-store i{
+    color: #382f32 !important;
+}
+
+.dropdown-store-content {
+    background-color: #fcd9e5 !important;
+}
+
+.dropdown-store-content ul li a i {
+    color: #382f32 !important;
+}
+
 .inPerfil {
     border-color: #fbc5d8;
 }
