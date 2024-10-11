@@ -327,3 +327,26 @@
     color: #676767;
     font-size: 12px;
 }
+
+/* caution modal */
+
+.modal-delete-account {
+    position: fixed;
+    inset: 0;
+    background-color: #2021242d;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-delete-account .modal-content {
+    text-align: left;
+    position: relative;
+}
+
+.modal-delete-account .modal-content .modal-header {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}

@@ -1,15 +1,24 @@
 <!-- Modal de Boas-Vindas -->
 <section id="delete-account-modal" class="modal-delete-account">
     <section class="modal-content">
+
+        <header class="modal-header">
+            <section class="close-button">
+                <button onclick=""><i class="bi bi-x"></i></button>
+            </section>
+        </header>
+
         <section class="text">
             <h2>Excluir Conta</h2>
             <p>Ao prosseguir, sua conta será permanentemente excluída.</p>
             <span>Certifique-se de sua decisão, pois esta ação é irreversível.</span>            
         </section>
         <section class="form-control">
-            <form action="/profile/del/account" method="post">
-                
-            </form>
+            <span>Confirme a exclusão da conta.</span>
+            <input type="text" name="confirmation" placeholder="'CONFIRMAR EXCLUSÃO'">
+        </section>
+        <section>
+            <input type="submit" value="Confirmar">
         </section>
     </section>
 </section>
