@@ -100,6 +100,23 @@ function toggleModal() {
     }
 }
 
+// delete modal
+
+function toggleDelModal() {
+    const modal = document.querySelector("#delete-account-modal");
+    const body = document.querySelector("body");
+
+    if (modal) {
+        modal.classList.toggle("show");
+        body.classList.toggle("overflow");
+    }
+}
+
+function closeModal(event) {
+    event.preventDefault();
+    toggleDelModal();
+}
+
 function modaltabToggle(tabName) {
     // modal
     const followersBtn = document.querySelector('.followersButton');

@@ -4,7 +4,7 @@
 
         <header class="modal-header">
             <section class="close-button">
-                <button onclick=""><i class="bi bi-x"></i></button>
+                <button onclick="closeModal(event)"><i class="bi bi-x"></i></button>
             </section>
         </header>
 
@@ -14,11 +14,11 @@
             <span>Certifique-se de sua decisão, pois esta ação é irreversível.</span>            
         </section>
         <section class="form-control">
-            <span>Confirme a exclusão da conta.</span>
-            <input type="text" name="confirmation" placeholder="'CONFIRMAR EXCLUSÃO'">
+            <input type="text" name="confirmation" placeholder="Digite 'CONFIRMAR EXCLUSÃO'">
         </section>
-        <section>
+        <section class="submit">
             <input type="submit" value="Confirmar">
         </section>
+
     </section>
 </section>

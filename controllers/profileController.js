@@ -22,7 +22,8 @@ const errorMessages = {
     NO_CORRECT_PASSWORDS: 'Senha atual incorreta.',
     ALTERED_PASSWORD: 'Senha alterada com sucesso.',
     NO_SPECIAL_CHARACTERS: 'A senha deve incluir letras maiúsculas, minúsculas, números e caracteres especiais.',
-    NOT_FOUND: 'Não encontrado.'
+    NOT_FOUND: 'Não encontrado.',
+    DELETE_CONFIRMATION_ERROR: 'Confirmação de exclusão digitada de maneira errada.'
 };
 
 const itIsEmail = /S+@S+.S+/;
@@ -223,23 +224,28 @@ module.exports = class ProfileController {
     static async deleteAccount(req, res) {
         try {
             const id = req.body.id;
+            const confirmation = req.body.confirmation;
 
             if (id != req.session.userid) {
                 req.flash("error", errorMessages.INTERNAL_ERROR);
                 return res.status(401).redirect(`/profile/${id}/edit`);
             }
 
-            // exclui o comentário
-            await connection.query("DELETE FROM carts WHERE userId = ?", [id]);
-            await connection.query("DELETE FROM publications WHERE userId = ?", [id]);
-            await connection.query("DELETE FROM follows WHERE userId = ?", [id]);
-            await connection.query("DELETE FROM challengesForUser WHERE userId = ?", [id]);
-            await connection.query("DELETE FROM notify WHERE userId = ?", [id]);
-            await connection.query("DELETE FROM users WHERE id = ?", [id]);
-            req.flash("success", successMessages.DELETED_ACCOUNT);
-            req.session.destroy(() => {
-                return res.status(200).redirect("/sign/in");
-            });
+            if (confirmation && confirmation == 'CONFIRMAR EXCLUSÃO') {
+                await connection.query("DELETE FROM carts WHERE userId = ?", [id]);
+                await connection.query("DELETE FROM publications WHERE userId = ?", [id]);
+                await connection.query("DELETE FROM follows WHERE userId = ?", [id]);
+                await connection.query("DELETE FROM challengesForUser WHERE userId = ?", [id]);
+                await connection.query("DELETE FROM notify WHERE userId = ?", [id]);
+                await connection.query("DELETE FROM users WHERE id = ?", [id]);
+                req.flash("success", successMessages.DELETED_ACCOUNT);
+                req.session.destroy(() => {
+                    return res.status(200).redirect("/sign/in");
+                });
+            } else {
+                req.flash("error", errorMessages.DELETE_CONFIRMATION_ERROR);
+                return res.status(500).redirect(`/profile/${req.session.userid}/edit`)
+            }
         } catch (error) {
             console.log(error)
             req.flash("error", errorMessages.INTERNAL_ERROR);

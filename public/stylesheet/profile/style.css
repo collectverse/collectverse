@@ -331,13 +331,17 @@
 /* caution modal */
 
 .modal-delete-account {
+    display: none;
     position: fixed;
     inset: 0;
     background-color: #2021242d;
     z-index: 10;
-    display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.modal-delete-account.show {
+    display: flex;
 }
 
 .modal-delete-account .modal-content {
@@ -347,6 +351,59 @@
 
 .modal-delete-account .modal-content .modal-header {
     position: absolute;
-    left: 20px;
-    top: 20px;
+    left: 10px;
+    top: 10px;
+}
+
+.modal-delete-account .modal-content .modal-header button {
+    background-color: transparent;
+    color: #202124;
+    font-size: 24px;
+}
+
+.modal-delete-account .modal-content {
+    align-items: flex-start;
+    height: 350px;
+}
+
+.modal-delete-account .modal-content .text h2 {
+    font-size: 24px;
+    color: #ff5858;
+}
+
+.modal-delete-account .modal-content .text p {
+    font-size: 16px;
+    color: #202124;
+    margin-bottom: 0;
+}
+
+.modal-delete-account .modal-content .text span {
+    font-size: 12px;
+    color: #676767;
+}
+
+.modal-delete-account .modal-content .form-control,
+.modal-delete-account .modal-content .submit {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.modal-delete-account .modal-content .form-control input {
+    font-size: 14px;
+    color: #202124;
+    width: 100%;
+    padding: 0.6rem;
+    border-radius: 8px;
+    border: none;
+    background-color: #dfedff25;
+    outline: none;
+}
+
+.modal-delete-account .modal-content .submit input {
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    padding: 0.6rem;
+    color: #fff;
+    background-color: #ff5858;
 }
