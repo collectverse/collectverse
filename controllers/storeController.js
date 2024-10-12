@@ -156,20 +156,23 @@ module.exports = class MainController {
         // collectables.push(id);
 
         try {
-            await connection.query("UPDATE users SET points = ?, pass = ?, updatedAt = NOW() WHERE id = ?", [remainder, true, req.session.userid])
+            // await connection.query("UPDATE users SET points = ?, pass = ?, updatedAt = NOW() WHERE id = ?", [remainder, true, req.session.userid])
             // await connection.query("UPDATE carts SET itemIds = ?, updatedAt = NOW() WHERE UserId = ?", [JSON.stringify(collectables), req.session.userid])
 
             const collectables = await connection.query("SELECT * FROM shop WHERE id = ?", [id])
+
+            const redirect = true
 
             const values = {
                 id : collectables[0][0].id,
                 price : collectables[0][0].price
             }
 
-            console.log(collectables[0][0])
-            console.log(values)
+            // console.log(collectables[0][0])
+            // console.log(values)
+            console.log(req)
 
-            this.getItem(req, res, true, values)
+            this.getItem(req, res, redirect, values)
 
             req.flash("success", successMessages.SUCESS_BUY_PASS)
             return res.status(200).redirect("/store")
