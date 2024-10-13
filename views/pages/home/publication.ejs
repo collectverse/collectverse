@@ -3,7 +3,7 @@
 <%- include("../../partials/header.ejs") %>
 
 <main>
-    <%- include("../../partials/card/publication.ejs", {publication: publication, router : `publication/${publication.id}`}) %>
+    <%- include("../../partials/card/publication.ejs", {publication: publication, router : `/publication/${publication.id}`}) %>
 
     <br>
 
@@ -12,7 +12,7 @@
         <% if (publications && publications.length > 0) { %>
             <% publications.forEach(function(coment) { %>
             <!-- Include do HTML da publicação -->
-            <%- include("../../partials/card/publication.ejs", { publication: coment, router : `publication/${publication.id}` }) %>
+            <%- include("../../partials/card/publication.ejs", { publication: coment, router : `/publication/${publication.id}` }) %>
             <br>
             <% }); %>
         <% } else { %>
