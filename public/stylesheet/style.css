@@ -773,6 +773,12 @@ hr {
     z-index: 100;
 }
 
+@media screen and (max-width: 576px) {
+    .dropdown-store-content {
+        left: 0;
+    }
+}
+
 .header .dropdown-content,
 .header .dropdown-store-content {
     top: 3.5rem;

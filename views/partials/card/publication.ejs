@@ -36,23 +36,23 @@ const diffYears = Math.floor(diffMonths / 12);
             </section>
 
         </section>
+        <% if (locals.userid === publication.UserId) { %>
         <section class="more-icon">
             <section class="dropdown">
                 <i class="bi bi-grid dropbtn"></i>
                 <section class="dropdown-content">
                     <ul>
-                        <% if (locals.userid === publication.UserId) { %>
                         <li>
                             <form action="/publish/del/<%= publication.id %>" method="post">
                                 <input type="hidden" name="forRedirect" value="<%= router %>">
                                 <button class="unset-submit" type="submit"><i class="bi bi-trash"></i> Excluir publicação</button>
                             </form>                                                     
                         </li>
-                        <% } %>
                     </ul>
                 </section>
             </section>
         </section>
+        <% } %>
     </section>
     <!-- conteudo da postagem -->
     <section class="content-container">

@@ -29,7 +29,6 @@ function setupDropdown(triggerSelector, contentSelector) {
     if (trigger && content) {
         trigger.addEventListener("click", () => {
             content.classList.toggle("onBlock");
-            console.log('teste')
         });
     }
 }
