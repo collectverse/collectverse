@@ -79,7 +79,9 @@ app.get('/', (req, res) => {
 });
 
 // Middleware para tratar erros 404 (recurso não encontrado)
-
+app.use((req, res, next) => {
+    res.status(404).render("layouts/notFound.ejs");
+});
 
 // Iniciando o servidor
 app.listen(3000, () => {
