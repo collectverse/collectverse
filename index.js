@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 // Importando as dependências
 const express = require('express');
 const session = require('express-session');
@@ -9,6 +11,7 @@ const multer = require('multer');
 const path = require("path");
 const mysql = require('mysql2');
 const FileStore = require('session-file-store')(session);
+const mercadopago = require('mercadopago');
 
 // Configurando o app
 const app = express();
@@ -38,6 +41,11 @@ app.use(session({
 
 // Configurando o flash para mensagens de erro/sucesso
 app.use(flash());
+
+// configuração do mercadoPago
+// mercadopago.configure({
+//     access_token: process.env.ACCESS_TOKEN_SANDBOX,
+// });
 
 // mensagem
 app.use((req, res, next) => {
@@ -71,9 +79,7 @@ app.get('/', (req, res) => {
 });
 
 // Middleware para tratar erros 404 (recurso não encontrado)
-app.use((req, res, next) => {
-    res.status(404).render("layouts/notFound.ejs");
-});
+
 
 // Iniciando o servidor
 app.listen(3000, () => {

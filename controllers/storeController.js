@@ -12,7 +12,7 @@ const errorMessages = {
     DONT_HAVE_POINTS: 'Não há Tokens o suficiente.'
 };
 
-module.exports = class MainController {
+module.exports = class StoreController {
     static async store(req, res) {
         const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, users.perfilBase64, users.points, users.pass, follows.followers FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
         const highlights = await connection.query("SELECT users.id, users.name, users.perfil, users.perfilBase64, users.banner, users.bannerBase64, users.pass, follows.followers, carts.itemIds FROM users INNER JOIN follows ON users.id = follows.UserId INNER JOIN carts ON users.id = carts.UserId ORDER BY carts.itemIds ASC LIMIT 5");
@@ -58,15 +58,15 @@ module.exports = class MainController {
 
         res.status(200).render("layouts/main.ejs", { router: "../pages/store/item.ejs", user: account[0][0], item: item[0][0], alreadyPurchased: alreadyPurchased, notifications: notifications[0], title: `Collectverse - ${item[0][0].name}` });
     }
+
     static async getItem(req, res, redirect, values) {
+        let id, price;
 
-        let id, price = undefined;
+        console.log('encontrou')
 
-        console.log(redirect)
-        console.log(values)
-
-        if(redirect) {
-            if (values && values.id && values.price) {
+        // Determina os valores com base na lógica de redirecionamento
+        if (redirect) {
+            if (values && values.id && values.price !== undefined) {
                 id = values.id;
                 price = values.price;
             } else {
@@ -74,112 +74,101 @@ module.exports = class MainController {
                 return res.status(400).redirect("/store");
             }
         } else {
-            id = req.body.id
-            price = req.body.price
+            id = req.body.id;
+            price = req.body.price;
         }
 
-
-        if (!(req.session.userid)) {
+        // Verifica se o usuário está autenticado
+        if (!req.session.userid) {
             req.flash("error", errorMessages.NOT_SESSION);
             return res.status(401).redirect("/sign/In");
         }
 
-        const account = await connection.query("SELECT id, points FROM users WHERE id = ?", [req.session.userid]);
-
-        const remainder = account[0][0].points - price
-
-        if (Math.sign(remainder) == -1) {
-            req.flash("error", errorMessages.DONT_HAVE_POINTS)
-            return res.status(401).redirect(`/store/points`)
-        }
-
-        const cart = await connection.query("SELECT id, itemIds FROM carts WHERE UserId = ?", [req.session.userid]);
-        let collectables = JSON.parse(cart[0][0].itemIds || "[]")
-
-        if (collectables.includes(id)) {
-            req.flash("error", errorMessages.CART_INCLUDE);
-            return res.status(401).redirect(`/store`)
-        }
-
-        collectables.push(id);
-
         try {
+            const account = await connection.query("SELECT id, points FROM users WHERE id = ?", [req.session.userid]);
+            const remainder = account[0][0].points - price;
 
-            // atualiza inventário
-            await connection.query("UPDATE users SET points = ?, updatedAt = NOW() WHERE id = ?", [remainder, req.session.userid])
-            await connection.query("UPDATE carts SET itemIds = ?, updatedAt = NOW() WHERE UserId = ?", [JSON.stringify(collectables), req.session.userid])
-
-            if(redirect) {
-                return
-            } else {
-                return res.status(200).redirect(`/store/shopping/${id}`)
+            // Verifica se o usuário tem pontos suficientes
+            if (Math.sign(remainder) === -1) {
+                req.flash("error", errorMessages.DONT_HAVE_POINTS);
+                return res.status(401).redirect(`/store/points`);
             }
 
+            const cart = await connection.query("SELECT id, itemIds FROM carts WHERE UserId = ?", [req.session.userid]);
+            let collectables = JSON.parse(cart[0][0].itemIds || "[]");
+
+            // Verifica se o item já está no carrinho
+            if (collectables.includes(id)) {
+                req.flash("error", errorMessages.CART_INCLUDE);
+                return res.status(401).redirect(`/store`);
+            }
+
+            collectables.push(id);
+
+            // Atualiza os dados do usuário e do carrinho
+            await connection.query("UPDATE users SET points = ?, updatedAt = NOW() WHERE id = ?", [remainder, req.session.userid]);
+            await connection.query("UPDATE carts SET itemIds = ?, updatedAt = NOW() WHERE UserId = ?", [JSON.stringify(collectables), req.session.userid]);
+
+            // Verifica se é um redirecionamento ou uma resposta direta
+            if (redirect) {
+                return; // Saída silenciosa se for um redirecionamento
+            } else {
+                return res.status(200).redirect(`/store/shopping/${id}`);
+            }
         } catch (error) {
-            console.log(error)
+            console.log(error);
             req.flash("error", errorMessages.INTERNAL_ERROR);
-            return res.status(500).redirect(`/store`)
+            return res.status(500).redirect(`/store`);
         }
     }
+
     static async getPass(req, res) {
-        const account = await connection.query("SELECT id, points, pass FROM users WHERE id = ?", [req.session.userid]);
-        const pass = await connection.query("SELECT value, shopId FROM pass LIMIT 1 ")
-
-        if (account[0].length == 0) {
-            return res.status(400).redirect("/sign/in");
-        }
-
-        if (account[0][0].pass == 1) {
-            req.flash("success", successMessages.ALREADY_HAVE_PASS)
-            return res.status(400).redirect("/store")
-        }
-
-        const universePrice = pass[0][0].value
-
-        const remainder = account[0][0].points - universePrice
-
-        if (Math.sign(remainder) == -1) {
-            req.flash("error", errorMessages.DONT_HAVE_POINTS)
-            return res.status(401).redirect("/store/points")
-        }
-
-        // const cart = await connection.query("SELECT id, itemIds FROM carts WHERE UserId = ?", [req.session.userid]);
-        // let collectables = JSON.parse(cart[0][0].itemIds || "[]")
-
-        const id = pass[0][0].shopId
-
-        // if (collectables.includes(id)) {
-        //     req.flash("error", errorMessages.CART_INCLUDE);
-        //     return res.status(401).redirect(`/store`)
-        // }
-
-        // collectables.push(id);
-
         try {
-            // await connection.query("UPDATE users SET points = ?, pass = ?, updatedAt = NOW() WHERE id = ?", [remainder, true, req.session.userid])
-            // await connection.query("UPDATE carts SET itemIds = ?, updatedAt = NOW() WHERE UserId = ?", [JSON.stringify(collectables), req.session.userid])
+            const account = await connection.query("SELECT id, points, pass FROM users WHERE id = ?", [req.session.userid]);
+            const pass = await connection.query("SELECT value, shopId FROM pass LIMIT 1");
 
-            const collectables = await connection.query("SELECT * FROM shop WHERE id = ?", [id])
-
-            const redirect = true
-
-            const values = {
-                id : collectables[0][0].id,
-                price : collectables[0][0].price
+            // Verifica se a conta existe
+            if (account[0].length === 0) {
+                return res.status(400).redirect("/sign/in");
             }
 
-            // console.log(collectables[0][0])
-            // console.log(values)
-            console.log(req)
+            // Verifica se o usuário já possui o passe
+            if (account[0][0].pass === 1) {
+                req.flash("success", successMessages.ALREADY_HAVE_PASS);
+                return res.status(400).redirect("/store");
+            }
 
-            this.getItem(req, res, redirect, values)
+            const universePrice = pass[0][0].value;
+            const remainder = account[0][0].points - universePrice;
 
-            req.flash("success", successMessages.SUCESS_BUY_PASS)
-            return res.status(200).redirect("/store")
+            // Verifica se o usuário tem pontos suficientes para o passe
+            if (Math.sign(remainder) === -1) {
+                req.flash("error", errorMessages.DONT_HAVE_POINTS);
+                return res.status(401).redirect("/store/points");
+            }
+
+            const id = pass[0][0].shopId;
+            const collectables = await connection.query("SELECT * FROM shop WHERE id = ?", [id]);
+
+            // Dados para passar para a função getItem
+            const redirect = true;
+            const values = {
+                id: collectables[0][0].id,
+                price: 0 // Define o preço como zero para o passe
+            };
+
+            // Chama a função getItem com os dados especificados
+            await StoreController.getItem(req, res, redirect, values);
+
+            // Atualiza o passe do usuário
+            await connection.query("UPDATE users SET points = ?, pass = ?, updatedAt = NOW() WHERE id = ?", [remainder, true, req.session.userid]);
+
+            req.flash("success", successMessages.SUCESS_BUY_PASS);
+            return res.status(200).redirect("/store");
         } catch (error) {
-            console.log(error)
+            console.log(error);
             req.flash("error", errorMessages.INTERNAL_ERROR);
-            return res.status(500).redirect(`/store`)
+            return res.status(500).redirect(`/store`);
         }
     }
 
@@ -213,6 +202,7 @@ module.exports = class MainController {
 
             await connection.query("UPDATE users SET points = ?, updatedAt = now() WHERE id = ?", [newPoints, req.session.userid])
 
+            req.flash("sucess", `Foram adicionados ${n} a sua conta.`);
             res.status(200).redirect("/store/points")
         } catch (error) {
             console.log(error)
@@ -257,7 +247,7 @@ module.exports = class MainController {
             [challengeForUser[0][0].challengeId]
         );
         const newPoints = parseInt(account[0].points) + parseInt(task[0].points);
-        
+
         await connection.query("UPDATE users SET points = ?, updatedAt = NOW() WHERE id = ?", [newPoints, req.session.userid]);
         await connection.query("DELETE FROM challengesForUser WHERE userId = ? AND challengeId = ?", [req.session.userid, challengeForUser[0][0].challengeId]);
 

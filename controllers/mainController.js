@@ -146,8 +146,6 @@ module.exports = class MainController {
             const { id } = req.params;
             const { forRedirect } = req.body;
 
-            console.log(forRedirect)
-
             // verifica se o comentário pertense ao usuário da sessão
             const publication = await connection.query("SELECT UserId FROM publications WHERE id = ?", [id]);
 

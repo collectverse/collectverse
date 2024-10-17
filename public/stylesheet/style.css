@@ -55,6 +55,16 @@ hr {
     display: block !important;
 }
 
+.sn-notifications-container {
+    --sn-notifications-gap: 10px !important;
+}
+
+@media screen and (max-width: 576px) {
+    .sn-notify {
+        --sn-notify-width: 250px;
+    }
+}
+
 /* header */
 
 .header {
@@ -337,6 +347,12 @@ hr {
 
 /* images */
 
+.li-dropdown-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .perfil {
     display: flex;
     align-items: center;
@@ -352,6 +368,13 @@ hr {
 
 .inPerfil {
     border: 4px solid #0057b32d;
+}
+
+@media screen and (max-width: 576px){
+    .perfil img {
+        width: 35px;
+        height: 35px;
+    }
 }
 
 /* card */
