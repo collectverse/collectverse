@@ -185,10 +185,7 @@ async function createSchema() {
             `INSERT INTO challenges (title, description, points, createdAt, updatedAt) 
         VALUES ('Atualizar a foto de perfil', 'Troque sua foto de perfil para uma nova', 150, NOW(), NOW())`,
 
-            `INSERT INTO tokens (price, type, title, description, image, gender, resources, createdAt, updatedAt) VALUES
-        (9.99, 'Complemento', 'Pacote de 100 Tokens', 'Adquira 100 Tokens, a moeda digital do site, que pode ser usada para obter colecionáveis exclusivos e acessórios digitais. Utilize seus Tokens para personalizar sua experiência e desbloquear conteúdos adicionais, como skins, avatares, ou emblemas especiais na loja virtual!', '100.png', '["Complemento", "Pacote"]', '{"tokens": 100}', NOW(), NOW()),
-        
-        (19.99, 'Complemento', 'Pacote de 250 Tokens', 'Compre 250 Tokens, a moeda virtual do site, e expanda seu inventário com colecionáveis premium. Use seus Tokens para adquirir itens limitados na loja, aumentar seu status de jogador e desbloquear conteúdo exclusivo para aprimorar seu perfil e participação em eventos!', '250.png', '["Complemento", "Pacote"]', '{"tokens": 250}', NOW(), NOW()),
+            `INSERT INTO tokens (price, type, title, description, image, gender, resources, createdAt, updatedAt) VALUES (19.99, 'Complemento', 'Pacote de 250 Tokens', 'Compre 250 Tokens, a moeda virtual do site, e expanda seu inventário com colecionáveis premium. Use seus Tokens para adquirir itens limitados na loja, aumentar seu status de jogador e desbloquear conteúdo exclusivo para aprimorar seu perfil e participação em eventos!', '250.png', '["Complemento", "Pacote"]', '{"tokens": 250}', NOW(), NOW()),
         
         (49.99, 'Pacote', 'Pacote de 700 Tokens', 'Obtenha 700 Tokens, perfeitos para usuários que desejam aproveitar ao máximo a coleção de itens raros. Com esses Tokens, você pode comprar conjuntos completos de colecionáveis, participar de promoções exclusivas e garantir seu lugar entre os melhores jogadores da comunidade!', '700.png', '["Complemento", "Pacote"]', '{"tokens": 700}', NOW(), NOW()),
         
