@@ -1,4 +1,6 @@
 const connection = require("../schema/connection.js");
+const getItem = require("../helpers/getItem.js")
+
 const successMessages = {
     SUCESS_BUY_PASS: 'Passe comprado com sucesso.',
     ALREADY_HAVE_PASS: 'Você já tem o Passe.',
@@ -59,24 +61,8 @@ module.exports = class StoreController {
         res.status(200).render("layouts/main.ejs", { router: "../pages/store/item.ejs", user: account[0][0], item: item[0][0], alreadyPurchased: alreadyPurchased, notifications: notifications[0], title: `Collectverse - ${item[0][0].name}` });
     }
 
-    static async getItem(req, res, redirect, values) {
-        let id, price;
-
-        console.log('encontrou')
-
-        // Determina os valores com base na lógica de redirecionamento
-        if (redirect) {
-            if (values && values.id && values.price !== undefined) {
-                id = values.id;
-                price = values.price;
-            } else {
-                req.flash("error", errorMessages.INTERNAL_ERROR);
-                return res.status(400).redirect("/store");
-            }
-        } else {
-            id = req.body.id;
-            price = req.body.price;
-        }
+    static async getItem(req, res) {
+        const { id, price } = req.body;
 
         // Verifica se o usuário está autenticado
         if (!req.session.userid) {
@@ -85,36 +71,10 @@ module.exports = class StoreController {
         }
 
         try {
-            const account = await connection.query("SELECT id, points FROM users WHERE id = ?", [req.session.userid]);
-            const remainder = account[0][0].points - price;
 
-            // Verifica se o usuário tem pontos suficientes
-            if (Math.sign(remainder) === -1) {
-                req.flash("error", errorMessages.DONT_HAVE_POINTS);
-                return res.status(401).redirect(`/store/points`);
-            }
+            await getItem(req, res, id, price)
+            return res.status(200).redirect(`/store/shopping/${id}`);
 
-            const cart = await connection.query("SELECT id, itemIds FROM carts WHERE UserId = ?", [req.session.userid]);
-            let collectables = JSON.parse(cart[0][0].itemIds || "[]");
-
-            // Verifica se o item já está no carrinho
-            if (collectables.includes(id)) {
-                req.flash("error", errorMessages.CART_INCLUDE);
-                return res.status(401).redirect(`/store`);
-            }
-
-            collectables.push(id);
-
-            // Atualiza os dados do usuário e do carrinho
-            await connection.query("UPDATE users SET points = ?, updatedAt = NOW() WHERE id = ?", [remainder, req.session.userid]);
-            await connection.query("UPDATE carts SET itemIds = ?, updatedAt = NOW() WHERE UserId = ?", [JSON.stringify(collectables), req.session.userid]);
-
-            // Verifica se é um redirecionamento ou uma resposta direta
-            if (redirect) {
-                return; // Saída silenciosa se for um redirecionamento
-            } else {
-                return res.status(200).redirect(`/store/shopping/${id}`);
-            }
         } catch (error) {
             console.log(error);
             req.flash("error", errorMessages.INTERNAL_ERROR);
@@ -151,14 +111,13 @@ module.exports = class StoreController {
             const collectables = await connection.query("SELECT * FROM shop WHERE id = ?", [id]);
 
             // Dados para passar para a função getItem
-            const redirect = true;
             const values = {
-                id: collectables[0][0].id,
+                id: String(collectables[0][0].id),
                 price: 0 // Define o preço como zero para o passe
             };
 
             // Chama a função getItem com os dados especificados
-            await StoreController.getItem(req, res, redirect, values);
+            await getItem(req, res, values.id, values.price)
 
             // Atualiza o passe do usuário
             await connection.query("UPDATE users SET points = ?, pass = ?, updatedAt = NOW() WHERE id = ?", [remainder, true, req.session.userid]);
@@ -196,6 +155,12 @@ module.exports = class StoreController {
         const { n } = req.params;
 
         try {
+
+            if(!req.session.userid){
+                req.flash("error", errorMessages.NOT_SESSION);
+                return res.status(401).redirect("/sign/In");
+            }
+
             const account = await connection.query("SELECT id, points FROM users WHERE id = ?", [req.session.userid])
 
             const newPoints = parseInt(account[0][0].points) + parseInt(n)
