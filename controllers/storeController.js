@@ -1,5 +1,9 @@
+require('dotenv').config();
+const { mercadoPagoConfig, Prefrence, default: MercadoPagoConfig } = require("mercadopago");
+
 const connection = require("../schema/connection.js");
 const getItem = require("../helpers/getItem.js")
+const Client = new MercadoPagoConfig({accessToken: process.env.ACCESS_TOKEN_SANDBOX})
 
 const successMessages = {
     SUCESS_BUY_PASS: 'Passe comprado com sucesso.',
