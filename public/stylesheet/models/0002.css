@@ -43,8 +43,14 @@ a {
     color: #382f32 !important;
 }
 
+/* header li a active */
+
+.navigation-header .activated {
+    background: #fbc5d8;
+}
+
 .dropdown-notification-content {
-    background: #fcd9e5;
+    background: #fbc5d8;
 }
 
 .responsive-itens-container .default-card {

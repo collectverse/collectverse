@@ -48,6 +48,12 @@ a {
     color: #325015 !important;
 }
 
+/* header li a active */
+
+.navigation-header .activated {
+    background: #8cac6b;
+}
+
 .responsive-itens-container .default-card {
     background: #5f7e4065;
 }

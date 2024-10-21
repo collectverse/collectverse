@@ -43,6 +43,12 @@ a {
     color: #f74675 !important;
 }
 
+/* header li a active */
+
+.navigation-header .activated {
+    background: #242426;
+}
+
 .dropdown-notification-content {
     background: #212123;
 }
