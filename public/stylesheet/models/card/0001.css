@@ -1,0 +1,25 @@
+/* sociocactus */
+
+:root {
+    --first: #325015;
+    --second: #5f7e40;
+    --third: #769556;
+    --fourth: #8cac6b;
+    --fifth: #dceec9;
+}
+
+.user-info-card h1,
+.user-info-card h2,
+.user-info-card h3,
+.user-info-card span,
+.user-info-card p,
+.user-info-card small,
+.user-info-card ul,
+.user-info-card li a,
+.user-info-card a {
+    color: #325015 !important;
+}
+
+.user-info-card {
+    background: #769556;
+}

@@ -1,0 +1,24 @@
+/* expresso milk shake */
+
+:root {
+    --first : #382f32;
+    --second : #ffeaf2;
+    --third : #fcd9e5;
+    --fourth : #fbc5d8;
+}
+
+.user-info-card h1,
+.user-info-card h2,
+.user-info-card h3,
+.user-info-card span,
+.user-info-card p,
+.user-info-card small,
+.user-info-card ul,
+.user-info-card li a,
+.user-info-card a {
+    color: #382f32 !important;
+}
+
+.user-info-card {
+    background: #fcd9e5;
+}
