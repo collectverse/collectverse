@@ -329,4 +329,18 @@ module.exports = class ProfileController {
             return res.status(500).redirect(`/profile/${req.session.userid}`)
         }
     }
+
+    static async theme(req, res) {
+        const { selectedTheme } = req.body;
+
+        try {
+            await connection.query("UPDATE users SET stylesForHome = ?, updatedAt = NOW() WHERE id = ?", [parseInt(selectedTheme), req.session.userid])
+
+            res.status(200).redirect(`/profile/${req.session.userid}/edit`);
+        } catch (error) {
+            console.log(error)
+            req.flash("error", errorMessages.INTERNAL_ERROR);
+            return res.status(500).redirect(`/profile/${req.session.userid}`)
+        }
+    }
 }

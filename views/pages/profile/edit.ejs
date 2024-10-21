@@ -7,6 +7,61 @@
 
     <main>
         <section>
+
+            <!-- card de editar o usuário -->
+            <section class="default-card edit-card" id="styles-preferences">
+                <label for="/profile/edit">
+                    <h2><i class="bi bi-sliders"></i> Preferencias de estilo.</h2>
+                    <hr>
+                </label>
+
+                <section class="select-theme">
+
+                    <form action="/profile/theme" method="post">
+                        <input type="hidden" name="selectedTheme" id="selectedTheme">
+
+                        <section class="input-control">
+                            <label for="selectedTheme">Modo da Home</label>
+                            <span>Modifique a aparencia preferencial da Home page.</span>
+                        </section>
+
+                        <section class="theme-controler">
+
+                            <section class="theme-card" onclick="selectTheme(1)">
+                                <img src="/source/images/themes/01.svg" alt="Tema 1">
+                            </section>
+                            <section class="theme-card" onclick="selectTheme(2)">
+                                <img src="/source/images/themes/02.svg" alt="Tema 2">
+                            </section>
+                            <section class="theme-card" onclick="selectTheme(3)">
+                                <img src="/source/images/themes/03.svg" alt="Tema 3">
+                            </section>
+                        </section>
+
+                        <section class="button-container">
+                            <input class="submit" type="submit" value="Alterar">
+                        </section>
+                    </form>
+
+                    <script>
+                        function selectTheme(themeId) {
+                            // Define o valor do campo oculto para o tema selecionado
+                            document.getElementById('selectedTheme').value = themeId;
+
+                            // Atualiza o estilo dos cards para indicar a seleção
+                            document.querySelectorAll('.theme-card').forEach(card => {
+                                card.classList.remove('selected');
+                            });
+                            document.querySelector(`[onclick="selectTheme(${themeId})"]`).classList.add('selected');
+                        }
+
+                        selectTheme(<%= user.stylesForHome %>);
+                    </script>
+
+                </section>
+
+            </section>
+
             <!-- card de editar o usuário -->
             <section class="default-card edit-card" id="account-preferences">
                 <label for="/profile/edit">
@@ -21,20 +76,22 @@
                         <section class="grid-edit">
                             <section class="input-control-files control-perfil">
                                 <section class="image-edit">
-                                    <img class="perfil" 
-                                        src="<%= user.perfilBase64 ? `data:image/png;base64,${user.perfilBase64}` : '/uploads/user/perfils/default.png' %>" 
+                                    <img class="perfil"
+                                        src="<%= user.perfilBase64 ? `data:image/png;base64,${user.perfilBase64}` : '/uploads/user/perfils/default.png' %>"
                                         alt="Foto de perfil de <%= user.name %>">
 
-                                    <%- include("../../partials/input/files.ejs", {name: "perfil", previewForPublication: false }) %>
+                                    <%- include("../../partials/input/files.ejs", {name: "perfil" ,
+                                        previewForPublication: false }) %>
                                 </section>
                             </section>
                             <section class="input-control-files control-banner">
                                 <section class="image-edit">
-                                    <img class="banner" 
-                                        src="<%= user.bannerBase64 ? `data:image/png;base64,${user.bannerBase64}` : '/uploads/user/banners/default.png' %>" 
+                                    <img class="banner"
+                                        src="<%= user.bannerBase64 ? `data:image/png;base64,${user.bannerBase64}` : '/uploads/user/banners/default.png' %>"
                                         alt="banner de perfil de <%= user.name %>">
-                                        
-                                    <%- include("../../partials/input/files.ejs", {name: "banner", previewForPublication: false }) %>
+
+                                    <%- include("../../partials/input/files.ejs", {name: "banner" ,
+                                        previewForPublication: false }) %>
                                 </section>
                             </section>
                             <section class="input-control">
@@ -45,7 +102,8 @@
                         </section>
                         <section class="input-control">
                             <label for="name">Nome</label>
-                            <input type="text" name="name" value="<%= user.name %>" required maxlength="40" pattern="[a-zA-Z0-9_]+">
+                            <input type="text" name="name" value="<%= user.name %>" required maxlength="40"
+                                pattern="[a-zA-Z0-9_]+">
                             <span>Seu nome aparecera em sua conta. Você pode altera-lo a qualquer momento.</span>
                         </section>
                         <section class="input-control">
@@ -126,7 +184,7 @@
                         </section>
                     </section>
 
-                        <%- include('../../partials/modal/remove.ejs') %>
+                    <%- include('../../partials/modal/remove.ejs') %>
 
                 </form>
                 <hr>

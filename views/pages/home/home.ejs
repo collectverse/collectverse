@@ -4,23 +4,8 @@
 <main>
 
     <!-- styles for profile -->
-    <% console.log(user.collectible) %>
 
-    <% if (user.collectible === "0001.glb") { %>
-        <link rel="stylesheet" href="/stylesheet/models/card/0001.css">
-    <% } %>
-
-    <% if (user.collectible === "0002.glb") { %>
-        <link rel="stylesheet" href="/stylesheet/models/card/0002.css">
-    <% } %>
-
-    <% if (user.collectible === "0003.glb") { %>
-        <link rel="stylesheet" href="/stylesheet/models/card/0003.css">
-    <% } %>
-
-    <% if (user.collectible === "0004.glb") { %>
-        <link rel="stylesheet" href="/stylesheet/models/card/0004.css">
-    <% } %>
+    <%- include('../../partials/themes/control.ejs', { user:user }) %>
     
     <section class="main-home">
         <section class="responsive-itens-container">

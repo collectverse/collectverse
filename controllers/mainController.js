@@ -43,7 +43,7 @@ module.exports = class MainController {
             }
 
             // consulta o usuário logado
-            const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, users.perfilBase64, users.bannerBase64, users.banner, users.biography, users.points, users.pass, users.tutorial, users.collectible, follows.followers, follows.following FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
+            const account = await connection.query("SELECT users.id, users.name, users.email, users.perfil, users.perfilBase64, users.bannerBase64, users.banner, users.biography, users.points, users.pass, users.tutorial, users.collectible, users.stylesForHome, follows.followers, follows.following FROM users INNER JOIN follows ON users.id = follows.UserId WHERE users.id = ?", [req.session.userid]);
             // consulta os comentários
             const publications = await connection.query("SELECT publications.* , users.name, users.perfil, users.perfilBase64, users.pass FROM publications INNER JOIN users ON publications.UserId = users.id ORDER BY createdAt DESC");
             // consulta os usuários com mais seguidor(es)

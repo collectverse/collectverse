@@ -1,0 +1,11 @@
+<% if (user.stylesForHome == 2 || user.stylesForHome == 3) { %>
+    <% 
+        // Define o caminho base com base no valor de user.stylesForHome
+        const basePath = user.stylesForHome == 2 ? "/stylesheet/models/card/" : "/stylesheet/models/";
+        const collectibleId = user.collectible.split(".")[0]; // Extrai o ID do collectible
+    %>
+    
+    <% if (["0001", "0002", "0003", "0004"].includes(collectibleId)) { %>
+        <link rel="stylesheet" href="<%= basePath + collectibleId %>.css">
+    <% } %>
+<% } %>

@@ -14,5 +14,6 @@ router.post("/del/account", ProfileController.deleteAccount);
 router.post("/follows", ProfileController.follows);
 router.post("/toggleModel", ProfileController.toggleModel);
 router.post("/nullModel", ProfileController.nullModel);
+router.post('/theme', ProfileController.theme)
 
 module.exports = router;

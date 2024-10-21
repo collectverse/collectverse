@@ -78,6 +78,7 @@ async function createSchema() {
         pass BOOL DEFAULT 0,
         collectible varchar(24) DEFAULT NULL,
         tutorial BOOL DEFAULT 0,
+        stylesForHome INT(1) DEFAULT 1,
         createdAt datetime NOT NULL,
         updatedAt datetime NOT NULL,
         PRIMARY KEY (id)
