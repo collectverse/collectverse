@@ -208,7 +208,11 @@ hr {
 .navigation-header .activated {
     background: #0057b30f;
     border-radius: 25px;
-    padding: 0.4rem 0.6rem;
+    padding: 0.4rem 0.85rem;
+}
+
+.navigation-header .store-activated {
+    padding: 0.4rem 0.85rem 0.4rem 0.6rem;
 }
 
 .navigation-header .activated a {
@@ -220,6 +224,12 @@ hr {
 .navigation-header .activated span {
     display: block;
     font-size: 12px;
+}
+
+@media screen and (max-width: 576px) {
+    .navigation-header .activated span {
+        display: none !important;
+    }
 }
 
 .dropdown-store-content ul {
@@ -425,7 +435,7 @@ hr {
         display: none;
         position: absolute;
         left: 0;
-        top: 68px;
+        top: 60px;
         padding: 1rem;
         z-index: 1;
         width: 80%;
