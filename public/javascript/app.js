@@ -313,5 +313,6 @@ function updateProgress(currentPhase) {
 
 // Função para fechar o modal e salvar no localStorage
 function closeModal() {
+    event.preventDefault(); // Previne o envio do formulário
     document.getElementById('welcome-modal').style.display = 'none';
 }
