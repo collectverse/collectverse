@@ -37,7 +37,7 @@
 
         <!-- form -->
         <% if (locals.userid === profile.id) { %>
-            <%- include("../../partials/card/publish.ejs", { router: `profile/${locals.userid}` }) %>
+            <%- include("../../partials/card/publish.ejs", { router: `profile/${publication.UserId}` }) %>
         <% } %>
 
             <section class="container-publications">
@@ -45,7 +45,7 @@
                 
                     <% publications.forEach(function(publication) { %>
                         <!-- Include do HTML da publicação -->
-                        <%- include("../../partials/card/publication.ejs", {publication: publication, router: `/profile/${locals.userid}` }) %>
+                        <%- include("../../partials/card/publication.ejs", {publication: publication, router: `/profile/${publication.UserId}` }) %>
                     <% }); %>
                     
                 <% } else { %>

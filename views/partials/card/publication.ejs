@@ -79,27 +79,34 @@ const diffYears = Math.floor(diffMonths / 12);
     <br>
     <section class="actions-container">
         <!-- ações -->
-        <form action="/likePublication" method="post" class="item-publication like-publication">
-            <input type="hidden" name="id" value="<%= publication.id %>">
-            <input type="hidden" name="user" value="<%= publication.UserId %>">
-            <button type="submit" aria-label="Curtir publicação" <%= locals.userid ? '' : 'disabled' %>>
-                <% if(publication) { %>
 
-                    <% if (publication.likesByUsersIds != null && publication.likesByUsersIds.includes(locals.userid)) { %>
-                        <i class="bi bi-heart-fill liked"></i>
-                    <% } else { %>
-                        <i class="bi bi-heart-fill"></i>
+        <% if (router !== false) { %>
+            <form action="/likePublication" method="post" class="item-publication like-publication">
+                <input type="hidden" name="id" value="<%= publication.id %>">
+                <input type="hidden" name="user" value="<%= publication.UserId %>">
+                <input type="hidden" name="router" value="<%= router %>">
+                <button type="submit" aria-label="Curtir publicação" <%= locals.userid ? '' : 'disabled' %>>
+                    <% if(publication) { %>
+    
+                        <% if (publication.likesByUsersIds != null && publication.likesByUsersIds.includes(locals.userid)) { %>
+                            <i class="bi bi-heart-fill liked"></i>
+                        <% } else { %>
+                            <i class="bi bi-heart-fill"></i>
+                        <% } %>
+                        <span><%= publication.likes %></span>
+                        
                     <% } %>
-                    <span><%= publication.likes %></span>
-                    
-                <% } %>
-            </button>
-            
-        </form>
-        <a href="/publication/<%= publication.id %>" aria-label="Ir para Comentários da publicação" class="item-publication comment-publication">
-            <button type="button" aria-label="Ir para Comentários da publicação">
-                <i class="bi bi-chat-left-text-fill"></i>
-            </button>
-        </a>
+                </button>
+                
+            </form>
+            <a href="/publication/<%= publication.id %>" aria-label="Ir para Comentários da publicação" class="item-publication comment-publication">
+                <button type="button" aria-label="Ir para Comentários da publicação">
+                    <i class="bi bi-chat-left-text-fill"></i>
+                </button>
+            </a>
+        <% } else {%>
+            <a href="/publication/<%= publication.id %>">Ir à publicação <i class="bi bi-link-45deg"></i></a>
+        <% }%>
+
     </section>
 </section>

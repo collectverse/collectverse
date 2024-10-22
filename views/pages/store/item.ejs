@@ -37,17 +37,24 @@
                 </section>
                 <section>
 
-                    <% if (alreadyPurchased) { %>
-                        <form action="/store/get" method="post">
-                            <input type="submit" value="Este item já está em sua coleção!" disabled >
-                        </form>
+                    <form action="/store/get" method="post">
+                    <% if (itemIsInPass) { %>
+                            <input type="submit" value="Este item faz parte do passe Premium!" disabled >
+                            <span>Para conseguir este colecionavel, adiquira o Passe exclusivo.</span>
                     <% } else { %>
-                        <form action="/store/get" method="post">
-                            <input type="hidden" name="id" value="<%= item.id  %>">
-                            <input type="hidden" name="price" value="<%= item.price  %>">
-                            <input type="submit" value="adquirir" style="background-color: <%= paletteArray[0]; %>" <%= locals.userid ? '' : 'disabled' %>>
-                        </form>
+                        <% if (alreadyPurchased) { %>
+
+                                <input type="submit" value="Este item já está em sua coleção!" disabled >
+
+                        <% } else { %>
+                                <input type="hidden" name="id" value="<%= item.id  %>">
+                                <input type="hidden" name="price" value="<%= item.price  %>">
+                                <input type="submit" value="adquirir" style="background-color: <%= paletteArray[0]; %>" <%= locals.userid ? '' : 'disabled' %>>
+
+                        <% } %>
                     <% } %>
+                    </form>
+                    
 
                 </section>
             </section>

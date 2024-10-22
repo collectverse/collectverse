@@ -181,6 +181,10 @@ hr {
     padding-right: 12px;
 }
 
+.navigation-header li {
+    cursor: pointer;
+}
+
 .navigation-header li,
 .navigation-header .button-for-store {
     margin-left: 6px;

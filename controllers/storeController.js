@@ -30,10 +30,13 @@ module.exports = class StoreController {
         let category = req.query.category || "";
         let shop = null;
 
+        const itemForPass = pass[0][0].shopId;
+        console.log(itemForPass)
+
         if (category === "all" || category === "") {
-            shop = await connection.query("SELECT * FROM shop WHERE forPass != 1");
+            shop = await connection.query("SELECT * FROM shop WHERE id != ?",[itemForPass]);
         } else if (category === "new") {
-            shop = await connection.query("SELECT * FROM shop WHERE forPass != 1 ORDER BY createdAt DESC LIMIT 2");
+            shop = await connection.query("SELECT * FROM shop WHERE id != ? ORDER BY createdAt DESC LIMIT 2",[itemForPass]);
         }
 
         res.status(200).render("layouts/main.ejs", { router: "../pages/store/store.ejs", user: account[0][0], highlights: highlights[0], shop: shop[0], category: category, notifications: notifications[0], pass: pass[0][0], title: "Collectverse - Loja" });
@@ -49,6 +52,16 @@ module.exports = class StoreController {
         // consulta o item
         const item = await connection.query("SELECT * FROM shop WHERE id = ?", [id]);
 
+        const pass = await connection.query("SELECT shopId FROM pass LIMIT 1");
+
+        let itemIsInPass = false;
+
+        if(id == pass[0][0].shopId) {
+            itemIsInPass = true;
+        }
+
+        console.log(itemIsInPass)
+
         // colsulta se o usuario já tem o item
         const cart = await connection.query("SELECT id, itemIds FROM carts WHERE UserId = ?", [req.session.userid]);
         let alreadyPurchased = null;
@@ -62,7 +75,7 @@ module.exports = class StoreController {
             alreadyPurchased = false
         }
 
-        res.status(200).render("layouts/main.ejs", { router: "../pages/store/item.ejs", user: account[0][0], item: item[0][0], alreadyPurchased: alreadyPurchased, notifications: notifications[0], title: `Collectverse - ${item[0][0].name}` });
+        res.status(200).render("layouts/main.ejs", { router: "../pages/store/item.ejs", user: account[0][0], item: item[0][0], alreadyPurchased: alreadyPurchased, notifications: notifications[0], title: `Collectverse - ${item[0][0].name}`, itemIsInPass: itemIsInPass });
     }
 
     static async getItem(req, res) {

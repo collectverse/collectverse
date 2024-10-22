@@ -1,0 +1,88 @@
+<link rel="stylesheet" href="/stylesheet/home/style.css">
+
+<%- include("../../partials/header.ejs") %>
+<main>
+
+    <section class="main-search">
+        <section class="form-control">
+            <form action="/search" method="post">
+                <input type="search" name="input" id="search" placeholder="Alguma coisa que quero ver...">
+                <button type="submit"><i class="bi bi-search"></i></button>
+            </form>
+        </section>
+
+        <section class="results">
+
+            <% if (!(typeof users !== 'undefined' || typeof publications !== 'undefined' || typeof collectibles !== 'undefined')) { %>
+                <span>Nada por aqui ainda!</span>
+            <% } else { %>
+
+                <section class="header">
+                    <h2>Destaques</h2>
+                </section>
+
+                <section class="for-results users">
+                    <h3>Pessoas</h3>
+                    <section>
+                        <% if (users.length !== 0) { %>
+                            <% users.forEach(user => { %>
+                                
+                                <a href="/profile/<%= user.id %>" aria-label="Ir para a página de ver perfil do usuário">
+                                    <section class="user-info">
+                                        <section class="perfil">
+                                            <img
+                                                src="<%= user.perfilBase64 ? `data:image/png;base64,${user.perfilBase64}` : `/uploads/user/perfils/default.png` %>"
+                                                alt="Imagem do perfil de <%= user.name %>">
+                                        </section>
+                                        <section class="text informations-card">
+                                            <h2><%= user.name %><% if (user.pass == 1) { %> <i class="bi bi-robot with-pass"></i> <% } %></h2>
+                                            <span><%= user.biography %></span>
+                                        </section>
+                                    </section>
+                                </a>
+
+                            <% }); %>
+                        <% } else { %>
+                            <p>Nenhum usuário encontrado.</p>
+                        <% } %>
+                    </section>
+                </section>
+                
+                <section class="for-results publications">
+                    <h3>Publicações</h3>
+                    <section>
+                        <% if (publications.length !== 0) { %>
+                            <% publications.forEach(publication => { %>
+                                
+                                <%- include("../../partials/card/publication.ejs", { publication: publication, router: false }) %>
+
+                            <% }); %>
+                        <% } else { %>
+                            <p>Nenhuma publicação encontrada.</p>
+                        <% } %>
+                    </section>
+                </section>
+                
+                <section class="for-results collectibles">
+                    <h3>Itens Colecionáveis</h3>
+                    <section class="feed-itens">
+                        <% if (collectibles.length !== 0) { %>
+
+                            <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js" defer></script>
+
+                            <% collectibles.forEach(collectible => { %>
+                                
+                                <%- include("../../partials/card/forbuy.ejs", {product: collectible}) %>
+
+                            <% }); %>
+                        <% } else { %>
+                            <p>Nenhum item colecionável encontrado.</p>
+                        <% } %>
+                    </section>
+                </section>                
+
+            <% } %>
+
+        </section>
+    </section>
+</main>

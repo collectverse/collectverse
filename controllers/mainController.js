@@ -53,7 +53,7 @@ module.exports = class MainController {
 
             let forFollowers = [];
             let forFollowing = [];
-            
+
             if (req.session.userid) {
                 const { resultForFollowers, resultForFollowing } = await returnFollowersAndFollowing(req.session.userid);
 
@@ -169,6 +169,7 @@ module.exports = class MainController {
         try {
             const id = req.body.id;
             const user = req.body.user;
+            const router = req.body.router
 
             // Obter as informações do comentário atual
             const publication = await connection.query("SELECT likes, likesByUsersIds FROM publications WHERE id = ? LIMIT 1", [id]);
@@ -186,7 +187,7 @@ module.exports = class MainController {
                 // Atualizar o banco de dados
                 await connection.query('UPDATE publications SET likes = ?, likesByUsersIds = ?, updatedAt = now() WHERE id = ?', [updatedLikes, JSON.stringify(likedByUserIds), id]);
 
-                return res.status(200).redirect("/");
+                return res.status(200).redirect(router);
             }
 
             const updatedLikes = publication[0][0].likes + 1;
@@ -195,9 +196,9 @@ module.exports = class MainController {
             // Atualizar o banco de dados
             await connection.query('UPDATE publications SET likes = ?, likesByUsersIds = ?, updatedAt = now() WHERE id = ?', [updatedLikes, JSON.stringify(likedByUserIds), id]);
 
-            if(user !== 0 && parseInt(user) !== req.session.userid) {
+            if (user !== 0 && parseInt(user) !== req.session.userid) {
                 const content = `${account[0][0].name} Curtiu seu comentário`
-                await connection.query("INSERT INTO notify (UserId, parentId, ifLiked, type, content, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, NOW(), NOW())", [req.session.userid, user, id, "like", content]);    
+                await connection.query("INSERT INTO notify (UserId, parentId, ifLiked, type, content, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, NOW(), NOW())", [req.session.userid, user, id, "like", content]);
             }
 
             // desafio
@@ -210,7 +211,7 @@ module.exports = class MainController {
                 }
             }
 
-            return res.status(200).redirect(`/`);
+            return res.status(200).redirect(router);
         } catch (error) {
             console.log(error)
             req.flash("error", errorMessages.INTERNAL_ERROR);
@@ -246,5 +247,46 @@ module.exports = class MainController {
             req.flash("error", errorMessages.INTERNAL_ERROR);
             return res.status(500).redirect("/");
         }
+    }
+
+    static async search(req, res) {
+
+        // consulta do usuário logado
+        const account = await connection.query("SELECT name, email, perfil, perfilBase64, points, pass FROM users WHERE id = ?", [req.session.userid]);
+
+        const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
+
+        try {
+
+            res.status(200).render("layouts/main.ejs", { router: "../pages/home/search.ejs", user: account[0][0], notifications: notifications[0], title: 'Collectverse - Buscar' });
+        } catch (error) {
+            console.log(error)
+            req.flash("error", errorMessages.INTERNAL_ERROR);
+            return res.status(500).redirect("/");
+        }
+    }
+
+    static async makeSearch(req, res) {
+        const { input } = req.body;
+        // consulta do usuário logado
+        const account = await connection.query("SELECT name, email, perfil, perfilBase64, points, pass FROM users WHERE id = ?", [req.session.userid]);
+
+        const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
+
+        try {
+
+            const searchParams = `%${input}%`
+
+            const users = await connection.query('SELECT id, name, perfilBase64, biography FROM users WHERE name LIKE ? LIMIT 3', [searchParams])
+            const publications = await connection.query('SELECT publications.*, users.name, users.perfil, users.perfilBase64, users.pass FROM publications INNER JOIN users ON publications.UserId = users.id WHERE publications.text LIKE ? ORDER BY publications.createdAt DESC LIMIT 3', [searchParams])
+            const collectibles = await connection.query('SELECT * FROM shop WHERE name LIKE ? LIMIT 3', [searchParams])
+
+            res.status(200).render("layouts/main.ejs", { router: "../pages/home/search.ejs", user: account[0][0], notifications: notifications[0], users: users[0], publications: publications[0], collectibles: collectibles[0], title: 'Collectverse - Buscar' });
+        } catch (error) {
+            console.log(error)
+            req.flash("error", errorMessages.INTERNAL_ERROR);
+            return res.status(500).redirect("/");
+        }
+
     }
 }

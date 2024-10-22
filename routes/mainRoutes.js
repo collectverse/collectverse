@@ -10,5 +10,7 @@ router.post("/publish/del/:id", MainController.deletePublication);
 router.post("/likePublication", MainController.likePublication);
 router.get("/publication/:id", MainController.publication)
 router.get("/sendMessage", MainController.sendmMessage)
+router.get("/search", MainController.search)
+router.post("/search", MainController.makeSearch)
 
 module.exports = router;

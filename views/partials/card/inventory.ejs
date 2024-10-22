@@ -3,7 +3,7 @@
     <model-viewer autoplay ar ar-modes="webxr scene-viewer" alt="Design ilustrativa do colecionavel do iventário"
         src="/source/models/<%= model.path  %>" ar shadow-intensity="0" camera-controls
         touch-action="pan-y"></model-viewer>
-        <% if (profile.id == locals.userid ) { %>
+        <% if (typeof profile != 'undefined'  && profile.id == locals.userid ) { %>
             <section>
                 <form class="buttons-model" action="/profile/toggleModel" method="post">
                     <input type="hidden" name="id" value="<%= model.id  %>">

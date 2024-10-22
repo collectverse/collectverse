@@ -15,12 +15,12 @@
             <nav>
                 <ul class="navigation-header">
 
-                    <li class="<%= ['../pages/store/store.ejs', '../pages/store/points.ejs', '../pages/store/getPoints.ejs', '../pages/store/item.ejs'].includes(router) ? 'activated store-activated' : '' %>">
+                    <li class="<%= ['../pages/store/store.ejs', '../pages/store/points.ejs', '../pages/store/getPoints.ejs', '../pages/store/item.ejs', '../pages/home/search.ejs'].includes(router) ? 'activated store-activated' : '' %>">
                         <!-- <a href="/store" aria-label="Ir para a loja de colecionáveis"> -->
 
                             <section class="dropdown-store">
                                 <section class="button-for-store">
-                                    <i class="bi bi-bag-fill"></i> <span>Loja</span>
+                                    <i class="bi bi-collection-fill"></i> <span> <%= ['../pages/store/store.ejs', '../pages/store/points.ejs', '../pages/store/getPoints.ejs', '../pages/store/item.ejs'].includes(router) ? 'Loja' : 'Busca' %> </span>
                                 </section>
                                 <section class="dropdown-store-content">
                                     <ul>
@@ -30,7 +30,7 @@
                                                     <i class="bi bi-shop"></i>
                                                     <section>
                                                         <h3>Loja</h3>
-                                                        <p>Loja de colecionaveis</p>
+                                                        <p>Loja do Collectverse</p>
                                                     </section>
                                                 </section>
                                             </a>
@@ -42,6 +42,18 @@
                                                     <section>
                                                         <h3>Versecoins</h3>
                                                         <p>Versecoins e desafios</p>
+                                                    </section>
+                                                </section>
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="/search">
+                                                <section>
+                                                    <i class="bi bi-search"></i>
+                                                    <section>
+                                                        <h3>Pesquisa</h3>
+                                                        <p>buscar no Collectverse</p>
                                                     </section>
                                                 </section>
                                             </a>
