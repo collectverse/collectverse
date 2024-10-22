@@ -212,6 +212,8 @@ function previewImageForPublication(input) {
 }
 
 function removeImage() {
+    event.preventDefault(); // Previne o envio do formulário
+    
     const input = document.getElementById('imageUpload');
     const container = document.getElementById('imagePreviewContainer');
 

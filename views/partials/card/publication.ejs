@@ -36,7 +36,7 @@ const diffYears = Math.floor(diffMonths / 12);
             </section>
 
         </section>
-        <% if (locals.userid === publication.UserId) { %>
+        <% if (locals.userid === publication.UserId && router != false) { %>
         <section class="more-icon">
             <section class="dropdown">
                 <i class="bi bi-grid dropbtn"></i>
