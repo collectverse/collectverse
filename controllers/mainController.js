@@ -75,6 +75,8 @@ module.exports = class MainController {
         try {
             const { user, message, forRedirect } = req.body;
 
+            console.log(forRedirect)
+
             if (!user || user.length === 0) {
                 req.flash("error", errorMessages.INVALID_SESSION);
                 return res.status(401).redirect("/");
@@ -169,7 +171,7 @@ module.exports = class MainController {
         try {
             const id = req.body.id;
             const user = req.body.user;
-            const router = req.body.router
+            const forRedirect = req.body.forRedirect
 
             // Obter as informações do comentário atual
             const publication = await connection.query("SELECT likes, likesByUsersIds FROM publications WHERE id = ? LIMIT 1", [id]);
@@ -187,7 +189,7 @@ module.exports = class MainController {
                 // Atualizar o banco de dados
                 await connection.query('UPDATE publications SET likes = ?, likesByUsersIds = ?, updatedAt = now() WHERE id = ?', [updatedLikes, JSON.stringify(likedByUserIds), id]);
 
-                return res.status(200).redirect(router);
+                return res.status(200).redirect(forRedirect);
             }
 
             const updatedLikes = publication[0][0].likes + 1;
@@ -211,7 +213,7 @@ module.exports = class MainController {
                 }
             }
 
-            return res.status(200).redirect(router);
+            return res.status(200).redirect(forRedirect);
         } catch (error) {
             console.log(error)
             req.flash("error", errorMessages.INTERNAL_ERROR);

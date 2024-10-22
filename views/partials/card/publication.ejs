@@ -84,7 +84,7 @@ const diffYears = Math.floor(diffMonths / 12);
             <form action="/likePublication" method="post" class="item-publication like-publication">
                 <input type="hidden" name="id" value="<%= publication.id %>">
                 <input type="hidden" name="user" value="<%= publication.UserId %>">
-                <input type="hidden" name="router" value="<%= router %>">
+                <input type="hidden" name="forRedirect" value="<%= router %>">
                 <button type="submit" aria-label="Curtir publicação" <%= locals.userid ? '' : 'disabled' %>>
                     <% if(publication) { %>
     
