@@ -135,6 +135,12 @@
     font-size: 14px;
 }
 
+.main-search .publications {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+}
+
 /* ===== */
 .feed-itens {
     margin-top: 1rem;

@@ -52,11 +52,13 @@
                     <h3>Publicações</h3>
                     <section>
                         <% if (publications.length !== 0) { %>
-                            <% publications.forEach(publication => { %>
+                            <section class="publications">
+                                <% publications.forEach(publication => { %>
                                 
-                                <%- include("../../partials/card/publication.ejs", { publication: publication, router: false }) %>
-
-                            <% }); %>
+                                    <%- include("../../partials/card/publication.ejs", { publication: publication, router: false }) %>
+    
+                                <% }); %>
+                            </section>
                         <% } else { %>
                             <p>Nenhuma publicação encontrada.</p>
                         <% } %>
