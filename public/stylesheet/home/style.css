@@ -33,11 +33,13 @@
     display: flex;
     gap: 12px;
     align-items: center;
+    width: 100%;
 }
 
 .users-highlights-card .user-info .text {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .users-highlights-card .user-info .text h2 {
@@ -118,11 +120,13 @@
     display: flex;
     gap: 12px;
     align-items: center;
+    width: 100%;
 }
 
 .main-search .user-info .text {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 .main-search .user-info .text h2 {

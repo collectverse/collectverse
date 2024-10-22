@@ -13,13 +13,13 @@
 
         <section class="results">
 
+            <section class="header">
+                <h2>Destaques</h2>
+            </section>
+
             <% if (!(typeof users !== 'undefined' || typeof publications !== 'undefined' || typeof collectibles !== 'undefined')) { %>
                 <span>Nada por aqui ainda!</span>
             <% } else { %>
-
-                <section class="header">
-                    <h2>Destaques</h2>
-                </section>
 
                 <section class="for-results users">
                     <h3>Pessoas</h3>
@@ -36,7 +36,7 @@
                                         </section>
                                         <section class="text informations-card">
                                             <h2><%= user.name %><% if (user.pass == 1) { %> <i class="bi bi-robot with-pass"></i> <% } %></h2>
-                                            <span><%= user.biography %></span>
+                                            <span><%= user.biography %>...</span>
                                         </section>
                                     </section>
                                 </a>
