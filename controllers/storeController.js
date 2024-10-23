@@ -190,10 +190,10 @@ module.exports = class StoreController {
             await connection.query("UPDATE users SET points = ?, updatedAt = NOW() WHERE id = ?", [newPoints, req.session.userid]);
             req.flash('success', `Sucesso em adiquirir os pontos. Foram somados ${tokens} a sua conta.`)
         } else if (params.has('failure') || params.has('pending')) {
-            req.flash('error', `Erro em efetuar o pagamento. Não foram somados ${tokens} a sua conta.`)
+            req.flash('error', `Erro em efetuar o pagamento. Não foram somados os tokens a sua conta.`)
             return res.redirect('/store/points')
         }
-        
+
         res.status(200).render("layouts/main.ejs", { router: "../pages/store/points.ejs", user: account[0][0], notifications: notifications[0], challenges: challenges[0], challengesForUser: challengesForUser[0][0], tokens: tokens[0], title: "Collectverse - Loja" });
     }
 
