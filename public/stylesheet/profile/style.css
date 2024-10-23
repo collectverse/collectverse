@@ -351,6 +351,13 @@
     gap: 12px;
 }
 
+@media screen and (max-width: 576px) {
+    .text-and-input {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
 .text-and-input input {
     padding: 0.6rem 2rem;
     border-radius: 8px;
