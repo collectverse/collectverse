@@ -53,7 +53,7 @@
             <span>R$ <%= token.price %></span>
             <section class="buttons">
                 <form action="/store/makePayment" method="post">
-                    <input type="hidden" name="title" value="<%= token.id %>">
+                    <input type="hidden" name="id" value="<%= token.id %>">
                     <input type="hidden" name="title" value="<%= token.title %>">
                     <input type="hidden" name="description" value="<%= token.description %>">
                     <input type="hidden" name="price" value="<%= token.price %>">
