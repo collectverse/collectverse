@@ -177,21 +177,23 @@ module.exports = class StoreController {
         const params = new URLSearchParams(req.query);
 
         if (params.has('success')) {
-            // Lógica para quando a ação foi bem-sucedida
-            let tokensForUser = await connection.query("SELECT users.points FROM users WHERE id = ?", [req.session.userid]);
-            const id = req.session.idForPayment
-            const product = await connection.query("SELECT * FROM tokens WHERE id = ?", [id])
+            if (req.session.idForPayment !== undefined) {
+                // Lógica para quando a ação foi bem-sucedida
+                let tokensForUser = await connection.query("SELECT users.points FROM users WHERE id = ?", [req.session.userid]);
+                const id = req.session.idForPayment
+                const product = await connection.query("SELECT * FROM tokens WHERE id = ?", [id])
 
-            let tokens = product[0][0].quantity
-            tokensForUser = parseInt(tokensForUser[0][0].points)
+                let tokens = product[0][0].quantity
+                tokensForUser = parseInt(tokensForUser[0][0].points)
 
-            const newPoints = parseInt(tokensForUser) + tokens;
+                const newPoints = parseInt(tokensForUser) + tokens;
 
-            await connection.query("UPDATE users SET points = ?, updatedAt = NOW() WHERE id = ?", [newPoints, req.session.userid]);
-            req.flash('success', `Sucesso em adiquirir os pontos. Foram somados ${tokens} a sua conta.`)
+                req.session.idForPayment = undefined
+                await connection.query("UPDATE users SET points = ?, updatedAt = NOW() WHERE id = ?", [newPoints, req.session.userid]);
+                req.flash('success', `Sucesso em adiquirir os pontos. Foram somados ${tokens} a sua conta.`)
+            }
         } else if (params.has('failure') || params.has('pending')) {
             req.flash('error', `Erro em efetuar o pagamento. Não foram somados os tokens a sua conta.`)
-            return res.redirect('/store/points')
         }
 
         res.status(200).render("layouts/main.ejs", { router: "../pages/store/points.ejs", user: account[0][0], notifications: notifications[0], challenges: challenges[0], challengesForUser: challengesForUser[0][0], tokens: tokens[0], title: "Collectverse - Loja" });
@@ -302,7 +304,7 @@ module.exports = class StoreController {
         preference.create({ body })
             .then(response => {
                 const initPoint = response.init_point;
-                
+
                 res.status(200).redirect(initPoint)
             })
             .catch(error => {
