@@ -1,9 +1,17 @@
 require('dotenv').config();
-const { mercadoPagoConfig, Prefrence, default: MercadoPagoConfig } = require("mercadopago");
 
 const connection = require("../schema/connection.js");
 const getItem = require("../helpers/getItem.js")
-const Client = new MercadoPagoConfig({accessToken: process.env.ACCESS_TOKEN_SANDBOX})
+
+//  mercado pago
+const { MercadoPagoConfig, Preference } = require('mercadopago');
+
+const client = new MercadoPagoConfig({
+    accessToken: process.env.ACCESS_TOKEN_SANDBOX,
+    options: { timeout: 5000, idempotencyKey: 'abc' }
+});
+const preference = new Preference(client);
+
 
 const successMessages = {
     SUCESS_BUY_PASS: 'Passe comprado com sucesso.',
@@ -34,9 +42,9 @@ module.exports = class StoreController {
         console.log(itemForPass)
 
         if (category === "all" || category === "") {
-            shop = await connection.query("SELECT * FROM shop WHERE id != ?",[itemForPass]);
+            shop = await connection.query("SELECT * FROM shop WHERE id != ?", [itemForPass]);
         } else if (category === "new") {
-            shop = await connection.query("SELECT * FROM shop WHERE id != ? ORDER BY createdAt DESC LIMIT 2",[itemForPass]);
+            shop = await connection.query("SELECT * FROM shop WHERE id != ? ORDER BY createdAt DESC LIMIT 2", [itemForPass]);
         }
 
         res.status(200).render("layouts/main.ejs", { router: "../pages/store/store.ejs", user: account[0][0], highlights: highlights[0], shop: shop[0], category: category, notifications: notifications[0], pass: pass[0][0], title: "Collectverse - Loja" });
@@ -56,7 +64,7 @@ module.exports = class StoreController {
 
         let itemIsInPass = false;
 
-        if(id == pass[0][0].shopId) {
+        if (id == pass[0][0].shopId) {
             itemIsInPass = true;
         }
 
@@ -165,6 +173,20 @@ module.exports = class StoreController {
             challenges = await connection.query("SELECT * FROM challenges ORDER BY createdAt DESC LIMIT 2")
         }
 
+        // retorno para pagamento
+        const params = new URLSearchParams(req.query);
+
+        if (params.has('success')) {
+            // Lógica para quando a ação foi bem-sucedida
+            res.send('Ação bem-sucedida!');
+        } else if (params.has('failure')) {
+            // Lógica para quando a ação falhou
+            res.send('Ação falhou. Tente novamente.');
+        } else if (params.has('pending')) {
+            // Lógica para quando a ação está pendente
+            res.send('Ação está pendente. Aguarde.');
+        }
+
         res.status(200).render("layouts/main.ejs", { router: "../pages/store/points.ejs", user: account[0][0], notifications: notifications[0], challenges: challenges[0], challengesForUser: challengesForUser[0][0], tokens: tokens[0], title: "Collectverse - Loja" });
     }
 
@@ -173,7 +195,7 @@ module.exports = class StoreController {
 
         try {
 
-            if(!req.session.userid){
+            if (!req.session.userid) {
                 req.flash("error", errorMessages.NOT_SESSION);
                 return res.status(401).redirect("/sign/In");
             }
@@ -245,5 +267,40 @@ module.exports = class StoreController {
         const notifications = await connection.query("SELECT * FROM notify WHERE parentId = ? ORDER BY createdAt DESC", [req.session.userid]);
 
         res.status(200).render("layouts/main.ejs", { router: "../pages/store/getPoints.ejs", user: account[0][0], notifications: notifications[0], token: token[0][0], title: "Collectverse - Tokens" });
+    }
+
+    static async makePayment(req, res) {
+        const { id, title, description, price } = req.body;
+        const baseUrl = req.protocol + '://' + req.get('host');
+        const body = {
+            items: [
+                {
+                    id: String(id),
+                    title: title,
+                    description: description,
+                    quantity: 1,
+                    currency_id: 'BRL',
+                    unit_price: parseInt(price)
+                },
+            ],
+            back_urls: {
+                success: `${baseUrl}/store/points?success`,
+                failure: `${baseUrl}/store/points?failure`,
+                pending: `${baseUrl}/store/points?failure`,
+            },
+            auto_return: 'all'
+        }
+
+        preference.create({ body })
+            .then(response => {
+                const initPoint = response.init_point;
+                console.log(initPoint);
+                res.status(200).redirect(initPoint)
+            })
+            .catch(error => {
+                console.log(error)
+                req.flash("error", errorMessages.INTERNAL_ERROR);
+                return res.status(500).redirect(`/store/points`)
+            });
     }
 }

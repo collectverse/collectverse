@@ -12,5 +12,6 @@ router.post('/startChallenge', StoreController.startChallenge);
 router.post('/declineChallenge', StoreController.declineChallenge);
 router.get('/buy/points/:id', StoreController.pointsShow);
 router.get('/redeemChallenge', StoreController.redeemChallenge);
+router.post('/makePayment', StoreController.makePayment);
 
 module.exports = router;

@@ -52,7 +52,13 @@
         <section class="right-container">
             <span>R$ <%= token.price %></span>
             <section class="buttons">
-                <button class="get">Compre agora</button>
+                <form action="/store/makePayment" method="post">
+                    <input type="hidden" name="title" value="<%= token.id %>">
+                    <input type="hidden" name="title" value="<%= token.title %>">
+                    <input type="hidden" name="description" value="<%= token.description %>">
+                    <input type="hidden" name="price" value="<%= token.price %>">
+                    <button type="submit" class="get">Compre agora</button>
+                </form>
                 <a href="/store">Para collecionaveis</a>
             </section>
             <section class="informations">
