@@ -80,6 +80,8 @@ async function createSchema() {
         collectible varchar(24) DEFAULT NULL,
         tutorial BOOL DEFAULT 0,
         stylesForHome INT(1) DEFAULT 1,
+        verified BOOLEAN DEFAULT FALSE,
+        verificationToken VARCHAR(255),
         createdAt datetime NOT NULL,
         updatedAt datetime NOT NULL,
         PRIMARY KEY (id)

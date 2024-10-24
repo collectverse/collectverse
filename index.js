@@ -11,6 +11,7 @@ const multer = require('multer');
 const path = require("path");
 const mysql = require('mysql2');
 const FileStore = require('session-file-store')(session);
+const nodemailer = require("nodemailer")
 
 // Configurando o app
 const app = express();

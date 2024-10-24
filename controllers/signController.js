@@ -1,10 +1,12 @@
 const connection = require("../schema/connection.js");
 const bcrypt = require("bcryptjs");
+const sendVerificationEmail = require("../helpers/sendVerificationEmail.js")
 
 const successMessages = {
     CREATED_ACCOUNT: 'Conta criada com sucesso.',
     LOGIN_ACCOUNT: 'Entrada feita com sucesso.',
-    ALTER_PASSWORD: 'Senha alterada com sucesso.'
+    ALTER_PASSWORD: 'Senha alterada com sucesso.',
+    ACCOUNT_VERIFY: 'Conta ativada com sucesso.'
 };
 
 const errorMessages = {
@@ -19,7 +21,8 @@ const errorMessages = {
     NOT_MATCH_PASSWORD: 'As senhas não conferem.',
     INCORRECT_PASSWORD: 'A senha está incorreta.',
     INTERNAL_ERROR: 'Erro interno do servidor.',
-    NO_SPECIAL_CHARACTERS: 'A senha deve incluir letras maiúsculas, minúsculas, números e caracteres especiais.'
+    NO_SPECIAL_CHARACTERS: 'A senha deve incluir letras maiúsculas, minúsculas, números e caracteres especiais.',
+    INVALID_TOKEN: 'Verificação da conta invalida.'
 };
 
 const itIsEmail = /S+@S+.S+/;
@@ -52,26 +55,31 @@ module.exports = class SignController {
             }
 
             // verifica se usuário existe
-            const user = await connection.query("SELECT id, email, password FROM users WHERE email = ?", [email]);
+            const user = await connection.query("SELECT id, email, password, verified, verificationToken FROM users WHERE email = ?", [email]);
 
             if (!(user[0].length > 0)) {
                 req.flash("error", errorMessages.EMAIL_NOT_IN_USE);
                 return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs" });
             }
 
-            // verificar se as senhas conheecidem
-            const passwordMatch = bcrypt.compareSync(password, user[0][0].password)
+            if (user[0][0].verified == true) {
+                // verificar se as senhas conheecidem
+                const passwordMatch = bcrypt.compareSync(password, user[0][0].password)
 
-            if (!passwordMatch) {
-                req.flash('error', errorMessages.INCORRECT_PASSWORD);
-                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs" });
+                if (!passwordMatch) {
+                    req.flash('error', errorMessages.INCORRECT_PASSWORD);
+                    return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs" });
+                }
+
+                req.session.userid = user[0][0].id
+                return req.session.save(() => {
+                    req.flash("success", successMessages.LOGIN_ACCOUNT);
+                    res.status(200).redirect("/")
+                });
+            } else {
+                req.flash("error", errorMessages.INVALID_TOKEN);
+                res.status(200).redirect("/sign/verifyToken")
             }
-
-            req.session.userid = user[0][0].id
-            return req.session.save(() => {
-                req.flash("success", successMessages.LOGIN_ACCOUNT);
-                res.status(200).redirect("/")
-            });
         } catch (error) {
             console.log(error)
             req.flash("error", errorMessages.INTERNAL_ERROR);
@@ -162,11 +170,20 @@ module.exports = class SignController {
                 connection.query("INSERT INTO carts (itemIds, UserId, createdAt, updatedAt) VALUES (?, ?, now(), now())", ["[]", id])
             ]);
 
-            req.session.userid = id;
-            return req.session.save(() => {
-                req.flash("success", successMessages.CREATED_ACCOUNT);
-                res.status(200).redirect("/")
-            });
+
+            // varificação do email
+
+            const verificationToken = Math.random().toString(36).slice(2, 11);
+            sendVerificationEmail(req, res, email, verificationToken);
+
+            // req.session.userid = id;
+            // return req.session.save(() => {
+            //     req.flash("success", successMessages.CREATED_ACCOUNT);
+            //     res.status(200).redirect("/sign/verifyToken")
+            // });
+
+            req.flash("success", successMessages.CREATED_ACCOUNT);
+            res.status(200).redirect("/sign/verifyToken")
         } catch (error) {
             console.log(error)
             req.flash("error", errorMessages.INTERNAL_ERROR);
@@ -239,6 +256,34 @@ module.exports = class SignController {
             console.log(error)
             req.flash("error", errorMessages.INTERNAL_ERROR);
             return res.status(500).redirect("/");
+        }
+    }
+
+    static async verify(req, res) {
+        const { token } = req.query
+
+        const accountToken = await connection.query('UPDATE users SET verified = ? WHERE verificationToken = ? ', [true, token])
+
+        if (accountToken.affectedRows === 0) {
+            req.flash("error", successMessages.INVALID_TOKEN);
+            res.status(200).redirect("/sign/in")
+        }
+
+        req.flash("success", successMessages.ACCOUNT_VERIFY);
+        res.status(200).redirect("/sign/in")
+    }
+
+    static async verifyToken(req, res) {
+        try {
+            if (req.session.userid) {
+                req.flash("error", errorMessages.INTERNAL_ERROR);
+                return res.status(401).redirect('/')
+            }
+            res.status(200).render("layouts/main.ejs", { router: "../pages/sign/verify.ejs" });
+        } catch (error) {
+            console.log(error)
+            req.flash("error", errorMessages.INTERNAL_ERROR);
+            return res.status(500).render("layouts/main.ejs", { router: "../pages/sign/signIn.ejs", title: "Collectverse - Entrar" });
         }
     }
 }

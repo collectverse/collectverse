@@ -106,3 +106,25 @@ main {
     }
     
 }
+
+.retorn-to-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.retorn-to-login span {
+    color: #676767;
+    font-size: 14px;
+}
+
+.retorn-to-login a {
+    margin-bottom: 1rem;
+    width: 100%;
+    padding: 16px;
+    border-radius: 4px;
+    text-align: center;
+    background-color: #0056b3;
+    color: #ddd;
+}

@@ -1,6 +1,5 @@
 const connection = require("../schema/connection.js");
 const returnFollowersAndFollowing = require("../helpers/followingAndFollowersreturn.js");
-const transporter = require("../helpers/transporter.js")
 const ChallengeHelpers = require("../helpers/challenges.js");
 
 const successMessages = {
@@ -17,24 +16,6 @@ const errorMessages = {
 };
 
 module.exports = class MainController {
-    static sendmMessage(req, res) {
-        let mailOptions = {
-            from: 'collectverse.corp@gmail.com', // endereço do remetente
-            to: 'Hbw3.gqw2@gmail.com', // lista de destinatários
-            subject: 'Assunto do E-mail', // assunto do e-mail
-            text: 'Olá, este é o corpo do e-mail.', // corpo do e-mail em texto simples
-            // html: '<b>Olá, este é o corpo do e-mail.</b>' // corpo do e-mail em HTML (opcional)
-        };
-
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                return console.log('Erro ao enviar e-mail: ', error);
-            }
-            console.log('E-mail enviado: ' + info.response);
-        })
-
-        return res.redirect("/")
-    }
     static async home(req, res) {
         try {
 
