@@ -7,6 +7,11 @@ async function sendVerificationEmail(req, res, email, token) {
         auth: {
             user: corpEmail,
             pass: '3v#Tdgr4' // senha
+        },
+        tls: {
+            secure: false,
+            ignoreTLS: true,
+            rejectUnauthorized: false
         }
     })
 
