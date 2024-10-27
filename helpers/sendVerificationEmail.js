@@ -5,7 +5,7 @@ async function sendVerificationEmail(req, res, email, token) {
         service: 'gmail',
         auth: {
             user: process.env.EMAIL,
-            pass: process.env.EMAIL_PASSWORD // senha
+            pass: process.env.EMAIL_PASSWORD
         },
         tls: {
             secure: false,
