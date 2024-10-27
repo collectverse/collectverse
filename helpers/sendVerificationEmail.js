@@ -4,8 +4,13 @@ async function sendVerificationEmail(req, res, email, token) {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: process.env.EMAIL,
-            pass: process.env.EMAIL_PASSWORD // senha
+            user: corpEmail,
+            pass: '3v#Tdgr4' // senha
+        },
+        tls: {
+            secure: false,
+            ignoreTLS: true,
+            rejectUnauthorized: false
         }
     })
 
