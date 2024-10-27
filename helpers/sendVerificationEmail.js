@@ -18,7 +18,7 @@ async function sendVerificationEmail(req, res, email, token) {
     const verificationLink = `${baseUrl}/verify?token=${token}`
 
     const mailOptions = {
-        from: corpEmail,
+        from: process.env.EMAIL,
         to: email,
         subject: 'Ative sua conta',
         text: `Clique no link para ativar sua conta: ${verificationLink}`,
