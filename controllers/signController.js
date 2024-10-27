@@ -259,13 +259,14 @@ module.exports = class SignController {
         }
     }
 
+    // verificação
     static async verify(req, res) {
         const { token } = req.query
 
         const accountToken = await connection.query('UPDATE users SET verified = ? WHERE verificationToken = ? ', [true, token])
 
         if (accountToken.affectedRows === 0) {
-            req.flash("error", successMessages.INVALID_TOKEN);
+            req.flash("error", errorMessages.INVALID_TOKEN);
             res.status(200).redirect("/sign/in")
         }
 
@@ -273,6 +274,7 @@ module.exports = class SignController {
         res.status(200).redirect("/sign/in")
     }
 
+    // rota para botão de ainda não verificado
     static async verifyToken(req, res) {
         try {
             if (req.session.userid) {

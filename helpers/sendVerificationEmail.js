@@ -15,7 +15,7 @@ async function sendVerificationEmail(req, res, email, token) {
     });
 
     const baseUrl = req.protocol + '://' + req.get('host');
-    const verificationLink = `${baseUrl}/verify?token=${token}`;
+    const verificationLink = `${baseUrl}/sign/verify?token=${token}`;
 
     const mailOptions = {
         from: process.env.EMAIL,
