@@ -174,6 +174,7 @@ module.exports = class SignController {
             // varificação do email
 
             const verificationToken = Math.random().toString(36).slice(2, 11);
+            await connection.query('UPDATE users SET verificationToken = ? WHERE id = ?', [verificationToken, id])
             sendVerificationEmail(req, res, email, verificationToken);
 
             // req.session.userid = id;
@@ -262,9 +263,9 @@ module.exports = class SignController {
     // verificação
     static async verify(req, res) {
         const { token } = req.query
-
+        console.log(token)
         const accountToken = await connection.query('UPDATE users SET verified = ? WHERE verificationToken = ? ', [true, token])
-
+        console.log(accountToken)
         if (accountToken.affectedRows === 0) {
             req.flash("error", errorMessages.INVALID_TOKEN);
             res.status(200).redirect("/sign/in")
