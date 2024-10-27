@@ -2,15 +2,15 @@ const nodemailer = require("nodemailer");
 
 async function sendVerificationEmail(req, res, email, token) {
     const transporter = nodemailer.createTransport({
-        host: 'smtp.office365.com',
-        port: 587,
-        secure: false, // true para 465, false para 587
+        service: 'gmail',
         auth: {
-            user: process.env.EMAIL, // seu e-mail do Outlook
-            pass: process.env.EMAIL_PASSWORD // sua senha ou senha de aplicativo
+            user: process.env.EMAIL,
+            pass: process.env.EMAIL_PASSWORD
         },
         tls: {
-            rejectUnauthorized: false // permite conexões a servidores com certificados não válidos
+            secure: false,
+            ignoreTLS: true,
+            rejectUnauthorized: false
         }
     });
 
