@@ -1,4 +1,4 @@
-const nodemailer = require("nodemailer")
+const nodemailer = require("nodemailer");
 
 async function sendVerificationEmail(req, res, email, token) {
     const transporter = nodemailer.createTransport({
@@ -12,16 +12,17 @@ async function sendVerificationEmail(req, res, email, token) {
             ignoreTLS: true,
             rejectUnauthorized: false
         }
-    })
+    });
 
     const baseUrl = req.protocol + '://' + req.get('host');
-    const verificationLink = `${baseUrl}/verify?token=${token}`
+    const verificationLink = `${baseUrl}/verify?token=${token}`;
 
     const mailOptions = {
         from: process.env.EMAIL,
         to: email,
         subject: 'Ative sua conta',
-        text: `Clique no link para ativar sua conta: ${verificationLink}`,
+        html: `<p>Clique no link abaixo para ativar sua conta:</p>
+            <a href="${verificationLink}">Ativar Conta</a>`
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
@@ -33,4 +34,4 @@ async function sendVerificationEmail(req, res, email, token) {
     });
 }
 
-module.exports = sendVerificationEmail
+module.exports = sendVerificationEmail;
