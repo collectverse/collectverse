@@ -187,7 +187,7 @@ module.exports = class StoreController {
 
                 req.session.idForPayment = undefined
                 await connection.query("UPDATE users SET points = ?, updatedAt = NOW() WHERE id = ?", [newPoints, req.session.userid]);
-                req.flash('success', `Sucesso em adiquirir os pontos. Foram somados ${tokens} a sua conta.`)
+                req.flash('success', `Sucesso em adiquirir os versecoins. Foram somados ${tokens} a sua conta.`)
             }
         } else if (params.has('failure') || params.has('pending')) {
             req.flash('error', `Erro em efetuar o pagamento. Não foram somados os tokens a sua conta.`)
@@ -261,7 +261,7 @@ module.exports = class StoreController {
         await connection.query("UPDATE users SET points = ?, updatedAt = NOW() WHERE id = ?", [newPoints, req.session.userid]);
         await connection.query("DELETE FROM challengesForUser WHERE userId = ? AND challengeId = ?", [req.session.userid, challengeForUser[0][0].challengeId]);
 
-        req.flash("success", "Desafio concluído! Tokens adicionados.");
+        req.flash("success", "Desafio concluído! versecoins adicionados.");
         res.status(200).redirect("/store/points")
     }
 
@@ -301,7 +301,7 @@ module.exports = class StoreController {
         preference.create({ body })
             .then(response => {
                 const initPoint = response.init_point;
-
+                console.log(response)
                 res.status(200).redirect(initPoint)
             })
             .catch(error => {

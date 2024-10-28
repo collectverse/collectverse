@@ -1260,9 +1260,15 @@ hr {
     gap: 0.6rem;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
 .images-modal-configurations img {
     width: 100%;
     height: auto;
+}
+
+.images-modal-configurations span {
+    color: #494949;
+    font-size: 12px;
 }

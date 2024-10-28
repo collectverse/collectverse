@@ -9,11 +9,14 @@
         <section>
 
             <!-- card de editar o usuário -->
+            <% if (user.pass == 1) { %>
+                
             <section class="default-card edit-card" id="styles-preferences">
                 <label for="/profile/edit">
                     <h2><i class="bi bi-sliders"></i> Preferencias de estilo.</h2>
                     <hr>
                 </label>
+
 
                 <section class="select-theme">
 
@@ -60,7 +63,10 @@
 
                 </section>
 
+                
             </section>
+
+            <% } %>
 
             <!-- card de editar o usuário -->
             <section class="default-card edit-card" id="account-preferences">
