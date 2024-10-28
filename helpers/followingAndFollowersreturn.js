@@ -6,8 +6,8 @@ async function returnFollowersAndFollowing(id) {
     const followers = await connection.query("SELECT followers FROM follows WHERE UserId = ?", [id]);
     const following = await connection.query("SELECT following FROM follows WHERE UserId = ?", [id]);
 
-    let usersFromFollowers = JSON.parse(followers[0][0].followers || "[]");
-    let usersFromFollowing = JSON.parse(following[0][0].following || "[]");
+    let usersFromFollowers = JSON.parse(followers[0][0]?.followers ?? "[]");
+    let usersFromFollowing = JSON.parse(following[0][0]?.following ?? "[]");    
 
     let resultForFollowers = [];
     let resultForFollowing = [];
