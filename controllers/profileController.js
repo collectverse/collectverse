@@ -6,7 +6,8 @@ const ChallengeHelpers = require("../helpers/challenges.js")
 
 const successMessages = {
     EDITED_ACCOUNT: 'Conta editada com sucesso.',
-    DELETED_ACCOUNT: 'Conta deletada com sucesso.'
+    DELETED_ACCOUNT: 'Conta deletada com sucesso.',
+    ALTERED_PASSWORD: 'Senha alterada com sucesso.'
 };
 
 const errorMessages = {
@@ -20,7 +21,6 @@ const errorMessages = {
     LIMIT_PASSWORD: 'A senha não deve ter mais de 64 caracteres.',
     NO_MATCH_PASSWORDS: 'As senhas não coincidem.',
     NO_CORRECT_PASSWORDS: 'Senha atual incorreta.',
-    ALTERED_PASSWORD: 'Senha alterada com sucesso.',
     NO_SPECIAL_CHARACTERS: 'A senha deve incluir letras maiúsculas, minúsculas, números e caracteres especiais.',
     NOT_FOUND: 'Não encontrado.',
     DELETE_CONFIRMATION_ERROR: 'Confirmação de exclusão digitada de maneira errada.'
