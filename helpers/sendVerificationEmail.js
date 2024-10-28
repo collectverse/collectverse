@@ -72,6 +72,52 @@ async function sendVerificationEmail(req, res, email, token) {
     <link rel="stylesheet" href="/stylesheet/style.css" media="print" onload="this.media='all'">
 
     </head>
+
+    <style>
+    
+        /* verify */
+
+        .main-verify {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .verify {
+            width: 100%;
+            height: auto;
+            margin: 1rem;
+            max-width: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .verify img {
+            width: 100%;
+            max-width: 120px;
+        }
+
+        .verify p {
+            font-size: 18px;
+            color: #202124;
+        }
+
+        .verify a {
+            background-color: #0056b3;
+            color: #dfedff;
+            font-size: 16px;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        
+    </style>
+
     <main class="main-verify">
         <section class="default-card verify">
             <img src="${baseUrl}/source/images/string.svg" alt="Imagem ilustrativa Collectverse.">
