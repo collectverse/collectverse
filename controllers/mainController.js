@@ -56,8 +56,6 @@ module.exports = class MainController {
         try {
             const { user, message, forRedirect } = req.body;
 
-            console.log(forRedirect)
-
             if (!user || user.length === 0) {
                 req.flash("error", errorMessages.INVALID_SESSION);
                 return res.status(401).redirect("/");

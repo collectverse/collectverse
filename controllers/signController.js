@@ -203,9 +203,9 @@ module.exports = class SignController {
     // verificação
     static async verify(req, res) {
         const { token } = req.query
-        console.log(token)
+        
         const accountToken = await connection.query('UPDATE users SET verified = ? WHERE verificationToken = ? ', [true, token])
-        console.log(accountToken)
+
         if (accountToken.affectedRows === 0) {
             req.flash("error", errorMessages.INVALID_TOKEN);
             res.status(200).redirect("/sign/in")

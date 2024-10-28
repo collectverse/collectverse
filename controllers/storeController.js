@@ -39,7 +39,6 @@ module.exports = class StoreController {
         let shop = null;
 
         const itemForPass = pass[0][0].shopId;
-        console.log(itemForPass)
 
         if (category === "all" || category === "") {
             shop = await connection.query("SELECT * FROM shop WHERE id != ?", [itemForPass]);
@@ -67,8 +66,6 @@ module.exports = class StoreController {
         if (id == pass[0][0].shopId) {
             itemIsInPass = true;
         }
-
-        console.log(itemIsInPass)
 
         // colsulta se o usuario já tem o item
         const cart = await connection.query("SELECT id, itemIds FROM carts WHERE UserId = ?", [req.session.userid]);
