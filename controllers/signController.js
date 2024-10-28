@@ -165,11 +165,8 @@ module.exports = class SignController {
                 return res.status(500).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs" });
             }
 
-            await Promise.all([
-                connection.query("INSERT INTO follows (UserId, followers, following, createdAt, updatedAt) VALUES (?, ?, ?, now(), now())", [id, "[]", "[]"]),
-                connection.query("INSERT INTO carts (itemIds, UserId, createdAt, updatedAt) VALUES (?, ?, now(), now())", ["[]", id])
-            ]);
-
+            await connection.query("INSERT INTO follows (UserId, followers, following, createdAt, updatedAt) VALUES (?, ?, ?, now(), now())", [id, "[]", "[]"]);
+            await connection.query("INSERT INTO carts (itemIds, UserId, createdAt, updatedAt) VALUES (?, ?, now(), now())", ["[]", id]);
 
             // varificação do email
 

@@ -89,7 +89,7 @@ async function sendVerificationEmail(req, res, email, token) {
             width: 100%;
             height: auto;
             margin: 1rem;
-            max-width: 350px;
+            max-width: 350px;\\
             display: flex;
             align-items: center;
             justify-content: flex-start;

@@ -2,7 +2,7 @@
     <% 
         // Define o caminho base com base no valor de user.stylesForHome
         const basePath = user.stylesForHome == 2 ? "/stylesheet/models/card/" : "/stylesheet/models/";
-        const collectibleId = user.collectible.split(".")[0]; // Extrai o ID do collectible
+        const collectibleId = user.collectible ? user.collectible.split(".")[0] : ''; // Extrai o ID do collectible
     %>
     
     <% if (["0001", "0002", "0003", "0004"].includes(collectibleId)) { %>
