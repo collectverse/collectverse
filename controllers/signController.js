@@ -202,63 +202,6 @@ module.exports = class SignController {
             return res.status(500).redirect("/");
         }
     }
-    static async recover(req, res) {
-        try {
-            res.status(200).render("layouts/main.ejs", { router: "../pages/sign/recover.ejs", title: "Collectverse - Recuperação" });
-        } catch (error) {
-            console.log(error)
-            req.flash("error", errorMessages.INTERNAL_ERROR);
-            return res.status(500).redirect("/");
-        }
-    }
-    static async makeRecover(req, res) {
-        try {
-            const { email, password } = req.body;
-
-            if (itIsEmail.test(email)) {
-                req.flash("error", errorMessages.INVALID_EMAIL);
-                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/recover.ejs" });
-            } else if (email.length === 0) {
-                req.flash("error", errorMessages.EMPTY_EMAIL);
-                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/recover.ejs" });
-            }
-
-            // verifica se usuário existe
-            const user = await connection.query("SELECT id, email, password FROM users WHERE email = ?", [email]);
-
-            if (!(user[0].length > 0)) {
-                req.flash("error", errorMessages.EMAIL_NOT_IN_USE);
-                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/recover.ejs" });
-            }
-
-            if (!wasSpecialCharacters.test(password)) {
-                req.flash("error", errorMessages.NO_SPECIAL_CHARACTERS);
-                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs" });
-            }
-            if (password.length < 8) {
-                req.flash("error", errorMessages.WEAK_PASSWORD);
-                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs" });
-            }
-            if (password.length > 64) {
-                req.flash("error", errorMessages.LIMIT_PASSWORD);
-                return res.status(400).render("layouts/main.ejs", { router: "../pages/sign/signUp.ejs" });
-            }
-
-            // criptografando a senha do usuário.
-
-            const salt = bcrypt.genSaltSync(10);
-            const hashedPassword = bcrypt.hashSync(password, salt);
-
-            await connection.query("UPDATE users SET password = ?, updatedAt = NOW() WHERE id = ?", [hashedPassword, user[0][0].id]);
-
-            req.flash("success", successMessages.ALTER_PASSWORD);
-            res.status(200).redirect("/sign/in")
-        } catch (error) {
-            console.log(error)
-            req.flash("error", errorMessages.INTERNAL_ERROR);
-            return res.status(500).redirect("/");
-        }
-    }
 
     // verificação
     static async verify(req, res) {
