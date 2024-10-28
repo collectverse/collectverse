@@ -120,7 +120,7 @@ async function sendVerificationEmail(req, res, email, token) {
 
     <main class="main-verify">
         <section class="default-card verify">
-            <img src="${baseUrl}/source/images/string.svg" alt="Imagem ilustrativa Collectverse.">
+            <img src="${baseUrl}/source/images/string.svg" alt="Imagem ilustrativa Collectverse." style="max-width:120px">
             <br>
             <p>Clique no link abaixo para ativar sua conta</p>
             <a href="${verificationLink}">Ativar Conta</a>
