@@ -116,6 +116,18 @@ function closeModal(event) {
     toggleDelModal();
 }
 
+// modal de boas vindas
+
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('welcome-modal');
+
+    // Verifica se o usuário já viu o modal antes
+    if (!localStorage.getItem('modalSeen')) {
+        modal.style.display = 'flex'; // Exibe o modal
+        document.getElementById('phase-1').style.display = 'block'; // Mostra a primeira fase
+    }
+});
+
 function modaltabToggle(tabName) {
     // modal
     const followersBtn = document.querySelector('.followersButton');
@@ -213,7 +225,7 @@ function previewImageForPublication(input) {
 
 function removeImage() {
     event.preventDefault(); // Previne o envio do formulário
-    
+
     const input = document.getElementById('imageUpload');
     const container = document.getElementById('imagePreviewContainer');
 
@@ -241,23 +253,11 @@ function removeImage() {
         });
 }
 
-// modal de boas vindas
-
-document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('welcome-modal');
-
-    // Verifica se o usuário já viu o modal antes
-    if (!localStorage.getItem('modalSeen')) {
-        modal.style.display = 'flex'; // Exibe o modal
-        document.getElementById('phase-1').style.display = 'block'; // Mostra a primeira fase
-    }
-});
-
 // Função para passar para a próxima fase
 document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('welcome-modal');
     const phases = document.querySelectorAll('.modal-phase');
-    
+
     // Inicializa o indicador de progresso
     initializeProgressIndicator(phases.length);
 
@@ -316,3 +316,18 @@ function closeModal() {
     event.preventDefault(); // Previne o envio do formulário
     document.getElementById('welcome-modal').style.display = 'none';
 }
+
+// accordins
+
+document.querySelectorAll('.accordion-header').forEach(header => {
+    header.addEventListener('click', function() {
+        // Fecha todos os conteúdos de accordion
+        document.querySelectorAll('.accordion-content').forEach(content => {
+            content.style.display = 'none';
+        });
+
+        // Abre o conteúdo do accordion atual
+        const content = this.nextElementSibling;
+        content.style.display = 'block';
+    });
+});

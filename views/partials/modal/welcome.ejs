@@ -2,7 +2,7 @@
 <section id="welcome-modal" class="modal-welcome">
     <section class="modal-content">
         <!-- Indicador de progresso -->
-        <div id="progress-indicator"></div>
+        <section id="progress-indicator"></section>
 
         <section class="modal-phase" id="phase-1">
 
@@ -24,7 +24,8 @@
         <section class="modal-phase" id="phase-2" style="display: none;">
             <img src="/source/images/paper.svg" alt="Imagem ilustrativa">
             <h2>Explore Recursos</h2>
-            <p>Complete desafios, ganhe Versecoins, e desbloqueie colecionáveis. Personalize seu perfil com itens especiais e mostre suas conquistas!</p>
+            <p>Complete desafios, ganhe Versecoins, e desbloqueie colecionáveis. Personalize seu perfil com itens
+                especiais e mostre suas conquistas!</p>
             <section class="button-content">
                 <button class="prev" onclick="prevPhase(1)"><i class="bi bi-arrow-left-short"></i></button>
                 <button class="next" onclick="nextPhase(3)">Próximo</button>
@@ -32,10 +33,63 @@
         </section>
 
         <section class="modal-phase" id="phase-3" style="display: none;">
-            <h2>Pronto para começar?</h2>
-            <p>Você chegou à última fase.</p>
+            <h2>Conhecendo o site</h2>
+            <p>Descubra como funciona o Collectverse:</p>
+
+            <section class="accordion">
+                <section class="accordion-header">Navegação <i class="bi bi-caret-down"></i></i></section>
+                <section class="accordion-content">
+                    <p>No cabeçalho, você verá um icone (<i class="bi bi-collection-fill"></i>). Esse icone é responsavel pela navegação no site.</p>
+                </section>
+            </section>
+
+            <section class="accordion">
+                <section class="accordion-header">Perfil e mais <i class="bi bi-caret-down"></i></i></section>
+                <section class="accordion-content">
+                    <p>No cabeçalho, a sua foto de perfil será responsavel pela interação do perfil, como ir ao perfil, configurações ou sair.</p>
+                </section>
+            </section>
+
             <section class="button-content">
                 <button class="prev" onclick="prevPhase(2)"><i class="bi bi-arrow-left-short"></i></button>
+                <button class="next" onclick="nextPhase(4)">Próximo</button>
+            </section>
+        </section>
+
+        <section class="modal-phase" id="phase-4" style="display: none;">
+            <h2>Como é a personalização</h2>
+            <p>Como funciona a aquisição de colecionaveis e personalização do site.</p>
+
+            <section class="accordion">
+                <section class="accordion-header">Colecionaveis <i class="bi bi-caret-down"></i></i></section>
+                <section class="accordion-content">
+                    <p>Colecionaveis são essenciais aqui, você consegue vê-los na loja. A sua compra é possivel com os pontos(versecoins) e usalos em seu perfil.</p>
+                </section>
+            </section>
+
+            <section class="accordion">
+                <section class="accordion-header">Desafios e versecoins <i class="bi bi-caret-down"></i></i></section>
+                <section class="accordion-content">
+                    <p>Aqui você consegue tudo interagindo, basta participar e concluir desafios para conseguir versecoins, e usar como desejar.</p>
+                </section>
+            </section>
+
+            <section class="button-content">
+                <button class="prev" onclick="prevPhase(3)"><i class="bi bi-arrow-left-short"></i></button>
+                <button class="next" onclick="nextPhase(5)">Próximo</button>
+            </section>
+        </section>
+
+        <section class="modal-phase" id="phase-5" style="display: none;">
+            <h2>Preferencias de estilo</h2>
+            <p>Você decide como será o estilo da pagina, escolha suas preferencias nas configurações de perfil.</p>
+
+            <section class="images-modal-configurations">
+                    <img src="/source/images/themes/02.svg" alt="Tema">
+            </section>
+
+            <section class="button-content">
+                <button class="prev" onclick="prevPhase(3)"><i class="bi bi-arrow-left-short"></i></button>
                 <button class="ok" onclick="closeModal()">Explorar o CollectVerse</button>
             </section>
         </section>

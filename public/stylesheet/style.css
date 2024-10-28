@@ -1089,7 +1089,7 @@ hr {
     border-radius: 8px;
     width: 90%;
     max-width: 400px;
-    height: 540px;
+    min-height: 540px;
     text-align: center;
     display: flex;
     align-items: center;
@@ -1144,7 +1144,8 @@ hr {
 }
 
 .modal-phase img {
-    width: 80%;
+    width: 76%;
+    max-height: 200px;
     padding: 2rem 2rem 0;
 }
 
@@ -1258,4 +1259,51 @@ hr {
     border-radius: 12px;
     padding: 1rem;
     margin-top: 1rem;
+}
+
+/* accordions */
+
+.accordion {
+    background-color: #faf9f9;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    text-align: left;
+    outline: none;
+    transition: background-color 0.3s;
+}
+
+.accordion-header:hover {
+    background-color: #f7f4f4;
+}
+
+.accordion-content {
+    display: none;
+    padding: 10px;
+    margin-bottom: 1.6rem;
+    background-color: #fdfdfd;
+    text-align: left;
+}
+
+.accordion-content p {
+    max-width: 320px;
+}
+
+.images-modal-configurations {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.images-modal-configurations img {
+    width: 100%;
+    height: auto;
 }
