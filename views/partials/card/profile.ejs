@@ -20,18 +20,18 @@
             </section>
         </section>
         <section class="user-edit">
+            <% if (locals.userid === profile.id) { %>
             <section class="more-icon">
                 <section class="dropdown-header-image">
                     <i class="bi bi-grid dropbtn"></i>
                     <section class="dropdown-content">
                         <ul>
-                            <% if (locals.userid === profile.id) { %>
                             <li><a href="/profile/<%= profile.id %>/edit" aria-label="Ir para a página de editar perfil do usuário"><i class="bi bi-gear"></i> Configurações</a></li>
-                            <% } %>
                         </ul>
                     </section>
                 </section>
             </section>
+            <% } %>
         </section>
     </section>
     <section class="profile-details">
