@@ -301,7 +301,6 @@ module.exports = class StoreController {
         preference.create({ body })
             .then(response => {
                 const initPoint = response.init_point;
-                console.log(response)
                 res.status(200).redirect(initPoint)
             })
             .catch(error => {
